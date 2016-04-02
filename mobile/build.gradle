@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 23
@@ -11,6 +12,7 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -21,16 +23,83 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
+
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     wearApp project(':wear')
-    testCompile 'junit:junit:4.12'
+
     compile 'com.android.support:appcompat-v7:23.2.1'
     compile 'com.google.android.gms:play-services-wearable:8.4.0'
     compile 'com.android.support:design:23.2.1'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    // network communication
+    compile 'com.squareup.retrofit2:retrofit:2.0.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0'
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+
+    // Anko for kotlin
+    compile 'org.jetbrains.anko:anko-sdk15:0.8.3' // sdk19, sdk21, sdk23 are also available
+    compile 'org.jetbrains.anko:anko-support-v4:0.8.3' // In case you need support-v4 bindings
+    compile 'org.jetbrains.anko:anko-appcompat-v7:0.8.3' // For appcompat-v7 bindings
+
+    // Dagger
+    apt 'com.google.dagger:dagger-compiler:2.1'
+    compile 'com.google.dagger:dagger:2.1'
+    provided 'javax.annotation:jsr250-api:1.0'
+
+    // Eventbus
+    compile 'org.greenrobot:eventbus:3.0.0'
+
+    // Logger
+    compile 'com.github.orhanobut:logger:1.12'
+
+    // Special font support
+    compile 'uk.co.chrisjenx:calligraphy:2.1.0'
+
+    // Image
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
+    // ############### Test ###################
+
+    // ############### JVM ###################
+    // JUnit
+    testCompile 'junit:junit:4.12'
+
+    // Robolectric
+    testCompile('org.robolectric:shadows-support-v4:3.0') {
+        exclude group: 'commons-logging', module: 'commons-logging'
+        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+    }
+
+    // Mockito
+    testCompile "org.mockito:mockito-core:1.10.19"
+
+    // Dagger
+    testCompile 'com.google.dagger:dagger-compiler:2.1'
+    testCompile 'com.google.dagger:dagger:2.1'
+    testApt "com.google.dagger:dagger-compiler:2.1"
+    testCompile 'javax.annotation:jsr250-api:1.0'
+
+    // ############### Android test ###################
+    //Espresso
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile 'com.android.support.test:rules:0.5'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2')
+            {
+                exclude group: 'com.google.code.findbugs', module: 'jsr305'
+            }
+    androidTestCompile 'com.android.support:support-annotations:23.2.1'
+
+    // Mockito
+    androidTestCompile "org.mockito:mockito-core:1.10.19"
 }
 buildscript {
     ext.kotlin_version = '1.0.1-2'
