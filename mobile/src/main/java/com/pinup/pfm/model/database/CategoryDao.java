@@ -32,7 +32,7 @@ public class CategoryDao extends AbstractDao<Category, String> {
         public final static Property ServerId = new Property(1, String.class, "serverId", false, "SERVER_ID");
         public final static Property Name = new Property(2, String.class, "name", false, "NAME");
         public final static Property Order = new Property(3, Integer.class, "order", false, "ORDER");
-        public final static Property ImageUrl = new Property(4, String.class, "imageUrl", false, "IMAGE_URL");
+        public final static Property ImageUri = new Property(4, String.class, "imageUri", false, "IMAGE_URI");
         public final static Property ParentCategoryId = new Property(5, String.class, "parentCategoryId", false, "PARENT_CATEGORY_ID");
     };
 
@@ -57,7 +57,7 @@ public class CategoryDao extends AbstractDao<Category, String> {
                 "\"SERVER_ID\" TEXT," + // 1: serverId
                 "\"NAME\" TEXT," + // 2: name
                 "\"ORDER\" INTEGER," + // 3: order
-                "\"IMAGE_URL\" TEXT," + // 4: imageUrl
+                "\"IMAGE_URI\" TEXT," + // 4: imageUri
                 "\"PARENT_CATEGORY_ID\" TEXT);"); // 5: parentCategoryId
     }
 
@@ -92,9 +92,9 @@ public class CategoryDao extends AbstractDao<Category, String> {
             stmt.bindLong(4, order);
         }
  
-        String imageUrl = entity.getImageUrl();
-        if (imageUrl != null) {
-            stmt.bindString(5, imageUrl);
+        String imageUri = entity.getImageUri();
+        if (imageUri != null) {
+            stmt.bindString(5, imageUri);
         }
  
         String parentCategoryId = entity.getParentCategoryId();
@@ -123,7 +123,7 @@ public class CategoryDao extends AbstractDao<Category, String> {
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // serverId
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // name
             cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3), // order
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // imageUrl
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // imageUri
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // parentCategoryId
         );
         return entity;
@@ -136,7 +136,7 @@ public class CategoryDao extends AbstractDao<Category, String> {
         entity.setServerId(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setOrder(cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3));
-        entity.setImageUrl(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setImageUri(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setParentCategoryId(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
      }
     

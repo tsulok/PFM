@@ -14,7 +14,7 @@ public class Category implements java.io.Serializable {
     private String serverId;
     private String name;
     private Integer order;
-    private String imageUrl;
+    private String imageUri;
     private String parentCategoryId;
 
     /** Used to resolve relations */
@@ -35,12 +35,12 @@ public class Category implements java.io.Serializable {
         this.id = id;
     }
 
-    public Category(String id, String serverId, String name, Integer order, String imageUrl, String parentCategoryId) {
+    public Category(String id, String serverId, String name, Integer order, String imageUri, String parentCategoryId) {
         this.id = id;
         this.serverId = serverId;
         this.name = name;
         this.order = order;
-        this.imageUrl = imageUrl;
+        this.imageUri = imageUri;
         this.parentCategoryId = parentCategoryId;
     }
 
@@ -82,12 +82,12 @@ public class Category implements java.io.Serializable {
         this.order = order;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImageUri() {
+        return imageUri;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageUri(String imageUri) {
+        this.imageUri = imageUri;
     }
 
     public String getParentCategoryId() {

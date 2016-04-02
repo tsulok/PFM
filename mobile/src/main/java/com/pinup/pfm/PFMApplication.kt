@@ -1,6 +1,7 @@
 package com.pinup.pfm
 
 import android.app.Application
+import com.pinup.pfm.interactor.InteractorModule
 import com.pinup.pfm.ui.UIModule
 
 /**
@@ -18,6 +19,7 @@ class PFMApplication : Application() {
 
         injector = DaggerPFMApplicationComponent.builder()
                 .uIModule(UIModule(this))
+                .interactorModule(InteractorModule(this))
                 .build()
     }
 }

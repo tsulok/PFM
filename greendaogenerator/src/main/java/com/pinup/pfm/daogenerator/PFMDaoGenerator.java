@@ -31,7 +31,7 @@ public class PFMDaoGenerator {
 
         category.addStringProperty("name");
         category.addIntProperty("order");
-        category.addStringProperty("imageUrl");
+        category.addStringProperty("imageUri");
 
         /*** Relations ***/
 
