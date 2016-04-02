@@ -78,6 +78,12 @@ public class PFMDaoGenerator {
         transaction.addStringProperty("id").primaryKey();
         transaction.addStringProperty("serverId");
 
+        transaction.addDateProperty("lastSyncDate");
+        transaction.addDateProperty("lastModifyDate");
+        transaction.addDateProperty("lastImageSyncDate");
+        transaction.addDateProperty("lastImageModifyDate");
+
+        transaction.addStringProperty("name");
         transaction.addDateProperty("date").notNull();
         transaction.addDoubleProperty("latitude");
         transaction.addDoubleProperty("longitude");

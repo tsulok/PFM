@@ -36,13 +36,15 @@ kapt {
 }
 
 def appcompatVersion="23.2.1"
+def playServicesVersion="8.4.0"
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     wearApp project(':wear')
 
     compile "com.android.support:appcompat-v7:$appcompatVersion"
     compile "com.android.support:design:$appcompatVersion"
-    compile 'com.google.android.gms:play-services-wearable:8.4.0'
+    compile "com.google.android.gms:play-services-wearable:$playServicesVersion"
+    compile "com.google.android.gms:play-services-location:$playServicesVersion"
 
     // Kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

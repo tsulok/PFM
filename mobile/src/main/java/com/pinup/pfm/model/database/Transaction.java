@@ -11,6 +11,11 @@ public class Transaction implements java.io.Serializable {
 
     private String id;
     private String serverId;
+    private java.util.Date lastSyncDate;
+    private java.util.Date lastModifyDate;
+    private java.util.Date lastImageSyncDate;
+    private java.util.Date lastImageModifyDate;
+    private String name;
     /** Not-null value. */
     private java.util.Date date;
     private Double latitude;
@@ -40,9 +45,14 @@ public class Transaction implements java.io.Serializable {
         this.id = id;
     }
 
-    public Transaction(String id, String serverId, java.util.Date date, Double latitude, Double longitude, String imageUri, double amount, String currency, String description, String tag, String categoryId) {
+    public Transaction(String id, String serverId, java.util.Date lastSyncDate, java.util.Date lastModifyDate, java.util.Date lastImageSyncDate, java.util.Date lastImageModifyDate, String name, java.util.Date date, Double latitude, Double longitude, String imageUri, double amount, String currency, String description, String tag, String categoryId) {
         this.id = id;
         this.serverId = serverId;
+        this.lastSyncDate = lastSyncDate;
+        this.lastModifyDate = lastModifyDate;
+        this.lastImageSyncDate = lastImageSyncDate;
+        this.lastImageModifyDate = lastImageModifyDate;
+        this.name = name;
         this.date = date;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -74,6 +84,46 @@ public class Transaction implements java.io.Serializable {
 
     public void setServerId(String serverId) {
         this.serverId = serverId;
+    }
+
+    public java.util.Date getLastSyncDate() {
+        return lastSyncDate;
+    }
+
+    public void setLastSyncDate(java.util.Date lastSyncDate) {
+        this.lastSyncDate = lastSyncDate;
+    }
+
+    public java.util.Date getLastModifyDate() {
+        return lastModifyDate;
+    }
+
+    public void setLastModifyDate(java.util.Date lastModifyDate) {
+        this.lastModifyDate = lastModifyDate;
+    }
+
+    public java.util.Date getLastImageSyncDate() {
+        return lastImageSyncDate;
+    }
+
+    public void setLastImageSyncDate(java.util.Date lastImageSyncDate) {
+        this.lastImageSyncDate = lastImageSyncDate;
+    }
+
+    public java.util.Date getLastImageModifyDate() {
+        return lastImageModifyDate;
+    }
+
+    public void setLastImageModifyDate(java.util.Date lastImageModifyDate) {
+        this.lastImageModifyDate = lastImageModifyDate;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     /** Not-null value. */

@@ -2,6 +2,7 @@ package com.pinup.pfm.interactor
 
 import android.content.Context
 import com.pinup.pfm.interactor.category.CategoryInteractor
+import com.pinup.pfm.interactor.transaction.TransactionInteractor
 import com.pinup.pfm.model.database.DaoMaster
 import com.pinup.pfm.model.database.DaoSession
 import dagger.Module
@@ -19,6 +20,12 @@ class InteractorModule(private val context: Context) {
     @Provides
     fun provideCategoryInteractor(): CategoryInteractor {
         return CategoryInteractor()
+    }
+
+    @Singleton
+    @Provides
+    fun provedTransactionInteractor(): TransactionInteractor {
+        return TransactionInteractor()
     }
 
     @Singleton

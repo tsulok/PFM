@@ -14,8 +14,7 @@ class CategoryInteractor {
 
     // TODO inject category api
 
-    @Inject
-    lateinit var daoSession: DaoSession
+    @Inject lateinit var daoSession: DaoSession
 
     constructor() {
         PFMApplication.injector.inject(this)
@@ -24,7 +23,7 @@ class CategoryInteractor {
     /**
      * Returns the list of the selectable categories ordered by their order
      * Only non main categories are present
-     * @return
+     * @return the list of the selectable categories ordered by their order
      */
     fun listAllSelectableCategories(): List<Category> {
         return daoSession.categoryDao
@@ -37,7 +36,7 @@ class CategoryInteractor {
     /**
      * Returns the list of the main categories ordered by their order
      * Only main categories are present
-     * @return
+     * @return the list of the main categories ordered by their order
      */
     fun listAllMainCategories(): List<Category> {
         return daoSession.categoryDao

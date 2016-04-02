@@ -28,15 +28,20 @@ public class TransactionDao extends AbstractDao<Transaction, String> {
     public static class Properties {
         public final static Property Id = new Property(0, String.class, "id", true, "ID");
         public final static Property ServerId = new Property(1, String.class, "serverId", false, "SERVER_ID");
-        public final static Property Date = new Property(2, java.util.Date.class, "date", false, "DATE");
-        public final static Property Latitude = new Property(3, Double.class, "latitude", false, "LATITUDE");
-        public final static Property Longitude = new Property(4, Double.class, "longitude", false, "LONGITUDE");
-        public final static Property ImageUri = new Property(5, String.class, "imageUri", false, "IMAGE_URI");
-        public final static Property Amount = new Property(6, double.class, "amount", false, "AMOUNT");
-        public final static Property Currency = new Property(7, String.class, "currency", false, "CURRENCY");
-        public final static Property Description = new Property(8, String.class, "description", false, "DESCRIPTION");
-        public final static Property Tag = new Property(9, String.class, "tag", false, "TAG");
-        public final static Property CategoryId = new Property(10, String.class, "categoryId", false, "CATEGORY_ID");
+        public final static Property LastSyncDate = new Property(2, java.util.Date.class, "lastSyncDate", false, "LAST_SYNC_DATE");
+        public final static Property LastModifyDate = new Property(3, java.util.Date.class, "lastModifyDate", false, "LAST_MODIFY_DATE");
+        public final static Property LastImageSyncDate = new Property(4, java.util.Date.class, "lastImageSyncDate", false, "LAST_IMAGE_SYNC_DATE");
+        public final static Property LastImageModifyDate = new Property(5, java.util.Date.class, "lastImageModifyDate", false, "LAST_IMAGE_MODIFY_DATE");
+        public final static Property Name = new Property(6, String.class, "name", false, "NAME");
+        public final static Property Date = new Property(7, java.util.Date.class, "date", false, "DATE");
+        public final static Property Latitude = new Property(8, Double.class, "latitude", false, "LATITUDE");
+        public final static Property Longitude = new Property(9, Double.class, "longitude", false, "LONGITUDE");
+        public final static Property ImageUri = new Property(10, String.class, "imageUri", false, "IMAGE_URI");
+        public final static Property Amount = new Property(11, double.class, "amount", false, "AMOUNT");
+        public final static Property Currency = new Property(12, String.class, "currency", false, "CURRENCY");
+        public final static Property Description = new Property(13, String.class, "description", false, "DESCRIPTION");
+        public final static Property Tag = new Property(14, String.class, "tag", false, "TAG");
+        public final static Property CategoryId = new Property(15, String.class, "categoryId", false, "CATEGORY_ID");
     };
 
     private DaoSession daoSession;
@@ -57,15 +62,20 @@ public class TransactionDao extends AbstractDao<Transaction, String> {
         db.execSQL("CREATE TABLE " + constraint + "\"TRANSACTION\" (" + //
                 "\"ID\" TEXT PRIMARY KEY NOT NULL ," + // 0: id
                 "\"SERVER_ID\" TEXT," + // 1: serverId
-                "\"DATE\" INTEGER NOT NULL ," + // 2: date
-                "\"LATITUDE\" REAL," + // 3: latitude
-                "\"LONGITUDE\" REAL," + // 4: longitude
-                "\"IMAGE_URI\" TEXT," + // 5: imageUri
-                "\"AMOUNT\" REAL NOT NULL ," + // 6: amount
-                "\"CURRENCY\" TEXT NOT NULL ," + // 7: currency
-                "\"DESCRIPTION\" TEXT," + // 8: description
-                "\"TAG\" TEXT," + // 9: tag
-                "\"CATEGORY_ID\" TEXT);"); // 10: categoryId
+                "\"LAST_SYNC_DATE\" INTEGER," + // 2: lastSyncDate
+                "\"LAST_MODIFY_DATE\" INTEGER," + // 3: lastModifyDate
+                "\"LAST_IMAGE_SYNC_DATE\" INTEGER," + // 4: lastImageSyncDate
+                "\"LAST_IMAGE_MODIFY_DATE\" INTEGER," + // 5: lastImageModifyDate
+                "\"NAME\" TEXT," + // 6: name
+                "\"DATE\" INTEGER NOT NULL ," + // 7: date
+                "\"LATITUDE\" REAL," + // 8: latitude
+                "\"LONGITUDE\" REAL," + // 9: longitude
+                "\"IMAGE_URI\" TEXT," + // 10: imageUri
+                "\"AMOUNT\" REAL NOT NULL ," + // 11: amount
+                "\"CURRENCY\" TEXT NOT NULL ," + // 12: currency
+                "\"DESCRIPTION\" TEXT," + // 13: description
+                "\"TAG\" TEXT," + // 14: tag
+                "\"CATEGORY_ID\" TEXT);"); // 15: categoryId
     }
 
     /** Drops the underlying database table. */
@@ -88,38 +98,63 @@ public class TransactionDao extends AbstractDao<Transaction, String> {
         if (serverId != null) {
             stmt.bindString(2, serverId);
         }
-        stmt.bindLong(3, entity.getDate().getTime());
+ 
+        java.util.Date lastSyncDate = entity.getLastSyncDate();
+        if (lastSyncDate != null) {
+            stmt.bindLong(3, lastSyncDate.getTime());
+        }
+ 
+        java.util.Date lastModifyDate = entity.getLastModifyDate();
+        if (lastModifyDate != null) {
+            stmt.bindLong(4, lastModifyDate.getTime());
+        }
+ 
+        java.util.Date lastImageSyncDate = entity.getLastImageSyncDate();
+        if (lastImageSyncDate != null) {
+            stmt.bindLong(5, lastImageSyncDate.getTime());
+        }
+ 
+        java.util.Date lastImageModifyDate = entity.getLastImageModifyDate();
+        if (lastImageModifyDate != null) {
+            stmt.bindLong(6, lastImageModifyDate.getTime());
+        }
+ 
+        String name = entity.getName();
+        if (name != null) {
+            stmt.bindString(7, name);
+        }
+        stmt.bindLong(8, entity.getDate().getTime());
  
         Double latitude = entity.getLatitude();
         if (latitude != null) {
-            stmt.bindDouble(4, latitude);
+            stmt.bindDouble(9, latitude);
         }
  
         Double longitude = entity.getLongitude();
         if (longitude != null) {
-            stmt.bindDouble(5, longitude);
+            stmt.bindDouble(10, longitude);
         }
  
         String imageUri = entity.getImageUri();
         if (imageUri != null) {
-            stmt.bindString(6, imageUri);
+            stmt.bindString(11, imageUri);
         }
-        stmt.bindDouble(7, entity.getAmount());
-        stmt.bindString(8, entity.getCurrency());
+        stmt.bindDouble(12, entity.getAmount());
+        stmt.bindString(13, entity.getCurrency());
  
         String description = entity.getDescription();
         if (description != null) {
-            stmt.bindString(9, description);
+            stmt.bindString(14, description);
         }
  
         String tag = entity.getTag();
         if (tag != null) {
-            stmt.bindString(10, tag);
+            stmt.bindString(15, tag);
         }
  
         String categoryId = entity.getCategoryId();
         if (categoryId != null) {
-            stmt.bindString(11, categoryId);
+            stmt.bindString(16, categoryId);
         }
     }
 
@@ -141,15 +176,20 @@ public class TransactionDao extends AbstractDao<Transaction, String> {
         Transaction entity = new Transaction( //
             cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // serverId
-            new java.util.Date(cursor.getLong(offset + 2)), // date
-            cursor.isNull(offset + 3) ? null : cursor.getDouble(offset + 3), // latitude
-            cursor.isNull(offset + 4) ? null : cursor.getDouble(offset + 4), // longitude
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // imageUri
-            cursor.getDouble(offset + 6), // amount
-            cursor.getString(offset + 7), // currency
-            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // description
-            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // tag
-            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10) // categoryId
+            cursor.isNull(offset + 2) ? null : new java.util.Date(cursor.getLong(offset + 2)), // lastSyncDate
+            cursor.isNull(offset + 3) ? null : new java.util.Date(cursor.getLong(offset + 3)), // lastModifyDate
+            cursor.isNull(offset + 4) ? null : new java.util.Date(cursor.getLong(offset + 4)), // lastImageSyncDate
+            cursor.isNull(offset + 5) ? null : new java.util.Date(cursor.getLong(offset + 5)), // lastImageModifyDate
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // name
+            new java.util.Date(cursor.getLong(offset + 7)), // date
+            cursor.isNull(offset + 8) ? null : cursor.getDouble(offset + 8), // latitude
+            cursor.isNull(offset + 9) ? null : cursor.getDouble(offset + 9), // longitude
+            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // imageUri
+            cursor.getDouble(offset + 11), // amount
+            cursor.getString(offset + 12), // currency
+            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // description
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // tag
+            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15) // categoryId
         );
         return entity;
     }
@@ -159,15 +199,20 @@ public class TransactionDao extends AbstractDao<Transaction, String> {
     public void readEntity(Cursor cursor, Transaction entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
         entity.setServerId(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setDate(new java.util.Date(cursor.getLong(offset + 2)));
-        entity.setLatitude(cursor.isNull(offset + 3) ? null : cursor.getDouble(offset + 3));
-        entity.setLongitude(cursor.isNull(offset + 4) ? null : cursor.getDouble(offset + 4));
-        entity.setImageUri(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setAmount(cursor.getDouble(offset + 6));
-        entity.setCurrency(cursor.getString(offset + 7));
-        entity.setDescription(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
-        entity.setTag(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
-        entity.setCategoryId(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
+        entity.setLastSyncDate(cursor.isNull(offset + 2) ? null : new java.util.Date(cursor.getLong(offset + 2)));
+        entity.setLastModifyDate(cursor.isNull(offset + 3) ? null : new java.util.Date(cursor.getLong(offset + 3)));
+        entity.setLastImageSyncDate(cursor.isNull(offset + 4) ? null : new java.util.Date(cursor.getLong(offset + 4)));
+        entity.setLastImageModifyDate(cursor.isNull(offset + 5) ? null : new java.util.Date(cursor.getLong(offset + 5)));
+        entity.setName(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setDate(new java.util.Date(cursor.getLong(offset + 7)));
+        entity.setLatitude(cursor.isNull(offset + 8) ? null : cursor.getDouble(offset + 8));
+        entity.setLongitude(cursor.isNull(offset + 9) ? null : cursor.getDouble(offset + 9));
+        entity.setImageUri(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
+        entity.setAmount(cursor.getDouble(offset + 11));
+        entity.setCurrency(cursor.getString(offset + 12));
+        entity.setDescription(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
+        entity.setTag(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
+        entity.setCategoryId(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
      }
     
     /** @inheritdoc */
