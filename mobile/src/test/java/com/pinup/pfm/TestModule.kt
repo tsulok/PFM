@@ -1,0 +1,28 @@
+package com.pinup.pfm
+
+import android.content.Context
+import com.pinup.pfm.model.database.DaoMaster
+import com.pinup.pfm.model.database.DaoSession
+import dagger.Module
+import dagger.Provides
+import javax.inject.Singleton
+
+/**
+ * DI module for testing
+ */
+@Module
+class TestModule(private val context: Context) {
+
+    @Provides
+    fun provideContext(): Context {
+        return context
+    }
+
+    @Singleton
+    @Provides
+    fun provideDAOSession(): DaoSession {
+        val openHelper = DaoMaster.DevOpenHelper(context, null, null)
+        val daoMaster = DaoMaster(openHelper.writableDatabase)
+        return daoMaster.newSession()
+    }
+}

@@ -21,6 +21,14 @@ class CategoryInteractor {
     }
 
     /**
+     * Returns all category items
+     * @return all category items
+     */
+    fun listAllCategories(): List<Category> {
+        return daoSession.categoryDao.loadAll()
+    }
+
+    /**
      * Returns the list of the selectable categories ordered by their order
      * Only non main categories are present
      * @return the list of the selectable categories ordered by their order
@@ -66,7 +74,7 @@ class CategoryInteractor {
      * @param imageUri The image key of the category if any
      */
     fun createOrUpdateCategory(serverId: String, name: String, order: Int,
-                               imageUri: String?) {
+                               imageUri: String? = null) {
         var category = getCategoryByServerId(serverId)
 
         if (category == null) {
@@ -89,6 +97,10 @@ class CategoryInteractor {
         if (category != null) {
             daoSession.categoryDao.delete(category)
         }
+    }
+
+    fun deleteAllCategories() {
+        daoSession.categoryDao.deleteAll()
     }
 
     // TODO create graph between parent & children

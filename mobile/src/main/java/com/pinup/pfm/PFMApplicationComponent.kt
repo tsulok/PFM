@@ -1,5 +1,6 @@
 package com.pinup.pfm
 
+import com.pinup.pfm.interactor.DaoModule
 import com.pinup.pfm.interactor.InteractorModule
 import com.pinup.pfm.interactor.category.CategoryInteractor
 import com.pinup.pfm.interactor.transaction.TransactionInteractor
@@ -12,7 +13,7 @@ import javax.inject.Singleton
  * Component for supported DI components
  */
 @Singleton
-@Component(modules = arrayOf(UIModule::class, InteractorModule::class) )
+@Component(modules = arrayOf(UIModule::class, InteractorModule::class, DaoModule::class) )
 interface PFMApplicationComponent {
 
     fun inject(activity: MainActivity): Unit

@@ -96,7 +96,8 @@ dependencies {
 
     // Dagger
     testCompile 'com.google.dagger:dagger:2.2'
-    testApt 'com.google.dagger:dagger-compiler:2.2'
+    kaptAndroidTest 'com.google.dagger:dagger-compiler:2.2'
+    kaptTest 'com.google.dagger:dagger-compiler:2.2'
     testCompile 'org.glassfish:javax.annotation:10.0-b28'
 
     // ############### Android test ###################
