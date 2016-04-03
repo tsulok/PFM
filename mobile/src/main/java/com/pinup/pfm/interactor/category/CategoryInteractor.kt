@@ -90,6 +90,16 @@ class CategoryInteractor {
     }
 
     /**
+     * Create or update a category
+     * @param category A category entity
+     */
+    fun createOrUpdateCategory(category: Category?) {
+        if (category != null) {
+            daoSession.categoryDao.insertOrReplace(category)
+        }
+    }
+
+    /**
      * Deletes the selected category
      * @param category The deletable category
      */
