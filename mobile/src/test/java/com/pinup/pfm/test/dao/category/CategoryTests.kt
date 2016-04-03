@@ -1,6 +1,5 @@
 package com.pinup.pfm.test.dao.category
 
-import android.R
 import com.pinup.pfm.BuildConfig
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.TestComponent
@@ -14,12 +13,11 @@ import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
-import org.junit.runners.Parameterized
 import org.robolectric.annotation.Config
 import javax.inject.Inject
 
 /**
- * Test for categories creation
+ * Test for categories
  */
 @RunWith(RobolectricDaggerTestRunner::class)
 @Config(constants = BuildConfig::class, sdk = intArrayOf(21))

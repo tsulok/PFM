@@ -59,22 +59,53 @@ class TransactionInteractor {
      * @param category The category of the transaction
      */
     fun createTransaction(name: String, amount: Double, currency: String,
-                          category: Category) {
+                          category: Category): Transaction {
 
         var transaction = Transaction(UUID.randomUUID().toString())
         transaction.name = name
         transaction.amount = amount
         transaction.currency = currency
         transaction.category = category
-        transaction.lastImageModifyDate = Date(0)
-        transaction.lastImageSyncDate = Date(0)
-        transaction.lastSyncDate = Date(0)
-        transaction.lastModifyDate = Date()
+        transaction.date = Date() // Created now
+        transaction.lastImageModifyDate = Date(0) // No image associated yet
+        transaction.lastImageSyncDate = Date(0) // No sync happened yet
+        transaction.lastSyncDate = Date(0) // No sync happened yet
+        transaction.lastModifyDate = Date() // Modified now
 
         daoSession.transactionDao.insert(transaction)
+
+        return transaction
     }
 
     // TODO add here multiple transaction creation from api
+
+    /**
+     * Create or updates a transaction with an entity
+     * @param transaction The transaction entity
+     */
+    fun createOrUpdateTransaction(transaction: Transaction?) {
+        if (transaction != null) {
+            daoSession.transactionDao.insertOrReplace(transaction)
+        }
+    }
+
+    /**
+     * Updates the transaction's server id
+     * @param serverId The id on the server
+     */
+    fun updateTransactionServerId(transaction: Transaction, serverId: String) {
+        transaction.serverId = serverId
+        daoSession.transactionDao.update(transaction)
+    }
+
+    /**
+     * Updates the transaction's last sync date to current
+     * @param transaction The stored transaction
+     */
+    fun updateTransactionSynced(transaction: Transaction) {
+        transaction.lastSyncDate = Date()
+        daoSession.transactionDao.update(transaction)
+    }
 
     /**
      * Updates the transaction's date

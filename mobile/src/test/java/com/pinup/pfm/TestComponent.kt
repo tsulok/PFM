@@ -2,6 +2,7 @@ package com.pinup.pfm
 
 import com.pinup.pfm.interactor.InteractorModule
 import com.pinup.pfm.test.dao.category.CategoryTests
+import com.pinup.pfm.test.dao.transaction.TransactionTests
 import dagger.Component
 import javax.inject.Singleton
 
@@ -13,4 +14,5 @@ import javax.inject.Singleton
 interface TestComponent : PFMApplicationComponent {
 
     fun inject(categoryTests: CategoryTests)
+    fun inject(transactionTests: TransactionTests)
 }
