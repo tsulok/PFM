@@ -5,7 +5,7 @@ import android.support.v7.widget.Toolbar
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
 import com.pinup.pfm.interactor.category.CategoryInteractor
-import com.pinup.pfm.ui.core.BaseActivity
+import com.pinup.pfm.ui.core.view.BaseActivity
 import org.jetbrains.anko.find
 import javax.inject.Inject
 

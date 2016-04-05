@@ -79,6 +79,10 @@ dependencies {
     // GreenDAO
     compile 'de.greenrobot:greendao:2.1.0'
 
+    // Butterknife
+    compile 'com.jakewharton:butterknife:7.0.1'
+    kapt 'com.jakewharton:butterknife:7.0.1'
+
     // ############### Test ###################
 
     // ############### JVM ###################

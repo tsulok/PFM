@@ -7,7 +7,7 @@ import com.pinup.pfm.interactor.category.CategoryInteractor
 import com.pinup.pfm.interactor.transaction.TransactionInteractor
 import com.pinup.pfm.ui.MainActivity
 import com.pinup.pfm.ui.UIModule
-import com.pinup.pfm.ui.core.BaseFragment
+import com.pinup.pfm.ui.core.view.BaseFragment
 import dagger.Component
 import javax.inject.Singleton
 

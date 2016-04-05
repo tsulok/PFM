@@ -1,10 +1,11 @@
-package com.pinup.pfm.ui.core
+package com.pinup.pfm.ui.core.view
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import butterknife.ButterKnife
 import com.pinup.pfm.PFMApplication
 import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
@@ -14,14 +15,15 @@ import javax.inject.Inject
  */
 abstract class BaseFragment : Fragment, IBaseFragment, IFragmentFactory {
 
-    @Inject lateinit var bus: EventBus
+//    @Inject lateinit var bus: EventBus
 
     constructor() : super() {
         PFMApplication.injector.inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = super.onCreateView(inflater, container, savedInstanceState)
+        val view = inflater?.inflate(getLayoutId(), container, false)
+//        ButterKnife.bind(this, view);
 
         initObjects(view)
         initEventHandlers(view)

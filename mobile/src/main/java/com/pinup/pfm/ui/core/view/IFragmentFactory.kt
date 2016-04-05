@@ -1,4 +1,4 @@
-package com.pinup.pfm.ui.core
+package com.pinup.pfm.ui.core.view
 
 /**
  * Interface for model classes to return their own detailed fragment

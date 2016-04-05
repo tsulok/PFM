@@ -1,4 +1,4 @@
-package com.pinup.pfm.ui.core
+package com.pinup.pfm.ui.core.view
 
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity

@@ -1,4 +1,4 @@
-package com.pinup.pfm.ui.core
+package com.pinup.pfm.ui.core.view
 
 import android.view.View
 
