@@ -19,10 +19,8 @@ import javax.inject.Singleton
 @Subcomponent(modules = arrayOf(ActivityModule::class) )
 interface PFMActivityComponent {
 
-//    fun inject(activity: BaseActivity): Unit
     fun inject(activity: MainActivity): Unit
 
     fun inject(mainNavigatorFragment: MainNavigatorFragment): Unit
     fun inject(mainNavigatorPagerAdapter: MainNavigatorPagerAdapter): Unit
-//    fun inject(fragment: BaseFragment): Unit
 }

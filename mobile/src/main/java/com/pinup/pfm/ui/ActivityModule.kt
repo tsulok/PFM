@@ -34,6 +34,12 @@ class ActivityModule(val activity: AppCompatActivity) {
     }
 
     @Provides
+    fun provideMainNavigatorAdapter(fragmentManager: FragmentManager): MainNavigatorPagerAdapter {
+        return MainNavigatorPagerAdapter(fragmentManager)
+    }
+
+    @Provides
+    @Singleton
     fun provideSettingsFragment(): SettingsFragment {
         return SettingsFragment()
     }
@@ -46,10 +52,5 @@ class ActivityModule(val activity: AppCompatActivity) {
     @Provides
     fun provideChartListFragment(): ChartListFragment {
         return ChartListFragment()
-    }
-
-    @Provides
-    fun provideMainNavigatorAdapter(fragmentManager: FragmentManager): MainNavigatorPagerAdapter {
-        return MainNavigatorPagerAdapter(fragmentManager)
     }
 }
