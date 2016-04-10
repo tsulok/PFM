@@ -20,7 +20,6 @@ class MainNavigatorFragment : BaseFragment, MainNavigatorScreen {
 
     constructor() : super() {
         PFMApplication.activityInjector?.inject(this)
-        Logger.d("Ctor")
     }
 
     override fun getLayoutId(): Int {

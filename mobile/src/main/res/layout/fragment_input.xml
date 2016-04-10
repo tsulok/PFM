@@ -1,14 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/slidingPanel"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:gravity="bottom"
+    app:umanoPanelHeight="@dimen/category.filter.collapsed.height"
+    app:umanoShadowHeight="@dimen/category.filter.collapsed.shadow.height"
+    app:umanoFadeColor="@android:color/transparent">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Input"
         android:gravity="center"
-        android:layout_gravity="center"/>
+        android:text="Main Content"
+        android:textSize="16sp" />
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FF0000"
+            android:clickable="true"
+            android:orientation="horizontal"
+            android:weightSum="8">
+
+            <ImageButton
+                android:id="@+id/favouriteCategoryBtn1"
+                style="@style/AppTheme.Category_Favourite_Button"
+                android:src="@drawable/ic_restaurant" />
+
+            <ImageButton
+                android:id="@+id/favouriteCategoryBtn2"
+                style="@style/AppTheme.Category_Favourite_Button"
+                android:src="@drawable/ic_restaurant" />
+
+            <ImageButton
+                android:id="@+id/favouriteCategoryBtn3"
+                style="@style/AppTheme.Category_Favourite_Button"
+                android:src="@drawable/ic_restaurant" />
+
+            <ImageButton
+                android:id="@+id/favouriteCategoryBtnMore"
+                style="@style/AppTheme.Category_Favourite_Button"
+                android:src="@drawable/ic_expand_more" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>

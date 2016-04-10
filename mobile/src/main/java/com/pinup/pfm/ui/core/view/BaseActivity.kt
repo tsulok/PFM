@@ -50,6 +50,38 @@ abstract class BaseActivity : AppCompatActivity() {
 //        setTitleByTag(fragment.tag, null)
     }
 
+    /**
+     * Returns the currently loaded active fragment if any
+     */
+    fun getActiveBaseFragment(): BaseFragment? {
+        val fragment = supportFragmentManager.findFragmentById(getActivityMainContainer())
+        if (fragment is BaseFragment) {
+            return fragment
+        }
+
+        return null
+    }
+
+    /**
+     * Handles back press
+     * If we run out of fragments (we are on the first page) and press back, quit the app
+     */
+    override fun onBackPressed() {
+        val activeFragment = getActiveBaseFragment()
+
+        // If the active fragment handled it's own back press, do nothing
+        if (activeFragment != null && activeFragment.onBackPressed()) {
+            return
+        }
+
+        if (supportFragmentManager.backStackEntryCount == 1) {
+            finish()
+            return
+        }
+
+        super.onBackPressed()
+    }
+
     override fun onDestroy() {
         PFMApplication.resetActivityInjector()
         super.onDestroy()

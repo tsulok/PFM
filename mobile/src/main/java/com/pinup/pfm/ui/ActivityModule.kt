@@ -10,7 +10,6 @@ import com.pinup.pfm.ui.settings.InputFragment
 import com.pinup.pfm.ui.settings.SettingsFragment
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 /**
  * DI modules for Activity
@@ -39,7 +38,6 @@ class ActivityModule(val activity: AppCompatActivity) {
     }
 
     @Provides
-    @Singleton
     fun provideSettingsFragment(): SettingsFragment {
         return SettingsFragment()
     }
