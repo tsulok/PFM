@@ -33,6 +33,10 @@ abstract class AbstractBaseStatePagerAdapter<T> : FragmentStatePagerAdapter {
         this.items.add(item)
     }
 
+    fun addItem(position: Int, item: T) {
+        this.items.add(position, item)
+    }
+
     fun removeItem(item: T) {
         this.items.remove(item)
     }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import butterknife.ButterKnife
+import com.orhanobut.logger.Logger
 import com.pinup.pfm.PFMApplication
 import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
@@ -18,12 +19,13 @@ abstract class BaseFragment : Fragment, IBaseFragment, IFragmentFactory {
 //    @Inject lateinit var bus: EventBus
 
     constructor() : super() {
-        PFMApplication.injector.inject(this)
+        Logger.d("Base fragment ctor")
+//        PFMApplication.activityInjector?.inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(getLayoutId(), container, false)
-//        ButterKnife.bind(this, view);
+        ButterKnife.bind(this, view);
 
         initObjects(view)
         initEventHandlers(view)

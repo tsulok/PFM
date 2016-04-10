@@ -2,6 +2,8 @@ package com.pinup.pfm.ui
 
 import android.content.Context
 import android.content.res.Resources
+import com.pinup.pfm.ui.main_navigator.MainNavigatorFragment
+import com.pinup.pfm.ui.main_navigator.adapter.MainNavigatorPagerAdapter
 import com.pinup.pfm.ui.settings.ChartListFragment
 import com.pinup.pfm.ui.settings.InputFragment
 import com.pinup.pfm.ui.settings.SettingsFragment
@@ -13,13 +15,7 @@ import javax.inject.Singleton
  * DI modules for UI
  */
 @Module
-class UIModule {
-
-    val context: Context
-
-    constructor(context: Context) {
-        this.context = context
-    }
+class UIModule(val context: Context) {
 
     @Provides
     fun provideContext(): Context {
@@ -29,23 +25,5 @@ class UIModule {
     @Provides
     fun provideResources(): Resources {
         return context.resources
-    }
-
-    @Provides
-    @Singleton
-    fun provideSettingsFragment(): SettingsFragment {
-        return SettingsFragment()
-    }
-
-    @Provides
-    @Singleton
-    fun provideInputFragment(): InputFragment {
-        return InputFragment()
-    }
-
-    @Provides
-    @Singleton
-    fun provideChartListFragment(): ChartListFragment {
-        return ChartListFragment()
     }
 }

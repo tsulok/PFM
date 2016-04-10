@@ -1,4 +1,4 @@
-package com.pinup.pfm.di
+package com.pinup.pfm.di.qualifiers
 
 import javax.inject.Qualifier
 
