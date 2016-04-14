@@ -1,4 +1,4 @@
-package com.pinup.pfm.ui.input.category
+package com.pinup.pfm.ui.category
 
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -9,7 +9,7 @@ import com.pinup.pfm.extensions.makeToast
 import com.pinup.pfm.model.category.ICategoryItem
 import com.pinup.pfm.ui.core.adapter.BaseAdapter
 import com.pinup.pfm.ui.core.view.BaseListFragment
-import com.pinup.pfm.ui.input.category.adapter.CategoryListAdapter
+import com.pinup.pfm.ui.category.adapter.CategoryListAdapter
 import javax.inject.Inject
 
 /**

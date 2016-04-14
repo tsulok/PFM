@@ -1,4 +1,4 @@
-package com.pinup.pfm.ui.input.category.adapter.viewholder
+package com.pinup.pfm.ui.category.adapter.viewholder
 
 import android.view.View
 import android.widget.Button

@@ -6,8 +6,10 @@ import com.pinup.pfm.ui.MainActivity
 import com.pinup.pfm.ui.UIModule
 import com.pinup.pfm.ui.core.view.BaseActivity
 import com.pinup.pfm.ui.core.view.BaseFragment
-import com.pinup.pfm.ui.input.category.CategoryListFragment
-import com.pinup.pfm.ui.input.category.adapter.CategoryListAdapter
+import com.pinup.pfm.ui.category.CategoryListFragment
+import com.pinup.pfm.ui.category.adapter.CategoryListAdapter
+import com.pinup.pfm.ui.history.HistoryListFragment
+import com.pinup.pfm.ui.history.adapter.HistoryListAdapter
 import com.pinup.pfm.ui.main_navigator.MainNavigatorFragment
 import com.pinup.pfm.ui.main_navigator.adapter.MainNavigatorPagerAdapter
 import com.pinup.pfm.ui.settings.InputFragment
@@ -24,11 +26,14 @@ interface PFMActivityComponent {
 
     fun inject(activity: MainActivity): Unit
 
+    fun inject(inputFragment: InputFragment): Unit
+
     fun inject(categoryListFragment: CategoryListFragment): Unit
     fun inject(categoryListAdapter: CategoryListAdapter): Unit
 
-    fun inject(inputFragment: InputFragment): Unit
-
     fun inject(mainNavigatorFragment: MainNavigatorFragment): Unit
     fun inject(mainNavigatorPagerAdapter: MainNavigatorPagerAdapter): Unit
+
+    fun inject(historyListFragment: HistoryListFragment): Unit
+    fun inject(historyListAdapter: HistoryListAdapter): Unit
 }

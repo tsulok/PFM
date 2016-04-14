@@ -1,4 +1,4 @@
-package com.pinup.pfm.ui.input.category
+package com.pinup.pfm.ui.category
 
 import com.pinup.pfm.ui.core.view.BasePresenter
 

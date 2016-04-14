@@ -1,4 +1,4 @@
-package com.pinup.pfm.ui.input.category.adapter
+package com.pinup.pfm.ui.category.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import com.pinup.pfm.interactor.category.CategoryInteractor
 import com.pinup.pfm.model.category.CategoryItem
 import com.pinup.pfm.ui.core.adapter.BaseAdapter
 import com.pinup.pfm.ui.core.view.viewholder.BaseViewHolder
-import com.pinup.pfm.ui.input.category.adapter.viewholder.CategoryViewHolder
+import com.pinup.pfm.ui.category.adapter.viewholder.CategoryViewHolder
 import com.pinup.pfm.model.category.ICategoryItem
 import javax.inject.Inject
 

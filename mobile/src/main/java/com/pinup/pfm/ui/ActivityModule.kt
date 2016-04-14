@@ -1,10 +1,13 @@
 package com.pinup.pfm.ui
 
 import android.app.Activity
+import android.content.Context
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
-import com.pinup.pfm.ui.input.category.CategoryListFragment
-import com.pinup.pfm.ui.input.category.adapter.CategoryListAdapter
+import com.pinup.pfm.ui.category.CategoryListFragment
+import com.pinup.pfm.ui.category.adapter.CategoryListAdapter
+import com.pinup.pfm.ui.history.HistoryListFragment
+import com.pinup.pfm.ui.history.adapter.HistoryListAdapter
 import com.pinup.pfm.ui.main_navigator.MainNavigatorFragment
 import com.pinup.pfm.ui.main_navigator.adapter.MainNavigatorPagerAdapter
 import com.pinup.pfm.ui.settings.ChartListFragment
@@ -57,6 +60,16 @@ class ActivityModule(val activity: AppCompatActivity) {
     @Provides
     fun provideMainNavigatorAdapter(fragmentManager: FragmentManager): MainNavigatorPagerAdapter {
         return MainNavigatorPagerAdapter(fragmentManager)
+    }
+
+    @Provides
+    fun provideTransactionHistoryListFragment(): HistoryListFragment {
+        return HistoryListFragment()
+    }
+
+    @Provides
+    fun provideTransactionHistoryAdapter(context: Context): HistoryListAdapter {
+        return HistoryListAdapter(context)
     }
 
     @Provides
