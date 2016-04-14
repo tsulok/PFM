@@ -15,20 +15,18 @@ import javax.inject.Inject
 class MainActivity : BaseActivity() {
 
     @Inject lateinit var mainNavigatorFragment: MainNavigatorFragment
-    @Inject lateinit var interactor: CategoryInteractor
-//    @Inject lateinit var customResources: Resources
+    @Inject lateinit var categoryInteractor: CategoryInteractor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        categoryInteractor.createTestData()
 
         setContentView(R.layout.activity_main)
         val toolbar = find<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        Logger.d("Items: ${interactor.listAllCategories().size}")
         switchToFragment(mainNavigatorFragment)
-//        Logger.d("Custom inhjected resource: " +
-//                "${customResources.getString(R.string.app_name)}")
     }
 
     override fun injectActivityComponent() {

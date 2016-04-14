@@ -1,9 +1,13 @@
 package com.pinup.pfm.interactor.category
 
+import android.content.Context
+import android.graphics.drawable.Drawable
+import com.orhanobut.logger.Logger
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.model.database.Category
 import com.pinup.pfm.model.database.CategoryDao
 import com.pinup.pfm.model.database.DaoSession
+import com.pinup.pfm.ui.core.view.viewholder.BaseViewHolder
 import java.util.*
 import javax.inject.Inject
 
@@ -15,11 +19,13 @@ class CategoryInteractor {
     // TODO inject category api
 
     @Inject lateinit var daoSession: DaoSession
+    @Inject lateinit var context: Context
 
     constructor() {
         PFMApplication.injector.inject(this)
     }
 
+    //region DAO
     /**
      * Returns all category items
      * @return all category items
@@ -74,7 +80,7 @@ class CategoryInteractor {
      * @param imageUri The image key of the category if any
      */
     fun createOrUpdateCategory(serverId: String, name: String, order: Int,
-                               imageUri: String? = null) {
+                               imageUri: String? = null): Category {
         var category = getCategoryByServerId(serverId)
 
         if (category == null) {
@@ -87,6 +93,8 @@ class CategoryInteractor {
         category.imageUri = imageUri
 
         daoSession.categoryDao.insertOrReplace(category)
+
+        return category
     }
 
     /**
@@ -109,8 +117,72 @@ class CategoryInteractor {
         }
     }
 
+    /**
+     * Deletes all the categories
+     */
     fun deleteAllCategories() {
         daoSession.categoryDao.deleteAll()
+    }
+
+    /**
+     * Updates the category hierarchy additions
+     */
+    fun updateCategoryHierarchyAdditions(mapping: HashMap<Category, HashSet<Category>>) {
+        for (mapEntry in mapping) {
+            val parentCategory: Category = mapEntry.key
+
+            var children = parentCategory.children
+
+            for (childCategory in mapEntry.value) {
+
+                childCategory.parentCategoryId = parentCategory.id
+                daoSession.update(childCategory)
+
+                if (children.size == 0) {
+                    parentCategory.resetChildren()
+                    children = parentCategory.children
+                } else {
+                    children.add(childCategory)
+                }
+            }
+
+            daoSession.update(parentCategory)
+        }
+    }
+
+    /**
+     * Updates the category hierarch removals
+     */
+    fun updateCategoryHierarchyRemovals(mapping: HashMap<Category, HashSet<Category>>) {
+        for (mapEntry in mapping) {
+            val parentCategory: Category = mapEntry.key
+
+            for (childCategory in mapEntry.value) {
+                childCategory.parent = null
+                parentCategory.children.remove(childCategory)
+                daoSession.update(childCategory)
+            }
+
+            daoSession.update(parentCategory)
+        }
+    }
+
+    //endregion
+
+    fun createTestData() {
+        if (listAllCategories().size == 0) {
+            val parentCategory = createOrUpdateCategory("0", "Main Category", 0)
+            val children = HashSet<Category>()
+
+            for (i in 1..13) {
+                val child = createOrUpdateCategory("$i", "Teszt $i", i, "ic_restaurant")
+                children.add(child)
+            }
+
+            val mapping = HashMap<Category, HashSet<Category>>()
+            mapping[parentCategory] = children
+            updateCategoryHierarchyAdditions(mapping)
+        }
     }
 
     // TODO create graph between parent & children

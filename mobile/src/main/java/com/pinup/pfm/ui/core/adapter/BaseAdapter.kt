@@ -9,7 +9,7 @@ import java.util.*
 /**
  * BaseAdapter for handling data in lists
  */
-abstract class BaseAdapter<T> : RecyclerView.Adapter<BaseViewHolder>, View.OnClickListener {
+abstract class BaseAdapter<T> : RecyclerView.Adapter<BaseViewHolder> {
 
     protected val context: Context
     var items: MutableList<T>

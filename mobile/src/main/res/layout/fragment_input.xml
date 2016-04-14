@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="bottom"
+    app:umanoFadeColor="@android:color/transparent"
     app:umanoPanelHeight="@dimen/category.filter.collapsed.height"
-    app:umanoShadowHeight="@dimen/category.filter.collapsed.shadow.height"
-    app:umanoFadeColor="@android:color/transparent">
+    app:umanoShadowHeight="@dimen/category.filter.collapsed.shadow.height">
 
     <TextView
         android:layout_width="match_parent"
@@ -23,33 +23,42 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/category.filter.collapsed.height"
             android:background="#FF0000"
             android:clickable="true"
             android:orientation="horizontal"
             android:weightSum="8">
 
-            <ImageButton
+            <Button
                 android:id="@+id/favouriteCategoryBtn1"
-                style="@style/AppTheme.Category_Favourite_Button"
-                android:src="@drawable/ic_restaurant" />
+                style="@style/AppTheme.Category_Button_Featured"
+                android:drawableTop="@drawable/ic_restaurant"
+                android:text="Example category" />
 
-            <ImageButton
+            <Button
                 android:id="@+id/favouriteCategoryBtn2"
-                style="@style/AppTheme.Category_Favourite_Button"
-                android:src="@drawable/ic_restaurant" />
+                style="@style/AppTheme.Category_Button_Featured"
+                android:drawableTop="@drawable/ic_restaurant"
+                android:text="Example category" />
 
-            <ImageButton
+            <Button
                 android:id="@+id/favouriteCategoryBtn3"
-                style="@style/AppTheme.Category_Favourite_Button"
-                android:src="@drawable/ic_restaurant" />
+                style="@style/AppTheme.Category_Button_Featured"
+                android:drawableTop="@drawable/ic_restaurant"
+                android:text="Example category" />
 
             <ImageButton
                 android:id="@+id/favouriteCategoryBtnMore"
-                style="@style/AppTheme.Category_Favourite_Button"
-                android:src="@drawable/ic_expand_more" />
+                style="@style/AppTheme.Category_Button_Featured"
+                android:src="@drawable/ic_expand_less" />
 
         </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/categoryListContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#aa5544" />
 
     </LinearLayout>
 

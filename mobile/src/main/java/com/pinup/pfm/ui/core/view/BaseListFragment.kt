@@ -1,10 +1,14 @@
 package com.pinup.pfm.ui.core.view
 
+import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import butterknife.Bind
+import com.orhanobut.logger.Logger
 import com.pinup.pfm.R
 import com.pinup.pfm.ui.core.adapter.BaseAdapter
 import com.pinup.pfm.ui.core.view.viewholder.BaseViewHolder
@@ -12,13 +16,19 @@ import com.pinup.pfm.ui.core.view.viewholder.BaseViewHolder
 /**
  * Base listFragment class
  */
-abstract class BaseListFragment<T> : BaseFragment() {
+abstract class BaseListFragment<T> : BaseFragment {
 
-    @Bind(R.id.recyclerList) lateinit var recyclerView: RecyclerView;
+    @Bind(R.id.recyclerList) lateinit var recyclerView: RecyclerView
     @Bind(R.id.listOverlayContainer) lateinit var listOverlayContainer: FrameLayout
 
-    var onItemClickListener: BaseViewHolder.OnItemClickListener? = null
-    var layoutManager: RecyclerView.LayoutManager? = null
+    constructor() : super() {
+        Logger.d("Base list constructor")
+    }
+
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        Logger.d("Base List onCreateView")
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
 
     abstract fun getAdapter(): BaseAdapter<T>?
 
@@ -27,29 +37,22 @@ abstract class BaseListFragment<T> : BaseFragment() {
     }
 
     override fun initObjects(view: View?) {
-        if (layoutManager == null) {
-            layoutManager = LinearLayoutManager(recyclerView.context)
-        }
-
         if (getAdapter() == null) {
             throw RuntimeException("RecyclerView is not properly initialized")
         }
 
         if(recyclerView.adapter == null) {
-            recyclerView.layoutManager = layoutManager;
+            recyclerView.layoutManager = getLayoutManager();
             recyclerView.adapter = getAdapter();
         }
     }
 
     override fun initEventHandlers(view: View?) {
-        if (onItemClickListener != null) {
-            getAdapter()?.onItemClickListener = onItemClickListener
-        }
+
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        layoutManager = null
     }
 
     fun addOverlayView(view: View) {
@@ -69,6 +72,16 @@ abstract class BaseListFragment<T> : BaseFragment() {
             showOverlayView()
         } else {
             hideOverlayView()
+        }
+    }
+
+    open fun getLayoutManager(): RecyclerView.LayoutManager {
+        return LinearLayoutManager(recyclerView.context)
+    }
+
+    fun setOnItemClickListener(handler: (view: View, position: Int) -> Unit) {
+        getAdapter()?.onItemClickListener = object : BaseViewHolder.OnItemClickListener {
+            override fun listItemClicked(view: View, position: Int) = handler(view, position)
         }
     }
 }

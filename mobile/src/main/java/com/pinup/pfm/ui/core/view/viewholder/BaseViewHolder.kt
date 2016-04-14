@@ -9,7 +9,7 @@ import java.text.FieldPosition
  * Base ViewHolder for list's viewholders
  * Registers the item clicks
  */
-class BaseViewHolder : RecyclerView.ViewHolder {
+open class BaseViewHolder : RecyclerView.ViewHolder {
 
     var clickableView: View? = null
 

@@ -19,7 +19,7 @@ abstract class BaseFragment : Fragment, IBaseFragment, IFragmentFactory {
 //    @Inject lateinit var bus: EventBus
 
     constructor() : super() {
-        Logger.d("Base fragment ctor")
+        Logger.d("Base constructor")
 //        PFMApplication.activityInjector?.inject(this)
     }
 

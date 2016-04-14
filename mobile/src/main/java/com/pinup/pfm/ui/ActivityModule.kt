@@ -3,6 +3,8 @@ package com.pinup.pfm.ui
 import android.app.Activity
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
+import com.pinup.pfm.ui.input.category.CategoryListFragment
+import com.pinup.pfm.ui.input.category.adapter.CategoryListAdapter
 import com.pinup.pfm.ui.main_navigator.MainNavigatorFragment
 import com.pinup.pfm.ui.main_navigator.adapter.MainNavigatorPagerAdapter
 import com.pinup.pfm.ui.settings.ChartListFragment
@@ -28,6 +30,26 @@ class ActivityModule(val activity: AppCompatActivity) {
     }
 
     @Provides
+    fun provideCategoryListFragment(): CategoryListFragment {
+        return CategoryListFragment()
+    }
+
+    @Provides
+    fun provideCategoryAdapter(): CategoryListAdapter {
+        return CategoryListAdapter(activity)
+    }
+
+    @Provides
+    fun provideChartListFragment(): ChartListFragment {
+        return ChartListFragment()
+    }
+
+    @Provides
+    fun provideInputFragment(): InputFragment {
+        return InputFragment()
+    }
+
+    @Provides
     fun provideMainNavigatorFragment(): MainNavigatorFragment {
         return MainNavigatorFragment()
     }
@@ -40,15 +62,5 @@ class ActivityModule(val activity: AppCompatActivity) {
     @Provides
     fun provideSettingsFragment(): SettingsFragment {
         return SettingsFragment()
-    }
-
-    @Provides
-    fun provideInputFragment(): InputFragment {
-        return InputFragment()
-    }
-
-    @Provides
-    fun provideChartListFragment(): ChartListFragment {
-        return ChartListFragment()
     }
 }
