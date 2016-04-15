@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--Row 1 - 2 - 3-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/input1"
+            android:text="@string/input.keyboard.number.1"
+            style="@style/AppTheme.Input_Keyboard_Button"/>
+
+        <Button
+            android:id="@+id/input2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/input.keyboard.number.2"
+            style="@style/AppTheme.Input_Keyboard_Button"/>
+
+        <Button
+            android:id="@+id/input3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/input.keyboard.number.3"
+            style="@style/AppTheme.Input_Keyboard_Button"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimary"/>
+
+    <!--Row 4 - 5 - 6-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/input4"
+            android:text="@string/input.keyboard.number.4"
+            style="@style/AppTheme.Input_Keyboard_Button"/>
+
+        <Button
+            android:id="@+id/input5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/input.keyboard.number.5"
+            style="@style/AppTheme.Input_Keyboard_Button"/>
+
+        <Button
+            android:id="@+id/input6"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/input.keyboard.number.6"
+            style="@style/AppTheme.Input_Keyboard_Button"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimary"/>
+
+    <!--Row 7 - 8 - 9-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/input7"
+            android:text="@string/input.keyboard.number.7"
+            style="@style/AppTheme.Input_Keyboard_Button"/>
+
+        <Button
+            android:id="@+id/input8"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/input.keyboard.number.8"
+            style="@style/AppTheme.Input_Keyboard_Button"/>
+
+        <Button
+            android:id="@+id/input9"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/input.keyboard.number.9"
+            style="@style/AppTheme.Input_Keyboard_Button"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimary"/>
+
+    <!--Row . - 0 - back-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/inputComma"
+            android:text="@string/input.keyboard.number.tilde"
+            style="@style/AppTheme.Input_Keyboard_Button"/>
+
+        <Button
+            android:id="@+id/input0"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/input.keyboard.number.0"
+            style="@style/AppTheme.Input_Keyboard_Button"/>
+
+        <ImageButton
+            android:id="@+id/inputBack"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_action_back"
+            style="@style/AppTheme.Input_Keyboard_Button"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -23,12 +23,27 @@
             app:umanoPanelHeight="@dimen/category.filter.collapsed.height"
             app:umanoShadowHeight="@dimen/category.filter.collapsed.shadow.height">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Main Content"
-                android:textSize="16sp" />
+                android:orientation="vertical"
+                android:weightSum="2">
+
+                <include
+                    android:id="@+id/inputMainLayout"
+                    layout="@layout/layout_input_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <include
+                    android:id="@+id/inputMainLayout"
+                    layout="@layout/layout_input_keyboard_normal"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

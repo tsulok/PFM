@@ -1,4 +1,19 @@
 <resources>
     <string name="app_name">PFM</string>
     <string name="action_settings">Settings</string>
+
+    <string name="input.currency">Currency</string>
+
+    <string name="input.keyboard.number.1">1</string>
+    <string name="input.keyboard.number.2">2</string>
+    <string name="input.keyboard.number.3">3</string>
+    <string name="input.keyboard.number.4">4</string>
+    <string name="input.keyboard.number.5">5</string>
+    <string name="input.keyboard.number.6">6</string>
+    <string name="input.keyboard.number.7">7</string>
+    <string name="input.keyboard.number.8">8</string>
+    <string name="input.keyboard.number.9">9</string>
+    <string name="input.keyboard.number.tilde">.</string>
+    <string name="input.keyboard.number.0">0</string>
+    <string name="input.keyboard.number.back">Back</string>
 </resources>

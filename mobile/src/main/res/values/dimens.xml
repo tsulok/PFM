@@ -5,6 +5,7 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="default.padding">8dp</dimen>
+    <dimen name="default.margin">16dp</dimen>
 
     <dimen name="category.filter.collapsed.margin.top">5dp</dimen>
     <dimen name="category.filter.collapsed.height">80dp</dimen>
@@ -12,4 +13,12 @@
     <dimen name="category.filter.button.size">32dp</dimen>
 
     <dimen name="history.list.collapsed.height">40dp</dimen>
+
+    <dimen name="input.action.amount.text.size">45sp</dimen>
+    <dimen name="input.action.currency.title.text.size">12sp</dimen>
+    <dimen name="input.action.currency.text.size">16sp</dimen>
+    <dimen name="input.action.name.text.size">22sp</dimen>
+    <dimen name="input.keyboard.number.text.size">18sp</dimen>
+    <dimen name="input.keyboard.number.padding.vertical">8dp</dimen>
+
 </resources>
