@@ -11,5 +11,5 @@
     <dimen name="category.filter.collapsed.shadow.height">2dp</dimen>
     <dimen name="category.filter.button.size">32dp</dimen>
 
-    <dimen name="history.list.collapsed.height">25dp</dimen>
+    <dimen name="history.list.collapsed.height">40dp</dimen>
 </resources>

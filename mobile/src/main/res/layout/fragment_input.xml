@@ -36,6 +36,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/categorySlider"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/category.filter.collapsed.height"
                     android:background="#FF0000"
@@ -46,24 +47,28 @@
                     <Button
                         android:id="@+id/favouriteCategoryBtn1"
                         style="@style/AppTheme.Category_Button_Featured"
+                        android:clickable="true"
                         android:drawableTop="@drawable/ic_restaurant"
                         android:text="Example category" />
 
                     <Button
                         android:id="@+id/favouriteCategoryBtn2"
                         style="@style/AppTheme.Category_Button_Featured"
+                        android:clickable="true"
                         android:drawableTop="@drawable/ic_restaurant"
                         android:text="Example category" />
 
                     <Button
                         android:id="@+id/favouriteCategoryBtn3"
                         style="@style/AppTheme.Category_Button_Featured"
+                        android:clickable="true"
                         android:drawableTop="@drawable/ic_restaurant"
                         android:text="Example category" />
 
                     <ImageButton
                         android:id="@+id/favouriteCategoryBtnMore"
                         style="@style/AppTheme.Category_Button_Featured"
+                        android:clickable="true"
                         android:src="@drawable/ic_expand_less" />
 
                 </LinearLayout>
@@ -88,7 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="#449900"/>
+                android:background="#449900" />
 
             <LinearLayout
                 android:id="@+id/historySlider"

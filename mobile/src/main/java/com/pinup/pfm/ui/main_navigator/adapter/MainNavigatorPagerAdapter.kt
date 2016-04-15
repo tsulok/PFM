@@ -2,10 +2,10 @@ package com.pinup.pfm.ui.main_navigator.adapter
 
 import android.support.v4.app.FragmentManager
 import com.pinup.pfm.PFMApplication
+import com.pinup.pfm.ui.charts.ChartListFragment
 import com.pinup.pfm.ui.core.adapter.BaseStatePagerAdapter
 import com.pinup.pfm.ui.core.view.BaseFragment
-import com.pinup.pfm.ui.settings.ChartListFragment
-import com.pinup.pfm.ui.settings.InputFragment
+import com.pinup.pfm.ui.input.InputFragment
 import com.pinup.pfm.ui.settings.SettingsFragment
 import javax.inject.Inject
 

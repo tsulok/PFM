@@ -1,4 +1,4 @@
-package com.pinup.pfm.ui.settings
+package com.pinup.pfm.ui.charts
 
 import android.view.View
 import com.pinup.pfm.R

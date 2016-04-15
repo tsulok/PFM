@@ -1,4 +1,4 @@
-package com.pinup.pfm.ui.settings
+package com.pinup.pfm.ui.charts
 
 import com.pinup.pfm.ui.core.view.BasePresenter
 

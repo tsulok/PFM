@@ -6,12 +6,12 @@ import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
 import com.pinup.pfm.ui.category.CategoryListFragment
 import com.pinup.pfm.ui.category.adapter.CategoryListAdapter
+import com.pinup.pfm.ui.charts.ChartListFragment
 import com.pinup.pfm.ui.history.HistoryListFragment
 import com.pinup.pfm.ui.history.adapter.HistoryListAdapter
+import com.pinup.pfm.ui.input.InputFragment
 import com.pinup.pfm.ui.main_navigator.MainNavigatorFragment
 import com.pinup.pfm.ui.main_navigator.adapter.MainNavigatorPagerAdapter
-import com.pinup.pfm.ui.settings.ChartListFragment
-import com.pinup.pfm.ui.settings.InputFragment
 import com.pinup.pfm.ui.settings.SettingsFragment
 import dagger.Module
 import dagger.Provides

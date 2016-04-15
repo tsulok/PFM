@@ -1,5 +1,7 @@
 package com.pinup.pfm.ui.history
 
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.extensions.makeToast
@@ -26,5 +28,9 @@ class HistoryListFragment : BaseListFragment<ITransactionHistory> {
 
     override fun getAdapter(): BaseAdapter<ITransactionHistory>? {
         return historyAdapter
+    }
+
+    override fun getLayoutManager(): RecyclerView.LayoutManager {
+        return LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
     }
 }

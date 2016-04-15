@@ -1,4 +1,4 @@
-package com.pinup.pfm.ui.settings
+package com.pinup.pfm.ui.input
 
 import com.pinup.pfm.ui.core.view.BaseScreen
 
