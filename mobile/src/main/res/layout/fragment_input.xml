@@ -26,6 +26,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:clickable="true"
                 android:orientation="vertical"
                 android:weightSum="2">
 
@@ -34,14 +35,45 @@
                     layout="@layout/layout_input_main"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:clickable="true" />
 
-                <include
-                    android:id="@+id/inputMainLayout"
-                    layout="@layout/layout_input_keyboard_normal"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_weight="3">
+
+                        <include
+                            android:id="@+id/inputKeyboardLayout"
+                            layout="@layout/layout_input_keyboard_normal"
+                            android:clickable="true" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+
+                        <include
+                            android:id="@+id/inputKeyboardActionLayout"
+                            layout="@layout/layout_input_keyboard_action"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:clickable="true" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
             </LinearLayout>
 

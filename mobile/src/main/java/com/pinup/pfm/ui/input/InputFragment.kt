@@ -5,14 +5,15 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import butterknife.Bind
+import butterknife.ButterKnife
 import butterknife.OnClick
 import com.orhanobut.logger.Logger
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
 import com.pinup.pfm.extensions.makeToast
 import com.pinup.pfm.extensions.replaceFragment
-import com.pinup.pfm.ui.core.view.BaseFragment
 import com.pinup.pfm.ui.category.CategoryListFragment
+import com.pinup.pfm.ui.core.view.BaseFragment
 import com.pinup.pfm.ui.history.HistoryListFragment
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import javax.inject.Inject
@@ -43,9 +44,28 @@ class InputFragment : BaseFragment, InputScreen {
     }
 
     override fun initObjects(view: View?) {
+
+        // Included sublayouts must be bound individually
+        val inputMainView = view?.findViewById(R.id.inputMainLayout)
+        if (inputMainView != null) {
+            ButterKnife.bind(this, inputMainView)
+        }
+
+        val inputKeyboardView = view?.findViewById(R.id.inputKeyboardLayout)
+        if (inputKeyboardView != null) {
+            ButterKnife.bind(this, inputKeyboardView)
+        }
+
+        val inputKeyboardActionView = view?.findViewById(R.id.inputKeyboardActionLayout)
+        if (inputKeyboardActionView != null) {
+            ButterKnife.bind(this, inputKeyboardActionView)
+        }
+
+        // Apply custom draggings to the slider views
         slidingPanelBottom.setDragView(categorySliderView)
         slidingPanelTop.setDragView(historySliderView)
 
+        // Add the slider fragments
         replaceFragment(childFragmentManager, R.id.categoryListContainer,
             categoryListFragment, categoryListFragment.javaClass.canonicalName)
 
@@ -84,12 +104,21 @@ class InputFragment : BaseFragment, InputScreen {
 
     @OnClick(R.id.favouriteCategoryBtnMore)
     fun moreCategoryClicked() {
-        val panelState = slidingPanelBottom.panelState
 
-        when (panelState) {
+        when (slidingPanelBottom.panelState) {
             SlidingUpPanelLayout.PanelState.COLLAPSED -> slidingPanelBottom.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
             SlidingUpPanelLayout.PanelState.EXPANDED -> slidingPanelBottom.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
             else -> Logger.d("Invalid state")
         }
+    }
+
+    @OnClick(R.id.input1)
+    fun onPhotoClicked() {
+        makeToast("1 clicked")
+    }
+
+    @OnClick(R.id.inputActionLocation)
+    fun onLocationClicked() {
+        makeToast("Location clicked")
     }
 }
