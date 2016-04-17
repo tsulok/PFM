@@ -26,6 +26,7 @@ class InputContainerFragment : BaseFragment, InputContainerScreen {
     @Inject lateinit var categoryListFragment: CategoryListFragment
     @Inject lateinit var historyListFragment: HistoryListFragment
     @Inject lateinit var inputMainFragment: InputMainFragment
+    @Inject lateinit var containerPresenter: InputContainerPresenter
 
     @Bind(R.id.slidingPanelTop) lateinit var slidingPanelTop: SlidingUpPanelLayout
     @Bind(R.id.slidingPanelBottom) lateinit var slidingPanelBottom: SlidingUpPanelLayout
@@ -45,6 +46,8 @@ class InputContainerFragment : BaseFragment, InputContainerScreen {
     }
 
     override fun initObjects(view: View?) {
+
+        containerPresenter.bind(this)
 
         // Apply custom draggings to the slider views
         slidingPanelBottom.setDragView(categorySliderView)
@@ -76,6 +79,11 @@ class InputContainerFragment : BaseFragment, InputContainerScreen {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        containerPresenter.unbind()
+    }
+
     @OnClick(R.id.favouriteCategoryBtn1)
     fun favourite1CategoryClicked() {
         makeToast("1 clicked")
@@ -99,5 +107,9 @@ class InputContainerFragment : BaseFragment, InputContainerScreen {
             SlidingUpPanelLayout.PanelState.EXPANDED -> slidingPanelBottom.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
             else -> Logger.d("Invalid state")
         }
+    }
+
+    override fun navigateToCharts() {
+        makeToast("Navigate to charts")
     }
 }

@@ -7,11 +7,11 @@ open class BasePresenter<T : BaseScreen> {
 
     protected var screen: T? = null
 
-    open protected fun bind(screen: T) {
+    open fun bind(screen: T) {
         this.screen = screen
     }
 
-    open protected fun unbind() {
+    open fun unbind() {
         this.screen = null
     }
 

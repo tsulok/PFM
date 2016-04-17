@@ -13,10 +13,12 @@ import com.pinup.pfm.ui.input.main.InputMainFragment
 import com.pinup.pfm.ui.main_navigator.MainNavigatorFragment
 import com.pinup.pfm.ui.main_navigator.adapter.MainNavigatorPagerAdapter
 import dagger.Subcomponent
+import javax.inject.Singleton
 
 /**
  * Component for supported DI components
  */
+@Singleton
 @ActivityScope
 @Subcomponent(modules = arrayOf(ActivityModule::class) )
 interface PFMActivityComponent {
