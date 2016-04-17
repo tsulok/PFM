@@ -1,11 +1,10 @@
-package com.pinup.pfm.ui.input
+package com.pinup.pfm.ui.input.container
 
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import butterknife.Bind
-import butterknife.ButterKnife
 import butterknife.OnClick
 import com.orhanobut.logger.Logger
 import com.pinup.pfm.PFMApplication
@@ -15,16 +14,18 @@ import com.pinup.pfm.extensions.replaceFragment
 import com.pinup.pfm.ui.category.CategoryListFragment
 import com.pinup.pfm.ui.core.view.BaseFragment
 import com.pinup.pfm.ui.history.HistoryListFragment
+import com.pinup.pfm.ui.input.main.InputMainFragment
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import javax.inject.Inject
 
 /**
- * Fragment for settings
+ * Fragment for input container
  */
-class InputFragment : BaseFragment, InputScreen {
+class InputContainerFragment : BaseFragment, InputContainerScreen {
 
     @Inject lateinit var categoryListFragment: CategoryListFragment
     @Inject lateinit var historyListFragment: HistoryListFragment
+    @Inject lateinit var inputMainFragment: InputMainFragment
 
     @Bind(R.id.slidingPanelTop) lateinit var slidingPanelTop: SlidingUpPanelLayout
     @Bind(R.id.slidingPanelBottom) lateinit var slidingPanelBottom: SlidingUpPanelLayout
@@ -40,26 +41,10 @@ class InputFragment : BaseFragment, InputScreen {
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.fragment_input
+        return R.layout.fragment_input_container
     }
 
     override fun initObjects(view: View?) {
-
-        // Included sublayouts must be bound individually
-        val inputMainView = view?.findViewById(R.id.inputMainLayout)
-        if (inputMainView != null) {
-            ButterKnife.bind(this, inputMainView)
-        }
-
-        val inputKeyboardView = view?.findViewById(R.id.inputKeyboardLayout)
-        if (inputKeyboardView != null) {
-            ButterKnife.bind(this, inputKeyboardView)
-        }
-
-        val inputKeyboardActionView = view?.findViewById(R.id.inputKeyboardActionLayout)
-        if (inputKeyboardActionView != null) {
-            ButterKnife.bind(this, inputKeyboardActionView)
-        }
 
         // Apply custom draggings to the slider views
         slidingPanelBottom.setDragView(categorySliderView)
@@ -71,6 +56,10 @@ class InputFragment : BaseFragment, InputScreen {
 
         replaceFragment(childFragmentManager, R.id.historyFrameContainer,
                 historyListFragment, historyListFragment.javaClass.canonicalName)
+
+        // Add main input fragment
+        replaceFragment(childFragmentManager, R.id.inputMainContainer,
+                inputMainFragment, inputMainFragment.javaClass.canonicalName)
     }
 
     override fun initEventHandlers(view: View?) {
@@ -110,15 +99,5 @@ class InputFragment : BaseFragment, InputScreen {
             SlidingUpPanelLayout.PanelState.EXPANDED -> slidingPanelBottom.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
             else -> Logger.d("Invalid state")
         }
-    }
-
-    @OnClick(R.id.input1)
-    fun onPhotoClicked() {
-        makeToast("1 clicked")
-    }
-
-    @OnClick(R.id.inputActionLocation)
-    fun onLocationClicked() {
-        makeToast("Location clicked")
     }
 }
