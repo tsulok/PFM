@@ -10,6 +10,7 @@ import com.pinup.pfm.ui.history.adapter.HistoryListAdapter
 import com.pinup.pfm.ui.input.container.InputContainerFragment
 import com.pinup.pfm.ui.input.keyboard.KeyboardFragment
 import com.pinup.pfm.ui.input.main.InputMainFragment
+import com.pinup.pfm.ui.input.main.InputMainPresenter
 import com.pinup.pfm.ui.main_navigator.MainNavigatorFragment
 import com.pinup.pfm.ui.main_navigator.adapter.MainNavigatorPagerAdapter
 import dagger.Subcomponent
@@ -28,6 +29,7 @@ interface PFMActivityComponent {
     fun inject(inputContainerFragment: InputContainerFragment): Unit
     fun inject(inputKeyboardFragment: KeyboardFragment): Unit
     fun inject(inputMainFragment: InputMainFragment): Unit
+    fun inject(inputMainPresenter: InputMainPresenter): Unit
 
     fun inject(categoryListFragment: CategoryListFragment): Unit
     fun inject(categoryListAdapter: CategoryListAdapter): Unit

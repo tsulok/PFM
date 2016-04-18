@@ -87,6 +87,11 @@ dependencies {
     // Slide up panel
     compile 'com.sothree.slidinguppanel:library:3.3.0'
 
+    // Material dialogs
+    compile('com.github.afollestad.material-dialogs:core:0.8.5.8@aar') {
+        transitive = true
+    }
+
     // ############### Test ###################
 
     // ############### JVM ###################
