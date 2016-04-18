@@ -24,14 +24,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Expense name"
-                android:textSize="@dimen/input.action.name.text.size" />
+                android:textSize="@dimen/input.action.name.text.size"
+                android:visibility="gone"/>
 
             <com.pinup.pfm.ui.widget.ExtendedTextView
                 android:id="@+id/inputAmountTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/default.margin"
-                android:text="500.45"
+                android:text="0"
                 android:textSize="@dimen/input.action.amount.text.size" />
 
             <com.pinup.pfm.ui.widget.ExtendedTextView
@@ -77,14 +78,14 @@
                 android:src="@drawable/ic_action_location" />
 
             <ImageButton
-                android:id="@+id/inputActionTitle"
+                android:id="@+id/inputActionDescription"
                 style="@style/AppTheme.Input_Action_Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_action_notes" />
 
             <ImageButton
-                android:id="@+id/inputActionHistory"
+                android:id="@+id/inputActionDate"
                 style="@style/AppTheme.Input_Action_Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

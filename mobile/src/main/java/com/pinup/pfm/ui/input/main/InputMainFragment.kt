@@ -56,9 +56,9 @@ class InputMainFragment : BaseFragment {
         makeToast("Photo click")
     }
 
-    @OnClick(R.id.inputActionHistory)
+    @OnClick(R.id.inputActionDate)
     fun onHistoryClicked() {
-        makeToast("History click")
+        makeToast("Date click")
     }
 
     @OnClick(R.id.inputActionLocation)
@@ -66,9 +66,9 @@ class InputMainFragment : BaseFragment {
         makeToast("Location click")
     }
 
-    @OnClick(R.id.inputActionTitle)
-    fun onTitleChangeClicked() {
-        makeToast("Title click")
+    @OnClick(R.id.inputActionDescription)
+    fun onDescriptionClicked() {
+        makeToast("Description click")
     }
 
     @OnClick(R.id.inputKeyboardChangeBtn)
