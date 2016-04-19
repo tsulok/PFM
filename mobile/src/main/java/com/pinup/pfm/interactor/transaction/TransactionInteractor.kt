@@ -211,5 +211,4 @@ class TransactionInteractor {
     fun deleteTransaction(transaction: Transaction) {
         daoSession.transactionDao.delete(transaction)
     }
-
 }

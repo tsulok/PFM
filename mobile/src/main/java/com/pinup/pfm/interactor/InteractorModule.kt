@@ -1,6 +1,7 @@
 package com.pinup.pfm.interactor
 
 import com.pinup.pfm.interactor.category.CategoryInteractor
+import com.pinup.pfm.interactor.currency.CurrencyInteractor
 import com.pinup.pfm.interactor.transaction.TransactionInteractor
 import dagger.Module
 import dagger.Provides
@@ -20,7 +21,13 @@ class InteractorModule {
 
     @Singleton
     @Provides
-    fun provedTransactionInteractor(): TransactionInteractor {
+    fun provideTransactionInteractor(): TransactionInteractor {
         return TransactionInteractor()
+    }
+
+    @Singleton
+    @Provides
+    fun provideCurrencyInteractor(): CurrencyInteractor {
+        return CurrencyInteractor()
     }
 }

@@ -16,7 +16,6 @@ import com.pinup.pfm.ui.input.main.InputMainPresenter
 import com.pinup.pfm.ui.main_navigator.MainNavigatorFragment
 import com.pinup.pfm.ui.main_navigator.adapter.MainNavigatorPagerAdapter
 import com.pinup.pfm.ui.settings.SettingsFragment
-import com.pinup.pfm.utils.helper.SharedPreferencesHelper
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -37,11 +36,11 @@ class ActivityModule(val activity: AppCompatActivity) {
         return activity.supportFragmentManager
     }
 
-    @Singleton
-    @Provides
-    fun provideSharedPreferenceHelper(): SharedPreferencesHelper {
-        return SharedPreferencesHelper(activity)
-    }
+//    @Singleton
+//    @Provides
+//    fun provideSharedPreferenceHelper(): SharedPreferencesHelper {
+//        return SharedPreferencesHelper(activity)
+//    }
 
     @Provides
     fun provideCategoryListFragment(): CategoryListFragment {

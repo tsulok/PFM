@@ -4,6 +4,7 @@ import com.pinup.pfm.interactor.CommunicationModule
 import com.pinup.pfm.interactor.DaoModule
 import com.pinup.pfm.interactor.InteractorModule
 import com.pinup.pfm.interactor.category.CategoryInteractor
+import com.pinup.pfm.interactor.currency.CurrencyInteractor
 import com.pinup.pfm.interactor.transaction.TransactionInteractor
 import com.pinup.pfm.ui.ActivityModule
 import com.pinup.pfm.ui.MainActivity
@@ -25,5 +26,6 @@ interface PFMApplicationComponent {
     fun inject(interactorModule: InteractorModule): Unit
 
     fun inject(categoryInteractor: CategoryInteractor): Unit
+    fun inject(currencyInteractor: CurrencyInteractor): Unit
     fun inject(transactionInteractor: TransactionInteractor): Unit
 }

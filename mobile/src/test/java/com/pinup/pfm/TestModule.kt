@@ -1,6 +1,7 @@
 package com.pinup.pfm
 
 import android.content.Context
+import android.content.SharedPreferences
 import com.pinup.pfm.model.database.DaoMaster
 import com.pinup.pfm.model.database.DaoSession
 import dagger.Module
@@ -24,5 +25,12 @@ class TestModule(private val context: Context) {
         val openHelper = DaoMaster.DevOpenHelper(context, null, null)
         val daoMaster = DaoMaster(openHelper.writableDatabase)
         return daoMaster.newSession()
+    }
+
+    @Singleton
+    @Provides
+    fun provideSharedPreferences(): SharedPreferences {
+        // TODO mock this
+        return context.getSharedPreferences("PFMSharedPref_Test", Context.MODE_PRIVATE)
     }
 }
