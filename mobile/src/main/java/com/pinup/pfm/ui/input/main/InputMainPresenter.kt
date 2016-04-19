@@ -22,15 +22,25 @@ class InputMainPresenter : BasePresenter<InputMainScreen> {
         selectedCurrency = sharedPreferencesHelper.getSelectedCurrency()
     }
 
+    /**
+     * Load the currently selected currency
+     */
     fun loadCurrentlySelectedCurrency() {
         screen?.updateSelectedCurrency(selectedCurrency)
     }
 
+    /**
+     * Update the transaction's currency
+     * @param currency The new currency
+     */
     fun updateSelectedCurrency(currency: Currency) {
         selectedCurrency = currency
         screen?.updateSelectedCurrency(currency)
     }
 
+    /**
+     * Show supported currencies
+     */
     fun showSupportedCurrencies() {
         screen?.showSupportedCurrencies(
                 selectedCurrency,

@@ -2,7 +2,6 @@ package com.pinup.pfm.ui.input.main
 
 import android.view.View
 import android.widget.TextView
-import butterknife.Bind
 import butterknife.OnClick
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
@@ -23,9 +22,13 @@ class InputMainFragment : BaseFragment, InputMainScreen {
 
     @Inject lateinit var inputMainPresenter: InputMainPresenter
 
-    @Bind(R.id.inputNameTxt) lateinit var nameTextView: TextView
-    @Bind(R.id.inputAmountTxt) lateinit var amountTextView: TextView
-    @Bind(R.id.inputCurrencyTxt) lateinit var currencyTextView: TextView
+//    val nameTextView: TextView by bindView(R.id.inputNameTxt)
+//    val amountTextView: TextView by bindView(R.id.inputAmountTxt)
+//    val currencyTextView: TextView? by bindView(R.id.inputCurrencyTxtaasd)
+
+    lateinit var nameTextView: TextView
+    lateinit var amountTextView: TextView
+    lateinit var currencyTextView: TextView
 
     lateinit var keyboardFragment: KeyboardFragment
 
@@ -40,12 +43,20 @@ class InputMainFragment : BaseFragment, InputMainScreen {
     override fun initObjects(view: View?) {
         inputMainPresenter.bind(this)
 
+        // TODO figure out why view binding is not working in this fragment
+        if (view != null) {
+            currencyTextView = view.findViewById(R.id.inputCurrencyTxt) as TextView
+            amountTextView = view.findViewById(R.id.inputAmountTxt) as TextView
+            nameTextView = view.findViewById(R.id.inputNameTxt) as TextView
+        }
+
+
         keyboardFragment = KeyboardFragment.newInstance(KeyboardType.Normal)
 
         replaceFragment(childFragmentManager, R.id.keyboardContainer,
                 keyboardFragment, keyboardFragment.javaClass.canonicalName)
 
-//        inputMainPresenter.loadCurrentlySelectedCurrency()
+        inputMainPresenter.loadCurrentlySelectedCurrency()
     }
 
     override fun initEventHandlers(view: View?) {
@@ -65,6 +76,7 @@ class InputMainFragment : BaseFragment, InputMainScreen {
         super.onDestroyView()
     }
 
+    // Onclick binding works...
     @OnClick(R.id.inputCurrencyTxt)
     fun onCurrencyChangeClicked() {
         inputMainPresenter.showSupportedCurrencies()
@@ -115,7 +127,6 @@ class InputMainFragment : BaseFragment, InputMainScreen {
     }
 
     override fun updateSelectedCurrency(currency: Currency?) {
-        // TODO textView is not inflated with Butterknife
-//        currencyTextView.text = currency?.currencyCode ?: "-"
+        currencyTextView.text = currency?.currencyCode ?: "-"
     }
 }

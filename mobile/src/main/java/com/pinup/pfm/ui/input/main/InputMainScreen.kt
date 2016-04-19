@@ -8,6 +8,16 @@ import java.util.*
  */
 interface InputMainScreen : BaseScreen {
 
+    /**
+     * Update the selected currency
+     * @param currency The new currency
+     */
     fun updateSelectedCurrency(currency: Currency?)
+
+    /**
+     * Show supported currencies
+     * @param selectedCurrency The currently selected currency - null if none is selected
+     * @param availableCurrencies The list of the available currencies
+     */
     fun showSupportedCurrencies(selectedCurrency: Currency?, availableCurrencies: List<Currency>)
 }
