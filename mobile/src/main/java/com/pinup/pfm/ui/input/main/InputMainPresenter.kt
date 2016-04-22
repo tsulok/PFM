@@ -2,7 +2,9 @@ package com.pinup.pfm.ui.input.main
 
 import com.orhanobut.logger.Logger
 import com.pinup.pfm.PFMApplication
+import com.pinup.pfm.interactor.category.CategoryInteractor
 import com.pinup.pfm.interactor.currency.CurrencyInteractor
+import com.pinup.pfm.interactor.transaction.TransactionInteractor
 import com.pinup.pfm.manager.CurrencyManager
 import com.pinup.pfm.model.input.KeyboardType
 import com.pinup.pfm.ui.core.view.BasePresenter
@@ -19,6 +21,8 @@ class InputMainPresenter : BasePresenter<InputMainScreen> {
     }
 
     @Inject lateinit var currencyInteractor: CurrencyInteractor
+    @Inject lateinit var categoryInteractor: CategoryInteractor
+    @Inject lateinit var transactionInteractor: TransactionInteractor
 
     var selectedCurrency: Currency?
     var keyboardType: KeyboardType = KeyboardType.Normal

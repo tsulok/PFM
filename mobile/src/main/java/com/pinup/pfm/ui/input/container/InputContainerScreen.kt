@@ -7,5 +7,18 @@ import com.pinup.pfm.ui.core.view.BaseScreen
  */
 interface InputContainerScreen : BaseScreen {
 
+    /**
+     * Navigates the screen to the charts screen
+     */
     fun navigateToCharts()
+
+    /**
+     * Navigate the screen to the settings
+     */
+    fun navigateToSettings()
+
+    /**
+     * Open transaction history
+     */
+    fun openTransactionHistory()
 }

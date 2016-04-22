@@ -89,7 +89,7 @@
                 style="@style/AppTheme.Input_Action_Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_action_history" />
+                android:src="@drawable/ic_action_date" />
 
         </LinearLayout>
 

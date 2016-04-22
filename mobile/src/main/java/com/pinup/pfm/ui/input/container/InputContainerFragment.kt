@@ -109,7 +109,19 @@ class InputContainerFragment : BaseFragment, InputContainerScreen {
         }
     }
 
+
+    //region Screen actions
     override fun navigateToCharts() {
         makeToast("Navigate to charts")
     }
+
+    override fun navigateToSettings() {
+
+    }
+
+    override fun openTransactionHistory() {
+
+    }
+
+    //endregion
 }
