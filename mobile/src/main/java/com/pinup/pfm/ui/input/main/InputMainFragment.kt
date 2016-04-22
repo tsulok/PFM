@@ -3,15 +3,16 @@ package com.pinup.pfm.ui.input.main
 import android.view.View
 import android.widget.TextView
 import butterknife.OnClick
+import com.orhanobut.logger.Logger
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
 import com.pinup.pfm.extensions.makeToast
 import com.pinup.pfm.extensions.replaceFragment
 import com.pinup.pfm.model.input.KeyboardAction
-import com.pinup.pfm.model.input.KeyboardType
 import com.pinup.pfm.ui.core.view.BaseFragment
 import com.pinup.pfm.ui.input.keyboard.KeyboardFragment
 import com.pinup.pfm.utils.helper.UIHelper
+import org.jetbrains.anko.support.v4.act
 import java.util.*
 import javax.inject.Inject
 
@@ -21,10 +22,6 @@ import javax.inject.Inject
 class InputMainFragment : BaseFragment, InputMainScreen {
 
     @Inject lateinit var inputMainPresenter: InputMainPresenter
-
-//    val nameTextView: TextView by bindView(R.id.inputNameTxt)
-//    val amountTextView: TextView by bindView(R.id.inputAmountTxt)
-//    val currencyTextView: TextView? by bindView(R.id.inputCurrencyTxtaasd)
 
     lateinit var nameTextView: TextView
     lateinit var amountTextView: TextView
@@ -51,7 +48,7 @@ class InputMainFragment : BaseFragment, InputMainScreen {
         }
 
 
-        keyboardFragment = KeyboardFragment.newInstance(KeyboardType.Normal)
+        keyboardFragment = KeyboardFragment.newInstance(inputMainPresenter.keyboardType)
 
         replaceFragment(childFragmentManager, R.id.keyboardContainer,
                 keyboardFragment, keyboardFragment.javaClass.canonicalName)
@@ -62,11 +59,16 @@ class InputMainFragment : BaseFragment, InputMainScreen {
     override fun initEventHandlers(view: View?) {
         keyboardFragment.onActionListener = object : KeyboardFragment.OnKeyboardActionListener {
             override fun onKeyboardValuePressed(value: Double) {
-                makeToast("Value: $value")
+                inputMainPresenter.addValue(value)
             }
 
             override fun onKeyboardActionPressed(action: KeyboardAction) {
                 makeToast("Action pressed")
+                when (action) {
+                    KeyboardAction.Delete -> inputMainPresenter.removeLastDigit()
+                    KeyboardAction.Dot -> inputMainPresenter.addDecimalPlace()
+                    else -> Logger.d("Nothing to do here")
+                }
             }
         }
     }
@@ -112,6 +114,7 @@ class InputMainFragment : BaseFragment, InputMainScreen {
         makeToast("Submit click")
     }
 
+    //region Screen implementations
     override fun showSupportedCurrencies(selectedCurrency: Currency?, availableCurrencies: List<Currency>) {
 
         val currentIndex = availableCurrencies.indexOf(selectedCurrency)
@@ -129,4 +132,10 @@ class InputMainFragment : BaseFragment, InputMainScreen {
     override fun updateSelectedCurrency(currency: Currency?) {
         currencyTextView.text = currency?.currencyCode ?: "-"
     }
+
+    override fun updateValue(value: String) {
+        amountTextView.text = value
+    }
+
+    //endregion
 }

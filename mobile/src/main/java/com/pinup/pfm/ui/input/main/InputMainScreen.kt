@@ -20,4 +20,9 @@ interface InputMainScreen : BaseScreen {
      * @param availableCurrencies The list of the available currencies
      */
     fun showSupportedCurrencies(selectedCurrency: Currency?, availableCurrencies: List<Currency>)
+
+    /**
+     * Update the value in a formatted currency
+     */
+    fun updateValue(value: String)
 }
