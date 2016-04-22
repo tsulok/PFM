@@ -26,7 +26,7 @@ class InputMainPresenter : BasePresenter<InputMainScreen> {
     var currentValueString: String = ""
 
     constructor() : super() {
-        PFMApplication.activityInjector?.inject(this)
+        PFMApplication.injector.inject(this)
 
         // Initially load the general saved one
         selectedCurrency = currencyInteractor.getSelectedCurrency()

@@ -30,7 +30,6 @@ class TestModule(private val context: Context) {
     @Singleton
     @Provides
     fun provideSharedPreferences(): SharedPreferences {
-        // TODO mock this
         return context.getSharedPreferences("PFMSharedPref_Test", Context.MODE_PRIVATE)
     }
 }

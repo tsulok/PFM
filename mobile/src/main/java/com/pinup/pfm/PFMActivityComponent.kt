@@ -29,7 +29,6 @@ interface PFMActivityComponent {
     fun inject(inputContainerFragment: InputContainerFragment): Unit
     fun inject(inputKeyboardFragment: KeyboardFragment): Unit
     fun inject(inputMainFragment: InputMainFragment): Unit
-    fun inject(inputMainPresenter: InputMainPresenter): Unit
 
     fun inject(categoryListFragment: CategoryListFragment): Unit
     fun inject(categoryListAdapter: CategoryListAdapter): Unit

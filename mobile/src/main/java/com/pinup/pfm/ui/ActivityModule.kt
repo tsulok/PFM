@@ -10,15 +10,12 @@ import com.pinup.pfm.ui.charts.ChartListFragment
 import com.pinup.pfm.ui.history.HistoryListFragment
 import com.pinup.pfm.ui.history.adapter.HistoryListAdapter
 import com.pinup.pfm.ui.input.container.InputContainerFragment
-import com.pinup.pfm.ui.input.container.InputContainerPresenter
 import com.pinup.pfm.ui.input.main.InputMainFragment
-import com.pinup.pfm.ui.input.main.InputMainPresenter
 import com.pinup.pfm.ui.main_navigator.MainNavigatorFragment
 import com.pinup.pfm.ui.main_navigator.adapter.MainNavigatorPagerAdapter
 import com.pinup.pfm.ui.settings.SettingsFragment
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 /**
  * DI modules for Activity
@@ -35,12 +32,6 @@ class ActivityModule(val activity: AppCompatActivity) {
     fun provideSupportFragmentManager(): FragmentManager {
         return activity.supportFragmentManager
     }
-
-//    @Singleton
-//    @Provides
-//    fun provideSharedPreferenceHelper(): SharedPreferencesHelper {
-//        return SharedPreferencesHelper(activity)
-//    }
 
     @Provides
     fun provideCategoryListFragment(): CategoryListFragment {
@@ -63,20 +54,8 @@ class ActivityModule(val activity: AppCompatActivity) {
     }
 
     @Provides
-    @Singleton
-    fun provideInputContainerPresenter(): InputContainerPresenter {
-        return InputContainerPresenter()
-    }
-
-    @Provides
     fun provideInputMainFragment(): InputMainFragment {
         return InputMainFragment()
-    }
-
-    @Provides
-    @Singleton
-    fun provideInputMainPresenter(): InputMainPresenter {
-        return InputMainPresenter()
     }
 
     @Provides

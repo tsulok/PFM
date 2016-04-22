@@ -21,7 +21,6 @@ import javax.inject.Inject
  */
 @RunWith(RobolectricDaggerTestRunner::class)
 @Config(constants = BuildConfig::class, sdk = intArrayOf(21))
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class CategoryTests : BaseTest {
 
     constructor()
@@ -40,7 +39,7 @@ class CategoryTests : BaseTest {
 
     // Check first if categories where created successfully
     @Test()
-    fun test0_categoriesCreated() {
+    fun test3categoriesCreated() {
         Assert.assertEquals("Non 3 items presented in the database", 3, categoryInteractor.listAllCategories().size)
     }
 

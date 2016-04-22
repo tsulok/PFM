@@ -37,6 +37,13 @@ class CurrencyInteractor {
         return Currency.getInstance(selectedCurrencyCode)
     }
 
+    /**
+     * Reset the saved currency
+     */
+    fun resetSavedCurrency() {
+        sharedPreferences.edit().remove(PREF_KEY_CURRENT_CURRENCY).apply()
+    }
+
     companion object {
         @JvmStatic val PREF_KEY_CURRENT_CURRENCY = "currentCurrency"
     }
