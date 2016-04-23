@@ -45,28 +45,24 @@
                     <Button
                         android:id="@+id/favouriteCategoryBtn1"
                         style="@style/AppTheme.Category_Button_Featured"
-                        android:clickable="true"
                         android:drawableTop="@drawable/ic_restaurant"
                         android:text="Example category" />
 
                     <Button
                         android:id="@+id/favouriteCategoryBtn2"
                         style="@style/AppTheme.Category_Button_Featured"
-                        android:clickable="true"
                         android:drawableTop="@drawable/ic_restaurant"
                         android:text="Example category" />
 
                     <Button
                         android:id="@+id/favouriteCategoryBtn3"
                         style="@style/AppTheme.Category_Button_Featured"
-                        android:clickable="true"
                         android:drawableTop="@drawable/ic_restaurant"
                         android:text="Example category" />
 
                     <ImageButton
                         android:id="@+id/favouriteCategoryBtnMore"
                         style="@style/AppTheme.Category_Button_Featured"
-                        android:clickable="true"
                         android:src="@drawable/ic_expand_less" />
 
                 </LinearLayout>
@@ -93,22 +89,45 @@
                 android:layout_weight="1"
                 android:background="#449900" />
 
-            <LinearLayout
+            <FrameLayout
                 android:id="@+id/historySlider"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/history.list.collapsed.height"
-                android:background="#00FF00"
-                android:clickable="true"
-                android:orientation="horizontal">
+                android:clickable="true">
 
-                <com.pinup.pfm.ui.widget.ExtendedTextView
-                    android:id="@+id/historyLabel"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="History" />
+                <ImageButton
+                    android:id="@+id/chartButton"
+                    style="@style/AppTheme.InputImageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/input.container.header.margin"
+                    android:clickable="true"
+                    android:padding="@dimen/default.padding"
+                    android:src="@drawable/ic_action_charts" />
 
-            </LinearLayout>
+                <ImageButton
+                    android:id="@+id/listHistoryButton"
+                    style="@style/AppTheme.InputImageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:clickable="true"
+                    android:padding="@dimen/default.padding"
+                    android:src="@drawable/ic_action_history" />
+
+                <ImageButton
+                    android:id="@+id/profileButton"
+                    style="@style/AppTheme.InputImageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginRight="@dimen/input.container.header.margin"
+                    android:clickable="true"
+                    android:padding="@dimen/default.padding"
+                    android:src="@drawable/ic_action_user" />
+
+            </FrameLayout>
 
         </LinearLayout>
 

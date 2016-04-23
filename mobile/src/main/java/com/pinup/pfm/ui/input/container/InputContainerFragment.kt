@@ -2,6 +2,7 @@ package com.pinup.pfm.ui.input.container
 
 import android.view.View
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import butterknife.Bind
@@ -15,6 +16,7 @@ import com.pinup.pfm.ui.category.CategoryListFragment
 import com.pinup.pfm.ui.core.view.BaseFragment
 import com.pinup.pfm.ui.history.HistoryListFragment
 import com.pinup.pfm.ui.input.main.InputMainFragment
+import com.pinup.pfm.ui.main_navigator.MainNavigatorFragment
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import javax.inject.Inject
 
@@ -34,7 +36,7 @@ class InputContainerFragment : BaseFragment, InputContainerScreen {
     @Bind(R.id.favouriteCategoryBtn2) lateinit var favCategoryBtn2: Button
     @Bind(R.id.favouriteCategoryBtn3) lateinit var favCategoryBtn3: Button
     @Bind(R.id.favouriteCategoryBtnMore) lateinit var favCategoryBtnMore: ImageButton
-    @Bind(R.id.historySlider) lateinit var historySliderView: LinearLayout
+    @Bind(R.id.historySlider) lateinit var historySliderView: FrameLayout
     @Bind(R.id.categorySlider) lateinit var categorySliderView: LinearLayout
 
     constructor() : super() {
@@ -109,14 +111,33 @@ class InputContainerFragment : BaseFragment, InputContainerScreen {
         }
     }
 
+    @OnClick(R.id.listHistoryButton)
+    fun listHistoryClicked() {
+
+        when (slidingPanelTop.panelState) {
+            SlidingUpPanelLayout.PanelState.COLLAPSED -> slidingPanelTop.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
+            SlidingUpPanelLayout.PanelState.EXPANDED -> slidingPanelTop.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+            else -> Logger.d("Invalid state")
+        }
+    }
+
+    @OnClick(R.id.chartButton)
+    fun openChartButtonClicked() {
+        containerPresenter.navigateToCharts()
+    }
+
+    @OnClick(R.id.profileButton)
+    fun onProfileButtonClicked() {
+        containerPresenter.navigateToSettings()
+    }
 
     //region Screen actions
     override fun navigateToCharts() {
-        makeToast("Navigate to charts")
+        (parentFragment as? MainNavigatorFragment)?.navigateToCharts()
     }
 
     override fun navigateToSettings() {
-
+        (parentFragment as? MainNavigatorFragment)?.navigateToSettings()
     }
 
     override fun openTransactionHistory() {

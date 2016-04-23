@@ -16,6 +16,7 @@ import com.pinup.pfm.ui.main_navigator.adapter.MainNavigatorPagerAdapter
 import com.pinup.pfm.ui.settings.SettingsFragment
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 /**
  * DI modules for Activity
@@ -34,6 +35,7 @@ class ActivityModule(val activity: AppCompatActivity) {
     }
 
     @Provides
+    @Singleton
     fun provideCategoryListFragment(): CategoryListFragment {
         return CategoryListFragment()
     }
@@ -44,41 +46,48 @@ class ActivityModule(val activity: AppCompatActivity) {
     }
 
     @Provides
+    @Singleton
     fun provideChartListFragment(): ChartListFragment {
         return ChartListFragment()
     }
 
     @Provides
+    @Singleton
     fun provideInputContainerFragment(): InputContainerFragment {
         return InputContainerFragment()
     }
 
     @Provides
+    @Singleton
     fun provideInputMainFragment(): InputMainFragment {
         return InputMainFragment()
     }
 
     @Provides
+    @Singleton
     fun provideMainNavigatorFragment(): MainNavigatorFragment {
         return MainNavigatorFragment()
     }
 
-    @Provides
-    fun provideMainNavigatorAdapter(fragmentManager: FragmentManager): MainNavigatorPagerAdapter {
-        return MainNavigatorPagerAdapter(fragmentManager)
-    }
+//    @Provides
+//    fun provideMainNavigatorAdapter(mainNavigatorFragment: MainNavigatorFragment): MainNavigatorPagerAdapter {
+//        return MainNavigatorPagerAdapter(mainNavigatorFragment.childFragmentManager)
+//    }
 
     @Provides
+    @Singleton
     fun provideTransactionHistoryListFragment(): HistoryListFragment {
         return HistoryListFragment()
     }
 
     @Provides
+    @Singleton
     fun provideTransactionHistoryAdapter(context: Context): HistoryListAdapter {
         return HistoryListAdapter(context)
     }
 
     @Provides
+    @Singleton
     fun provideSettingsFragment(): SettingsFragment {
         return SettingsFragment()
     }

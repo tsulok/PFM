@@ -1,5 +1,7 @@
 package com.pinup.pfm.ui.main_navigator
 
+import android.app.Activity
+import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.view.View
 import butterknife.Bind
@@ -15,7 +17,7 @@ import javax.inject.Inject
  */
 class MainNavigatorFragment : BaseFragment, MainNavigatorScreen {
 
-    @Inject lateinit var adapter: MainNavigatorPagerAdapter
+//    @Inject lateinit var adapter: MainNavigatorPagerAdapter
     @Bind(R.id.viewpager) lateinit var viewPager: ViewPager
 
     constructor() : super() {
@@ -27,7 +29,9 @@ class MainNavigatorFragment : BaseFragment, MainNavigatorScreen {
     }
 
     override fun initObjects(view: View?) {
-        viewPager.adapter = adapter
+        // TODO how to inject childFragmentManager with dagger to a desired fragment
+        viewPager.adapter = MainNavigatorPagerAdapter(childFragmentManager)
+//        viewPager.adapter = adapter
     }
 
     override fun initEventHandlers(view: View?) {
@@ -35,10 +39,12 @@ class MainNavigatorFragment : BaseFragment, MainNavigatorScreen {
     }
 
     override fun navigateToSettings() {
-
+        viewPager.setCurrentItem(
+                MainNavigatorPagerAdapter.MainPageType.Settings.position, true)
     }
 
     override fun navigateToCharts() {
-
+        viewPager.setCurrentItem(
+                MainNavigatorPagerAdapter.MainPageType.Chart.position, true)
     }
 }
