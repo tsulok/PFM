@@ -69,11 +69,6 @@ class ActivityModule(val activity: AppCompatActivity) {
         return MainNavigatorFragment()
     }
 
-//    @Provides
-//    fun provideMainNavigatorAdapter(mainNavigatorFragment: MainNavigatorFragment): MainNavigatorPagerAdapter {
-//        return MainNavigatorPagerAdapter(mainNavigatorFragment.childFragmentManager)
-//    }
-
     @Provides
     @Singleton
     fun provideTransactionHistoryListFragment(): HistoryListFragment {

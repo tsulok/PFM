@@ -7,6 +7,7 @@ import com.orhanobut.logger.Logger
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
 import com.pinup.pfm.interactor.category.CategoryInteractor
+import com.pinup.pfm.test.TestFragment
 import com.pinup.pfm.ui.core.view.BaseActivity
 import com.pinup.pfm.ui.main_navigator.MainNavigatorFragment
 import org.jetbrains.anko.find
@@ -23,10 +24,11 @@ class MainActivity : BaseActivity() {
         categoryInteractor.createTestData()
 
         setContentView(R.layout.activity_main)
-        val toolbar = find<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
+//        val toolbar = find<Toolbar>(R.id.toolbar)
+//        setSupportActionBar(toolbar)
 
         switchToFragment(mainNavigatorFragment)
+//        switchToFragment(TestFragment())
     }
 
     override fun injectActivityComponent() {
