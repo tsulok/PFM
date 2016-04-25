@@ -3,7 +3,7 @@ package com.pinup.pfm.ui.input.main
 import com.orhanobut.logger.Logger
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.interactor.category.CategoryInteractor
-import com.pinup.pfm.interactor.currency.CurrencyInteractor
+import com.pinup.pfm.interactor.utils.CurrencyInteractor
 import com.pinup.pfm.interactor.transaction.TransactionInteractor
 import com.pinup.pfm.manager.CurrencyManager
 import com.pinup.pfm.model.input.KeyboardType
@@ -18,6 +18,7 @@ class InputMainPresenter : BasePresenter<InputMainScreen> {
 
     companion object {
         @JvmStatic val TAG = InputMainPresenter::class.java.canonicalName
+        @JvmStatic val IMAGE_TRANSACTION_NAME = "transactionPicture"
     }
 
     @Inject lateinit var currencyInteractor: CurrencyInteractor

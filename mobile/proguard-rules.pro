@@ -15,3 +15,6 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+# Camera handling - https://github.com/commonsguy/cwac-cam2
+-keep class com.commonsware.cwac.** { *; }

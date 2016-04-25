@@ -10,6 +10,7 @@ import butterknife.OnClick
 import com.orhanobut.logger.Logger
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
+import com.pinup.pfm.extensions.getDrawableForName
 import com.pinup.pfm.extensions.makeToast
 import com.pinup.pfm.extensions.replaceFragment
 import com.pinup.pfm.ui.category.CategoryListFragment
@@ -55,6 +56,8 @@ class InputContainerFragment : BaseFragment, InputContainerScreen {
         slidingPanelBottom.setDragView(categorySliderView)
         slidingPanelTop.setDragView(historySliderView)
 
+        initFeaturedCategories()
+
         // Add the slider fragments
         replaceFragment(childFragmentManager, R.id.categoryListContainer,
             categoryListFragment, categoryListFragment.javaClass.canonicalName)
@@ -84,6 +87,21 @@ class InputContainerFragment : BaseFragment, InputContainerScreen {
     override fun onDestroyView() {
         super.onDestroyView()
         containerPresenter.unbind()
+    }
+
+    /**
+     * Initializes the featured categories
+     */
+    fun initFeaturedCategories() {
+        favCategoryBtn1.text = "Test category"
+        favCategoryBtn1.setCompoundDrawablesWithIntrinsicBounds(null, context.getDrawableForName("ic_category_health"), null, null)
+
+        favCategoryBtn2.text = "Test category"
+        favCategoryBtn2.setCompoundDrawablesWithIntrinsicBounds(null, context.getDrawableForName("ic_category_health"), null, null)
+
+        favCategoryBtn3.text = "Test category"
+        favCategoryBtn3.setCompoundDrawablesWithIntrinsicBounds(null, context.getDrawableForName("ic_category_health"), null, null)
+
     }
 
     @OnClick(R.id.favouriteCategoryBtn1)

@@ -175,7 +175,7 @@ class CategoryInteractor {
             val children = HashSet<Category>()
 
             for (i in 1..13) {
-                val child = createOrUpdateCategory("$i", "Teszt $i", i, "ic_restaurant")
+                val child = createOrUpdateCategory("$i", "Teszt $i", i, "ic_category_health")
                 children.add(child)
             }
 

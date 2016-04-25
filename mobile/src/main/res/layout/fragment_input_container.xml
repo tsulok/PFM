@@ -37,7 +37,7 @@
                     android:id="@+id/categorySlider"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/category.filter.collapsed.height"
-                    android:background="#FF0000"
+                    android:background="@color/input.category.background"
                     android:clickable="true"
                     android:orientation="horizontal"
                     android:weightSum="8">
@@ -71,7 +71,7 @@
                     android:id="@+id/categoryListContainer"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#aa5544" />
+                    android:background="@color/input.category.background" />
 
             </LinearLayout>
 

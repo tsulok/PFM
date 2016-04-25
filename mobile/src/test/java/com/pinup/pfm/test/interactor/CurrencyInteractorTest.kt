@@ -3,7 +3,7 @@ package com.pinup.pfm.test.interactor
 import com.pinup.pfm.BuildConfig
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.TestComponent
-import com.pinup.pfm.interactor.currency.CurrencyInteractor
+import com.pinup.pfm.interactor.utils.CurrencyInteractor
 import com.pinup.pfm.test.utils.BaseTest
 import com.pinup.pfm.test.utils.RobolectricDaggerTestRunner
 import org.junit.Assert

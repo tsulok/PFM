@@ -1,4 +1,4 @@
-package com.pinup.pfm.interactor.currency
+package com.pinup.pfm.interactor.utils
 
 import android.content.SharedPreferences
 import com.pinup.pfm.PFMApplication

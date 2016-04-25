@@ -114,7 +114,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:weightSum="4">
+            android:weightSum="4"
+            android:background="@color/input.keyboard.background">
 
             <FrameLayout
                 android:layout_width="match_parent"

@@ -3,4 +3,7 @@
     <color name="colorPrimary">#b4831f</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    
+    <color name="input.category.background">#f0e6d2</color>
+    <color name="input.keyboard.background">#f9f5ed</color>
 </resources>
