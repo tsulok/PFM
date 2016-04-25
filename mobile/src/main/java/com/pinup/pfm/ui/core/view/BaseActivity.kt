@@ -1,5 +1,6 @@
 package com.pinup.pfm.ui.core.view
 
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
@@ -30,6 +31,10 @@ abstract class BaseActivity : AppCompatActivity() {
      * @param finishCurrentFragment Flag indicates whether the current can be finished or not
      */
     fun switchToFragment(fragment: Fragment, finishCurrentFragment: Boolean = false) {
+        switchToFragmentWithTransition(fragment, finishCurrentFragment)
+    }
+
+    fun switchToFragmentWithTransition(fragment: Fragment, finishCurrentFragment: Boolean = false, vararg sharedTransactionElementWrapper: SharedTransactionElementWrapper) {
         val fm = supportFragmentManager
         val tag = fragment.javaClass.name
 
@@ -43,11 +48,21 @@ abstract class BaseActivity : AppCompatActivity() {
             val transaction = fm.beginTransaction()
             transaction.replace(getActivityMainContainer(), fragment, tag)
             transaction.addToBackStack(tag)
+
+            // Add shared transitions if target is above lollipop and have any
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                for (wrapper in sharedTransactionElementWrapper) {
+                    transaction.addSharedElement(
+                            wrapper.view,
+                            wrapper.identifier)
+                }
+            }
+
             transaction.commitAllowingStateLoss()
         }
 
         // TODO set title
-//        setTitleByTag(fragment.tag, null)
+        //        setTitleByTag(fragment.tag, null)
     }
 
     /**

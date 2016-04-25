@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:text="Expense name"
                 android:textSize="@dimen/input.action.name.text.size"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/inputAmountTxt"
@@ -74,21 +74,21 @@
                 style="@style/AppTheme.Input_Action_Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_action_location" />
+                android:src="@drawable/selector_action_location" />
 
             <ImageButton
                 android:id="@+id/inputActionDescription"
                 style="@style/AppTheme.Input_Action_Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_action_notes" />
+                android:src="@drawable/selector_action_description" />
 
             <ImageButton
                 android:id="@+id/inputActionDate"
                 style="@style/AppTheme.Input_Action_Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_action_date" />
+                android:src="@drawable/selector_action_date" />
 
         </LinearLayout>
 
@@ -112,9 +112,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@color/input.keyboard.background"
             android:orientation="vertical"
-            android:weightSum="4"
-            android:background="@color/input.keyboard.background">
+            android:weightSum="4">
 
             <FrameLayout
                 android:layout_width="match_parent"

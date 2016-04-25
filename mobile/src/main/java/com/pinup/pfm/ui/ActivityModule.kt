@@ -9,6 +9,7 @@ import com.pinup.pfm.ui.category.adapter.CategoryListAdapter
 import com.pinup.pfm.ui.charts.ChartListFragment
 import com.pinup.pfm.ui.history.HistoryListFragment
 import com.pinup.pfm.ui.history.adapter.HistoryListAdapter
+import com.pinup.pfm.ui.input.action.InputActionContainerFragment
 import com.pinup.pfm.ui.input.container.InputContainerFragment
 import com.pinup.pfm.ui.input.main.InputMainFragment
 import com.pinup.pfm.ui.main_navigator.MainNavigatorFragment
@@ -61,6 +62,12 @@ class ActivityModule(val activity: AppCompatActivity) {
     @Singleton
     fun provideInputMainFragment(): InputMainFragment {
         return InputMainFragment()
+    }
+
+    @Provides
+    @Singleton
+    fun provideInputActionContainerFragment(): InputActionContainerFragment {
+        return InputActionContainerFragment()
     }
 
     @Provides

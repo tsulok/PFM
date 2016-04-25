@@ -2,13 +2,12 @@ package com.pinup.pfm.ui.input.main
 
 import android.app.Activity
 import android.content.Intent
-import android.transition.Scene
+import android.os.Build
+import android.transition.TransitionInflater
 import android.view.View
+import android.widget.ImageButton
 import android.widget.TextView
 import butterknife.OnClick
-import com.commonsware.cwac.cam2.CameraActivity
-import com.commonsware.cwac.cam2.Facing
-import com.commonsware.cwac.cam2.ZoomStyle
 import com.orhanobut.logger.Logger
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
@@ -16,10 +15,14 @@ import com.pinup.pfm.extensions.makeToast
 import com.pinup.pfm.extensions.replaceFragment
 import com.pinup.pfm.interactor.utils.StorageInteractor
 import com.pinup.pfm.model.input.KeyboardAction
+import com.pinup.pfm.model.input.OpenAction
+import com.pinup.pfm.ui.MainActivity
 import com.pinup.pfm.ui.core.view.BaseFragment
+import com.pinup.pfm.ui.core.view.SharedTransactionElementWrapper
+import com.pinup.pfm.ui.input.action.InputActionContainerFragment
 import com.pinup.pfm.ui.input.keyboard.KeyboardFragment
+import com.pinup.pfm.utils.SharedViewConstants
 import com.pinup.pfm.utils.helper.UIHelper
-import org.jetbrains.anko.support.v4.act
 import java.util.*
 import javax.inject.Inject
 
@@ -34,10 +37,15 @@ class InputMainFragment : BaseFragment, InputMainScreen {
 
     @Inject lateinit var inputMainPresenter: InputMainPresenter
     @Inject lateinit var storageInteractor: StorageInteractor
+    @Inject lateinit var inputActionContainerFragment: InputActionContainerFragment
 
     lateinit var nameTextView: TextView
     lateinit var amountTextView: TextView
     lateinit var currencyTextView: TextView
+    lateinit var actionPhotoButton: ImageButton
+    lateinit var actionLocationButton: ImageButton
+    lateinit var actionDescriptionButton: ImageButton
+    lateinit var actionDateButton: ImageButton
 
     //    val nameTextView: TextView by bindView(R.id.inputNameTxt)
     //    val amountTextView: TextView by bindView(R.id.inputAmountTxt)
@@ -61,6 +69,10 @@ class InputMainFragment : BaseFragment, InputMainScreen {
             currencyTextView = view.findViewById(R.id.inputCurrencyTxt) as TextView
             amountTextView = view.findViewById(R.id.inputAmountTxt) as TextView
             nameTextView = view.findViewById(R.id.inputNameTxt) as TextView
+            actionPhotoButton = view.findViewById(R.id.inputActionPhoto) as ImageButton
+            actionLocationButton = view.findViewById(R.id.inputActionLocation) as ImageButton
+            actionDescriptionButton = view.findViewById(R.id.inputActionDescription) as ImageButton
+            actionDateButton = view.findViewById(R.id.inputActionDate) as ImageButton
         }
 
         keyboardFragment = KeyboardFragment.newInstance(inputMainPresenter.keyboardType)
@@ -69,6 +81,7 @@ class InputMainFragment : BaseFragment, InputMainScreen {
                 keyboardFragment, keyboardFragment.javaClass.canonicalName)
 
         inputMainPresenter.loadCurrentlySelectedCurrency()
+        initSharedTransitions()
     }
 
     override fun initEventHandlers(view: View?) {
@@ -101,40 +114,41 @@ class InputMainFragment : BaseFragment, InputMainScreen {
 
     @OnClick(R.id.inputActionPhoto)
     fun onPhotoClicked() {
-        storageInteractor.createFile(InputMainPresenter.IMAGE_TRANSACTION_NAME)
-        val file = storageInteractor.getFile(InputMainPresenter.IMAGE_TRANSACTION_NAME)
-
-        if (file == null) {
-            Logger.e("File couldn't be created in order to take picture")
-            return
-        }
-
-        val cameraIntent = CameraActivity
-                .IntentBuilder(activity)
-                .skipConfirm()
-                .to(file)
-                .facing(Facing.BACK)
-                .debug()
-                .zoomStyle(ZoomStyle.PINCH)
-                .updateMediaStore()
-                .build()
-
-        startActivityForResult(cameraIntent, REQUEST_CODE_CAMERA)
+        openActionPage(OpenAction.Photo)
+//        storageInteractor.createFile(InputMainPresenter.IMAGE_TRANSACTION_NAME)
+//        val file = storageInteractor.getFile(InputMainPresenter.IMAGE_TRANSACTION_NAME)
+//
+//        if (file == null) {
+//            Logger.e("File couldn't be created in order to take picture")
+//            return
+//        }
+//
+//        val cameraIntent = CameraActivity
+//                .IntentBuilder(activity)
+//                .skipConfirm()
+//                .to(file)
+//                .facing(Facing.BACK)
+//                .debug()
+//                .zoomStyle(ZoomStyle.PINCH)
+//                .updateMediaStore()
+//                .build()
+//
+//        startActivityForResult(cameraIntent, REQUEST_CODE_CAMERA)
     }
 
     @OnClick(R.id.inputActionDate)
-    fun onHistoryClicked() {
-        makeToast("Date click")
+    fun onDateClicked() {
+        openActionPage(OpenAction.Date)
     }
 
     @OnClick(R.id.inputActionLocation)
     fun onLocationClicked() {
-        makeToast("Location click")
+        openActionPage(OpenAction.Location)
     }
 
     @OnClick(R.id.inputActionDescription)
     fun onDescriptionClicked() {
-        makeToast("Description click")
+        openActionPage(OpenAction.Description)
     }
 
     @OnClick(R.id.inputKeyboardChangeBtn)
@@ -161,6 +175,49 @@ class InputMainFragment : BaseFragment, InputMainScreen {
 
     private fun handleImageTaken() {
         makeToast("Success")
+    }
+
+    /**
+     * Init views for shared transition
+     */
+    private fun initSharedTransitions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            amountTextView.transitionName = SharedViewConstants.KEY_INPUT_AMOUNT_TXT
+            actionPhotoButton.transitionName = SharedViewConstants.KEY_INPUT_ACTION_PHOTO_BUTTON
+            actionDateButton.transitionName = SharedViewConstants.KEY_INPUT_ACTION_DATE_BUTTON
+            actionDescriptionButton.transitionName = SharedViewConstants.KEY_INPUT_ACTION_DESCRIPTION_BUTTON
+            actionLocationButton.transitionName = SharedViewConstants.KEY_INPUT_ACTION_LOCATION_BUTTON
+
+            // Init fragment transitions for action page
+            val transitionInflater = TransitionInflater.from(activity)
+            sharedElementReturnTransition = transitionInflater.inflateTransition(R.transition.all_transition)
+            exitTransition = transitionInflater.inflateTransition(android.R.transition.fade)
+            enterTransition = transitionInflater.inflateTransition(android.R.transition.fade)
+
+            inputActionContainerFragment.sharedElementEnterTransition = transitionInflater.inflateTransition(R.transition.all_transition)
+            inputActionContainerFragment.enterTransition = transitionInflater.inflateTransition(android.R.transition.fade)
+            inputActionContainerFragment.exitTransition = transitionInflater.inflateTransition(android.R.transition.fade)
+
+            inputActionContainerFragment.allowEnterTransitionOverlap = false
+            inputActionContainerFragment.allowReturnTransitionOverlap = false
+        }
+    }
+
+    /**
+     * Open action page
+     */
+    private fun openActionPage(openAction: OpenAction) {
+        inputActionContainerFragment.openAction = openAction
+
+        (activity as MainActivity).switchToFragmentWithTransition(
+                inputActionContainerFragment,
+                false,
+                SharedTransactionElementWrapper(amountTextView, SharedViewConstants.KEY_INPUT_AMOUNT_TXT),
+                SharedTransactionElementWrapper(actionPhotoButton, SharedViewConstants.KEY_INPUT_ACTION_PHOTO_BUTTON),
+                SharedTransactionElementWrapper(actionLocationButton, SharedViewConstants.KEY_INPUT_ACTION_LOCATION_BUTTON),
+                SharedTransactionElementWrapper(actionDescriptionButton, SharedViewConstants.KEY_INPUT_ACTION_DESCRIPTION_BUTTON),
+                SharedTransactionElementWrapper(actionDateButton, SharedViewConstants.KEY_INPUT_ACTION_DATE_BUTTON)
+        )
     }
 
     //region Screen implementations
