@@ -10,14 +10,19 @@ import butterknife.OnClick
 import butterknife.bindView
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
+import com.pinup.pfm.extensions.replaceFragment
 import com.pinup.pfm.model.input.OpenAction
 import com.pinup.pfm.ui.core.view.BaseFragment
+import com.pinup.pfm.ui.input.action.camera.InputActionCameraFragment
 import com.pinup.pfm.utils.SharedViewConstants
+import javax.inject.Inject
 
 /**
  * Input action fragment
  */
-class InputActionContainerFragment : BaseFragment {
+class InputActionContainerFragment : BaseFragment, InputActionContainerScreen {
+
+    @Inject lateinit var inputActionCameraFragment: InputActionCameraFragment
 
     @Bind(R.id.inputAmountTxt) lateinit var amountText: TextView
     @Bind(R.id.inputActionPhoto) lateinit var actionPhotoButton: ImageButton
@@ -26,6 +31,7 @@ class InputActionContainerFragment : BaseFragment {
     @Bind(R.id.inputActionDescription) lateinit var actionDesciptionButton: ImageButton
 
     lateinit var openAction: OpenAction
+    var isPageOpening = true
 
     constructor() : super() {
         PFMApplication.activityInjector?.inject(this)
@@ -36,8 +42,8 @@ class InputActionContainerFragment : BaseFragment {
     }
 
     override fun initObjects(view: View?) {
-        highlightSelectedItem()
         initSharedTransitionElements()
+        changeToSelectedAction(openAction)
     }
 
     override fun initEventHandlers(view: View?) {
@@ -55,12 +61,35 @@ class InputActionContainerFragment : BaseFragment {
     }
 
     private fun highlightSelectedItem() {
+        actionPhotoButton.isSelected = false
+        actionDateButton.isSelected = false
+        actionDesciptionButton.isSelected = false
+        actionLocationButton.isSelected = false
         when (openAction) {
             OpenAction.Photo -> actionPhotoButton.isSelected = true
             OpenAction.Date -> actionDateButton.isSelected = true
             OpenAction.Description -> actionDesciptionButton.isSelected = true
             OpenAction.Location -> actionLocationButton.isSelected = true
         }
+    }
+
+    private fun changeToSelectedAction(openAction: OpenAction) {
+
+        // Do nothing if the open action is currently selected
+        if (this.openAction == openAction && !isPageOpening) {
+            return
+        }
+
+        this.openAction = openAction
+        highlightSelectedItem()
+
+        var openableFragment: BaseFragment
+        when (openAction) {
+            OpenAction.Photo -> openableFragment = inputActionCameraFragment
+            else -> openableFragment = inputActionCameraFragment
+        }
+
+        replaceFragment(childFragmentManager, R.id.inputActionContainer, openableFragment)
     }
 
     @OnClick(R.id.closeBtn)

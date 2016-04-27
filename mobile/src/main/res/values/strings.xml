@@ -2,6 +2,7 @@
     <string name="app_name">PFM</string>
     <string name="action_settings">Settings</string>
 
+    <string name="input.action.camera.no.photo">Currently no photo is associated to this transaction. Create a new one, or choose from your latest.</string>
     <string name="input.currency">Currency</string>
     <string name="input.currency.chooser">Choose your currency</string>
 

@@ -1,5 +1,6 @@
 package com.pinup.pfm.presenter
 
+import com.pinup.pfm.ui.input.action.camera.InputActionCameraPresenter
 import com.pinup.pfm.ui.input.container.InputContainerPresenter
 import com.pinup.pfm.ui.input.main.InputMainPresenter
 import dagger.Module
@@ -22,5 +23,11 @@ class PresenterModule {
     @Singleton
     fun provideInputContainerPresenter(): InputContainerPresenter {
         return InputContainerPresenter()
+    }
+
+    @Provides
+    @Singleton
+    fun provideInputActionCameraPresenter(): InputActionCameraPresenter {
+        return InputActionCameraPresenter()
     }
 }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/actionCameraTransactionPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.pinup.pfm.ui.widget.ExtendedTextView
+            android:id="@+id/actionCameraTransactionNoPhotoTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/default.margin"
+            android:gravity="center"
+            android:text="@string/input.action.camera.no.photo"
+            android:textSize="@dimen/general.text.size.18" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/input.action.bottom.container.height"
+        android:background="@color/input.action.camera.action.background">
+
+        <ImageButton
+            android:id="@+id/actionCameraExistingPhoto"
+            style="@style/AppTheme.InputImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/default.margin"
+            android:src="@drawable/ic_photo_album" />
+
+        <ImageButton
+            android:id="@+id/actionCameraTakePhoto"
+            style="@style/AppTheme.InputImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_camera" />
+
+    </FrameLayout>
+
+</LinearLayout>

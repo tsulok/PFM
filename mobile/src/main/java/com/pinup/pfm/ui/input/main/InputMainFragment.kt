@@ -31,12 +31,7 @@ import javax.inject.Inject
  */
 class InputMainFragment : BaseFragment, InputMainScreen {
 
-    companion object {
-        @JvmStatic val REQUEST_CODE_CAMERA = 1001
-    }
-
     @Inject lateinit var inputMainPresenter: InputMainPresenter
-    @Inject lateinit var storageInteractor: StorageInteractor
     @Inject lateinit var inputActionContainerFragment: InputActionContainerFragment
 
     lateinit var nameTextView: TextView
@@ -115,25 +110,6 @@ class InputMainFragment : BaseFragment, InputMainScreen {
     @OnClick(R.id.inputActionPhoto)
     fun onPhotoClicked() {
         openActionPage(OpenAction.Photo)
-//        storageInteractor.createFile(InputMainPresenter.IMAGE_TRANSACTION_NAME)
-//        val file = storageInteractor.getFile(InputMainPresenter.IMAGE_TRANSACTION_NAME)
-//
-//        if (file == null) {
-//            Logger.e("File couldn't be created in order to take picture")
-//            return
-//        }
-//
-//        val cameraIntent = CameraActivity
-//                .IntentBuilder(activity)
-//                .skipConfirm()
-//                .to(file)
-//                .facing(Facing.BACK)
-//                .debug()
-//                .zoomStyle(ZoomStyle.PINCH)
-//                .updateMediaStore()
-//                .build()
-//
-//        startActivityForResult(cameraIntent, REQUEST_CODE_CAMERA)
     }
 
     @OnClick(R.id.inputActionDate)
@@ -159,22 +135,6 @@ class InputMainFragment : BaseFragment, InputMainScreen {
     @OnClick(R.id.inputSubmitBtn)
     fun onSubmitClicked() {
         makeToast("Submit click")
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == Activity.RESULT_OK) {
-            Logger.d("InputMain activity result succeeded")
-            when (requestCode) {
-                REQUEST_CODE_CAMERA -> handleImageTaken()
-                else -> super.onActivityResult(requestCode, resultCode, data)
-            }
-        } else {
-            Logger.e("InputMain activity result failed")
-        }
-    }
-
-    private fun handleImageTaken() {
-        makeToast("Success")
     }
 
     /**

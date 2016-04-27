@@ -18,7 +18,6 @@ class InputMainPresenter : BasePresenter<InputMainScreen> {
 
     companion object {
         @JvmStatic val TAG = InputMainPresenter::class.java.canonicalName
-        @JvmStatic val IMAGE_TRANSACTION_NAME = "transactionPicture"
     }
 
     @Inject lateinit var currencyInteractor: CurrencyInteractor

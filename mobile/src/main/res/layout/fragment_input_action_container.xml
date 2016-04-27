@@ -60,15 +60,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <ImageButton
-            android:id="@+id/closeBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_margin="@dimen/default.margin"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_close"
-            android:tint="@android:color/black" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_height="@dimen/input.action.bottom.container.height">
+
+            <ImageButton
+                android:id="@+id/closeBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginRight="@dimen/default.margin"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_close"
+                android:tint="@android:color/black" />
+
+        </FrameLayout>
 
     </FrameLayout>
 
