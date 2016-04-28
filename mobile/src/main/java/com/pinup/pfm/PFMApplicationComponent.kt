@@ -12,6 +12,8 @@ import com.pinup.pfm.ui.ActivityModule
 import com.pinup.pfm.ui.MainActivity
 import com.pinup.pfm.ui.UIModule
 import com.pinup.pfm.ui.core.view.BaseFragment
+import com.pinup.pfm.ui.input.action.InputActionContainerPresenter
+import com.pinup.pfm.ui.input.action.camera.InputActionCameraPresenter
 import com.pinup.pfm.ui.input.container.InputContainerPresenter
 import com.pinup.pfm.ui.input.main.InputMainPresenter
 import dagger.Component
@@ -32,6 +34,8 @@ interface PFMApplicationComponent {
     fun inject(transactionInteractor: TransactionInteractor): Unit
     fun inject(storageInteractor: StorageInteractor): Unit
 
+    fun inject(inputActionContainerPresenter: InputActionContainerPresenter): Unit
+    fun inject(inputActionCameraPresenter: InputActionCameraPresenter): Unit
     fun inject(inputContainerPresenter: InputContainerPresenter): Unit
     fun inject(inputMainPresenter: InputMainPresenter): Unit
 }

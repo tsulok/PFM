@@ -48,6 +48,24 @@ class StorageInteractor {
         val storage = getAvailableStorage(forceUseInternalStorage)
         return storage.getFile(fileType.dirName, name)
     }
+
+    /**
+     * Deletes a file
+     * @param name
+     * @param fileType
+     */
+    fun deleteFile(name: String, fileType: FileType = FileType.Image) {
+        val storage = getAvailableStorage(forceUseInternalStorage)
+        storage.deleteFile(fileType.dirName, name)
+    }
+
+    /**
+     * Move file to an other destination
+     */
+    fun moveFile(originalFile: File, name: String, fileType: FileType = FileType.Image) {
+        val storage = getAvailableStorage(forceUseInternalStorage)
+        storage.move(originalFile, fileType.dirName, name)
+    }
 }
 
 enum class FileType(val dirName: String) {
