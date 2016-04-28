@@ -7,8 +7,8 @@ import com.pinup.pfm.model.input.KeyboardType
 import com.pinup.pfm.test.utils.BaseTest
 import com.pinup.pfm.test.utils.RobolectricDaggerTestRunner
 import com.pinup.pfm.ui.input.main.InputMainPresenter
-import junit.framework.Assert
 import org.apache.maven.artifact.ant.shaded.StringUtils
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

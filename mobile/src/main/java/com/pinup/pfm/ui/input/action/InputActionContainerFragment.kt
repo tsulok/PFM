@@ -23,15 +23,13 @@ import javax.inject.Inject
 class InputActionContainerFragment : BaseFragment, InputActionContainerScreen {
 
     @Inject lateinit var inputActionCameraFragment: InputActionCameraFragment
+    @Inject lateinit var inputActionContainerPresenter: InputActionContainerPresenter
 
-    @Bind(R.id.inputAmountTxt) lateinit var amountText: TextView
-    @Bind(R.id.inputActionPhoto) lateinit var actionPhotoButton: ImageButton
-    @Bind(R.id.inputActionLocation) lateinit var actionLocationButton: ImageButton
-    @Bind(R.id.inputActionDate) lateinit var actionDateButton: ImageButton
-    @Bind(R.id.inputActionDescription) lateinit var actionDesciptionButton: ImageButton
-
-    lateinit var openAction: OpenAction
-    var isPageOpening = true
+    @Bind(R.id.inputActionContainerAmountTxt) lateinit var amountText: TextView
+    @Bind(R.id.inputActionContainerPhoto) lateinit var actionPhotoButton: ImageButton
+    @Bind(R.id.inputActionContainerLocation) lateinit var actionLocationButton: ImageButton
+    @Bind(R.id.inputActionContainerDate) lateinit var actionDateButton: ImageButton
+    @Bind(R.id.inputActionContainerDescription) lateinit var actionDesciptionButton: ImageButton
 
     constructor() : super() {
         PFMApplication.activityInjector?.inject(this)
@@ -42,14 +40,23 @@ class InputActionContainerFragment : BaseFragment, InputActionContainerScreen {
     }
 
     override fun initObjects(view: View?) {
+        inputActionContainerPresenter.bind(this)
         initSharedTransitionElements()
-        changeToSelectedAction(openAction)
+        inputActionContainerPresenter.openAction(inputActionContainerPresenter.currentOpenAction)
     }
 
     override fun initEventHandlers(view: View?) {
 
     }
 
+    override fun onDestroyView() {
+        inputActionContainerPresenter.unbind()
+        super.onDestroyView()
+    }
+
+    /**
+     * Initialize shared transition elements
+     */
     private fun initSharedTransitionElements() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             amountText.transitionName = SharedViewConstants.KEY_INPUT_AMOUNT_TXT
@@ -60,12 +67,15 @@ class InputActionContainerFragment : BaseFragment, InputActionContainerScreen {
         }
     }
 
+    /**
+     * Highlight items according opened action
+     */
     private fun highlightSelectedItem() {
         actionPhotoButton.isSelected = false
         actionDateButton.isSelected = false
         actionDesciptionButton.isSelected = false
         actionLocationButton.isSelected = false
-        when (openAction) {
+        when (inputActionContainerPresenter.currentOpenAction) {
             OpenAction.Photo -> actionPhotoButton.isSelected = true
             OpenAction.Date -> actionDateButton.isSelected = true
             OpenAction.Description -> actionDesciptionButton.isSelected = true
@@ -73,14 +83,44 @@ class InputActionContainerFragment : BaseFragment, InputActionContainerScreen {
         }
     }
 
-    private fun changeToSelectedAction(openAction: OpenAction) {
+    /**
+     * Set up initial open action
+     */
+    fun setupInitialOpenAction(openAction: OpenAction) {
+        inputActionContainerPresenter.currentOpenAction = openAction
+    }
 
-        // Do nothing if the open action is currently selected
-        if (this.openAction == openAction && !isPageOpening) {
-            return
-        }
+    @OnClick(R.id.closeBtn)
+    fun onCloseClicked() {
+        finish()
+    }
 
-        this.openAction = openAction
+    @OnClick(R.id.inputActionContainerPhoto)
+    fun onPhotoClicked() {
+        changeToSelectedAction(OpenAction.Photo)
+    }
+
+    @OnClick(R.id.inputActionContainerDescription)
+    fun onDescriptionClicked() {
+        changeToSelectedAction(OpenAction.Description)
+    }
+
+    @OnClick(R.id.inputActionContainerDate)
+    fun onDateClicked() {
+        changeToSelectedAction(OpenAction.Date)
+    }
+
+    @OnClick(R.id.inputActionContainerLocation)
+    fun onLocationClicked() {
+        changeToSelectedAction(OpenAction.Location)
+    }
+
+    //region Screen actions
+    /**
+     * Load container fragment with the appropriate action
+     * @param openAction action to be opened
+     */
+    override fun changeToSelectedAction(openAction: OpenAction) {
         highlightSelectedItem()
 
         var openableFragment: BaseFragment
@@ -91,9 +131,5 @@ class InputActionContainerFragment : BaseFragment, InputActionContainerScreen {
 
         replaceFragment(childFragmentManager, R.id.inputActionContainer, openableFragment)
     }
-
-    @OnClick(R.id.closeBtn)
-    fun onCloseClicked() {
-        finish()
-    }
+    //endregion
 }

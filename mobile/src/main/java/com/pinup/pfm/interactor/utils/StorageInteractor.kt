@@ -15,7 +15,7 @@ class StorageInteractor {
 
     @Inject lateinit var context: Context
 
-    val forceUseInternalStorage: Boolean = true
+    val forceUseInternalStorage: Boolean = false
 
     constructor() {
         PFMApplication.injector.inject(this)

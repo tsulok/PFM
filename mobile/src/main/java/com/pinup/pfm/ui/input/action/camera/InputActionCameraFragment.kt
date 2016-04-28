@@ -9,6 +9,7 @@ import butterknife.Bind
 import butterknife.OnClick
 import com.commonsware.cwac.cam2.CameraActivity
 import com.commonsware.cwac.cam2.Facing
+import com.commonsware.cwac.cam2.FlashMode
 import com.commonsware.cwac.cam2.ZoomStyle
 import com.orhanobut.logger.Logger
 import com.pinup.pfm.PFMApplication
@@ -86,13 +87,14 @@ class InputActionCameraFragment: BaseFragment {
                 .debug()
                 .zoomStyle(ZoomStyle.PINCH)
                 .updateMediaStore()
+                .flashMode(FlashMode.AUTO)
                 .build()
 
         startActivityForResult(cameraIntent, REQUEST_CODE_CAMERA)
     }
 
     @OnClick(R.id.actionCameraExistingPhoto)
-    fun existingPhotoChooserClicke() {
+    fun existingPhotoChooserClicked() {
         makeToast("Gallery chooser will be here")
     }
 }

@@ -1,7 +1,5 @@
 package com.pinup.pfm.ui.input.main
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Build
 import android.transition.TransitionInflater
 import android.view.View
@@ -13,7 +11,6 @@ import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
 import com.pinup.pfm.extensions.makeToast
 import com.pinup.pfm.extensions.replaceFragment
-import com.pinup.pfm.interactor.utils.StorageInteractor
 import com.pinup.pfm.model.input.KeyboardAction
 import com.pinup.pfm.model.input.OpenAction
 import com.pinup.pfm.ui.MainActivity
@@ -64,10 +61,10 @@ class InputMainFragment : BaseFragment, InputMainScreen {
             currencyTextView = view.findViewById(R.id.inputCurrencyTxt) as TextView
             amountTextView = view.findViewById(R.id.inputAmountTxt) as TextView
             nameTextView = view.findViewById(R.id.inputNameTxt) as TextView
-            actionPhotoButton = view.findViewById(R.id.inputActionPhoto) as ImageButton
-            actionLocationButton = view.findViewById(R.id.inputActionLocation) as ImageButton
-            actionDescriptionButton = view.findViewById(R.id.inputActionDescription) as ImageButton
-            actionDateButton = view.findViewById(R.id.inputActionDate) as ImageButton
+            actionPhotoButton = view.findViewById(R.id.inputActionPhotoNew) as ImageButton
+            actionLocationButton = view.findViewById(R.id.inputActionLocationNew) as ImageButton
+            actionDescriptionButton = view.findViewById(R.id.inputActionDescriptionNew) as ImageButton
+            actionDateButton = view.findViewById(R.id.inputActionDateNew) as ImageButton
         }
 
         keyboardFragment = KeyboardFragment.newInstance(inputMainPresenter.keyboardType)
@@ -107,23 +104,23 @@ class InputMainFragment : BaseFragment, InputMainScreen {
         inputMainPresenter.showSupportedCurrencies()
     }
 
-    @OnClick(R.id.inputActionPhoto)
-    fun onPhotoClicked() {
+    @OnClick(R.id.inputActionPhotoNew)
+    fun onPhotoImageClicked() {
         openActionPage(OpenAction.Photo)
     }
 
-    @OnClick(R.id.inputActionDate)
-    fun onDateClicked() {
+    @OnClick(R.id.inputActionDateNew)
+    fun onDateImageClicked() {
         openActionPage(OpenAction.Date)
     }
 
-    @OnClick(R.id.inputActionLocation)
-    fun onLocationClicked() {
+    @OnClick(R.id.inputActionLocationNew)
+    fun onLocationImageClicked() {
         openActionPage(OpenAction.Location)
     }
 
-    @OnClick(R.id.inputActionDescription)
-    fun onDescriptionClicked() {
+    @OnClick(R.id.inputActionDescriptionNew)
+    fun onDescriptionImageClicked() {
         openActionPage(OpenAction.Description)
     }
 
@@ -167,7 +164,7 @@ class InputMainFragment : BaseFragment, InputMainScreen {
      * Open action page
      */
     private fun openActionPage(openAction: OpenAction) {
-        inputActionContainerFragment.openAction = openAction
+        inputActionContainerFragment.setupInitialOpenAction(openAction)
 
         (activity as MainActivity).switchToFragmentWithTransition(
                 inputActionContainerFragment,

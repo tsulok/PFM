@@ -60,36 +60,36 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:orientation="horizontal"
-            android:weightSum="8">
+            android:weightSum="8"
+            android:clickable="true">
 
             <ImageButton
-                android:id="@+id/inputActionPhoto"
+                android:id="@+id/inputActionPhotoNew"
                 style="@style/AppTheme.Input_Action_Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/selector_action_photo" />
 
             <ImageButton
-                android:id="@+id/inputActionLocation"
+                android:id="@+id/inputActionLocationNew"
                 style="@style/AppTheme.Input_Action_Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/selector_action_location" />
 
             <ImageButton
-                android:id="@+id/inputActionDescription"
+                android:id="@+id/inputActionDescriptionNew"
                 style="@style/AppTheme.Input_Action_Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/selector_action_description" />
 
             <ImageButton
-                android:id="@+id/inputActionDate"
+                android:id="@+id/inputActionDateNew"
                 style="@style/AppTheme.Input_Action_Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/selector_action_date" />
-
         </LinearLayout>
 
     </FrameLayout>
