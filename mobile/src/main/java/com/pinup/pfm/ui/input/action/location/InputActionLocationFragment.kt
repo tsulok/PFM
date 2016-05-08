@@ -2,8 +2,12 @@ package com.pinup.pfm.ui.input.action.location
 
 import android.view.View
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import com.pinup.pfm.PFMApplication
+import com.pinup.pfm.R
 import com.pinup.pfm.ui.core.view.BaseMapFragment
 import pl.charmas.android.reactivelocation.ReactiveLocationProvider
 import javax.inject.Inject
@@ -17,6 +21,8 @@ class InputActionLocationFragment : BaseMapFragment, InputActionLocationScreen {
 
     @Inject lateinit var inputActionLocationPresenter: InputActionLocationPresenter
     @Inject lateinit var locationProvider: ReactiveLocationProvider
+
+    private lateinit var userPositionMarker: Marker
 
     constructor() : super() {
         PFMApplication.activityInjector?.inject(this)
@@ -35,15 +41,48 @@ class InputActionLocationFragment : BaseMapFragment, InputActionLocationScreen {
     override fun onMapInitialized() {
         locationProvider.lastKnownLocation.subscribe { location ->
             inputActionLocationPresenter.updateUserLocation(
-                    LatLng(location.latitude, location.longitude), true)
+                    LatLng(location.latitude, location.longitude))
+
+            inputActionLocationPresenter.initDefaultMarker()
         }
+
+        googleMap.setOnMarkerDragListener(customMarkerDragListener)
     }
 
     //region Screen actions
-    override fun updateUserLocation(latLng: LatLng, shouldUpdateCameraToPosition: Boolean) {
-        if (shouldUpdateCameraToPosition) {
-            googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM_LEVEL))
-        }
+    override fun moveToUserLocation(latLng: LatLng) {
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM_LEVEL))
+    }
+
+    override fun moveToUserMarkerLocation(latLng: LatLng) {
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM_LEVEL))
+    }
+
+    override fun createMarkerInLocation(latLng: LatLng) {
+        googleMap.clear()
+        userPositionMarker = googleMap.addMarker(
+                MarkerOptions()
+                        .draggable(true)
+                        .position(latLng)
+                        .title(getString(R.string.input_action_location_marker_title)))
     }
     //endregion
+
+    /**
+     * Custom listener for handling marker dragging events
+     */
+    private val customMarkerDragListener = object : GoogleMap.OnMarkerDragListener {
+
+        override fun onMarkerDragEnd(marker: Marker?) {
+            inputActionLocationPresenter.updateUserMarkerPosition(marker?.position)
+        }
+
+        override fun onMarkerDrag(marker: Marker?) {
+
+        }
+
+        override fun onMarkerDragStart(marker: Marker?) {
+
+        }
+    }
 }

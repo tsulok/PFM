@@ -8,5 +8,9 @@ import com.pinup.pfm.ui.core.view.BaseScreen
  */
 interface InputActionLocationScreen : BaseScreen {
 
-    fun updateUserLocation(latLng: LatLng, shouldUpdateCameraToPosition: Boolean)
+    fun moveToUserLocation(latLng: LatLng)
+
+    fun moveToUserMarkerLocation(latLng: LatLng)
+
+    fun createMarkerInLocation(latLng: LatLng)
 }

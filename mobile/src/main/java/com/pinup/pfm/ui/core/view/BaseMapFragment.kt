@@ -12,7 +12,7 @@ import com.pinup.pfm.R
 abstract class BaseMapFragment: BaseFragment(), OnMapReadyCallback {
 
     protected lateinit var supportMapFragment: SupportMapFragment
-    protected var googleMap: GoogleMap? = null
+    protected lateinit var googleMap: GoogleMap
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_map
@@ -32,6 +32,11 @@ abstract class BaseMapFragment: BaseFragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(map: GoogleMap?) {
+
+        if (map == null) {
+            throw IllegalArgumentException("Map is not initialized unfortunately")
+        }
+
         this.googleMap = map
         setUpMapSettings()
 
@@ -43,19 +48,19 @@ abstract class BaseMapFragment: BaseFragment(), OnMapReadyCallback {
      * Setup the basic map settings
      */
     protected fun setUpMapSettings() {
-        googleMap?.mapType = GoogleMap.MAP_TYPE_NORMAL
-        googleMap?.isMyLocationEnabled = true
+        googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
+        googleMap.isMyLocationEnabled = true
 
         // Set ui settings
-        val settings = googleMap?.uiSettings
-        settings?.isMapToolbarEnabled = true // Enable marker click navigation
+        val settings = googleMap.uiSettings
+        settings.isMapToolbarEnabled = true // Enable marker click navigation
         // Enable additional gestures
-        settings?.isScrollGesturesEnabled = true
-        settings?.isTiltGesturesEnabled = true
-        settings?.isRotateGesturesEnabled = true
-        settings?.isZoomGesturesEnabled = true
-        settings?.isZoomControlsEnabled = true
-        settings?.isMyLocationButtonEnabled = true
+        settings.isScrollGesturesEnabled = true
+        settings.isTiltGesturesEnabled = true
+        settings.isRotateGesturesEnabled = true
+        settings.isZoomGesturesEnabled = true
+        settings.isZoomControlsEnabled = true
+        settings.isMyLocationButtonEnabled = true
     }
 
     protected abstract fun onMapInitialized()
