@@ -97,22 +97,22 @@ class InputActionContainerFragment : BaseFragment, InputActionContainerScreen {
 
     @OnClick(R.id.inputActionContainerPhoto)
     fun onPhotoClicked() {
-        changeToSelectedAction(OpenAction.Photo)
+        inputActionContainerPresenter.openAction(OpenAction.Photo)
     }
 
     @OnClick(R.id.inputActionContainerDescription)
     fun onDescriptionClicked() {
-        changeToSelectedAction(OpenAction.Description)
+        inputActionContainerPresenter.openAction(OpenAction.Description)
     }
 
     @OnClick(R.id.inputActionContainerDate)
     fun onDateClicked() {
-        changeToSelectedAction(OpenAction.Date)
+        inputActionContainerPresenter.openAction(OpenAction.Date)
     }
 
     @OnClick(R.id.inputActionContainerLocation)
     fun onLocationClicked() {
-        changeToSelectedAction(OpenAction.Location)
+        inputActionContainerPresenter.openAction(OpenAction.Location)
     }
 
     //region Screen actions
