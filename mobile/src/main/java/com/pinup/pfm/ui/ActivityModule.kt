@@ -11,6 +11,9 @@ import com.pinup.pfm.ui.history.HistoryListFragment
 import com.pinup.pfm.ui.history.adapter.HistoryListAdapter
 import com.pinup.pfm.ui.input.action.InputActionContainerFragment
 import com.pinup.pfm.ui.input.action.camera.InputActionCameraFragment
+import com.pinup.pfm.ui.input.action.date.InputActionDateFragment
+import com.pinup.pfm.ui.input.action.description.InputActionDescriptionFragment
+import com.pinup.pfm.ui.input.action.location.InputActionLocationFragment
 import com.pinup.pfm.ui.input.container.InputContainerFragment
 import com.pinup.pfm.ui.input.main.InputMainFragment
 import com.pinup.pfm.ui.main_navigator.MainNavigatorFragment
@@ -75,6 +78,24 @@ class ActivityModule(val activity: AppCompatActivity) {
     @Singleton
     fun provideInputActionCameraFragment(): InputActionCameraFragment {
         return InputActionCameraFragment()
+    }
+
+    @Provides
+    @Singleton
+    fun provideInputActionDescriptionFragment(): InputActionDescriptionFragment {
+        return InputActionDescriptionFragment()
+    }
+
+    @Provides
+    @Singleton
+    fun provideInputActionDateFragment(): InputActionDateFragment {
+        return InputActionDateFragment()
+    }
+
+    @Provides
+    @Singleton
+    fun provideInputActionLocationFragment(): InputActionLocationFragment {
+        return InputActionLocationFragment()
     }
 
     @Provides

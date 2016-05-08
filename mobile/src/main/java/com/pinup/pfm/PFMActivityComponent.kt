@@ -9,6 +9,9 @@ import com.pinup.pfm.ui.history.HistoryListFragment
 import com.pinup.pfm.ui.history.adapter.HistoryListAdapter
 import com.pinup.pfm.ui.input.action.InputActionContainerFragment
 import com.pinup.pfm.ui.input.action.camera.InputActionCameraFragment
+import com.pinup.pfm.ui.input.action.date.InputActionDateFragment
+import com.pinup.pfm.ui.input.action.description.InputActionDescriptionFragment
+import com.pinup.pfm.ui.input.action.location.InputActionLocationFragment
 import com.pinup.pfm.ui.input.container.InputContainerFragment
 import com.pinup.pfm.ui.input.keyboard.KeyboardFragment
 import com.pinup.pfm.ui.input.main.InputMainFragment
@@ -34,6 +37,9 @@ interface PFMActivityComponent {
 
     fun inject(inputActionContainerFragment: InputActionContainerFragment): Unit
     fun inject(inputActionCameraFragment: InputActionCameraFragment): Unit
+    fun inject(inputActionDateFragment: InputActionDateFragment): Unit
+    fun inject(inputActionDescriptionFragment: InputActionDescriptionFragment): Unit
+    fun inject(inputActionLocationFragment: InputActionLocationFragment): Unit
 
     fun inject(categoryListFragment: CategoryListFragment): Unit
     fun inject(categoryListAdapter: CategoryListAdapter): Unit

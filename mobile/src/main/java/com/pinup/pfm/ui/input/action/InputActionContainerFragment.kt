@@ -14,6 +14,9 @@ import com.pinup.pfm.extensions.replaceFragment
 import com.pinup.pfm.model.input.OpenAction
 import com.pinup.pfm.ui.core.view.BaseFragment
 import com.pinup.pfm.ui.input.action.camera.InputActionCameraFragment
+import com.pinup.pfm.ui.input.action.date.InputActionDateFragment
+import com.pinup.pfm.ui.input.action.description.InputActionDescriptionFragment
+import com.pinup.pfm.ui.input.action.location.InputActionLocationFragment
 import com.pinup.pfm.utils.SharedViewConstants
 import javax.inject.Inject
 
@@ -23,6 +26,9 @@ import javax.inject.Inject
 class InputActionContainerFragment : BaseFragment, InputActionContainerScreen {
 
     @Inject lateinit var inputActionCameraFragment: InputActionCameraFragment
+    @Inject lateinit var inputActionLocationFragment: InputActionLocationFragment
+    @Inject lateinit var inputActionDescriptionFragment: InputActionDescriptionFragment
+    @Inject lateinit var inputActionDateFragment: InputActionDateFragment
     @Inject lateinit var inputActionContainerPresenter: InputActionContainerPresenter
 
     @Bind(R.id.inputActionContainerAmountTxt) lateinit var amountText: TextView
@@ -126,7 +132,9 @@ class InputActionContainerFragment : BaseFragment, InputActionContainerScreen {
         var openableFragment: BaseFragment
         when (openAction) {
             OpenAction.Photo -> openableFragment = inputActionCameraFragment
-            else -> openableFragment = inputActionCameraFragment
+            OpenAction.Description -> openableFragment = inputActionDescriptionFragment
+            OpenAction.Location -> openableFragment = inputActionLocationFragment
+            OpenAction.Date -> openableFragment = inputActionDateFragment
         }
 
         replaceFragment(childFragmentManager, R.id.inputActionContainer, openableFragment)
