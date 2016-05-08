@@ -21,6 +21,7 @@ import com.pinup.pfm.ui.main_navigator.adapter.MainNavigatorPagerAdapter
 import com.pinup.pfm.ui.settings.SettingsFragment
 import dagger.Module
 import dagger.Provides
+import pl.charmas.android.reactivelocation.ReactiveLocationProvider
 import javax.inject.Singleton
 
 /**
@@ -32,6 +33,12 @@ class ActivityModule(val activity: AppCompatActivity) {
     @Provides
     fun provideActivity(): Activity {
         return activity
+    }
+
+    @Singleton
+    @Provides
+    fun provideReactiveLocationProvider(context: Context): ReactiveLocationProvider {
+        return ReactiveLocationProvider(context)
     }
 
     @Provides

@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.res.Resources
 import dagger.Module
 import dagger.Provides
+import pl.charmas.android.reactivelocation.ReactiveLocationProvider
+import javax.inject.Singleton
 
 /**
  * DI modules for UI

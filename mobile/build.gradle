@@ -45,10 +45,14 @@ dependencies {
     compile "com.google.android.gms:play-services-wearable:$playServicesVersion"
     compile "com.google.android.gms:play-services-location:$playServicesVersion"
 
+    // ReactiveX
+    compile 'io.reactivex:rxandroid:1.0.1'
+    compile 'io.reactivex:rxjava:1.0.16'
+    compile 'pl.charmas.android:android-reactive-location:0.8@aar'
+
     // Kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-
 
     // network communication
     compile 'com.squareup.retrofit2:retrofit:2.0.0'
