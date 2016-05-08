@@ -28,6 +28,10 @@
         <activity
             android:name="com.commonsware.cwac.cam2.CameraActivity"
             android:theme="@style/AppTheme" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/key.google.api"/>
     </application>
 
 </manifest>
