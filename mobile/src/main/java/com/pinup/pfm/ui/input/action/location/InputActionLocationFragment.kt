@@ -17,7 +17,7 @@ import javax.inject.Inject
  */
 class InputActionLocationFragment : BaseMapFragment, InputActionLocationScreen {
 
-    val DEFAULT_ZOOM_LEVEL: Float = 14.0f
+    val DEFAULT_ZOOM_LEVEL: Float = 16.0f
 
     @Inject lateinit var inputActionLocationPresenter: InputActionLocationPresenter
     @Inject lateinit var locationProvider: ReactiveLocationProvider
@@ -51,7 +51,7 @@ class InputActionLocationFragment : BaseMapFragment, InputActionLocationScreen {
 
     //region Screen actions
     override fun moveToUserLocation(latLng: LatLng) {
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM_LEVEL))
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM_LEVEL))
     }
 
     override fun moveToUserMarkerLocation(latLng: LatLng) {
@@ -65,6 +65,7 @@ class InputActionLocationFragment : BaseMapFragment, InputActionLocationScreen {
                         .draggable(true)
                         .position(latLng)
                         .title(getString(R.string.input_action_location_marker_title)))
+        inputActionLocationPresenter.updateUserMarkerPosition(latLng)
     }
     //endregion
 
