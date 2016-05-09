@@ -72,10 +72,10 @@ class TransactionTests : BaseTest {
     fun testUpdateAmount() {
         Assert.assertNotNull("Transaction 1 is null", transaction)
 
-        transactionInteractor.updateTransactionAmount(transaction, 500.0, "USD")
+        transactionInteractor.updateTransactionAmount(transaction, 500.0, Currency.getInstance(Locale.US))
 
         Assert.assertEquals("Amount miss match", 500.0, transaction.amount, 1.0)
-        Assert.assertEquals("Currency miss match", "USD", transaction.currency)
+        Assert.assertEquals("Currency miss match", Currency.getInstance(Locale.US).currencyCode, transaction.currency)
     }
 
     @Test

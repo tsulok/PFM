@@ -59,13 +59,16 @@ class TransactionInteractor {
      * @param category The category of the transaction
      */
     fun createTransaction(name: String, amount: Double, currency: String,
-                          category: Category): Transaction {
+                          category: Category?): Transaction {
 
         var transaction = Transaction(UUID.randomUUID().toString())
         transaction.name = name
         transaction.amount = amount
         transaction.currency = currency
-        transaction.category = category
+
+        if (category != null) {
+            transaction.category = category
+        }
         transaction.date = Date() // Created now
         transaction.lastImageModifyDate = Date(0) // No image associated yet
         transaction.lastImageSyncDate = Date(0) // No sync happened yet
@@ -153,9 +156,9 @@ class TransactionInteractor {
      * @param amount The new amount
      * @param currency The new currency
      */
-    fun updateTransactionAmount(transaction: Transaction, amount: Double, currency: String) {
+    fun updateTransactionAmount(transaction: Transaction, amount: Double, currency: Currency?) {
         transaction.amount = amount
-        transaction.currency = currency
+        transaction.currency = currency?.currencyCode
         transaction.lastModifyDate = Date()
         daoSession.transactionDao.update(transaction)
     }
@@ -198,7 +201,7 @@ class TransactionInteractor {
      * @param transaction The stored transaction
      * @param category The new category
      */
-    fun updateTransactionCategory(transaction: Transaction, category: Category) {
+    fun updateTransactionCategory(transaction: Transaction, category: Category?) {
         transaction.category = category
         transaction.lastModifyDate = Date()
         daoSession.transactionDao.update(transaction)

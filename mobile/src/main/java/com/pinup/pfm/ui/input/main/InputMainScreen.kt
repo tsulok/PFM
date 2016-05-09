@@ -25,4 +25,19 @@ interface InputMainScreen : BaseScreen {
      * Update the value in a formatted currency
      */
     fun updateValue(value: String)
+
+    /**
+     * Shows the missing argument before the transaction could be saved
+     */
+    fun showMissingTransactionArgument(message: String)
+
+    /**
+     * Transaction save succeeded
+     */
+    fun transactionSaved()
+
+    /**
+     * Transaction save failed
+     */
+    fun transactionSaveFailed()
 }

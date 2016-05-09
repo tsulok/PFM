@@ -129,7 +129,7 @@ class InputMainFragment : BaseFragment, InputMainScreen {
 
     @OnClick(R.id.inputSubmitBtn)
     fun onSubmitClicked() {
-        makeToast("Submit click")
+        inputMainPresenter.saveTransaction()
     }
 
     /**
@@ -196,6 +196,21 @@ class InputMainFragment : BaseFragment, InputMainScreen {
 
     override fun updateValue(value: String) {
         amountTextView.text = value
+    }
+
+    override fun showMissingTransactionArgument(message: String) {
+        makeToast(message)
+    }
+
+    override fun transactionSaved() {
+        makeToast("Transaction saved")
+        nameTextView.text = ""
+        amountTextView.text = "0"
+        inputMainPresenter.reset()
+    }
+
+    override fun transactionSaveFailed() {
+        makeToast("Transaction save failed")
     }
 
     //endregion

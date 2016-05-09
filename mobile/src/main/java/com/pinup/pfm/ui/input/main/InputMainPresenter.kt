@@ -1,7 +1,9 @@
 package com.pinup.pfm.ui.input.main
 
+import android.content.res.Resources
 import com.orhanobut.logger.Logger
 import com.pinup.pfm.PFMApplication
+import com.pinup.pfm.R
 import com.pinup.pfm.interactor.category.CategoryInteractor
 import com.pinup.pfm.interactor.transaction.CurrentTransactionInteractor
 import com.pinup.pfm.interactor.utils.CurrencyInteractor
@@ -25,6 +27,7 @@ class InputMainPresenter : BasePresenter<InputMainScreen> {
     @Inject lateinit var categoryInteractor: CategoryInteractor
     @Inject lateinit var transactionInteractor: TransactionInteractor
     @Inject lateinit var currentTransactionInteractor: CurrentTransactionInteractor
+//    @Inject lateinit var resources: Resources
 
     var selectedCurrency: Currency?
     var keyboardType: KeyboardType = KeyboardType.Normal
@@ -108,5 +111,32 @@ class InputMainPresenter : BasePresenter<InputMainScreen> {
         currentValueString = currentValueString.substring(0, currentValueString.length - 1)
         currentTransactionInteractor.transactionCurrentValueText = currentValueString
         screen?.updateValue(currentTransactionInteractor.formatValue())
+    }
+
+    /**
+     * Save the transaction
+     */
+    fun saveTransaction() {
+        if (currentValueString.isEmpty()) {
+            screen?.showMissingTransactionArgument("Amount is missing")
+            return
+        }
+        if (selectedCurrency == null) {
+            screen?.showMissingTransactionArgument("Currency is missing")
+            return
+        }
+
+        val isTransactionSaved = currentTransactionInteractor.saveTransaction()
+
+        if (isTransactionSaved) {
+            screen?.transactionSaved()
+        } else {
+            screen?.transactionSaveFailed()
+        }
+    }
+
+    fun reset() {
+        currentValueString = "0"
+        currentValue = 0.0
     }
 }
