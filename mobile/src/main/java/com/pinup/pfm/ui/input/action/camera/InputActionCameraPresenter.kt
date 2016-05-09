@@ -2,6 +2,7 @@ package com.pinup.pfm.ui.input.action.camera
 
 import com.orhanobut.logger.Logger
 import com.pinup.pfm.PFMApplication
+import com.pinup.pfm.interactor.transaction.CurrentTransactionInteractor
 import com.pinup.pfm.interactor.utils.StorageInteractor
 import com.pinup.pfm.ui.core.view.BasePresenter
 import javax.inject.Inject
@@ -17,9 +18,20 @@ class InputActionCameraPresenter : BasePresenter<InputActionCameraScreen> {
     }
 
     @Inject lateinit var storageInteractor: StorageInteractor
+    @Inject lateinit var currentTransactionInteractor: CurrentTransactionInteractor
 
     constructor() : super() {
         PFMApplication.injector.inject(this)
+    }
+
+    /**
+     * Update the image if any
+     */
+    fun updateImage() {
+        val file = currentTransactionInteractor.transactionImageFile
+        if (file != null) {
+            screen?.imageCaptureSucceeded(file)
+        }
     }
 
     /**
@@ -46,9 +58,11 @@ class InputActionCameraPresenter : BasePresenter<InputActionCameraScreen> {
         val file = storageInteractor.getFile(InputActionCameraPresenter.IMAGE_TMP_TRANSACTION_NAME)
         if (file == null) {
             screen?.imageCaptureFailed()
+            currentTransactionInteractor.transactionImageFile = null
             return
         }
 
         screen?.imageCaptureSucceeded(file)
+        currentTransactionInteractor.transactionImageFile = file
     }
 }

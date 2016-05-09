@@ -39,10 +39,6 @@ class InputMainFragment : BaseFragment, InputMainScreen {
     lateinit var actionDescriptionButton: ImageButton
     lateinit var actionDateButton: ImageButton
 
-    //    val nameTextView: TextView by bindView(R.id.inputNameTxt)
-    //    val amountTextView: TextView by bindView(R.id.inputAmountTxt)
-    //    val currencyTextView: TextView by bindView(R.id.inputCurrencyTxt)
-
     lateinit var keyboardFragment: KeyboardFragment
 
     constructor() : super() {
@@ -74,6 +70,8 @@ class InputMainFragment : BaseFragment, InputMainScreen {
 
         inputMainPresenter.loadCurrentlySelectedCurrency()
         initSharedTransitions()
+
+        inputMainPresenter.loadCurrentValue()
     }
 
     override fun initEventHandlers(view: View?) {

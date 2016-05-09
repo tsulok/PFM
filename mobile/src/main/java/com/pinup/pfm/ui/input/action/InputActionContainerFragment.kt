@@ -1,8 +1,10 @@
 package com.pinup.pfm.ui.input.action
 
+import android.app.DatePickerDialog
 import android.os.Build
 import android.view.View
 import android.widget.Button
+import android.widget.DatePicker
 import android.widget.ImageButton
 import android.widget.TextView
 import butterknife.Bind
@@ -11,11 +13,14 @@ import butterknife.bindView
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
 import com.pinup.pfm.extensions.replaceFragment
+import com.pinup.pfm.interactor.transaction.CurrentTransactionInteractor
 import com.pinup.pfm.model.input.OpenAction
 import com.pinup.pfm.ui.core.view.BaseFragment
+import com.pinup.pfm.ui.core.view.DatePickerDialogFragment
 import com.pinup.pfm.ui.input.action.camera.InputActionCameraFragment
 import com.pinup.pfm.ui.input.action.date.InputActionDateFragment
 import com.pinup.pfm.ui.input.action.description.InputActionDescriptionFragment
+import com.pinup.pfm.ui.input.action.description.InputActionDescriptionPresenter
 import com.pinup.pfm.ui.input.action.location.InputActionLocationFragment
 import com.pinup.pfm.utils.SharedViewConstants
 import javax.inject.Inject
@@ -49,6 +54,8 @@ class InputActionContainerFragment : BaseFragment, InputActionContainerScreen {
         inputActionContainerPresenter.bind(this)
         initSharedTransitionElements()
         inputActionContainerPresenter.openAction(inputActionContainerPresenter.currentOpenAction)
+
+        amountText.text = inputActionContainerPresenter.getFormattedAmountText()
     }
 
     override fun initEventHandlers(view: View?) {
@@ -135,6 +142,7 @@ class InputActionContainerFragment : BaseFragment, InputActionContainerScreen {
             OpenAction.Description -> openableFragment = inputActionDescriptionFragment
             OpenAction.Location -> openableFragment = inputActionLocationFragment
             OpenAction.Date -> openableFragment = inputActionDateFragment
+
         }
 
         replaceFragment(childFragmentManager, R.id.inputActionContainer, openableFragment)

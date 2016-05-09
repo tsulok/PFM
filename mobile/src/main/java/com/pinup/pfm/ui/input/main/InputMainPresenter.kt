@@ -3,6 +3,7 @@ package com.pinup.pfm.ui.input.main
 import com.orhanobut.logger.Logger
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.interactor.category.CategoryInteractor
+import com.pinup.pfm.interactor.transaction.CurrentTransactionInteractor
 import com.pinup.pfm.interactor.utils.CurrencyInteractor
 import com.pinup.pfm.interactor.transaction.TransactionInteractor
 import com.pinup.pfm.manager.CurrencyManager
@@ -23,6 +24,7 @@ class InputMainPresenter : BasePresenter<InputMainScreen> {
     @Inject lateinit var currencyInteractor: CurrencyInteractor
     @Inject lateinit var categoryInteractor: CategoryInteractor
     @Inject lateinit var transactionInteractor: TransactionInteractor
+    @Inject lateinit var currentTransactionInteractor: CurrentTransactionInteractor
 
     var selectedCurrency: Currency?
     var keyboardType: KeyboardType = KeyboardType.Normal
@@ -34,6 +36,10 @@ class InputMainPresenter : BasePresenter<InputMainScreen> {
 
         // Initially load the general saved one
         selectedCurrency = currencyInteractor.getSelectedCurrency()
+    }
+
+    fun loadCurrentValue() {
+        screen?.updateValue(currentTransactionInteractor.formatValue())
     }
 
     /**
@@ -49,7 +55,8 @@ class InputMainPresenter : BasePresenter<InputMainScreen> {
      */
     fun updateSelectedCurrency(currency: Currency) {
         selectedCurrency = currency
-        screen?.updateSelectedCurrency(currency)
+        currentTransactionInteractor.transactionCurrency = selectedCurrency
+        loadCurrentlySelectedCurrency()
     }
 
     /**
@@ -60,19 +67,6 @@ class InputMainPresenter : BasePresenter<InputMainScreen> {
                 selectedCurrency,
                 CurrencyManager.instance.getAvailableCurrencies().sortedBy { p -> p.currencyCode }
         )
-    }
-
-    private fun formatValue(): String {
-        when (keyboardType) {
-            KeyboardType.Normal -> {
-                if (currentValueString.length == 0) {
-                    return "0"
-                }
-                return currentValueString
-            }
-            else -> Logger.t(TAG).i("Non supported keyboard type")
-        }
-        return currentValue.toString()
     }
 
     /**
@@ -87,7 +81,8 @@ class InputMainPresenter : BasePresenter<InputMainScreen> {
             }
             else -> Logger.t(TAG).i("Non supported keyboard type")
         }
-        screen?.updateValue(formatValue())
+        currentTransactionInteractor.transactionCurrentValueText = currentValueString
+        screen?.updateValue(currentTransactionInteractor.formatValue())
     }
 
     /**
@@ -96,7 +91,8 @@ class InputMainPresenter : BasePresenter<InputMainScreen> {
     fun addDecimalPlace() {
         if (!currentValueString.contains(".")) {
             currentValueString += "."
-            screen?.updateValue(formatValue())
+            currentTransactionInteractor.transactionCurrentValueText = currentValueString
+            screen?.updateValue(currentTransactionInteractor.formatValue())
         }
     }
 
@@ -110,6 +106,7 @@ class InputMainPresenter : BasePresenter<InputMainScreen> {
         }
 
         currentValueString = currentValueString.substring(0, currentValueString.length - 1)
-        screen?.updateValue(formatValue())
+        currentTransactionInteractor.transactionCurrentValueText = currentValueString
+        screen?.updateValue(currentTransactionInteractor.formatValue())
     }
 }

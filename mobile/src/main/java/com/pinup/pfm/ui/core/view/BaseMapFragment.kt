@@ -47,7 +47,7 @@ abstract class BaseMapFragment: BaseFragment(), OnMapReadyCallback {
     /**
      * Setup the basic map settings
      */
-    protected fun setUpMapSettings() {
+    open protected fun setUpMapSettings() {
         googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
         googleMap.isMyLocationEnabled = true
 

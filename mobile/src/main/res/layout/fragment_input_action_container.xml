@@ -19,7 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:orientation="horizontal"
-        android:weightSum="8">
+        android:weightSum="8"
+        android:layout_marginBottom="@dimen/default.margin">
 
         <ImageButton
             android:id="@+id/inputActionContainerPhoto"
@@ -76,8 +77,7 @@
                 android:layout_gravity="end|center_vertical"
                 android:layout_marginRight="@dimen/default.margin"
                 android:background="@android:color/transparent"
-                android:src="@drawable/ic_close"
-                android:tint="@android:color/black" />
+                android:src="@drawable/ic_action_close" />
 
         </FrameLayout>
 

@@ -36,25 +36,21 @@ class PresenterModule {
     }
 
     @Provides
-    @Singleton
     fun provideInputActionCameraPresenter(): InputActionCameraPresenter {
         return InputActionCameraPresenter()
     }
 
     @Provides
-    @Singleton
     fun provideInputActionLocationPresenter(): InputActionLocationPresenter {
         return InputActionLocationPresenter()
     }
 
     @Provides
-    @Singleton
     fun provideInputActionDescriptionPresenter(): InputActionDescriptionPresenter {
         return InputActionDescriptionPresenter()
     }
 
     @Provides
-    @Singleton
     fun provideInputActionDatePresenter(): InputActionDatePresenter {
         return InputActionDatePresenter()
     }

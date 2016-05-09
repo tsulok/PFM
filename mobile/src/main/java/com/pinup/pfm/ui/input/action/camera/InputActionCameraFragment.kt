@@ -45,6 +45,7 @@ class InputActionCameraFragment: BaseFragment, InputActionCameraScreen {
 
     override fun initObjects(view: View?) {
         inputActionCameraPresenter.bind(this)
+        inputActionCameraPresenter.updateImage()
     }
 
     override fun initEventHandlers(view: View?) {

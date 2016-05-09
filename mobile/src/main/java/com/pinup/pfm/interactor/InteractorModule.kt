@@ -1,6 +1,7 @@
 package com.pinup.pfm.interactor
 
 import com.pinup.pfm.interactor.category.CategoryInteractor
+import com.pinup.pfm.interactor.transaction.CurrentTransactionInteractor
 import com.pinup.pfm.interactor.utils.CurrencyInteractor
 import com.pinup.pfm.interactor.transaction.TransactionInteractor
 import com.pinup.pfm.interactor.utils.StorageInteractor
@@ -24,6 +25,12 @@ class InteractorModule {
     @Provides
     fun provideTransactionInteractor(): TransactionInteractor {
         return TransactionInteractor()
+    }
+
+    @Singleton
+    @Provides
+    fun provideCurrentTransactionInteractor(): CurrentTransactionInteractor {
+        return CurrentTransactionInteractor()
     }
 
     @Singleton

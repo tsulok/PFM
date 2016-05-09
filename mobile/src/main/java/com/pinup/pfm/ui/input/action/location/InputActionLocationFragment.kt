@@ -49,6 +49,12 @@ class InputActionLocationFragment : BaseMapFragment, InputActionLocationScreen {
         googleMap.setOnMarkerDragListener(customMarkerDragListener)
     }
 
+    override fun setUpMapSettings() {
+        super.setUpMapSettings()
+        val settings = googleMap.uiSettings
+        settings.isZoomControlsEnabled = false
+    }
+
     //region Screen actions
     override fun moveToUserLocation(latLng: LatLng) {
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM_LEVEL))
