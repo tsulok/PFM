@@ -72,6 +72,16 @@ class InputContainerFragment : BaseFragment, InputContainerScreen {
 
     override fun initEventHandlers(view: View?) {
         slidingPanelBottom.addPanelSlideListener(slidingPanelHandler)
+        inputMainFragment.onTransactionAddedListener = transactionAddedHandler
+    }
+
+    /**
+     * Handling transaction added events
+     */
+    val transactionAddedHandler = object : InputMainFragment.OnTransactionAddedListener {
+        override fun onTransactionAdded() {
+            historyListFragment.updateDataset()
+        }
     }
 
     /**

@@ -23,11 +23,14 @@ class HistoryListAdapter : BaseAdapter<ITransactionHistory> {
 
     constructor(context: Context) : super(context) {
         PFMApplication.activityInjector?.inject(this)
+        updateDataSet()
+    }
 
-        // TODO read read values from database
-        for (i in 1..20) {
-            addItem(TransactionHistory("$i", Date(2016, 3, i), i * 124.0, "$"))
-        }
+    fun updateDataSet() {
+        addItems(transactionInteractor.listAllTransaction()
+                .map { it ->
+                    TransactionHistory(it.name, it.date, it.amount, it.currency)
+                })
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BaseViewHolder? {

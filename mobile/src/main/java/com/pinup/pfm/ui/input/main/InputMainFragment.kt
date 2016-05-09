@@ -41,6 +41,8 @@ class InputMainFragment : BaseFragment, InputMainScreen {
 
     lateinit var keyboardFragment: KeyboardFragment
 
+    var onTransactionAddedListener: OnTransactionAddedListener? = null
+
     constructor() : super() {
         PFMApplication.activityInjector?.inject(this)
     }
@@ -207,6 +209,7 @@ class InputMainFragment : BaseFragment, InputMainScreen {
         nameTextView.text = ""
         amountTextView.text = "0"
         inputMainPresenter.reset()
+        onTransactionAddedListener?.onTransactionAdded()
     }
 
     override fun transactionSaveFailed() {
@@ -214,4 +217,11 @@ class InputMainFragment : BaseFragment, InputMainScreen {
     }
 
     //endregion
+
+    /**
+     * Interface for transaction added action
+     */
+    interface OnTransactionAddedListener {
+        fun onTransactionAdded()
+    }
 }

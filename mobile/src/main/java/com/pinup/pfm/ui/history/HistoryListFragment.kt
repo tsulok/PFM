@@ -33,4 +33,8 @@ class HistoryListFragment : BaseListFragment<ITransactionHistory> {
     override fun getLayoutManager(): RecyclerView.LayoutManager {
         return LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
     }
+
+    fun updateDataset() {
+        historyAdapter.updateDataSet()
+    }
 }
