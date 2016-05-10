@@ -1,5 +1,6 @@
 package com.pinup.pfm.model.transaction
 
+import com.pinup.pfm.model.database.Transaction
 import java.util.*
 
 /**
@@ -11,4 +12,6 @@ interface ITransactionHistory {
     fun getDate(): Date
     fun getAmount(): Double
     fun getCurrency(): String
+
+    fun updateTransaction(transaction: Transaction)
 }

@@ -11,8 +11,10 @@ import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
 import com.pinup.pfm.extensions.makeToast
 import com.pinup.pfm.extensions.replaceFragment
+import com.pinup.pfm.model.database.Transaction
 import com.pinup.pfm.model.input.KeyboardAction
 import com.pinup.pfm.model.input.OpenAction
+import com.pinup.pfm.model.transaction.TransactionAction
 import com.pinup.pfm.ui.MainActivity
 import com.pinup.pfm.ui.core.view.BaseFragment
 import com.pinup.pfm.ui.core.view.SharedTransactionElementWrapper
@@ -20,6 +22,7 @@ import com.pinup.pfm.ui.input.action.InputActionContainerFragment
 import com.pinup.pfm.ui.input.keyboard.KeyboardFragment
 import com.pinup.pfm.utils.SharedViewConstants
 import com.pinup.pfm.utils.helper.UIHelper
+import org.jetbrains.anko.support.v4.act
 import java.util.*
 import javax.inject.Inject
 
@@ -41,7 +44,7 @@ class InputMainFragment : BaseFragment, InputMainScreen {
 
     lateinit var keyboardFragment: KeyboardFragment
 
-    var onTransactionAddedListener: OnTransactionAddedListener? = null
+    var onTransactionChangedListener: OnTransactionChangedListener? = null
 
     constructor() : super() {
         PFMApplication.activityInjector?.inject(this)
@@ -204,12 +207,17 @@ class InputMainFragment : BaseFragment, InputMainScreen {
         makeToast(message)
     }
 
-    override fun transactionSaved() {
+    override fun transactionSaved(transaction: Transaction, action: TransactionAction) {
         makeToast("Transaction saved")
         nameTextView.text = ""
         amountTextView.text = "0"
         inputMainPresenter.reset()
-        onTransactionAddedListener?.onTransactionAdded()
+
+        when (action) {
+            TransactionAction.NEW -> onTransactionChangedListener?.onTransactionAdded(transaction)
+            TransactionAction.DELETED -> onTransactionChangedListener?.onTransactionDeleted(transaction)
+            TransactionAction.MODIFIED -> onTransactionChangedListener?.onTransactionEdited(transaction)
+        }
     }
 
     override fun transactionSaveFailed() {
@@ -221,7 +229,9 @@ class InputMainFragment : BaseFragment, InputMainScreen {
     /**
      * Interface for transaction added action
      */
-    interface OnTransactionAddedListener {
-        fun onTransactionAdded()
+    interface OnTransactionChangedListener {
+        fun onTransactionAdded(transaction: Transaction)
+        fun onTransactionEdited(transaction: Transaction)
+        fun onTransactionDeleted(transaction: Transaction)
     }
 }

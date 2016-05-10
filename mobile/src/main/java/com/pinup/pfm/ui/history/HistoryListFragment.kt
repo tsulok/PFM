@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.extensions.makeToast
+import com.pinup.pfm.model.database.Transaction
 import com.pinup.pfm.model.transaction.ITransactionHistory
 import com.pinup.pfm.ui.core.adapter.BaseAdapter
 import com.pinup.pfm.ui.core.view.BaseListFragment
@@ -36,5 +37,13 @@ class HistoryListFragment : BaseListFragment<ITransactionHistory> {
 
     fun updateDataset() {
         historyAdapter.updateDataSet()
+    }
+
+    fun addNewTransaction(transaction: Transaction) {
+        historyAdapter.addTransaction(transaction)
+    }
+
+    fun updateTransaction(transaction: Transaction) {
+        historyAdapter.updateTransaction(transaction)
     }
 }

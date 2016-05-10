@@ -11,6 +11,10 @@ import java.util.*
  */
 abstract class BaseAdapter<T> : RecyclerView.Adapter<BaseViewHolder> {
 
+    companion object {
+        @JvmStatic val INDEX_NOT_FOUND = -1
+    }
+
     protected val context: Context
     var items: MutableList<T>
     var onItemClickListener: BaseViewHolder.OnItemClickListener? = null
@@ -41,7 +45,7 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<BaseViewHolder> {
         if (items.contains(item)) {
             return items.indexOf(item)
         } else {
-            return -1
+            return INDEX_NOT_FOUND
         }
     }
 
@@ -49,8 +53,9 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<BaseViewHolder> {
      * Set a new set of items
      * @param items The new items
      */
-    fun clearAndSetItems(items: MutableList<T>) {
-        this.items = items
+    fun clearAndSetItems(items: List<T>) {
+        this.items.clear()
+        this.items.addAll(items)
         notifyDataSetChanged()
     }
 

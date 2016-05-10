@@ -6,6 +6,7 @@ import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.model.database.Category
 import com.pinup.pfm.model.database.Transaction
 import com.pinup.pfm.model.input.KeyboardType
+import com.pinup.pfm.model.transaction.TransactionAction
 import com.pinup.pfm.ui.input.main.InputMainPresenter
 import java.io.File
 import java.text.NumberFormat
@@ -63,24 +64,26 @@ class CurrentTransactionInteractor {
     /**
      * Saves the transaction
      */
-    fun saveTransaction(): Boolean {
+    fun saveTransaction(): Pair<Transaction, TransactionAction>? {
         // Transaction value is mandatory
         if (transactionCurrentValueText.isEmpty()) {
-            return false
+            return null
         }
 
         // Transaction currency is mandatory
         if (transactionCurrency == null) {
-            return false
+            return null
         }
 
         val amount = transactionCurrentValueText.toDouble()
 
         // First load the saved transaction if any
+        var transactionAction: TransactionAction = TransactionAction.MODIFIED
         var transaction = savedTransaction
 
         // If it is a new, then create it
         if (transaction == null) {
+            transactionAction = TransactionAction.NEW
             transaction = transactionInteractor.createTransaction("",
                     amount, transactionCurrency!!.currencyCode, transactionSelectedCategory)
         } else {
@@ -98,7 +101,7 @@ class CurrentTransactionInteractor {
 
         resetTransaction()
 
-        return true
+        return Pair(transaction, transactionAction)
     }
 
     /**

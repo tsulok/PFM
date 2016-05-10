@@ -2,6 +2,7 @@ package com.pinup.pfm.interactor.utils
 
 import android.content.SharedPreferences
 import com.pinup.pfm.PFMApplication
+import java.text.NumberFormat
 import java.util.*
 import javax.inject.Inject
 
@@ -42,6 +43,28 @@ class CurrencyInteractor {
      */
     fun resetSavedCurrency() {
         sharedPreferences.edit().remove(PREF_KEY_CURRENT_CURRENCY).apply()
+    }
+
+    /**
+     * Returns the number format for the selected currency
+     * @return the number format for the selected currency
+     */
+    fun getCurrencyNumberFormat(currency: String): NumberFormat {
+        val currency = Currency.getInstance(currency)
+
+        val numberFormat = NumberFormat.getInstance()
+        numberFormat.minimumFractionDigits = currency.defaultFractionDigits
+        numberFormat.maximumFractionDigits = currency.defaultFractionDigits
+
+        return numberFormat
+    }
+
+    /**
+     * Returns the symbol of the desired currency
+     * @return the symbol of the desired currency
+     */
+    fun getCurrencySymbol(currency: String): String {
+        return Currency.getInstance(currency).symbol
     }
 
     companion object {

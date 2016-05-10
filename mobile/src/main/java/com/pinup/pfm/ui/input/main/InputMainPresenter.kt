@@ -1,13 +1,11 @@
 package com.pinup.pfm.ui.input.main
 
-import android.content.res.Resources
 import com.orhanobut.logger.Logger
 import com.pinup.pfm.PFMApplication
-import com.pinup.pfm.R
 import com.pinup.pfm.interactor.category.CategoryInteractor
 import com.pinup.pfm.interactor.transaction.CurrentTransactionInteractor
-import com.pinup.pfm.interactor.utils.CurrencyInteractor
 import com.pinup.pfm.interactor.transaction.TransactionInteractor
+import com.pinup.pfm.interactor.utils.CurrencyInteractor
 import com.pinup.pfm.manager.CurrencyManager
 import com.pinup.pfm.model.input.KeyboardType
 import com.pinup.pfm.ui.core.view.BasePresenter
@@ -126,12 +124,12 @@ class InputMainPresenter : BasePresenter<InputMainScreen> {
             return
         }
 
-        val isTransactionSaved = currentTransactionInteractor.saveTransaction()
+        val transactionResultPair = currentTransactionInteractor.saveTransaction()
 
-        if (isTransactionSaved) {
-            screen?.transactionSaved()
-        } else {
+        if (transactionResultPair == null) {
             screen?.transactionSaveFailed()
+        } else {
+            screen?.transactionSaved(transactionResultPair.first, transactionResultPair.second)
         }
     }
 

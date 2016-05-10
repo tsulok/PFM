@@ -1,5 +1,7 @@
 package com.pinup.pfm.ui.input.main
 
+import com.pinup.pfm.model.database.Transaction
+import com.pinup.pfm.model.transaction.TransactionAction
 import com.pinup.pfm.ui.core.view.BaseScreen
 import java.util.*
 
@@ -34,7 +36,7 @@ interface InputMainScreen : BaseScreen {
     /**
      * Transaction save succeeded
      */
-    fun transactionSaved()
+    fun transactionSaved(transaction: Transaction, action: TransactionAction)
 
     /**
      * Transaction save failed
