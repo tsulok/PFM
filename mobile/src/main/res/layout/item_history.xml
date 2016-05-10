@@ -2,49 +2,66 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="vertical"
+    android:padding="@dimen/default.padding">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
-        <com.pinup.pfm.ui.widget.ExtendedTextView
-            android:id="@+id/name"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Transaction name" />
+            android:orientation="vertical">
 
-        <com.pinup.pfm.ui.widget.ExtendedTextView
-            android:id="@+id/time"
+            <com.pinup.pfm.ui.widget.ExtendedTextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Transaction name"
+                android:textColor="@color/primary_text" />
+
+            <com.pinup.pfm.ui.widget.ExtendedTextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2016.04.12 30:30"
+                android:textColor="@color/primary_text" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2016.04.12 30:30" />
+            android:layout_gravity="center">
+
+            <com.pinup.pfm.ui.widget.ExtendedTextView
+                android:id="@+id/amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3.52"
+                android:textColor="@color/primary_text" />
+
+            <com.pinup.pfm.ui.widget.ExtendedTextView
+                android:id="@+id/currency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$"
+                android:textColor="@color/primary_text" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
     <View
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
-
-        <com.pinup.pfm.ui.widget.ExtendedTextView
-            android:id="@+id/amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="3.52" />
-
-        <com.pinup.pfm.ui.widget.ExtendedTextView
-            android:id="@+id/currency"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="$" />
-
-    </LinearLayout>
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimary" />
 
 </LinearLayout>

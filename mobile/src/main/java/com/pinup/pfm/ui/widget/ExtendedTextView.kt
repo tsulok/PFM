@@ -2,6 +2,7 @@ package com.pinup.pfm.ui.widget
 
 import android.content.Context
 import android.graphics.Paint
+import android.support.v7.widget.AppCompatTextView
 import android.util.AttributeSet
 import android.widget.TextView
 import com.pinup.pfm.R
@@ -12,7 +13,7 @@ import com.pinup.pfm.ui.widget.helper.CustomFontHelper
  * - Set Custom Font
  * - Set Text underlined
  */
-class ExtendedTextView : TextView {
+class ExtendedTextView : AppCompatTextView {
 
     constructor(context: Context?) : super(context)
 

@@ -7,5 +7,6 @@
     <color name="input.action.camera.action.background">#7f7f7f</color>
     <color name="input.action.description.background">#f9f5ed</color>
     <color name="input.category.background">#f0e6d2</color>
+    <color name="input.history.background">@android:color/white</color>
     <color name="input.keyboard.background">#f9f5ed</color>
 </resources>
