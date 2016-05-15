@@ -49,6 +49,11 @@ class StorageInteractor {
         return storage.getFile(fileType.dirName, name)
     }
 
+    fun getFileWithPath(path: String): File? {
+        val storage = getAvailableStorage(forceUseInternalStorage)
+        return storage.getFile(path)
+    }
+
     /**
      * Deletes a file
      * @param name
@@ -61,10 +66,12 @@ class StorageInteractor {
 
     /**
      * Move file to an other destination
+     * @return The moved file's reference
      */
-    fun moveFile(originalFile: File, name: String, fileType: FileType = FileType.Image) {
+    fun moveFile(originalFile: File, name: String, fileType: FileType = FileType.Image): File? {
         val storage = getAvailableStorage(forceUseInternalStorage)
         storage.move(originalFile, fileType.dirName, name)
+        return storage.getFile(fileType.dirName, name)
     }
 }
 

@@ -4,10 +4,12 @@ import com.google.android.gms.maps.model.LatLng
 import com.orhanobut.logger.Logger
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.interactor.utils.CurrencyInteractor
+import com.pinup.pfm.interactor.utils.StorageInteractor
 import com.pinup.pfm.model.database.Category
 import com.pinup.pfm.model.database.Transaction
 import com.pinup.pfm.model.input.KeyboardType
 import com.pinup.pfm.model.transaction.TransactionAction
+import com.pinup.pfm.ui.input.action.camera.InputActionCameraPresenter
 import com.pinup.pfm.ui.input.main.InputMainPresenter
 import java.io.File
 import java.text.NumberFormat
@@ -21,6 +23,7 @@ class CurrentTransactionInteractor {
 
     @Inject lateinit var transactionInteractor: TransactionInteractor
     @Inject lateinit var currencyInteractor: CurrencyInteractor
+    @Inject lateinit var storageInteractor: StorageInteractor
 
     var keyboardType: KeyboardType = KeyboardType.Normal
 
@@ -57,9 +60,18 @@ class CurrentTransactionInteractor {
         transactionCurrency = Currency.getInstance(transaction.currency)
 
         val numberFormat = currencyInteractor.getCurrencyNumberFormat(transaction.currency)
-
         // Remove all non breaking spaces & change commas when formatting the value
         transactionCurrentValueText = numberFormat.format(transaction.amount).replace("\u00A0", "").replace(",", ".")
+
+        if (transaction.imageUri != null) {
+            transactionImageFile = File(transaction.imageUri)
+        }
+        transactionDate = transaction.date
+        transactionDescription = transaction.description
+
+        if (transaction.latitude != null && transaction.longitude != null) {
+            transactionLocation = LatLng(transaction.latitude, transaction.longitude)
+        }
     }
 
     /**
@@ -94,7 +106,7 @@ class CurrentTransactionInteractor {
 
         transactionInteractor.updateTransactionDate(transaction, transactionDate)
         transactionInteractor.updateTransactionDescription(transaction, transactionDescription)
-        transactionInteractor.updateTransactionImageUri(transaction, transactionImageFile?.absolutePath)
+        saveFinalImageToTransaction(transaction)
 
         if (transactionLocation != null) {
             transactionInteractor.updateTransactionLocation(transaction, transactionLocation!!)
@@ -103,6 +115,18 @@ class CurrentTransactionInteractor {
         resetTransaction()
 
         return Pair(transaction, transactionAction)
+    }
+
+    private fun saveFinalImageToTransaction(transaction: Transaction) {
+
+        // Do nothing if there is no image
+        if (transactionImageFile == null) {
+            return
+        }
+
+        val imageName = "${transaction.id}.jpg"
+        val persistentFile = storageInteractor.moveFile(transactionImageFile!!, imageName)
+        transactionInteractor.updateTransactionImageUri(transaction, persistentFile?.canonicalPath)
     }
 
     /**

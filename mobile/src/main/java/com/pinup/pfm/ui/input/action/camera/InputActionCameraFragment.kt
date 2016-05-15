@@ -16,6 +16,7 @@ import com.orhanobut.logger.Logger
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
 import com.pinup.pfm.extensions.makeToast
+import com.pinup.pfm.interactor.utils.StorageInteractor
 import com.pinup.pfm.ui.core.view.BaseFragment
 import org.jetbrains.anko.imageURI
 import java.io.File
@@ -31,6 +32,7 @@ class InputActionCameraFragment: BaseFragment, InputActionCameraScreen {
     }
 
     @Inject lateinit var inputActionCameraPresenter: InputActionCameraPresenter
+    @Inject lateinit var storageInteractor: StorageInteractor
 
     @Bind(R.id.actionCameraTransactionPhoto) lateinit var transactionPhotoImageView: ImageView
     @Bind(R.id.actionCameraTransactionNoPhotoTxt) lateinit var noImageTxt: TextView
