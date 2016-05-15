@@ -3,6 +3,7 @@ package com.pinup.pfm.test.presenter.mainInput
 import com.pinup.pfm.BuildConfig
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.TestComponent
+import com.pinup.pfm.interactor.transaction.CurrentTransactionInteractor
 import com.pinup.pfm.model.input.KeyboardType
 import com.pinup.pfm.test.utils.BaseTest
 import com.pinup.pfm.test.utils.RobolectricDaggerTestRunner
@@ -23,66 +24,64 @@ import javax.inject.Inject
 class InputMainPresenterTests : BaseTest() {
 
     @Inject lateinit var inputMainPresenter: InputMainPresenter
+    @Inject lateinit var currentTransactionInteractor: CurrentTransactionInteractor
 
     @Before
     fun setUp() {
         setTestInjector()
         (PFMApplication.injector as TestComponent).inject(this)
-
-        // Use keyboard type as normal
-        inputMainPresenter.keyboardType = KeyboardType.Normal
     }
 
     @Test
     fun testFirstValueAdditionZero() {
         inputMainPresenter.addValue(0.0)
-        Assert.assertEquals("Currency text is not empty", 0, inputMainPresenter.currentValueString.length)
+        Assert.assertEquals("Currency text is not empty", 0, currentTransactionInteractor.transactionCurrentValueText.length)
     }
 
     @Test
     fun testFirstValueAdditionNonZero() {
         inputMainPresenter.addValue(5.0)
-        Assert.assertEquals("Currency text is not matching", "5", inputMainPresenter.currentValueString)
+        Assert.assertEquals("Currency text is not matching", "5", currentTransactionInteractor.transactionCurrentValueText)
     }
 
     @Test
     fun testValueAddition() {
-        inputMainPresenter.currentValueString = "456"
-        Assert.assertEquals("Currency text is not matching", "456", inputMainPresenter.currentValueString)
+        currentTransactionInteractor.transactionCurrentValueText = "456"
+        Assert.assertEquals("Currency text is not matching", "456", currentTransactionInteractor.transactionCurrentValueText)
         inputMainPresenter.addValue(5.0)
-        Assert.assertEquals("Currency text is not matching", "4565", inputMainPresenter.currentValueString)
+        Assert.assertEquals("Currency text is not matching", "4565", currentTransactionInteractor.transactionCurrentValueText)
     }
 
     @Test
     fun testDecimalPlaceAddition() {
         inputMainPresenter.addDecimalPlace()
-        Assert.assertEquals("Currency text decimal place is not the last", '.', inputMainPresenter.currentValueString.last())
+        Assert.assertEquals("Currency text decimal place is not the last", '.', currentTransactionInteractor.transactionCurrentValueText.last())
     }
 
     @Test
     fun testDecimalPlaceMultipleAddition() {
-        inputMainPresenter.currentValueString = "4.56"
+        currentTransactionInteractor.transactionCurrentValueText = "4.56"
         inputMainPresenter.addDecimalPlace()
-        Assert.assertEquals("Multiple decimal places present", 1, StringUtils.countMatches(inputMainPresenter.currentValueString, "."))
+        Assert.assertEquals("Multiple decimal places present", 1, StringUtils.countMatches(currentTransactionInteractor.transactionCurrentValueText, "."))
     }
 
     @Test
     fun testValueRemovalEmpty() {
         inputMainPresenter.removeLastDigit()
-        Assert.assertEquals("Currency text is not empty", 0, inputMainPresenter.currentValueString.length)
+        Assert.assertEquals("Currency text is not empty", 0, currentTransactionInteractor.transactionCurrentValueText.length)
     }
 
     @Test
     fun testValueRemoval() {
-        inputMainPresenter.currentValueString = "565"
+        currentTransactionInteractor.transactionCurrentValueText = "565"
         inputMainPresenter.removeLastDigit()
-        Assert.assertEquals("Currency text is not matching", "56", inputMainPresenter.currentValueString)
+        Assert.assertEquals("Currency text is not matching", "56", currentTransactionInteractor.transactionCurrentValueText)
     }
 
     @Test
     fun testDecimalRemoval() {
-        inputMainPresenter.currentValueString = "565."
+        currentTransactionInteractor.transactionCurrentValueText = "565."
         inputMainPresenter.removeLastDigit()
-        Assert.assertEquals("Decimal place present", 0, StringUtils.countMatches(inputMainPresenter.currentValueString, "."))
+        Assert.assertEquals("Decimal place present", 0, StringUtils.countMatches(currentTransactionInteractor.transactionCurrentValueText, "."))
     }
 }

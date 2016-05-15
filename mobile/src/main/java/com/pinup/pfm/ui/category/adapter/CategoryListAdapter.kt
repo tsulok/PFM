@@ -1,17 +1,20 @@
 package com.pinup.pfm.ui.category.adapter
 
 import android.content.Context
+import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
 import com.pinup.pfm.extensions.getDrawableForName
 import com.pinup.pfm.interactor.category.CategoryInteractor
+import com.pinup.pfm.interactor.transaction.CurrentTransactionInteractor
 import com.pinup.pfm.model.category.CategoryItem
 import com.pinup.pfm.ui.core.adapter.BaseAdapter
 import com.pinup.pfm.ui.core.view.viewholder.BaseViewHolder
 import com.pinup.pfm.ui.category.adapter.viewholder.CategoryViewHolder
 import com.pinup.pfm.model.category.ICategoryItem
+import org.jetbrains.anko.image
 import javax.inject.Inject
 
 /**
@@ -20,13 +23,12 @@ import javax.inject.Inject
 class CategoryListAdapter : BaseAdapter<ICategoryItem> {
 
     @Inject lateinit var categoryInteractor: CategoryInteractor
+    @Inject lateinit var currentTransactionInteractor: CurrentTransactionInteractor
 
     constructor(context: Context) : super(context) {
         PFMApplication.activityInjector?.inject(this)
 
-        for (category in categoryInteractor.listAllSelectableCategories()) {
-            addItem(CategoryItem(category.name, category.order, category.imageUri))
-        }
+        categoryInteractor.listAllSelectableCategories().forEach { it -> addItem(CategoryItem(it)) }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BaseViewHolder? {
@@ -34,6 +36,17 @@ class CategoryListAdapter : BaseAdapter<ICategoryItem> {
         val viewHolder = CategoryViewHolder(view)
         prepareItemOnClick(viewHolder)
         return viewHolder
+    }
+
+    fun removeCurrentItemSelection() {
+        val selectedCategory = currentTransactionInteractor.transactionSelectedCategory
+        currentTransactionInteractor.transactionSelectedCategory = null
+        if (selectedCategory != null) {
+            val position = items.indexOf(CategoryItem(selectedCategory))
+            if (position >= 0 && position < items.size) {
+                notifyItemChanged(position)
+            }
+        }
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder?, position: Int) {
@@ -44,7 +57,20 @@ class CategoryListAdapter : BaseAdapter<ICategoryItem> {
             throw RuntimeException("Developer error. Item or viewholder is null")
         }
 
-        viewHolder.itemButton.text = item.getName()
-        viewHolder.itemButton.setCompoundDrawablesWithIntrinsicBounds(null, context.getDrawableForName(item.getIconUri()), null, null)
+        val isItemSelected = item.getCategoryId().equals(currentTransactionInteractor.transactionSelectedCategory?.id)
+
+        viewHolder.itemNameText.text = item.getName()
+
+        val categoryDrawable = context.getDrawableForName(item.getIconUri())
+        categoryDrawable?.mutate()
+
+        var iconColor: Int = context.resources.getColor(R.color.input_category_icon_unselected)
+        if (isItemSelected) {
+            iconColor = context.resources.getColor(R.color.input_category_icon_selected)
+        }
+        categoryDrawable?.setColorFilter(iconColor, PorterDuff.Mode.SRC_IN)
+
+        viewHolder.itemImage.image = categoryDrawable
+        viewHolder.itemImage.isSelected = isItemSelected
     }
 }

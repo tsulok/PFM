@@ -174,8 +174,15 @@ class CategoryInteractor {
             val parentCategory = createOrUpdateCategory("0", "Main Category", 0)
             val children = HashSet<Category>()
 
-            for (i in 1..13) {
-                val child = createOrUpdateCategory("$i", "Teszt $i", i, "ic_category_health")
+            for (i in 1..12) {
+                var iconName = ""
+                when (i % 4) {
+                    0 -> iconName = "ic_category_health"
+                    1 -> iconName = "ic_category_food"
+                    2 -> iconName = "ic_category_fun"
+                    3 -> iconName = "ic_category_transportation"
+                }
+                val child = createOrUpdateCategory("$i", "Teszt $i", i, iconName)
                 children.add(child)
             }
 

@@ -10,7 +10,8 @@
     <dimen name="category.filter.collapsed.margin.top">5dp</dimen>
     <dimen name="category.filter.collapsed.height">80dp</dimen>
     <dimen name="category.filter.collapsed.shadow.height">2dp</dimen>
-    <dimen name="category.filter.button.size">32dp</dimen>
+    <dimen name="category.filter.button.size">60dp</dimen>
+    <dimen name="category.filter.button.corner.radius">20dp</dimen>
 
     <dimen name="history.list.collapsed.height">40dp</dimen>
 

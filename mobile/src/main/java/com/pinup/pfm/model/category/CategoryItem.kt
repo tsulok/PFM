@@ -1,19 +1,29 @@
 package com.pinup.pfm.model.category
 
+import com.pinup.pfm.model.database.Category
+
 /**
  * Data for category items
  */
-data class CategoryItem(private val name: String, private var order: Int, private val iconUri: String) : ICategoryItem {
+data class CategoryItem(private val category: Category) : ICategoryItem {
+
+    override fun getCategory(): Category {
+        return category
+    }
 
     override fun getName(): String {
-        return this.name
+        return category.name
     }
 
     override fun getOrder(): Int {
-        return this.order
+        return category.order
     }
 
     override fun getIconUri(): String {
-        return this.iconUri
+        return category.imageUri
+    }
+
+    override fun getCategoryId(): String {
+        return category.id
     }
 }

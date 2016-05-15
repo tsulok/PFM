@@ -7,6 +7,7 @@ import com.orhanobut.logger.Logger
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.extensions.makeToast
 import com.pinup.pfm.model.category.ICategoryItem
+import com.pinup.pfm.model.database.Category
 import com.pinup.pfm.ui.core.adapter.BaseAdapter
 import com.pinup.pfm.ui.core.view.BaseListFragment
 import com.pinup.pfm.ui.category.adapter.CategoryListAdapter
@@ -22,6 +23,7 @@ class CategoryListFragment : BaseListFragment<ICategoryItem> {
     }
 
     @Inject lateinit var categoryAdapter: CategoryListAdapter
+    var onCategoryInteractionListener: OnCategoryInteractionListener? = null
 
     constructor() : super() {
         Logger.d("Category List constructor")
@@ -29,7 +31,11 @@ class CategoryListFragment : BaseListFragment<ICategoryItem> {
     }
 
     override fun initEventHandlers(view: View?) {
-        setOnItemClickListener { view, position -> makeToast("Item clicked: $position") }
+        setOnItemClickListener { view, position ->
+            categoryAdapter.removeCurrentItemSelection()
+            onCategoryInteractionListener?.onCategorySelected(categoryAdapter.items[position].getCategory())
+            categoryAdapter.notifyItemChanged(position)
+        }
     }
 
     override fun getAdapter(): BaseAdapter<ICategoryItem>? {
@@ -38,5 +44,12 @@ class CategoryListFragment : BaseListFragment<ICategoryItem> {
 
     override fun getLayoutManager(): RecyclerView.LayoutManager {
         return GridLayoutManager(context, 4)
+    }
+
+    /**
+     * Interface for category interaction actions
+     */
+    interface OnCategoryInteractionListener {
+        fun onCategorySelected(category: Category)
     }
 }

@@ -13,6 +13,7 @@ import com.pinup.pfm.R
 import com.pinup.pfm.extensions.getDrawableForName
 import com.pinup.pfm.extensions.makeToast
 import com.pinup.pfm.extensions.replaceFragment
+import com.pinup.pfm.model.database.Category
 import com.pinup.pfm.model.database.Transaction
 import com.pinup.pfm.model.transaction.OnTransactionInteractionListener
 import com.pinup.pfm.ui.category.CategoryListFragment
@@ -76,6 +77,13 @@ class InputContainerFragment : BaseFragment, InputContainerScreen {
         slidingPanelBottom.addPanelSlideListener(slidingPanelHandler)
         inputMainFragment.onTransactionInteractionListener = transactionInteractionHandler
         historyListFragment.onTransactionInteractionListener = transactionInteractionHandler
+        categoryListFragment.onCategoryInteractionListener = categoryInteractionHandler
+    }
+
+    val categoryInteractionHandler = object: CategoryListFragment.OnCategoryInteractionListener {
+        override fun onCategorySelected(category: Category) {
+            containerPresenter.currentTransactionInteractor.transactionSelectedCategory = category
+        }
     }
 
     /**

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle"
+    android:thicknessRatio="2"
+    android:useLevel="false" >
+
+    <solid android:color="@color/colorPrimary" />
+    <corners
+        android:bottomLeftRadius="@dimen/category.filter.button.corner.radius"
+        android:bottomRightRadius="@dimen/category.filter.button.corner.radius"
+        android:topLeftRadius="@dimen/category.filter.button.corner.radius"
+        android:topRightRadius="@dimen/category.filter.button.corner.radius" />
+
+    <stroke
+        android:width="2dp"
+        android:color="@color/colorPrimary"/>
+
+</shape>
