@@ -1,5 +1,6 @@
 package com.pinup.pfm.presenter
 
+import com.pinup.pfm.ui.history.HistoryPresenter
 import com.pinup.pfm.ui.input.action.InputActionContainerPresenter
 import com.pinup.pfm.ui.input.action.camera.InputActionCameraPresenter
 import com.pinup.pfm.ui.input.action.date.InputActionDatePresenter
@@ -17,6 +18,11 @@ import javax.inject.Singleton
 @Module
 class PresenterModule {
 
+    @Provides
+    @Singleton
+    fun provideHistoryPresenter(): HistoryPresenter {
+        return HistoryPresenter()
+    }
     @Provides
     @Singleton
     fun provideInputMainPresenter(): InputMainPresenter {

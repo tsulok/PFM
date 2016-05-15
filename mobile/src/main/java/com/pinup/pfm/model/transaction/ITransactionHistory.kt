@@ -8,6 +8,7 @@ import java.util.*
  */
 interface ITransactionHistory {
 
+    fun getTransaction(): Transaction
     fun getName(): String
     fun getDate(): Date
     fun getAmount(): Double

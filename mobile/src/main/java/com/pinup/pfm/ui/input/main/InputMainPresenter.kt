@@ -39,6 +39,12 @@ class InputMainPresenter : BasePresenter<InputMainScreen> {
         selectedCurrency = currencyInteractor.getSelectedCurrency()
     }
 
+    fun reloadTransaction() {
+        // TODO remove these functions from here and let the current transaction interactor do it's job
+        currentValueString = currentTransactionInteractor.transactionCurrentValueText
+        selectedCurrency = currentTransactionInteractor.transactionCurrency
+    }
+
     fun loadCurrentValue() {
         screen?.updateValue(currentTransactionInteractor.formatValue())
     }

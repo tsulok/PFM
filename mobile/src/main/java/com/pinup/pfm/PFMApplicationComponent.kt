@@ -13,6 +13,7 @@ import com.pinup.pfm.ui.ActivityModule
 import com.pinup.pfm.ui.MainActivity
 import com.pinup.pfm.ui.UIModule
 import com.pinup.pfm.ui.core.view.BaseFragment
+import com.pinup.pfm.ui.history.HistoryPresenter
 import com.pinup.pfm.ui.input.action.InputActionContainerPresenter
 import com.pinup.pfm.ui.input.action.camera.InputActionCameraPresenter
 import com.pinup.pfm.ui.input.action.date.InputActionDatePresenter
@@ -47,4 +48,6 @@ interface PFMApplicationComponent {
     fun inject(inputActionDescriptionPresenter: InputActionDescriptionPresenter): Unit
     fun inject(inputContainerPresenter: InputContainerPresenter): Unit
     fun inject(inputMainPresenter: InputMainPresenter): Unit
+
+    fun inject(historyPresenter: HistoryPresenter): Unit
 }

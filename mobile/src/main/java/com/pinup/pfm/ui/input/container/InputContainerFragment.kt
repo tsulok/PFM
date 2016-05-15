@@ -14,6 +14,7 @@ import com.pinup.pfm.extensions.getDrawableForName
 import com.pinup.pfm.extensions.makeToast
 import com.pinup.pfm.extensions.replaceFragment
 import com.pinup.pfm.model.database.Transaction
+import com.pinup.pfm.model.transaction.OnTransactionInteractionListener
 import com.pinup.pfm.ui.category.CategoryListFragment
 import com.pinup.pfm.ui.core.view.BaseFragment
 import com.pinup.pfm.ui.history.HistoryListFragment
@@ -73,13 +74,14 @@ class InputContainerFragment : BaseFragment, InputContainerScreen {
 
     override fun initEventHandlers(view: View?) {
         slidingPanelBottom.addPanelSlideListener(slidingPanelHandler)
-        inputMainFragment.onTransactionChangedListener = transactionAddedHandler
+        inputMainFragment.onTransactionInteractionListener = transactionInteractionHandler
+        historyListFragment.onTransactionInteractionListener = transactionInteractionHandler
     }
 
     /**
-     * Handling transaction added events
+     * Handling transaction events
      */
-    val transactionAddedHandler = object : InputMainFragment.OnTransactionChangedListener {
+    val transactionInteractionHandler = object : OnTransactionInteractionListener {
         override fun onTransactionAdded(transaction: Transaction) {
             historyListFragment.addNewTransaction(transaction)
         }
@@ -90,6 +92,11 @@ class InputContainerFragment : BaseFragment, InputContainerScreen {
 
         override fun onTransactionDeleted(transaction: Transaction) {
 
+        }
+
+        override fun onTransactionOpened(transaction: Transaction) {
+            listHistoryClicked() // Click on the opened history list to be closed
+            inputMainFragment.reloadTransaction()
         }
     }
 

@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.extensions.makeToast
+import com.pinup.pfm.interactor.transaction.CurrentTransactionInteractor
 import com.pinup.pfm.model.database.Transaction
 import com.pinup.pfm.model.transaction.ITransactionHistory
+import com.pinup.pfm.model.transaction.OnTransactionInteractionListener
 import com.pinup.pfm.ui.core.adapter.BaseAdapter
 import com.pinup.pfm.ui.core.view.BaseListFragment
 import com.pinup.pfm.ui.history.adapter.HistoryListAdapter
@@ -15,16 +17,25 @@ import javax.inject.Inject
 /**
  * Fragment for listing history
  */
-class HistoryListFragment : BaseListFragment<ITransactionHistory> {
+class HistoryListFragment : BaseListFragment<ITransactionHistory>, HistoryScreen {
 
     @Inject lateinit var historyAdapter: HistoryListAdapter
+    @Inject lateinit var historyPresenter: HistoryPresenter
+    @Inject lateinit var currentTransactionInteractor: CurrentTransactionInteractor
+
+    var onTransactionInteractionListener: OnTransactionInteractionListener? = null
 
     constructor() : super() {
         PFMApplication.activityInjector?.inject(this)
     }
 
+    override fun initObjects(view: View?) {
+        super.initObjects(view)
+        historyPresenter.bind(this)
+    }
+
     override fun initEventHandlers(view: View?) {
-        setOnItemClickListener { view, position -> makeToast("Item pos clicked: $position") }
+        setOnItemClickListener { view, position ->  historyPresenter.loadSavedTransaction(historyAdapter.items[position]) }
     }
 
     override fun getAdapter(): BaseAdapter<ITransactionHistory>? {
@@ -33,6 +44,11 @@ class HistoryListFragment : BaseListFragment<ITransactionHistory> {
 
     override fun getLayoutManager(): RecyclerView.LayoutManager {
         return LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
+    }
+
+    override fun onDestroyView() {
+        historyPresenter.unbind()
+        super.onDestroyView()
     }
 
     fun updateDataset() {
@@ -45,5 +61,10 @@ class HistoryListFragment : BaseListFragment<ITransactionHistory> {
 
     fun updateTransaction(transaction: Transaction) {
         historyAdapter.updateTransaction(transaction)
+    }
+
+    override fun loadSavedTransaction(transaction: Transaction) {
+        currentTransactionInteractor.loadSavedTransaction(transaction)
+        onTransactionInteractionListener?.onTransactionOpened(transaction)
     }
 }

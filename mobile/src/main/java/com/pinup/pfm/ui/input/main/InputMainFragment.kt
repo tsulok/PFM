@@ -14,6 +14,7 @@ import com.pinup.pfm.extensions.replaceFragment
 import com.pinup.pfm.model.database.Transaction
 import com.pinup.pfm.model.input.KeyboardAction
 import com.pinup.pfm.model.input.OpenAction
+import com.pinup.pfm.model.transaction.OnTransactionInteractionListener
 import com.pinup.pfm.model.transaction.TransactionAction
 import com.pinup.pfm.ui.MainActivity
 import com.pinup.pfm.ui.core.view.BaseFragment
@@ -44,7 +45,7 @@ class InputMainFragment : BaseFragment, InputMainScreen {
 
     lateinit var keyboardFragment: KeyboardFragment
 
-    var onTransactionChangedListener: OnTransactionChangedListener? = null
+    var onTransactionInteractionListener: OnTransactionInteractionListener? = null
 
     constructor() : super() {
         PFMApplication.activityInjector?.inject(this)
@@ -180,6 +181,15 @@ class InputMainFragment : BaseFragment, InputMainScreen {
         )
     }
 
+    /**
+     * Reloads the selected transaction to the view
+     */
+    fun reloadTransaction() {
+        inputMainPresenter.reloadTransaction()
+        inputMainPresenter.loadCurrentlySelectedCurrency()
+        inputMainPresenter.loadCurrentValue()
+    }
+
     //region Screen implementations
     override fun showSupportedCurrencies(selectedCurrency: Currency?, availableCurrencies: List<Currency>) {
 
@@ -214,9 +224,9 @@ class InputMainFragment : BaseFragment, InputMainScreen {
         inputMainPresenter.reset()
 
         when (action) {
-            TransactionAction.NEW -> onTransactionChangedListener?.onTransactionAdded(transaction)
-            TransactionAction.DELETED -> onTransactionChangedListener?.onTransactionDeleted(transaction)
-            TransactionAction.MODIFIED -> onTransactionChangedListener?.onTransactionEdited(transaction)
+            TransactionAction.NEW -> onTransactionInteractionListener?.onTransactionAdded(transaction)
+            TransactionAction.DELETED -> onTransactionInteractionListener?.onTransactionDeleted(transaction)
+            TransactionAction.MODIFIED -> onTransactionInteractionListener?.onTransactionEdited(transaction)
         }
     }
 
@@ -225,13 +235,4 @@ class InputMainFragment : BaseFragment, InputMainScreen {
     }
 
     //endregion
-
-    /**
-     * Interface for transaction added action
-     */
-    interface OnTransactionChangedListener {
-        fun onTransactionAdded(transaction: Transaction)
-        fun onTransactionEdited(transaction: Transaction)
-        fun onTransactionDeleted(transaction: Transaction)
-    }
 }

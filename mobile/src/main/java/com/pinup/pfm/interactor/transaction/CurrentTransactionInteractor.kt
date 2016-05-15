@@ -3,6 +3,7 @@ package com.pinup.pfm.interactor.transaction
 import com.google.android.gms.maps.model.LatLng
 import com.orhanobut.logger.Logger
 import com.pinup.pfm.PFMApplication
+import com.pinup.pfm.interactor.utils.CurrencyInteractor
 import com.pinup.pfm.model.database.Category
 import com.pinup.pfm.model.database.Transaction
 import com.pinup.pfm.model.input.KeyboardType
@@ -19,6 +20,7 @@ import javax.inject.Inject
 class CurrentTransactionInteractor {
 
     @Inject lateinit var transactionInteractor: TransactionInteractor
+    @Inject lateinit var currencyInteractor: CurrencyInteractor
 
     var keyboardType: KeyboardType = KeyboardType.Normal
 
@@ -54,11 +56,10 @@ class CurrentTransactionInteractor {
         savedTransaction = transaction
         transactionCurrency = Currency.getInstance(transaction.currency)
 
-        val numberFormat = NumberFormat.getInstance()
-        numberFormat.minimumFractionDigits = transactionCurrency?.defaultFractionDigits ?: 0
-        numberFormat.maximumFractionDigits = transactionCurrency?.defaultFractionDigits ?: 0
+        val numberFormat = currencyInteractor.getCurrencyNumberFormat(transaction.currency)
 
-        transactionCurrentValueText = numberFormat.format(transaction.amount)
+        // Remove all non breaking spaces & change commas when formatting the value
+        transactionCurrentValueText = numberFormat.format(transaction.amount).replace("\u00A0", "").replace(",", ".")
     }
 
     /**

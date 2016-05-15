@@ -45,6 +45,7 @@ class HistoryListAdapter : BaseAdapter<ITransactionHistory> {
         if (itemPosition != BaseAdapter.INDEX_NOT_FOUND) {
             val storedItem = items[itemPosition]
             storedItem.updateTransaction(transaction)
+            notifyItemChanged(itemPosition)
         } else {
             throw RuntimeException("Transaction is not found in the history list. Developer error!")
         }

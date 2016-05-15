@@ -6,33 +6,29 @@ import java.util.*
 /**
  * Data for transaction history items
  */
-data class TransactionHistory(private var name: String,
-                              private var date: Date,
-                              private var amount: Double,
-                              private var currency: String) : ITransactionHistory {
+data class TransactionHistory(private var transaction: Transaction) : ITransactionHistory {
 
-    constructor(transaction: Transaction) : this(transaction.name, transaction.date, transaction.amount, transaction.currency)
-
-    override fun updateTransaction(transaction: Transaction) {
-        name = transaction.name
-        date = transaction.date
-        amount = transaction.amount
-        currency = transaction.currency
+    override fun getTransaction(): Transaction {
+        return transaction
     }
 
     override fun getName(): String {
-        return name
+        return transaction.name
     }
 
     override fun getDate(): Date {
-        return date
+        return transaction.date
     }
 
     override fun getAmount(): Double {
-        return amount
+        return transaction.amount
     }
 
     override fun getCurrency(): String {
-        return currency
+        return transaction.currency
+    }
+
+    override fun updateTransaction(transaction: Transaction) {
+        this.transaction = transaction
     }
 }
