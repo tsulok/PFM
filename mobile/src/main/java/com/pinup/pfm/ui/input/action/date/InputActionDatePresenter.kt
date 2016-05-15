@@ -17,6 +17,9 @@ class InputActionDatePresenter : BasePresenter<InputActionDateScreen> {
 
     constructor() : super() {
         PFMApplication.injector.inject(this)
+    }
+
+    fun initDate() {
         selectedDate.time = currentTransactionInteractor.transactionDate
     }
 

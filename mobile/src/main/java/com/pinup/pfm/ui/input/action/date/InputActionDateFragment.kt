@@ -37,6 +37,7 @@ class InputActionDateFragment : BaseFragment, InputActionDateScreen {
 
     override fun initObjects(view: View?) {
         inputActionDatePresenter.bind(this)
+        inputActionDatePresenter.initDate()
         inputActionDatePresenter.updateDate()
     }
 
