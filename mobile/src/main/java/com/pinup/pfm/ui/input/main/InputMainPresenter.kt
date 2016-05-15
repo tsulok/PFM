@@ -27,24 +27,11 @@ class InputMainPresenter : BasePresenter<InputMainScreen> {
     @Inject lateinit var currentTransactionInteractor: CurrentTransactionInteractor
 //    @Inject lateinit var resources: Resources
 
-    var selectedCurrency: Currency?
-    var keyboardType: KeyboardType = KeyboardType.Normal
-    var currentValue: Double = 0.0
-    var transactionName: String = ""
-    var currentValueString: String = ""
-
     constructor() : super() {
         PFMApplication.injector.inject(this)
 
         // Initially load the general saved one
-        selectedCurrency = currencyInteractor.getSelectedCurrency()
-    }
-
-    fun reloadTransaction() {
-        // TODO remove these functions from here and let the current transaction interactor do it's job
-        currentValueString = currentTransactionInteractor.transactionCurrentValueText
-        selectedCurrency = currentTransactionInteractor.transactionCurrency
-        transactionName = currentTransactionInteractor.transactionNameText
+        currentTransactionInteractor.transactionCurrency = currencyInteractor.getSelectedCurrency()
     }
 
     fun loadCurrentValue() {
@@ -55,7 +42,7 @@ class InputMainPresenter : BasePresenter<InputMainScreen> {
      * Load the currently selected currency
      */
     fun loadCurrentlySelectedCurrency() {
-        screen?.updateSelectedCurrency(selectedCurrency)
+        screen?.updateSelectedCurrency(currentTransactionInteractor.transactionCurrency)
     }
 
     /**
@@ -63,8 +50,7 @@ class InputMainPresenter : BasePresenter<InputMainScreen> {
      * @param currency The new currency
      */
     fun updateSelectedCurrency(currency: Currency) {
-        selectedCurrency = currency
-        currentTransactionInteractor.transactionCurrency = selectedCurrency
+        currentTransactionInteractor.transactionCurrency = currency
         loadCurrentlySelectedCurrency()
     }
 
@@ -73,7 +59,7 @@ class InputMainPresenter : BasePresenter<InputMainScreen> {
      */
     fun showSupportedCurrencies() {
         screen?.showSupportedCurrencies(
-                selectedCurrency,
+                currentTransactionInteractor.transactionCurrency,
                 CurrencyManager.instance.getAvailableCurrencies().sortedBy { p -> p.currencyCode }
         )
     }
@@ -82,15 +68,14 @@ class InputMainPresenter : BasePresenter<InputMainScreen> {
      * Add value to the input
      */
     fun addValue(value: Double) {
-        when (keyboardType) {
+        when (currentTransactionInteractor.keyboardType) {
             KeyboardType.Normal -> {
-                if (currentValueString.length != 0 || value != 0.0) {
-                    currentValueString += value.toInt()
+                if (currentTransactionInteractor.transactionCurrentValueText.length != 0 || value != 0.0) {
+                    currentTransactionInteractor.transactionCurrentValueText += value.toInt()
                 }
             }
             else -> Logger.t(TAG).i("Non supported keyboard type")
         }
-        currentTransactionInteractor.transactionCurrentValueText = currentValueString
         screen?.updateValue(currentTransactionInteractor.formatValue())
     }
 
@@ -98,9 +83,8 @@ class InputMainPresenter : BasePresenter<InputMainScreen> {
      * Add decimal place if none
      */
     fun addDecimalPlace() {
-        if (!currentValueString.contains(".")) {
-            currentValueString += "."
-            currentTransactionInteractor.transactionCurrentValueText = currentValueString
+        if (!currentTransactionInteractor.transactionCurrentValueText.contains(".")) {
+            currentTransactionInteractor.transactionCurrentValueText += "."
             screen?.updateValue(currentTransactionInteractor.formatValue())
         }
     }
@@ -109,26 +93,26 @@ class InputMainPresenter : BasePresenter<InputMainScreen> {
      * Remove last digit
      */
     fun removeLastDigit() {
-        if (currentValueString.length == 0) {
+        if (currentTransactionInteractor.transactionCurrentValueText.length == 0) {
             screen?.updateValue("0")
             return
         }
 
-        currentValueString = currentValueString.substring(0, currentValueString.length - 1)
-        currentTransactionInteractor.transactionCurrentValueText = currentValueString
+        val currentValueString = currentTransactionInteractor.transactionCurrentValueText
+        currentTransactionInteractor.transactionCurrentValueText = currentValueString.substring(0, currentValueString.length - 1)
         screen?.updateValue(currentTransactionInteractor.formatValue())
     }
 
     /**
      * Save the transaction
      */
-    fun saveTransaction() {
-        if (currentValueString.isEmpty()) {
+    fun saveTransaction(transactionName: String) {
+        if (currentTransactionInteractor.transactionCurrentValueText.isEmpty()) {
             screen?.showMissingTransactionArgument("Amount is missing")
             return
         }
 
-        if (selectedCurrency == null) {
+        if (currentTransactionInteractor.transactionCurrency == null) {
             screen?.showMissingTransactionArgument("Currency is missing")
             return
         }
@@ -139,6 +123,7 @@ class InputMainPresenter : BasePresenter<InputMainScreen> {
         }
 
         currentTransactionInteractor.transactionNameText = transactionName
+
         val transactionResultPair = currentTransactionInteractor.saveTransaction()
 
         if (transactionResultPair == null) {
@@ -149,7 +134,14 @@ class InputMainPresenter : BasePresenter<InputMainScreen> {
     }
 
     fun reset() {
-        currentValueString = "0"
-        currentValue = 0.0
+        currentTransactionInteractor.transactionCurrentValueText = "0"
+    }
+
+    fun getSelectedKeyboardType(): KeyboardType {
+        return currentTransactionInteractor.keyboardType
+    }
+
+    fun getCurrentTransactionName(): String {
+        return currentTransactionInteractor.transactionNameText
     }
 }

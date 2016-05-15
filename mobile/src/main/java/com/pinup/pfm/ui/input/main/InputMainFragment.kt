@@ -73,7 +73,7 @@ class InputMainFragment : BaseFragment, InputMainScreen {
             actionDateButton = view.findViewById(R.id.inputActionDateNew) as ImageButton
         }
 
-        keyboardFragment = KeyboardFragment.newInstance(inputMainPresenter.keyboardType)
+        keyboardFragment = KeyboardFragment.newInstance(inputMainPresenter.getSelectedKeyboardType())
 
         replaceFragment(childFragmentManager, R.id.keyboardContainer,
                 keyboardFragment, keyboardFragment.javaClass.canonicalName)
@@ -141,8 +141,7 @@ class InputMainFragment : BaseFragment, InputMainScreen {
 
     @OnClick(R.id.inputSubmitBtn)
     fun onSubmitClicked() {
-        inputMainPresenter.transactionName = nameEditText.text.toString()
-        inputMainPresenter.saveTransaction()
+        inputMainPresenter.saveTransaction(nameEditText.text.toString())
     }
 
     /**
@@ -192,10 +191,9 @@ class InputMainFragment : BaseFragment, InputMainScreen {
      * Reloads the selected transaction to the view
      */
     fun reloadTransaction() {
-        inputMainPresenter.reloadTransaction()
         inputMainPresenter.loadCurrentlySelectedCurrency()
         inputMainPresenter.loadCurrentValue()
-        nameEditText.setText(inputMainPresenter.transactionName)
+        nameEditText.setText(inputMainPresenter.getCurrentTransactionName())
     }
 
     //region Screen implementations
