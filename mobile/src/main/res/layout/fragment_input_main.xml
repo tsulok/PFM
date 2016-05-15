@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical"
     android:weightSum="2">
 
@@ -19,23 +21,30 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <com.pinup.pfm.ui.widget.ExtendedTextView
+            <com.pinup.pfm.ui.widget.ExtendedEditText
                 android:id="@+id/inputNameTxt"
-                android:layout_width="wrap_content"
+                style="@style/AppTheme.BaseEditText"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Expense name"
-                android:textSize="@dimen/input.action.name.text.size"
-                android:visibility="gone" />
+                android:layout_margin="@dimen/default.margin"
+                android:gravity="center"
+                android:hint="@string/input.transaction.hint"
+                android:imeOptions="actionDone"
+                android:inputType="textCapSentences"
+                android:singleLine="true"
+                android:textSize="@dimen/input.action.name.text.size" />
 
-            <TextView
+            <com.pinup.pfm.ui.widget.ExtendedTextView
                 android:id="@+id/inputAmountTxt"
+                style="@style/AppTheme.BaseText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/default.margin"
                 android:text="0"
                 android:textSize="@dimen/input.action.amount.text.size" />
 
-            <TextView
+            <com.pinup.pfm.ui.widget.ExtendedTextView
+                style="@style/AppTheme.BaseText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/default.margin"
@@ -43,10 +52,13 @@
                 android:textAllCaps="true"
                 android:textSize="@dimen/input.action.currency.title.text.size" />
 
-            <TextView
+            <com.pinup.pfm.ui.widget.ExtendedTextView
                 android:id="@+id/inputCurrencyTxt"
+                style="@style/AppTheme.BaseText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusableInTouchMode="true"
                 android:text="USD"
                 android:textAllCaps="true"
                 android:textSize="@dimen/input.action.currency.text.size"
@@ -59,15 +71,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:clickable="true"
+            android:focusableInTouchMode="true"
             android:orientation="horizontal"
-            android:weightSum="8"
-            android:clickable="true">
+            android:weightSum="8">
 
             <ImageButton
                 android:id="@+id/inputActionPhotoNew"
                 style="@style/AppTheme.Input_Action_Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusableInTouchMode="true"
                 android:src="@drawable/selector_action_photo" />
 
             <ImageButton
@@ -75,6 +90,8 @@
                 style="@style/AppTheme.Input_Action_Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusableInTouchMode="true"
                 android:src="@drawable/selector_action_location" />
 
             <ImageButton
@@ -82,6 +99,8 @@
                 style="@style/AppTheme.Input_Action_Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusableInTouchMode="true"
                 android:src="@drawable/selector_action_description" />
 
             <ImageButton
@@ -89,6 +108,8 @@
                 style="@style/AppTheme.Input_Action_Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusableInTouchMode="true"
                 android:src="@drawable/selector_action_date" />
         </LinearLayout>
 
@@ -106,7 +127,9 @@
             android:id="@+id/keyboardContainer"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3" />
+            android:layout_weight="3"
+            android:clickable="true"
+            android:focusableInTouchMode="true" />
 
         <LinearLayout
             android:layout_width="0dp"

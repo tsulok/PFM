@@ -59,4 +59,15 @@
         <item name="android:textSize">@dimen/input.keyboard.number.text.size</item>
     </style>
 
+    <style name="AppTheme.RegularAppFont">
+        <item name="fontType">Montserrat-Regular.otf</item>
+    </style>
+
+    <style name="AppTheme.BaseEditText" parent="AppTheme.RegularAppFont">
+
+    </style>
+
+    <style name="AppTheme.BaseText" parent="AppTheme.RegularAppFont">
+
+    </style>
 </resources>

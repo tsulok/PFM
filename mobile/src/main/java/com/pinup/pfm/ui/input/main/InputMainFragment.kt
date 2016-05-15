@@ -1,15 +1,19 @@
 package com.pinup.pfm.ui.input.main
 
 import android.os.Build
+import android.text.Editable
 import android.transition.TransitionInflater
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
+import butterknife.Bind
 import butterknife.OnClick
 import com.orhanobut.logger.Logger
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
 import com.pinup.pfm.extensions.makeToast
+import com.pinup.pfm.extensions.removeSoftKeboard
 import com.pinup.pfm.extensions.replaceFragment
 import com.pinup.pfm.model.database.Transaction
 import com.pinup.pfm.model.input.KeyboardAction
@@ -35,7 +39,7 @@ class InputMainFragment : BaseFragment, InputMainScreen {
     @Inject lateinit var inputMainPresenter: InputMainPresenter
     @Inject lateinit var inputActionContainerFragment: InputActionContainerFragment
 
-    lateinit var nameTextView: TextView
+    @Bind(R.id.inputNameTxt) lateinit var nameEditText: EditText
     lateinit var amountTextView: TextView
     lateinit var currencyTextView: TextView
     lateinit var actionPhotoButton: ImageButton
@@ -62,7 +66,7 @@ class InputMainFragment : BaseFragment, InputMainScreen {
         if (view != null) {
             currencyTextView = view.findViewById(R.id.inputCurrencyTxt) as TextView
             amountTextView = view.findViewById(R.id.inputAmountTxt) as TextView
-            nameTextView = view.findViewById(R.id.inputNameTxt) as TextView
+//            nameTextView = view.findViewById(R.id.inputNameTxt) as TextView
             actionPhotoButton = view.findViewById(R.id.inputActionPhotoNew) as ImageButton
             actionLocationButton = view.findViewById(R.id.inputActionLocationNew) as ImageButton
             actionDescriptionButton = view.findViewById(R.id.inputActionDescriptionNew) as ImageButton
@@ -95,6 +99,8 @@ class InputMainFragment : BaseFragment, InputMainScreen {
                 }
             }
         }
+
+        nameEditText.setOnFocusChangeListener { view, hasFocus -> if (!hasFocus) view.removeSoftKeboard(context) }
     }
 
     override fun onDestroyView() {
@@ -135,6 +141,7 @@ class InputMainFragment : BaseFragment, InputMainScreen {
 
     @OnClick(R.id.inputSubmitBtn)
     fun onSubmitClicked() {
+        inputMainPresenter.transactionName = nameEditText.text.toString()
         inputMainPresenter.saveTransaction()
     }
 
@@ -188,6 +195,7 @@ class InputMainFragment : BaseFragment, InputMainScreen {
         inputMainPresenter.reloadTransaction()
         inputMainPresenter.loadCurrentlySelectedCurrency()
         inputMainPresenter.loadCurrentValue()
+        nameEditText.setText(inputMainPresenter.transactionName)
     }
 
     //region Screen implementations
@@ -219,7 +227,7 @@ class InputMainFragment : BaseFragment, InputMainScreen {
 
     override fun transactionSaved(transaction: Transaction, action: TransactionAction) {
         makeToast("Transaction saved")
-        nameTextView.text = ""
+        nameEditText.text.clear()
         amountTextView.text = "0"
         inputMainPresenter.reset()
 

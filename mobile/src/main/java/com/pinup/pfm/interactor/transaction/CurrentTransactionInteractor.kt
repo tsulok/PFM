@@ -27,6 +27,7 @@ class CurrentTransactionInteractor {
 
     var keyboardType: KeyboardType = KeyboardType.Normal
 
+    var transactionNameText: String = ""
     var transactionCurrentValueText: String = ""
     var transactionImageFile: File? = null
     var transactionDate: Date = Date()
@@ -58,6 +59,7 @@ class CurrentTransactionInteractor {
     fun loadSavedTransaction(transaction: Transaction) {
         savedTransaction = transaction
         transactionCurrency = Currency.getInstance(transaction.currency)
+        transactionNameText = transaction.name
 
         val numberFormat = currencyInteractor.getCurrencyNumberFormat(transaction.currency)
         // Remove all non breaking spaces & change commas when formatting the value
@@ -97,9 +99,10 @@ class CurrentTransactionInteractor {
         // If it is a new, then create it
         if (transaction == null) {
             transactionAction = TransactionAction.NEW
-            transaction = transactionInteractor.createTransaction("",
+            transaction = transactionInteractor.createTransaction(transactionNameText,
                     amount, transactionCurrency!!.currencyCode, transactionSelectedCategory)
         } else {
+            transactionInteractor.updateTransactionName(transaction, transactionNameText)
             transactionInteractor.updateTransactionAmount(transaction, amount, transactionCurrency)
             transactionInteractor.updateTransactionCategory(transaction, transactionSelectedCategory)
         }

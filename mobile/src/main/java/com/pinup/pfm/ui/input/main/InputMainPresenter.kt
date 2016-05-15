@@ -30,6 +30,7 @@ class InputMainPresenter : BasePresenter<InputMainScreen> {
     var selectedCurrency: Currency?
     var keyboardType: KeyboardType = KeyboardType.Normal
     var currentValue: Double = 0.0
+    var transactionName: String = ""
     var currentValueString: String = ""
 
     constructor() : super() {
@@ -43,6 +44,7 @@ class InputMainPresenter : BasePresenter<InputMainScreen> {
         // TODO remove these functions from here and let the current transaction interactor do it's job
         currentValueString = currentTransactionInteractor.transactionCurrentValueText
         selectedCurrency = currentTransactionInteractor.transactionCurrency
+        transactionName = currentTransactionInteractor.transactionNameText
     }
 
     fun loadCurrentValue() {
@@ -125,11 +127,18 @@ class InputMainPresenter : BasePresenter<InputMainScreen> {
             screen?.showMissingTransactionArgument("Amount is missing")
             return
         }
+
         if (selectedCurrency == null) {
             screen?.showMissingTransactionArgument("Currency is missing")
             return
         }
 
+        if (transactionName.isEmpty()) {
+            screen?.showMissingTransactionArgument("Name is missing")
+            return
+        }
+
+        currentTransactionInteractor.transactionNameText = transactionName
         val transactionResultPair = currentTransactionInteractor.saveTransaction()
 
         if (transactionResultPair == null) {

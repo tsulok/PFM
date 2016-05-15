@@ -39,6 +39,7 @@
                     android:layout_height="@dimen/category.filter.collapsed.height"
                     android:background="@color/input.category.background"
                     android:clickable="true"
+                    android:focusableInTouchMode="true"
                     android:orientation="horizontal"
                     android:weightSum="8">
 
