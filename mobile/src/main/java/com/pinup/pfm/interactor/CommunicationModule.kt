@@ -14,6 +14,6 @@ class CommunicationModule {
     @Singleton
     @Provides
     fun provideEventbus(): EventBus {
-        return EventBus.getDefault();
+        return EventBus.getDefault()
     }
 }

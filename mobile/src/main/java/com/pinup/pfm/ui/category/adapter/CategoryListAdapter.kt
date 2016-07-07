@@ -29,6 +29,11 @@ class CategoryListAdapter : BaseAdapter<ICategoryItem> {
         PFMApplication.activityInjector?.inject(this)
 
         categoryInteractor.listAllSelectableCategories().forEach { it -> addItem(CategoryItem(it)) }
+        listAll()
+    }
+
+    fun listAll() {
+        categoryInteractor.listAllSelectableCategories().forEach { it -> addItem(CategoryItem(it)) }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BaseViewHolder? {
