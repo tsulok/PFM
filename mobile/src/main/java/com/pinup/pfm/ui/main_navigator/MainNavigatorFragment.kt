@@ -5,6 +5,8 @@ import android.view.View
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
 import com.pinup.pfm.ui.core.view.BaseFragment
+import com.pinup.pfm.ui.core.view.BaseScreen
+import com.pinup.pfm.ui.core.view.IBasePresenter
 import com.pinup.pfm.ui.main_navigator.adapter.MainNavigatorPagerAdapter
 import org.jetbrains.anko.support.v4.find
 
@@ -23,6 +25,10 @@ class MainNavigatorFragment : BaseFragment, MainNavigatorScreen {
     override fun getLayoutId(): Int {
         return R.layout.fragment_main_navigator
     }
+
+    // TODO create presenter
+    override fun getPresenter(): IBasePresenter? = null
+    override fun getScreen(): BaseScreen = this
 
     override fun initObjects(view: View?) {
         // TODO how to inject childFragmentManager with dagger to a desired fragment

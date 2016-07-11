@@ -18,6 +18,8 @@ import com.pinup.pfm.R
 import com.pinup.pfm.extensions.makeToast
 import com.pinup.pfm.interactor.utils.StorageInteractor
 import com.pinup.pfm.ui.core.view.BaseFragment
+import com.pinup.pfm.ui.core.view.BaseScreen
+import com.pinup.pfm.ui.core.view.IBasePresenter
 import com.pinup.pfm.ui.core.view.viewholder.find
 import org.jetbrains.anko.imageURI
 import org.jetbrains.anko.support.v4.find
@@ -47,18 +49,15 @@ class InputActionCameraFragment: BaseFragment, InputActionCameraScreen {
         return R.layout.fragment_input_action_camera
     }
 
+    override fun getPresenter(): IBasePresenter? = inputActionCameraPresenter
+    override fun getScreen(): BaseScreen = this
+
     override fun initObjects(view: View?) {
-        inputActionCameraPresenter.bind(this)
         inputActionCameraPresenter.updateImage()
     }
 
     override fun initEventHandlers(view: View?) {
 
-    }
-
-    override fun onDestroyView() {
-        inputActionCameraPresenter.unbind()
-        super.onDestroyView()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -9,6 +9,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
 import com.pinup.pfm.ui.core.view.BaseMapFragment
+import com.pinup.pfm.ui.core.view.BaseScreen
+import com.pinup.pfm.ui.core.view.IBasePresenter
 import pl.charmas.android.reactivelocation.ReactiveLocationProvider
 import javax.inject.Inject
 
@@ -28,15 +30,8 @@ class InputActionLocationFragment : BaseMapFragment, InputActionLocationScreen {
         PFMApplication.activityInjector?.inject(this)
     }
 
-    override fun initObjects(view: View?) {
-        super.initObjects(view)
-        inputActionLocationPresenter.bind(this)
-    }
-
-    override fun onDestroyView() {
-        inputActionLocationPresenter.unbind()
-        super.onDestroyView()
-    }
+    override fun getPresenter(): IBasePresenter? = inputActionLocationPresenter
+    override fun getScreen(): BaseScreen = this
 
     override fun onMapInitialized() {
         locationProvider.lastKnownLocation.subscribe { location ->

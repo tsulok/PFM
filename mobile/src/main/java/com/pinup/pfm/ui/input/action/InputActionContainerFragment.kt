@@ -13,7 +13,9 @@ import com.pinup.pfm.extensions.replaceFragment
 import com.pinup.pfm.interactor.transaction.CurrentTransactionInteractor
 import com.pinup.pfm.model.input.OpenAction
 import com.pinup.pfm.ui.core.view.BaseFragment
+import com.pinup.pfm.ui.core.view.BaseScreen
 import com.pinup.pfm.ui.core.view.DatePickerDialogFragment
+import com.pinup.pfm.ui.core.view.IBasePresenter
 import com.pinup.pfm.ui.input.action.camera.InputActionCameraFragment
 import com.pinup.pfm.ui.input.action.date.InputActionDateFragment
 import com.pinup.pfm.ui.input.action.description.InputActionDescriptionFragment
@@ -48,8 +50,10 @@ class InputActionContainerFragment : BaseFragment, InputActionContainerScreen {
         return R.layout.fragment_input_action_container
     }
 
+    override fun getPresenter(): IBasePresenter? = inputActionContainerPresenter
+    override fun getScreen(): BaseScreen = this
+
     override fun initObjects(view: View?) {
-        inputActionContainerPresenter.bind(this)
         initSharedTransitionElements()
         inputActionContainerPresenter.openAction(inputActionContainerPresenter.currentOpenAction)
 
@@ -58,11 +62,6 @@ class InputActionContainerFragment : BaseFragment, InputActionContainerScreen {
 
     override fun initEventHandlers(view: View?) {
 
-    }
-
-    override fun onDestroyView() {
-        inputActionContainerPresenter.unbind()
-        super.onDestroyView()
     }
 
     /**

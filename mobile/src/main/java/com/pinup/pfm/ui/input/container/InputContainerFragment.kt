@@ -18,6 +18,8 @@ import com.pinup.pfm.model.database.Transaction
 import com.pinup.pfm.model.transaction.OnTransactionInteractionListener
 import com.pinup.pfm.ui.category.CategoryListFragment
 import com.pinup.pfm.ui.core.view.BaseFragment
+import com.pinup.pfm.ui.core.view.BaseScreen
+import com.pinup.pfm.ui.core.view.IBasePresenter
 import com.pinup.pfm.ui.history.HistoryListFragment
 import com.pinup.pfm.ui.input.main.InputMainFragment
 import com.pinup.pfm.ui.main_navigator.MainNavigatorFragment
@@ -52,9 +54,10 @@ class InputContainerFragment : BaseFragment, InputContainerScreen {
         return R.layout.fragment_input_container
     }
 
-    override fun initObjects(view: View?) {
+    override fun getPresenter(): IBasePresenter? = containerPresenter
+    override fun getScreen(): BaseScreen = this
 
-        containerPresenter.bind(this)
+    override fun initObjects(view: View?) {
 
         // Apply custom draggings to the slider views
         slidingPanelBottom.setDragView(categorySliderView)
@@ -117,11 +120,6 @@ class InputContainerFragment : BaseFragment, InputContainerScreen {
         override fun onPanelSlide(panel: View?, slideOffset: Float) {
             favCategoryBtnMore.rotation = slideOffset * 180
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        containerPresenter.unbind()
     }
 
     /**

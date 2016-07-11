@@ -28,11 +28,17 @@ abstract class BaseFragment : Fragment, IBaseFragment, IFragmentFactory {
         ButterKnife.bind(this, view);
 
         view?.post {
+            getPresenter()?.bind(getScreen())
             initObjects(view)
             initEventHandlers(view)
         }
 
         return view
+    }
+
+    override fun onDestroyView() {
+        getPresenter()?.unbind()
+        super.onDestroyView()
     }
 
     /**

@@ -7,6 +7,8 @@ import butterknife.Bind
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
 import com.pinup.pfm.ui.core.view.BaseFragment
+import com.pinup.pfm.ui.core.view.BaseScreen
+import com.pinup.pfm.ui.core.view.IBasePresenter
 import org.jetbrains.anko.support.v4.find
 import javax.inject.Inject
 
@@ -27,18 +29,15 @@ class InputActionDescriptionFragment : BaseFragment, InputActionDescriptionScree
         return R.layout.fragment_input_action_description
     }
 
+    override fun getPresenter(): IBasePresenter? = inputActionDescriptionPresenter
+    override fun getScreen(): BaseScreen = this
+
     override fun initObjects(view: View?) {
-        inputActionDescriptionPresenter.bind(this)
         inputActionDescriptionPresenter.updateDescription()
     }
 
     override fun initEventHandlers(view: View?) {
 
-    }
-
-    override fun onDestroyView() {
-        inputActionDescriptionPresenter.unbind()
-        super.onDestroyView()
     }
 
     //region Screen interactions

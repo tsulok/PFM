@@ -11,13 +11,16 @@ import com.pinup.pfm.model.input.KeyboardAction
 import com.pinup.pfm.model.input.KeyboardData
 import com.pinup.pfm.model.input.KeyboardType
 import com.pinup.pfm.ui.core.view.BaseFragment
+import com.pinup.pfm.ui.core.view.BaseScreen
+import com.pinup.pfm.ui.core.view.EmptyScreen
+import com.pinup.pfm.ui.core.view.IBasePresenter
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.support.v4.find
 
 /**
  * Fragment of keyboard
  */
-class KeyboardFragment : BaseFragment {
+class KeyboardFragment : BaseFragment, EmptyScreen {
 
     companion object {
         @JvmStatic val KEY_TYPE: String = "KeyType"
@@ -64,6 +67,9 @@ class KeyboardFragment : BaseFragment {
     override fun getLayoutId(): Int {
         return R.layout.layout_keyboard
     }
+
+    override fun getPresenter(): IBasePresenter? = null
+    override fun getScreen(): BaseScreen = this
 
     override fun initObjects(view: View?) {
         // TODO change values on keyboard according to keyboard type

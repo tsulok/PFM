@@ -11,12 +11,15 @@ import com.pinup.pfm.model.database.Category
 import com.pinup.pfm.ui.core.adapter.BaseAdapter
 import com.pinup.pfm.ui.core.view.BaseListFragment
 import com.pinup.pfm.ui.category.adapter.CategoryListAdapter
+import com.pinup.pfm.ui.core.view.BaseScreen
+import com.pinup.pfm.ui.core.view.EmptyScreen
+import com.pinup.pfm.ui.core.view.IBasePresenter
 import javax.inject.Inject
 
 /**
  * Fragment for listing categories
  */
-class CategoryListFragment : BaseListFragment<ICategoryItem> {
+class CategoryListFragment : BaseListFragment<ICategoryItem>, EmptyScreen {
 
     companion object {
         @JvmStatic var TAG = CategoryListFragment::class.simpleName
@@ -29,6 +32,9 @@ class CategoryListFragment : BaseListFragment<ICategoryItem> {
         Logger.d("Category List constructor")
         PFMApplication.activityInjector?.inject(this)
     }
+
+    override fun getPresenter(): IBasePresenter? = null
+    override fun getScreen(): BaseScreen = this
 
     override fun initEventHandlers(view: View?) {
         setOnItemClickListener { view, position ->

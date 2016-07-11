@@ -22,12 +22,12 @@ import com.pinup.pfm.model.input.OpenAction
 import com.pinup.pfm.model.transaction.OnTransactionInteractionListener
 import com.pinup.pfm.model.transaction.TransactionAction
 import com.pinup.pfm.ui.MainActivity
-import com.pinup.pfm.ui.core.view.BaseFragment
-import com.pinup.pfm.ui.core.view.SharedTransactionElementWrapper
+import com.pinup.pfm.ui.core.view.*
 import com.pinup.pfm.ui.input.action.InputActionContainerFragment
 import com.pinup.pfm.ui.input.keyboard.KeyboardFragment
 import com.pinup.pfm.utils.SharedViewConstants
 import com.pinup.pfm.utils.helper.UIHelper
+import org.jetbrains.anko.onClick
 import org.jetbrains.anko.support.v4.act
 import org.jetbrains.anko.support.v4.find
 import java.util.*
@@ -48,6 +48,7 @@ class InputMainFragment : BaseFragment, InputMainScreen {
     val actionLocationButton by lazy { find<ImageButton>(R.id.inputActionLocationNew) }
     val actionDescriptionButton by lazy { find<ImageButton>(R.id.inputActionDescriptionNew) }
     val actionDateButton by lazy { find<ImageButton>(R.id.inputActionDateNew) }
+    val inputActionPhoto by lazy { find<ImageButton>(R.id.inputActionPhotoNew) }
 
     lateinit var keyboardFragment: KeyboardFragment
 
@@ -57,12 +58,14 @@ class InputMainFragment : BaseFragment, InputMainScreen {
         PFMApplication.activityInjector?.inject(this)
     }
 
+    override fun getPresenter(): IBasePresenter? = inputMainPresenter
+    override fun getScreen(): BaseScreen = this
+
     override fun getLayoutId(): Int {
         return R.layout.fragment_input_main
     }
 
     override fun initObjects(view: View?) {
-        inputMainPresenter.bind(this)
 
         keyboardFragment = KeyboardFragment.newInstance(inputMainPresenter.getSelectedKeyboardType())
 
@@ -92,11 +95,8 @@ class InputMainFragment : BaseFragment, InputMainScreen {
         }
 
         nameEditText.setOnFocusChangeListener { view, hasFocus -> if (!hasFocus) view.removeSoftKeboard(context) }
-    }
 
-    override fun onDestroyView() {
-        inputMainPresenter.unbind()
-        super.onDestroyView()
+        inputActionPhoto.onClick { openActionPage(OpenAction.Photo) }
     }
 
     // Onclick binding works...
@@ -105,10 +105,10 @@ class InputMainFragment : BaseFragment, InputMainScreen {
         inputMainPresenter.showSupportedCurrencies()
     }
 
-    @OnClick(R.id.inputActionPhotoNew)
-    fun onPhotoImageClicked() {
-        openActionPage(OpenAction.Photo)
-    }
+//    @OnClick(R.id.inputActionPhotoNew)
+//    fun onPhotoImageClicked() {
+//        openActionPage(OpenAction.Photo)
+//    }
 
     @OnClick(R.id.inputActionDateNew)
     fun onDateImageClicked() {

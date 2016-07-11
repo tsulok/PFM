@@ -11,6 +11,8 @@ import com.pinup.pfm.model.transaction.ITransactionHistory
 import com.pinup.pfm.model.transaction.OnTransactionInteractionListener
 import com.pinup.pfm.ui.core.adapter.BaseAdapter
 import com.pinup.pfm.ui.core.view.BaseListFragment
+import com.pinup.pfm.ui.core.view.BaseScreen
+import com.pinup.pfm.ui.core.view.IBasePresenter
 import com.pinup.pfm.ui.history.adapter.HistoryListAdapter
 import javax.inject.Inject
 
@@ -29,10 +31,8 @@ class HistoryListFragment : BaseListFragment<ITransactionHistory>, HistoryScreen
         PFMApplication.activityInjector?.inject(this)
     }
 
-    override fun initObjects(view: View?) {
-        super.initObjects(view)
-        historyPresenter.bind(this)
-    }
+    override fun getPresenter(): IBasePresenter? = historyPresenter
+    override fun getScreen(): BaseScreen = this
 
     override fun initEventHandlers(view: View?) {
         setOnItemClickListener { view, position ->  historyPresenter.loadSavedTransaction(historyAdapter.items[position]) }
@@ -44,11 +44,6 @@ class HistoryListFragment : BaseListFragment<ITransactionHistory>, HistoryScreen
 
     override fun getLayoutManager(): RecyclerView.LayoutManager {
         return LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
-    }
-
-    override fun onDestroyView() {
-        historyPresenter.unbind()
-        super.onDestroyView()
     }
 
     fun updateDataset() {

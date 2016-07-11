@@ -15,6 +15,18 @@ interface IBaseFragment {
     fun getLayoutId(): Int
 
     /**
+     * Returns the presenter of the fragment. Used for lifecycle events
+     *
+     * @return The presenter of the fragment
+     */
+    fun getPresenter(): IBasePresenter?
+
+    /**
+     * Returns the screen of this fragment
+     */
+    fun getScreen(): BaseScreen
+
+    /**
      * Other (non view typed) fields (such as adapters) should be initialized here.
      *
      * @param view Root view (which will be returned in onCreateView)

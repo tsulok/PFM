@@ -11,9 +11,7 @@ import butterknife.OnClick
 import butterknife.bindView
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
-import com.pinup.pfm.ui.core.view.BaseFragment
-import com.pinup.pfm.ui.core.view.DatePickerDialogFragment
-import com.pinup.pfm.ui.core.view.TimePickerDialogFragment
+import com.pinup.pfm.ui.core.view.*
 import org.jetbrains.anko.support.v4.find
 import java.util.*
 import javax.inject.Inject
@@ -36,19 +34,16 @@ class InputActionDateFragment : BaseFragment, InputActionDateScreen {
         return R.layout.fragment_input_action_date
     }
 
+    override fun getPresenter(): IBasePresenter? = inputActionDatePresenter
+    override fun getScreen(): BaseScreen = this
+
     override fun initObjects(view: View?) {
-        inputActionDatePresenter.bind(this)
         inputActionDatePresenter.initDate()
         inputActionDatePresenter.updateDate()
     }
 
     override fun initEventHandlers(view: View?) {
 
-    }
-
-    override fun onDestroyView() {
-        inputActionDatePresenter.unbind()
-        super.onDestroyView()
     }
 
     @OnClick(R.id.actionDateTransactionButton)
