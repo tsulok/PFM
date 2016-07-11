@@ -12,6 +12,7 @@ import com.pinup.pfm.model.input.KeyboardData
 import com.pinup.pfm.model.input.KeyboardType
 import com.pinup.pfm.ui.core.view.BaseFragment
 import org.jetbrains.anko.onClick
+import org.jetbrains.anko.support.v4.find
 
 /**
  * Fragment of keyboard
@@ -30,18 +31,18 @@ class KeyboardFragment : BaseFragment {
         }
     }
 
-    @Bind(R.id.input0) lateinit var input0: Button
-    @Bind(R.id.input1) lateinit var input1: Button
-    @Bind(R.id.input2) lateinit var input2: Button
-    @Bind(R.id.input3) lateinit var input3: Button
-    @Bind(R.id.input4) lateinit var input4: Button
-    @Bind(R.id.input5) lateinit var input5: Button
-    @Bind(R.id.input6) lateinit var input6: Button
-    @Bind(R.id.input7) lateinit var input7: Button
-    @Bind(R.id.input8) lateinit var input8: Button
-    @Bind(R.id.input9) lateinit var input9: Button
-    @Bind(R.id.inputComma) lateinit var inputDot: Button
-    @Bind(R.id.inputBack) lateinit var inputBack: ImageButton
+    val input0 by lazy { find<Button>(R.id.input0) }
+    val input1 by lazy { find<Button>(R.id.input1) }
+    val input2 by lazy { find<Button>(R.id.input2) }
+    val input3 by lazy { find<Button>(R.id.input3) }
+    val input4 by lazy { find<Button>(R.id.input4) }
+    val input5 by lazy { find<Button>(R.id.input5) }
+    val input6 by lazy { find<Button>(R.id.input6) }
+    val input7 by lazy { find<Button>(R.id.input7) }
+    val input8 by lazy { find<Button>(R.id.input8) }
+    val input9 by lazy { find<Button>(R.id.input9) }
+    val inputDot by lazy { find<Button>(R.id.inputComma) }
+    val inputBack by lazy { find<ImageButton>(R.id.inputBack) }
 
     // Selected keyboardType
     var keyboardType: KeyboardType = KeyboardType.Normal

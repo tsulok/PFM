@@ -3,7 +3,6 @@ package com.pinup.pfm.ui.core.view.viewholder
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import butterknife.ButterKnife
-import java.text.FieldPosition
 
 /**
  * Base ViewHolder for list's viewholders
@@ -30,3 +29,6 @@ open class BaseViewHolder : RecyclerView.ViewHolder {
         fun listItemClicked(view: View, position: Int);
     }
 }
+
+inline fun <reified T : View> BaseViewHolder.find(id: Int): T = itemView?.findViewById(id) as T
+inline fun <reified T : View> BaseViewHolder.findOptional(id: Int): T? = itemView?.findViewById(id) as? T

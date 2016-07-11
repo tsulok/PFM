@@ -34,8 +34,9 @@ kapt {
     generateStubs = true
 }
 
-def appcompatVersion="23.3.0"
+def appcompatVersion="23.4.0"
 def playServicesVersion="8.4.0"
+def ankoVersion="0.8.3"
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     wearApp project(':wear')
@@ -60,9 +61,11 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
 
     // Anko for kotlin
-    compile 'org.jetbrains.anko:anko-sdk15:0.8.3' // sdk19, sdk21, sdk23 are also available
-    compile 'org.jetbrains.anko:anko-support-v4:0.8.3' // In case you need support-v4 bindings
-    compile 'org.jetbrains.anko:anko-appcompat-v7:0.8.3' // For appcompat-v7 bindings
+    compile "org.jetbrains.anko:anko-sdk15:$ankoVersion" // sdk19, sdk21, sdk23 are also available
+    compile "org.jetbrains.anko:anko-support-v4:$ankoVersion" // In case you need support-v4 bindings
+    compile "org.jetbrains.anko:anko-appcompat-v7:$ankoVersion" // For appcompat-v7 bindings
+    compile "org.jetbrains.anko:anko-design:$ankoVersion"
+    compile "org.jetbrains.anko:anko-recyclerview-v7:$ankoVersion"
 
     // Dagger
     compile 'com.google.dagger:dagger:2.2'

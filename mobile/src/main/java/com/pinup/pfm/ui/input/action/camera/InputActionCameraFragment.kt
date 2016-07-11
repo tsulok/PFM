@@ -18,7 +18,9 @@ import com.pinup.pfm.R
 import com.pinup.pfm.extensions.makeToast
 import com.pinup.pfm.interactor.utils.StorageInteractor
 import com.pinup.pfm.ui.core.view.BaseFragment
+import com.pinup.pfm.ui.core.view.viewholder.find
 import org.jetbrains.anko.imageURI
+import org.jetbrains.anko.support.v4.find
 import java.io.File
 import javax.inject.Inject
 
@@ -34,8 +36,8 @@ class InputActionCameraFragment: BaseFragment, InputActionCameraScreen {
     @Inject lateinit var inputActionCameraPresenter: InputActionCameraPresenter
     @Inject lateinit var storageInteractor: StorageInteractor
 
-    @Bind(R.id.actionCameraTransactionPhoto) lateinit var transactionPhotoImageView: ImageView
-    @Bind(R.id.actionCameraTransactionNoPhotoTxt) lateinit var noImageTxt: TextView
+    val transactionPhotoImageView by lazy { find<ImageView>(R.id.actionCameraTransactionPhoto) }
+    val noImageTxt by lazy { find<TextView>(R.id.actionCameraTransactionNoPhotoTxt) }
 
     constructor() : super() {
         PFMApplication.activityInjector?.inject(this)

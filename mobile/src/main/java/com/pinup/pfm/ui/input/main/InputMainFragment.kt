@@ -4,6 +4,7 @@ import android.os.Build
 import android.text.Editable
 import android.transition.TransitionInflater
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
@@ -28,6 +29,7 @@ import com.pinup.pfm.ui.input.keyboard.KeyboardFragment
 import com.pinup.pfm.utils.SharedViewConstants
 import com.pinup.pfm.utils.helper.UIHelper
 import org.jetbrains.anko.support.v4.act
+import org.jetbrains.anko.support.v4.find
 import java.util.*
 import javax.inject.Inject
 
@@ -39,13 +41,13 @@ class InputMainFragment : BaseFragment, InputMainScreen {
     @Inject lateinit var inputMainPresenter: InputMainPresenter
     @Inject lateinit var inputActionContainerFragment: InputActionContainerFragment
 
-    @Bind(R.id.inputNameTxt) lateinit var nameEditText: EditText
-    lateinit var amountTextView: TextView
-    lateinit var currencyTextView: TextView
-    lateinit var actionPhotoButton: ImageButton
-    lateinit var actionLocationButton: ImageButton
-    lateinit var actionDescriptionButton: ImageButton
-    lateinit var actionDateButton: ImageButton
+    val nameEditText by lazy { find<EditText>(R.id.inputNameTxt) }
+    val amountTextView by lazy { find<TextView>(R.id.inputCurrencyTxt) }
+    val currencyTextView by lazy { find<TextView>(R.id.inputAmountTxt) }
+    val actionPhotoButton by lazy { find<ImageButton>(R.id.inputActionPhotoNew) }
+    val actionLocationButton by lazy { find<ImageButton>(R.id.inputActionLocationNew) }
+    val actionDescriptionButton by lazy { find<ImageButton>(R.id.inputActionDescriptionNew) }
+    val actionDateButton by lazy { find<ImageButton>(R.id.inputActionDateNew) }
 
     lateinit var keyboardFragment: KeyboardFragment
 
@@ -61,17 +63,6 @@ class InputMainFragment : BaseFragment, InputMainScreen {
 
     override fun initObjects(view: View?) {
         inputMainPresenter.bind(this)
-
-        // TODO figure out why view binding is not working in this fragment
-        if (view != null) {
-            currencyTextView = view.findViewById(R.id.inputCurrencyTxt) as TextView
-            amountTextView = view.findViewById(R.id.inputAmountTxt) as TextView
-//            nameTextView = view.findViewById(R.id.inputNameTxt) as TextView
-            actionPhotoButton = view.findViewById(R.id.inputActionPhotoNew) as ImageButton
-            actionLocationButton = view.findViewById(R.id.inputActionLocationNew) as ImageButton
-            actionDescriptionButton = view.findViewById(R.id.inputActionDescriptionNew) as ImageButton
-            actionDateButton = view.findViewById(R.id.inputActionDateNew) as ImageButton
-        }
 
         keyboardFragment = KeyboardFragment.newInstance(inputMainPresenter.getSelectedKeyboardType())
 

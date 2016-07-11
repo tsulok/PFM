@@ -22,6 +22,7 @@ import com.pinup.pfm.ui.history.HistoryListFragment
 import com.pinup.pfm.ui.input.main.InputMainFragment
 import com.pinup.pfm.ui.main_navigator.MainNavigatorFragment
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
+import org.jetbrains.anko.support.v4.find
 import javax.inject.Inject
 
 /**
@@ -34,14 +35,14 @@ class InputContainerFragment : BaseFragment, InputContainerScreen {
     @Inject lateinit var inputMainFragment: InputMainFragment
     @Inject lateinit var containerPresenter: InputContainerPresenter
 
-    @Bind(R.id.slidingPanelTop) lateinit var slidingPanelTop: SlidingUpPanelLayout
-    @Bind(R.id.slidingPanelBottom) lateinit var slidingPanelBottom: SlidingUpPanelLayout
-    @Bind(R.id.favouriteCategoryBtn1) lateinit var favCategoryBtn1: Button
-    @Bind(R.id.favouriteCategoryBtn2) lateinit var favCategoryBtn2: Button
-    @Bind(R.id.favouriteCategoryBtn3) lateinit var favCategoryBtn3: Button
-    @Bind(R.id.favouriteCategoryBtnMore) lateinit var favCategoryBtnMore: ImageButton
-    @Bind(R.id.historySlider) lateinit var historySliderView: FrameLayout
-    @Bind(R.id.categorySlider) lateinit var categorySliderView: LinearLayout
+    val slidingPanelTop by lazy { find<SlidingUpPanelLayout>(R.id.slidingPanelTop) }
+    val slidingPanelBottom by lazy { find<SlidingUpPanelLayout>(R.id.slidingPanelBottom) }
+    val favCategoryBtn1 by lazy { find<Button>(R.id.favouriteCategoryBtn1) }
+    val favCategoryBtn2 by lazy { find<Button>(R.id.favouriteCategoryBtn2) }
+    val favCategoryBtn3 by lazy { find<Button>(R.id.favouriteCategoryBtn3) }
+    val favCategoryBtnMore by lazy { find<ImageButton>(R.id.favouriteCategoryBtnMore) }
+    val historySliderView by lazy { find<FrameLayout>(R.id.historySlider) }
+    val categorySliderView by lazy { find<LinearLayout>(R.id.categorySlider) }
 
     constructor() : super() {
         PFMApplication.activityInjector?.inject(this)

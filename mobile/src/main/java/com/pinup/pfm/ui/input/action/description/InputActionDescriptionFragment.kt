@@ -2,10 +2,12 @@ package com.pinup.pfm.ui.input.action.description
 
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import butterknife.Bind
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
 import com.pinup.pfm.ui.core.view.BaseFragment
+import org.jetbrains.anko.support.v4.find
 import javax.inject.Inject
 
 /**
@@ -15,7 +17,7 @@ class InputActionDescriptionFragment : BaseFragment, InputActionDescriptionScree
 
     @Inject lateinit var inputActionDescriptionPresenter: InputActionDescriptionPresenter
 
-    @Bind(R.id.inputActionDescriptionEditTxt22) lateinit var editText: EditText
+    val editText by lazy { find<EditText>(R.id.inputActionDescriptionEditTxt22) }
 
     constructor() : super() {
         PFMApplication.activityInjector?.inject(this)

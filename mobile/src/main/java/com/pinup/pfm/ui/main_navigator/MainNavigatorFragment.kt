@@ -1,16 +1,12 @@
 package com.pinup.pfm.ui.main_navigator
 
-import android.app.Activity
-import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.view.View
-import butterknife.Bind
-import com.orhanobut.logger.Logger
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
 import com.pinup.pfm.ui.core.view.BaseFragment
 import com.pinup.pfm.ui.main_navigator.adapter.MainNavigatorPagerAdapter
-import javax.inject.Inject
+import org.jetbrains.anko.support.v4.find
 
 /**
  * Main fragment for navigation
@@ -18,7 +14,7 @@ import javax.inject.Inject
 class MainNavigatorFragment : BaseFragment, MainNavigatorScreen {
 
 //    @Inject lateinit var adapter: MainNavigatorPagerAdapter
-    @Bind(R.id.viewpager) lateinit var viewPager: ViewPager
+    val viewPager by lazy { find<ViewPager>(R.id.viewpager) }
 
     constructor() : super() {
         PFMApplication.activityInjector?.inject(this)

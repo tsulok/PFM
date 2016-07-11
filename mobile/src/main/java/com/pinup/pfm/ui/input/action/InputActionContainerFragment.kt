@@ -3,10 +3,7 @@ package com.pinup.pfm.ui.input.action
 import android.app.DatePickerDialog
 import android.os.Build
 import android.view.View
-import android.widget.Button
-import android.widget.DatePicker
-import android.widget.ImageButton
-import android.widget.TextView
+import android.widget.*
 import butterknife.Bind
 import butterknife.OnClick
 import butterknife.bindView
@@ -23,6 +20,7 @@ import com.pinup.pfm.ui.input.action.description.InputActionDescriptionFragment
 import com.pinup.pfm.ui.input.action.description.InputActionDescriptionPresenter
 import com.pinup.pfm.ui.input.action.location.InputActionLocationFragment
 import com.pinup.pfm.utils.SharedViewConstants
+import org.jetbrains.anko.support.v4.find
 import javax.inject.Inject
 
 /**
@@ -36,11 +34,11 @@ class InputActionContainerFragment : BaseFragment, InputActionContainerScreen {
     @Inject lateinit var inputActionDateFragment: InputActionDateFragment
     @Inject lateinit var inputActionContainerPresenter: InputActionContainerPresenter
 
-    @Bind(R.id.inputActionContainerAmountTxt) lateinit var amountText: TextView
-    @Bind(R.id.inputActionContainerPhoto) lateinit var actionPhotoButton: ImageButton
-    @Bind(R.id.inputActionContainerLocation) lateinit var actionLocationButton: ImageButton
-    @Bind(R.id.inputActionContainerDate) lateinit var actionDateButton: ImageButton
-    @Bind(R.id.inputActionContainerDescription) lateinit var actionDesciptionButton: ImageButton
+    val amountText by lazy { find<TextView>(R.id.inputActionContainerAmountTxt) }
+    val actionPhotoButton by lazy { find<ImageButton>(R.id.inputActionContainerPhoto) }
+    val actionLocationButton by lazy { find<ImageButton>(R.id.inputActionContainerLocation) }
+    val actionDateButton by lazy { find<ImageButton>(R.id.inputActionContainerDate) }
+    val actionDesciptionButton by lazy { find<ImageButton>(R.id.inputActionContainerDescription) }
 
     constructor() : super() {
         PFMApplication.activityInjector?.inject(this)

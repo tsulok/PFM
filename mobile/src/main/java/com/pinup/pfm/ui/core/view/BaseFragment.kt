@@ -27,8 +27,10 @@ abstract class BaseFragment : Fragment, IBaseFragment, IFragmentFactory {
         val view = inflater?.inflate(getLayoutId(), container, false)
         ButterKnife.bind(this, view);
 
-        initObjects(view)
-        initEventHandlers(view)
+        view?.post {
+            initObjects(view)
+            initEventHandlers(view)
+        }
 
         return view
     }

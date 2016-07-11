@@ -14,6 +14,7 @@ import com.pinup.pfm.R
 import com.pinup.pfm.ui.core.view.BaseFragment
 import com.pinup.pfm.ui.core.view.DatePickerDialogFragment
 import com.pinup.pfm.ui.core.view.TimePickerDialogFragment
+import org.jetbrains.anko.support.v4.find
 import java.util.*
 import javax.inject.Inject
 
@@ -25,7 +26,7 @@ class InputActionDateFragment : BaseFragment, InputActionDateScreen {
     @Inject lateinit var inputActionDatePresenter: InputActionDatePresenter
     @Inject lateinit var supportFragmentManager: FragmentManager
 
-    @Bind(R.id.actionDateTransactionTxt22) lateinit var dateText: TextView
+    val dateText by lazy { find<TextView>(R.id.actionDateTransactionTxt22) }
 
     constructor() : super() {
         PFMApplication.activityInjector?.inject(this)

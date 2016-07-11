@@ -12,14 +12,15 @@ import com.orhanobut.logger.Logger
 import com.pinup.pfm.R
 import com.pinup.pfm.ui.core.adapter.BaseAdapter
 import com.pinup.pfm.ui.core.view.viewholder.BaseViewHolder
+import org.jetbrains.anko.support.v4.find
 
 /**
  * Base listFragment class
  */
 abstract class BaseListFragment<T> : BaseFragment {
 
-    @Bind(R.id.recyclerList) lateinit var recyclerView: RecyclerView
-    @Bind(R.id.listOverlayContainer) lateinit var listOverlayContainer: FrameLayout
+    val recyclerView by lazy { find<RecyclerView>(R.id.recyclerList) }
+    val listOverlayContainer by lazy { find<FrameLayout>(R.id.listOverlayContainer) }
 
     constructor() : super() {
         Logger.d("Base list constructor")
