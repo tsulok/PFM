@@ -2,6 +2,7 @@ package com.pinup.pfm
 
 import android.app.Activity
 import android.app.Application
+import android.support.multidex.MultiDex
 import android.support.v7.app.AppCompatActivity
 import com.orhanobut.logger.Logger
 import com.pinup.pfm.interactor.DaoModule
@@ -35,6 +36,8 @@ class PFMApplication : Application() {
         super.onCreate()
 
         Logger.init("PFM")
+
+        MultiDex.install(this)
 
         injector = DaggerPFMApplicationComponent.builder()
                 .uIModule(UIModule(this))

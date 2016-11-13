@@ -7,16 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import butterknife.ButterKnife
 import com.orhanobut.logger.Logger
-import com.pinup.pfm.PFMApplication
-import org.greenrobot.eventbus.EventBus
-import javax.inject.Inject
 
 /**
  * Abstract class for all fragment
  */
 abstract class BaseFragment : Fragment, IBaseFragment, IFragmentFactory {
-
-//    @Inject lateinit var bus: EventBus
 
     constructor() : super() {
         Logger.d("Base constructor")
