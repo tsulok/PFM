@@ -11,7 +11,7 @@ import javax.inject.Inject
 class InputActionContainerPresenter @Inject constructor(val currentTransactionInteractor: CurrentTransactionInteractor)
     : BasePresenter<InputActionContainerScreen>() {
 
-    lateinit var currentOpenAction: OpenAction
+    var currentOpenAction: OpenAction? = null
     private var isPageOpening = true
 
     fun openAction(openAction: OpenAction) {
@@ -21,7 +21,10 @@ class InputActionContainerPresenter @Inject constructor(val currentTransactionIn
         }
 
         this.currentOpenAction = openAction
-        screen?.changeToSelectedAction(currentOpenAction)
+
+        currentOpenAction?.let {
+            screen?.changeToSelectedAction(openAction)
+        }
     }
 
     fun getFormattedAmountText(): String {

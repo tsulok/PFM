@@ -91,6 +91,10 @@ dependencies {
     // Eventbus
     //compile 'org.greenrobot:eventbus:3.0.0'
 
+    // Fragment argument injection
+    compile 'com.hannesdorfmann.fragmentargs:annotation:3.0.2'
+    kapt 'com.hannesdorfmann.fragmentargs:processor:3.0.2'
+
     // Logger
     compile 'com.github.orhanobut:logger:1.12'
 

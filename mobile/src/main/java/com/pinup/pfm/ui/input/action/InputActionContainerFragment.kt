@@ -1,10 +1,14 @@
 package com.pinup.pfm.ui.input.action
 
 import android.os.Build
+import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
 import butterknife.OnClick
+import com.hannesdorfmann.fragmentargs.FragmentArgs
+import com.hannesdorfmann.fragmentargs.annotation.Arg
+import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs
 import com.pinup.pfm.R
 import com.pinup.pfm.di.component.PFMFragmentComponent
 import com.pinup.pfm.extensions.replaceFragment
@@ -24,10 +28,14 @@ import javax.inject.Inject
 /**
  * Input action fragment
  */
+@FragmentWithArgs
 class InputActionContainerFragment
     : BaseFragment(), InputActionContainerScreen {
 
     @Inject lateinit var inputActionContainerPresenter: InputActionContainerPresenter
+
+    @Arg
+    lateinit var openAction: OpenAction
 
     val inputActionCameraFragment: InputActionCameraFragment by lazy { InputActionCameraFragment() }
     val inputActionLocationFragment: InputActionLocationFragment by lazy { InputActionLocationFragment() }
@@ -40,6 +48,11 @@ class InputActionContainerFragment
     val actionDateButton by lazy { find<ImageButton>(R.id.inputActionContainerDate) }
     val actionDesciptionButton by lazy { find<ImageButton>(R.id.inputActionContainerDescription) }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        FragmentArgs.inject(this)
+    }
+
     override fun getLayoutId(): Int {
         return R.layout.fragment_input_action_container
     }
@@ -49,7 +62,7 @@ class InputActionContainerFragment
 
     override fun initObjects(view: View?) {
         initSharedTransitionElements()
-        inputActionContainerPresenter.openAction(inputActionContainerPresenter.currentOpenAction)
+        inputActionContainerPresenter.openAction(openAction)
 
         amountText.text = inputActionContainerPresenter.getFormattedAmountText()
     }
@@ -89,13 +102,6 @@ class InputActionContainerFragment
             OpenAction.Description -> actionDesciptionButton.isSelected = true
             OpenAction.Location -> actionLocationButton.isSelected = true
         }
-    }
-
-    /**
-     * Set up initial open action
-     */
-    fun setupInitialOpenAction(openAction: OpenAction) {
-        inputActionContainerPresenter.currentOpenAction = openAction
     }
 
     @OnClick(R.id.closeBtn)

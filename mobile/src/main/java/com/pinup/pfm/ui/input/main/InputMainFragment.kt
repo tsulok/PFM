@@ -25,6 +25,7 @@ import com.pinup.pfm.model.transaction.TransactionAction
 import com.pinup.pfm.ui.MainActivity
 import com.pinup.pfm.ui.core.view.*
 import com.pinup.pfm.ui.input.action.InputActionContainerFragment
+import com.pinup.pfm.ui.input.action.InputActionContainerFragmentBuilder
 import com.pinup.pfm.ui.input.keyboard.KeyboardFragment
 import com.pinup.pfm.utils.SharedViewConstants
 import com.pinup.pfm.utils.helper.UIHelper
@@ -40,7 +41,6 @@ import javax.inject.Inject
 class InputMainFragment : BaseFragment(), InputMainScreen {
 
     @Inject lateinit var inputMainPresenter: InputMainPresenter
-    val inputActionContainerFragment: InputActionContainerFragment by lazy { InputActionContainerFragment() }
 
     val nameEditText by lazy { find<EditText>(R.id.inputNameTxt) }
     val amountTextView by lazy { find<TextView>(R.id.inputCurrencyTxt) }
@@ -74,7 +74,6 @@ class InputMainFragment : BaseFragment(), InputMainScreen {
                 keyboardFragment, keyboardFragment.javaClass.canonicalName)
 
         inputMainPresenter.loadCurrentlySelectedCurrency()
-        initSharedTransitions()
 
         inputMainPresenter.loadCurrentValue()
     }
@@ -139,7 +138,7 @@ class InputMainFragment : BaseFragment(), InputMainScreen {
     /**
      * Init views for shared transition
      */
-    private fun initSharedTransitions() {
+    private fun initSharedTransitions(fragment: BaseFragment) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             amountTextView.transitionName = SharedViewConstants.KEY_INPUT_AMOUNT_TXT
             actionPhotoButton.transitionName = SharedViewConstants.KEY_INPUT_ACTION_PHOTO_BUTTON
@@ -153,12 +152,12 @@ class InputMainFragment : BaseFragment(), InputMainScreen {
             exitTransition = transitionInflater.inflateTransition(android.R.transition.fade)
             enterTransition = transitionInflater.inflateTransition(android.R.transition.fade)
 
-            inputActionContainerFragment.sharedElementEnterTransition = transitionInflater.inflateTransition(R.transition.all_transition)
-            inputActionContainerFragment.enterTransition = transitionInflater.inflateTransition(android.R.transition.fade)
-            inputActionContainerFragment.exitTransition = transitionInflater.inflateTransition(android.R.transition.fade)
+            fragment.sharedElementEnterTransition = transitionInflater.inflateTransition(R.transition.all_transition)
+            fragment.enterTransition = transitionInflater.inflateTransition(android.R.transition.fade)
+            fragment.exitTransition = transitionInflater.inflateTransition(android.R.transition.fade)
 
-            inputActionContainerFragment.allowEnterTransitionOverlap = false
-            inputActionContainerFragment.allowReturnTransitionOverlap = false
+            fragment.allowEnterTransitionOverlap = false
+            fragment.allowReturnTransitionOverlap = false
         }
     }
 
@@ -166,8 +165,11 @@ class InputMainFragment : BaseFragment(), InputMainScreen {
      * Open action page
      */
     private fun openActionPage(openAction: OpenAction) {
-        // TODO updat initial opn action
-//        inputActionContainerFragment.setupInitialOpenAction(openAction)
+
+        val inputActionContainerFragment = InputActionContainerFragmentBuilder
+                .newInputActionContainerFragment(openAction)
+
+        initSharedTransitions(inputActionContainerFragment)
 
         (activity as MainActivity).switchToFragmentWithTransition(
                 inputActionContainerFragment,
