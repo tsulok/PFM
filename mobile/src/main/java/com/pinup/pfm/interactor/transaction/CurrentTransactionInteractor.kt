@@ -19,11 +19,9 @@ import javax.inject.Inject
 /**
  * Current transaction interactor
  */
-class CurrentTransactionInteractor {
-
-    @Inject lateinit var transactionInteractor: TransactionInteractor
-    @Inject lateinit var currencyInteractor: CurrencyInteractor
-    @Inject lateinit var storageInteractor: StorageInteractor
+class CurrentTransactionInteractor @Inject constructor(val transactionInteractor: TransactionInteractor,
+                                                       val currencyInteractor: CurrencyInteractor,
+                                                       val storageInteractor: StorageInteractor) {
 
     var keyboardType: KeyboardType = KeyboardType.Normal
 
@@ -37,10 +35,6 @@ class CurrentTransactionInteractor {
     var transactionCurrency: Currency? = null
 
     var savedTransaction: Transaction? = null
-
-    constructor() {
-        PFMApplication.injector.inject(this)
-    }
 
     /**
      * Resets the transaction

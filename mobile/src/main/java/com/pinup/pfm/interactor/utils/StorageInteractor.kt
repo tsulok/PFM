@@ -1,8 +1,7 @@
 package com.pinup.pfm.interactor.utils
 
 import android.content.Context
-import com.pinup.pfm.PFMApplication
-import com.sromku.simple.storage.InternalStorage
+import com.pinup.pfm.di.qualifiers.ApplicationContext
 import com.sromku.simple.storage.SimpleStorage
 import com.sromku.simple.storage.Storage
 import java.io.File
@@ -11,15 +10,9 @@ import javax.inject.Inject
 /**
  * Interactor for handling storage functionalities
  */
-class StorageInteractor {
-
-    @Inject lateinit var context: Context
+class StorageInteractor @Inject constructor(@ApplicationContext val context: Context) {
 
     val forceUseInternalStorage: Boolean = false
-
-    constructor() {
-        PFMApplication.injector.inject(this)
-    }
 
     /**
      * Returns the default available storage

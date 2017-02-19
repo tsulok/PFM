@@ -5,10 +5,13 @@ import android.app.Application
 import android.support.multidex.MultiDex
 import android.support.v7.app.AppCompatActivity
 import com.orhanobut.logger.Logger
-import com.pinup.pfm.interactor.DaoModule
-import com.pinup.pfm.interactor.InteractorModule
-import com.pinup.pfm.ui.ActivityModule
-import com.pinup.pfm.ui.UIModule
+import com.pinup.pfm.di.component.DaggerPFMApplicationComponent
+import com.pinup.pfm.di.component.PFMActivityComponent
+import com.pinup.pfm.di.component.PFMApplicationComponent
+import com.pinup.pfm.di.module.DaoModule
+import com.pinup.pfm.di.module.InteractorModule
+import com.pinup.pfm.di.module.ActivityModule
+import com.pinup.pfm.di.module.UIModule
 
 /**
  * Main entry point of the application

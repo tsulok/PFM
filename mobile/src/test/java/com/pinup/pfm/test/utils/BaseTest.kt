@@ -2,9 +2,9 @@ package com.pinup.pfm.test.utils
 
 import com.pinup.pfm.DaggerTestComponent
 import com.pinup.pfm.PFMApplication
-import com.pinup.pfm.PFMApplicationComponent
+import com.pinup.pfm.di.component.PFMApplicationComponent
 import com.pinup.pfm.TestModule
-import com.pinup.pfm.interactor.InteractorModule
+import com.pinup.pfm.di.module.InteractorModule
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.shadows.ShadowLog
 

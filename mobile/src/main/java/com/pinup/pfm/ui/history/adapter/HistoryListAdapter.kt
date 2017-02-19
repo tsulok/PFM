@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.ViewGroup
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
+import com.pinup.pfm.di.qualifiers.ActivityContext
 import com.pinup.pfm.interactor.transaction.TransactionInteractor
 import com.pinup.pfm.interactor.utils.CurrencyInteractor
 import com.pinup.pfm.model.database.Transaction
@@ -20,13 +21,12 @@ import javax.inject.Inject
 /**
  * Adapter for listing histories
  */
-class HistoryListAdapter : BaseAdapter<ITransactionHistory> {
+class HistoryListAdapter @Inject constructor(@ActivityContext context: Context,
+                                             val transactionInteractor: TransactionInteractor,
+                                             val currencyInteractor: CurrencyInteractor)
+    : BaseAdapter<ITransactionHistory>(context) {
 
-    @Inject lateinit var transactionInteractor: TransactionInteractor
-    @Inject lateinit var currencyInteractor: CurrencyInteractor
-
-    constructor(context: Context) : super(context) {
-        PFMApplication.activityInjector?.inject(this)
+    init {
         updateDataSet()
     }
 
@@ -74,5 +74,9 @@ class HistoryListAdapter : BaseAdapter<ITransactionHistory> {
 
         val numberFormat = currencyInteractor.getCurrencyNumberFormat(item.getCurrency())
         viewHolder.amountTextView.text = numberFormat.format(item.getAmount())
+    }
+
+    init {
+        PFMApplication.activityInjector?.inject(this)
     }
 }

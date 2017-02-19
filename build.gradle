@@ -29,6 +29,7 @@ allprojects {
         ankoVersion="0.9"
         kotlin_version = '1.0.6'
         wearableVersion = '2.0.0'
+        daggerVersion = '2.7'
     }
 }
 

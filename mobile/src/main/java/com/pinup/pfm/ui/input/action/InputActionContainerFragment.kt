@@ -1,25 +1,20 @@
 package com.pinup.pfm.ui.input.action
 
-import android.app.DatePickerDialog
 import android.os.Build
 import android.view.View
-import android.widget.*
-import butterknife.Bind
+import android.widget.ImageButton
+import android.widget.TextView
 import butterknife.OnClick
-import butterknife.bindView
-import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
+import com.pinup.pfm.di.component.PFMFragmentComponent
 import com.pinup.pfm.extensions.replaceFragment
-import com.pinup.pfm.interactor.transaction.CurrentTransactionInteractor
 import com.pinup.pfm.model.input.OpenAction
 import com.pinup.pfm.ui.core.view.BaseFragment
 import com.pinup.pfm.ui.core.view.BaseScreen
-import com.pinup.pfm.ui.core.view.DatePickerDialogFragment
 import com.pinup.pfm.ui.core.view.IBasePresenter
 import com.pinup.pfm.ui.input.action.camera.InputActionCameraFragment
 import com.pinup.pfm.ui.input.action.date.InputActionDateFragment
 import com.pinup.pfm.ui.input.action.description.InputActionDescriptionFragment
-import com.pinup.pfm.ui.input.action.description.InputActionDescriptionPresenter
 import com.pinup.pfm.ui.input.action.location.InputActionLocationFragment
 import com.pinup.pfm.utils.SharedViewConstants
 import org.jetbrains.anko.support.v4.find
@@ -28,23 +23,19 @@ import javax.inject.Inject
 /**
  * Input action fragment
  */
-class InputActionContainerFragment : BaseFragment, InputActionContainerScreen {
+class InputActionContainerFragment @Inject constructor(val inputActionContainerPresenter: InputActionContainerPresenter)
+    : BaseFragment(), InputActionContainerScreen {
 
-    @Inject lateinit var inputActionCameraFragment: InputActionCameraFragment
-    @Inject lateinit var inputActionLocationFragment: InputActionLocationFragment
-    @Inject lateinit var inputActionDescriptionFragment: InputActionDescriptionFragment
-    @Inject lateinit var inputActionDateFragment: InputActionDateFragment
-    @Inject lateinit var inputActionContainerPresenter: InputActionContainerPresenter
+    val inputActionCameraFragment: InputActionCameraFragment by lazy { InputActionCameraFragment() }
+    val inputActionLocationFragment: InputActionLocationFragment by lazy { InputActionLocationFragment() }
+    val inputActionDescriptionFragment: InputActionDescriptionFragment by lazy { InputActionDescriptionFragment() }
+    val inputActionDateFragment: InputActionDateFragment by lazy { InputActionDateFragment() }
 
     val amountText by lazy { find<TextView>(R.id.inputActionContainerAmountTxt) }
     val actionPhotoButton by lazy { find<ImageButton>(R.id.inputActionContainerPhoto) }
     val actionLocationButton by lazy { find<ImageButton>(R.id.inputActionContainerLocation) }
     val actionDateButton by lazy { find<ImageButton>(R.id.inputActionContainerDate) }
     val actionDesciptionButton by lazy { find<ImageButton>(R.id.inputActionContainerDescription) }
-
-    constructor() : super() {
-        PFMApplication.activityInjector?.inject(this)
-    }
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_input_action_container
@@ -62,6 +53,10 @@ class InputActionContainerFragment : BaseFragment, InputActionContainerScreen {
 
     override fun initEventHandlers(view: View?) {
 
+    }
+
+    override fun injectFragment(component: PFMFragmentComponent) {
+        component.inject(this)
     }
 
     /**

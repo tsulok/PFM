@@ -15,21 +15,17 @@ import javax.inject.Inject
 /**
  * Presenter for input main
  */
-class InputMainPresenter : BasePresenter<InputMainScreen> {
+class InputMainPresenter @Inject constructor(val currencyInteractor: CurrencyInteractor,
+                                             val categoryInteractor: CategoryInteractor,
+                                             val transactionInteractor: TransactionInteractor,
+                                             val currentTransactionInteractor: CurrentTransactionInteractor)
+    : BasePresenter<InputMainScreen>() {
 
     companion object {
         @JvmStatic val TAG = InputMainPresenter::class.java.canonicalName
     }
 
-    @Inject lateinit var currencyInteractor: CurrencyInteractor
-    @Inject lateinit var categoryInteractor: CategoryInteractor
-    @Inject lateinit var transactionInteractor: TransactionInteractor
-    @Inject lateinit var currentTransactionInteractor: CurrentTransactionInteractor
-//    @Inject lateinit var resources: Resources
-
-    constructor() : super() {
-        PFMApplication.injector.inject(this)
-
+    init {
         // Initially load the general saved one
         currentTransactionInteractor.transactionCurrency = currencyInteractor.getSelectedCurrency()
     }

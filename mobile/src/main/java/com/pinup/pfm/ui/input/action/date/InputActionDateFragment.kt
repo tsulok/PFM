@@ -11,6 +11,7 @@ import butterknife.OnClick
 import butterknife.bindView
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
+import com.pinup.pfm.di.component.PFMFragmentComponent
 import com.pinup.pfm.ui.core.view.*
 import org.jetbrains.anko.support.v4.find
 import java.util.*
@@ -19,16 +20,12 @@ import javax.inject.Inject
 /**
  * Input action date fragment
  */
-class InputActionDateFragment : BaseFragment, InputActionDateScreen {
+class InputActionDateFragment : BaseFragment(), InputActionDateScreen {
 
     @Inject lateinit var inputActionDatePresenter: InputActionDatePresenter
     @Inject lateinit var supportFragmentManager: FragmentManager
 
     val dateText by lazy { find<TextView>(R.id.actionDateTransactionTxt22) }
-
-    constructor() : super() {
-        PFMApplication.activityInjector?.inject(this)
-    }
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_input_action_date
@@ -44,6 +41,10 @@ class InputActionDateFragment : BaseFragment, InputActionDateScreen {
 
     override fun initEventHandlers(view: View?) {
 
+    }
+
+    override fun injectFragment(component: PFMFragmentComponent) {
+        component.inject(this)
     }
 
     @OnClick(R.id.actionDateTransactionButton)

@@ -7,15 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import butterknife.ButterKnife
 import com.orhanobut.logger.Logger
+import com.pinup.pfm.di.component.PFMFragmentComponent
 
 /**
  * Abstract class for all fragment
  */
-abstract class BaseFragment : Fragment, IBaseFragment, IFragmentFactory {
+abstract class BaseFragment : Fragment(), IBaseFragment, IFragmentFactory {
 
-    constructor() : super() {
-        Logger.d("Base constructor")
-//        PFMApplication.activityInjector?.inject(this)
+    private lateinit var fragmentComponent: PFMFragmentComponent
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        injectFragment(fragmentComponent())
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -42,8 +45,30 @@ abstract class BaseFragment : Fragment, IBaseFragment, IFragmentFactory {
      * @return True if handled itself, false otherwise
      */
     fun onBackPressed(): Boolean {
-        return false;
+        return false
     }
+
+    /**
+     * Returns with the associated activity component
+     *
+     * @return The activity component. If not exists creates one.
+     */
+    protected fun fragmentComponent(): PFMFragmentComponent {
+//        if (fragmentComponent == null) {
+//            fragmentComponent = PFMFragmentComponent.builder()
+//                    .fragmentModule(new FragmentModule(this))
+//                    .applicationComponent(MunchkinApplication.get(getContext()).getApplicationComponent())
+//                    .build();
+//        }
+        return fragmentComponent;
+    }
+
+    /**
+     * Handles the component to resolve the injection
+     *
+     * @param component The registered component to this fragment
+     */
+    protected abstract fun injectFragment(component: PFMFragmentComponent)
 
     /**
      * Finish this fragment and remove from backstack

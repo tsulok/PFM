@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
+import com.pinup.pfm.di.qualifiers.ActivityContext
 import com.pinup.pfm.extensions.getDrawableForName
 import com.pinup.pfm.interactor.category.CategoryInteractor
 import com.pinup.pfm.interactor.transaction.CurrentTransactionInteractor
@@ -20,14 +21,12 @@ import javax.inject.Inject
 /**
  * Adapter for listing categories
  */
-class CategoryListAdapter : BaseAdapter<ICategoryItem> {
+class CategoryListAdapter @Inject constructor(@ActivityContext context: Context,
+                                              val categoryInteractor: CategoryInteractor,
+                                              val currentTransactionInteractor: CurrentTransactionInteractor)
+    : BaseAdapter<ICategoryItem>(context) {
 
-    @Inject lateinit var categoryInteractor: CategoryInteractor
-    @Inject lateinit var currentTransactionInteractor: CurrentTransactionInteractor
-
-    constructor(context: Context) : super(context) {
-        PFMApplication.activityInjector?.inject(this)
-
+    init {
         categoryInteractor.listAllSelectableCategories().forEach { it -> addItem(CategoryItem(it)) }
         listAll()
     }
@@ -77,5 +76,9 @@ class CategoryListAdapter : BaseAdapter<ICategoryItem> {
 
         viewHolder.itemImage.image = categoryDrawable
         viewHolder.itemImage.isSelected = isItemSelected
+    }
+
+    init {
+        PFMApplication.activityInjector?.inject(this)
     }
 }

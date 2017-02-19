@@ -1,7 +1,8 @@
 package com.pinup.pfm
 
-import com.pinup.pfm.interactor.InteractorModule
-import com.pinup.pfm.presenter.PresenterModule
+import com.pinup.pfm.di.component.PFMApplicationComponent
+import com.pinup.pfm.di.module.InteractorModule
+import com.pinup.pfm.di.module.PresenterModule
 import com.pinup.pfm.test.dao.category.CategoryDeletionTests
 import com.pinup.pfm.test.dao.category.CategoryTests
 import com.pinup.pfm.test.dao.transaction.TransactionDeletionTest

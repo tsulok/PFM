@@ -5,19 +5,22 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import com.pinup.pfm.PFMApplication
-import com.pinup.pfm.ui.ActivityModule
+import com.pinup.pfm.di.component.PFMActivityComponent
+import com.pinup.pfm.di.component.PFMFragmentComponent
+import com.pinup.pfm.di.module.ActivityModule
 
 /**
  * The base activity
  */
 abstract class BaseActivity : AppCompatActivity() {
 
+    private lateinit var activityComponent: PFMActivityComponent // TODO lazy by
+
     abstract fun getActivityMainContainer(): Int
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        injectActivity(activityComponent)
         super.onCreate(savedInstanceState)
-        PFMApplication.injectActivityInjector(this)
-        injectActivityComponent()
     }
 
     /**
@@ -101,5 +104,12 @@ abstract class BaseActivity : AppCompatActivity() {
         PFMApplication.resetActivityInjector()
         super.onDestroy()
     }
+
+    /**
+     * Handles the component to resolve the injection
+     *
+     * @param component The registered component to this activity
+     */
+    protected abstract fun injectActivity(component: PFMActivityComponent)
 }
 

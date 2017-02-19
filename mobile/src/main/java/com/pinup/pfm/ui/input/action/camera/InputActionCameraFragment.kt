@@ -15,6 +15,7 @@ import com.commonsware.cwac.cam2.ZoomStyle
 import com.orhanobut.logger.Logger
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
+import com.pinup.pfm.di.component.PFMFragmentComponent
 import com.pinup.pfm.extensions.makeToast
 import com.pinup.pfm.interactor.utils.StorageInteractor
 import com.pinup.pfm.ui.core.view.BaseFragment
@@ -29,7 +30,7 @@ import javax.inject.Inject
 /**
  * Input action camera fragment
  */
-class InputActionCameraFragment: BaseFragment, InputActionCameraScreen {
+class InputActionCameraFragment: BaseFragment(), InputActionCameraScreen {
 
     companion object {
         @JvmStatic val REQUEST_CODE_CAMERA = 1001
@@ -41,12 +42,12 @@ class InputActionCameraFragment: BaseFragment, InputActionCameraScreen {
     val transactionPhotoImageView by lazy { find<ImageView>(R.id.actionCameraTransactionPhoto) }
     val noImageTxt by lazy { find<TextView>(R.id.actionCameraTransactionNoPhotoTxt) }
 
-    constructor() : super() {
-        PFMApplication.activityInjector?.inject(this)
-    }
-
     override fun getLayoutId(): Int {
         return R.layout.fragment_input_action_camera
+    }
+
+    override fun injectFragment(component: PFMFragmentComponent) {
+        component.inject(this)
     }
 
     override fun getPresenter(): IBasePresenter? = inputActionCameraPresenter

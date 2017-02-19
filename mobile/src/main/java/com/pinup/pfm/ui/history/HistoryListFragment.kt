@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.pinup.pfm.PFMApplication
+import com.pinup.pfm.di.component.PFMFragmentComponent
 import com.pinup.pfm.extensions.makeToast
 import com.pinup.pfm.interactor.transaction.CurrentTransactionInteractor
 import com.pinup.pfm.model.database.Transaction
@@ -19,20 +20,19 @@ import javax.inject.Inject
 /**
  * Fragment for listing history
  */
-class HistoryListFragment : BaseListFragment<ITransactionHistory>, HistoryScreen {
-
-    @Inject lateinit var historyAdapter: HistoryListAdapter
-    @Inject lateinit var historyPresenter: HistoryPresenter
-    @Inject lateinit var currentTransactionInteractor: CurrentTransactionInteractor
+class HistoryListFragment @Inject constructor(val historyAdapter: HistoryListAdapter,
+                                              val historyPresenter: HistoryPresenter,
+                                              val currentTransactionInteractor: CurrentTransactionInteractor)
+    : BaseListFragment<ITransactionHistory>(), HistoryScreen {
 
     var onTransactionInteractionListener: OnTransactionInteractionListener? = null
 
-    constructor() : super() {
-        PFMApplication.activityInjector?.inject(this)
-    }
-
     override fun getPresenter(): IBasePresenter? = historyPresenter
     override fun getScreen(): BaseScreen = this
+
+    override fun injectFragment(component: PFMFragmentComponent) {
+        component.inject(this)
+    }
 
     override fun initEventHandlers(view: View?) {
         setOnItemClickListener { view, position ->  historyPresenter.loadSavedTransaction(historyAdapter.items[position]) }

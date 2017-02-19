@@ -9,15 +9,9 @@ import javax.inject.Inject
 /**
  * Presenter for input action date
  */
-class InputActionDatePresenter : BasePresenter<InputActionDateScreen> {
-
-    @Inject lateinit var currentTransactionInteractor: CurrentTransactionInteractor
+class InputActionDatePresenter @Inject constructor(val currentTransactionInteractor: CurrentTransactionInteractor) : BasePresenter<InputActionDateScreen>() {
 
     private var selectedDate: Calendar = Calendar.getInstance()
-
-    constructor() : super() {
-        PFMApplication.injector.inject(this)
-    }
 
     fun initDate() {
         selectedDate.time = currentTransactionInteractor.transactionDate
@@ -42,5 +36,9 @@ class InputActionDatePresenter : BasePresenter<InputActionDateScreen> {
         this.selectedDate.set(Calendar.MINUTE, minute)
         currentTransactionInteractor.transactionDate = selectedDate.time
         screen?.updateTranactionTime(selectedDate.time)
+    }
+
+    init {
+        PFMApplication.injector.inject(this)
     }
 }

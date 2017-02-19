@@ -13,12 +13,13 @@ import com.pinup.pfm.ui.core.view.viewholder.find
 /**
  * View holder for categories
  */
-class CategoryViewHolder : BaseViewHolder {
+class CategoryViewHolder(itemView: View?) : BaseViewHolder(itemView) {
 
     val itemImage by lazy { find<ImageButton>(R.id.categoryItemImageButton) }
     val itemNameText by lazy { find<TextView>(R.id.categoryItemName) }
 
-    constructor(itemView: View?) : super(itemView) {
+    init {
         clickableView = itemImage
     }
+
 }

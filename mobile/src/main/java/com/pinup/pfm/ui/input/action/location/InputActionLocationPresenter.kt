@@ -9,15 +9,12 @@ import javax.inject.Inject
 /**
  * Presenter for input action location
  */
-class InputActionLocationPresenter : BasePresenter<InputActionLocationScreen> {
-
-    @Inject lateinit var currentTransactionInteractor: CurrentTransactionInteractor
+class InputActionLocationPresenter @Inject constructor(val currentTransactionInteractor: CurrentTransactionInteractor) : BasePresenter<InputActionLocationScreen>() {
 
     private var userLocation: LatLng? = null
     private var userMarkerPosition: LatLng? = null
 
-    constructor() : super() {
-        PFMApplication.injector.inject(this)
+    init {
         userMarkerPosition = currentTransactionInteractor.transactionLocation
     }
 

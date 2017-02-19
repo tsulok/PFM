@@ -2,6 +2,7 @@ package com.pinup.pfm.ui.charts
 
 import android.view.View
 import com.pinup.pfm.R
+import com.pinup.pfm.di.component.PFMFragmentComponent
 import com.pinup.pfm.ui.core.view.BaseFragment
 import com.pinup.pfm.ui.core.view.BaseScreen
 import com.pinup.pfm.ui.core.view.IBasePresenter
@@ -24,5 +25,9 @@ class ChartListFragment : BaseFragment(), ChartListScreen {
 
     override fun initEventHandlers(view: View?) {
 
+    }
+
+    override fun injectFragment(component: PFMFragmentComponent) {
+        component.inject(this)
     }
 }

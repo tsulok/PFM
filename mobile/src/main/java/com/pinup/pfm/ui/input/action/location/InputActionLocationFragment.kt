@@ -8,6 +8,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
+import com.pinup.pfm.di.component.PFMFragmentComponent
 import com.pinup.pfm.ui.core.view.BaseMapFragment
 import com.pinup.pfm.ui.core.view.BaseScreen
 import com.pinup.pfm.ui.core.view.IBasePresenter
@@ -17,7 +18,7 @@ import javax.inject.Inject
 /**
  * Input action location fragment
  */
-class InputActionLocationFragment : BaseMapFragment, InputActionLocationScreen {
+class InputActionLocationFragment : BaseMapFragment(), InputActionLocationScreen {
 
     val DEFAULT_ZOOM_LEVEL: Float = 16.0f
 
@@ -26,12 +27,12 @@ class InputActionLocationFragment : BaseMapFragment, InputActionLocationScreen {
 
     private lateinit var userPositionMarker: Marker
 
-    constructor() : super() {
-        PFMApplication.activityInjector?.inject(this)
-    }
-
     override fun getPresenter(): IBasePresenter? = inputActionLocationPresenter
     override fun getScreen(): BaseScreen = this
+
+    override fun injectFragment(component: PFMFragmentComponent) {
+        component.inject(this)
+    }
 
     override fun onMapInitialized() {
         locationProvider.lastKnownLocation.subscribe { location ->

@@ -1,4 +1,4 @@
-package com.pinup.pfm.ui
+package com.pinup.pfm.di.module
 
 import android.content.Context
 import android.content.res.Resources

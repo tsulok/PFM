@@ -6,6 +6,7 @@ import android.widget.TextView
 import butterknife.Bind
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
+import com.pinup.pfm.di.component.PFMFragmentComponent
 import com.pinup.pfm.ui.core.view.BaseFragment
 import com.pinup.pfm.ui.core.view.BaseScreen
 import com.pinup.pfm.ui.core.view.IBasePresenter
@@ -15,15 +16,11 @@ import javax.inject.Inject
 /**
  * Input action map fragment
  */
-class InputActionDescriptionFragment : BaseFragment, InputActionDescriptionScreen {
+class InputActionDescriptionFragment : BaseFragment(), InputActionDescriptionScreen {
 
     @Inject lateinit var inputActionDescriptionPresenter: InputActionDescriptionPresenter
 
     val editText by lazy { find<EditText>(R.id.inputActionDescriptionEditTxt22) }
-
-    constructor() : super() {
-        PFMApplication.activityInjector?.inject(this)
-    }
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_input_action_description
@@ -34,6 +31,10 @@ class InputActionDescriptionFragment : BaseFragment, InputActionDescriptionScree
 
     override fun initObjects(view: View?) {
         inputActionDescriptionPresenter.updateDescription()
+    }
+
+    override fun injectFragment(component: PFMFragmentComponent) {
+        component.inject(this)
     }
 
     override fun initEventHandlers(view: View?) {

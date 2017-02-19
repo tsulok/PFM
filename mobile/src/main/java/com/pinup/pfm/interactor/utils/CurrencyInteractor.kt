@@ -9,13 +9,7 @@ import javax.inject.Inject
 /**
  * Interactor for handling currencies
  */
-class CurrencyInteractor {
-
-    @Inject lateinit var sharedPreferences: SharedPreferences
-
-    constructor() {
-        PFMApplication.injector.inject(this)
-    }
+class CurrencyInteractor @Inject constructor(val sharedPreferences: SharedPreferences) {
 
     /**
      * Update the selected currency

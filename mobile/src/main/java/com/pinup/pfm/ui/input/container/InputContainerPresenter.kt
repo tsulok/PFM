@@ -1,6 +1,5 @@
 package com.pinup.pfm.ui.input.container
 
-import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.interactor.category.CategoryInteractor
 import com.pinup.pfm.interactor.transaction.CurrentTransactionInteractor
 import com.pinup.pfm.interactor.transaction.TransactionInteractor
@@ -10,15 +9,10 @@ import javax.inject.Inject
 /**
  * Presenter for input container
  */
-class InputContainerPresenter : BasePresenter<InputContainerScreen> {
-
-    @Inject lateinit var categoryInteractor: CategoryInteractor
-    @Inject lateinit var transactionInteractor: TransactionInteractor
-    @Inject lateinit var currentTransactionInteractor: CurrentTransactionInteractor
-
-    constructor() : super() {
-        PFMApplication.injector.inject(this)
-    }
+class InputContainerPresenter @Inject constructor(val categoryInteractor: CategoryInteractor,
+                                                  val transactionInteractor: TransactionInteractor,
+                                                  val currentTransactionInteractor: CurrentTransactionInteractor)
+    : BasePresenter<InputContainerScreen>() {
 
     /**
      * Navigate to charts screen

@@ -10,18 +10,13 @@ import javax.inject.Inject
 /**
  * Presenter for input action camera
  */
-class InputActionCameraPresenter : BasePresenter<InputActionCameraScreen> {
+class InputActionCameraPresenter @Inject constructor(val storageInteractor: StorageInteractor,
+                                                     val currentTransactionInteractor: CurrentTransactionInteractor)
+    : BasePresenter<InputActionCameraScreen>() {
 
     companion object {
         @JvmStatic val IMAGE_TRANSACTION_NAME = "transactionPicture.jpg"
         @JvmStatic val IMAGE_TMP_TRANSACTION_NAME = "transactionPictureTmp.jpg"
-    }
-
-    @Inject lateinit var storageInteractor: StorageInteractor
-    @Inject lateinit var currentTransactionInteractor: CurrentTransactionInteractor
-
-    constructor() : super() {
-        PFMApplication.injector.inject(this)
     }
 
     /**

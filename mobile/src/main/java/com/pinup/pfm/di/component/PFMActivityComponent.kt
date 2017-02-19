@@ -1,7 +1,7 @@
-package com.pinup.pfm
+package com.pinup.pfm.di.component
 
 import com.pinup.pfm.di.scopes.ActivityScope
-import com.pinup.pfm.ui.ActivityModule
+import com.pinup.pfm.di.module.ActivityModule
 import com.pinup.pfm.ui.MainActivity
 import com.pinup.pfm.ui.category.CategoryListFragment
 import com.pinup.pfm.ui.category.adapter.CategoryListAdapter
@@ -18,15 +18,16 @@ import com.pinup.pfm.ui.input.main.InputMainFragment
 import com.pinup.pfm.ui.input.main.InputMainPresenter
 import com.pinup.pfm.ui.main_navigator.MainNavigatorFragment
 import com.pinup.pfm.ui.main_navigator.adapter.MainNavigatorPagerAdapter
+import dagger.Component
 import dagger.Subcomponent
 import javax.inject.Singleton
 
 /**
  * Component for supported DI components
  */
-@Singleton
 @ActivityScope
-@Subcomponent(modules = arrayOf(ActivityModule::class) )
+@Component(dependencies = arrayOf(PFMApplicationComponent::class),
+        modules = arrayOf(ActivityModule::class))
 interface PFMActivityComponent {
 
     fun inject(activity: MainActivity): Unit

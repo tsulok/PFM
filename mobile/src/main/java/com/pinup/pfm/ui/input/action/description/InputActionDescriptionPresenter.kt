@@ -1,6 +1,5 @@
 package com.pinup.pfm.ui.input.action.description
 
-import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.interactor.transaction.CurrentTransactionInteractor
 import com.pinup.pfm.ui.core.view.BasePresenter
 import javax.inject.Inject
@@ -8,14 +7,11 @@ import javax.inject.Inject
 /**
  * Presenter for input action description
  */
-class InputActionDescriptionPresenter : BasePresenter<InputActionDescriptionScreen> {
-
-    @Inject lateinit var currentTransactionInteractor: CurrentTransactionInteractor
+class InputActionDescriptionPresenter @Inject constructor(val currentTransactionInteractor: CurrentTransactionInteractor) : BasePresenter<InputActionDescriptionScreen>() {
 
     var text: String = ""
 
-    constructor() : super() {
-        PFMApplication.injector.inject(this)
+    init {
         text = currentTransactionInteractor.transactionDescription
     }
 
