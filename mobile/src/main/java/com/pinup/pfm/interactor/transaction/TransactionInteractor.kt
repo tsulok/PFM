@@ -9,15 +9,9 @@ import javax.inject.Inject
 /**
  * Interactor for transactions
  */
-class TransactionInteractor {
+class TransactionInteractor @Inject constructor(val daoSession: DaoSession) {
 
     // TODO inject transaction api
-
-    @Inject lateinit var daoSession: DaoSession
-
-    constructor() {
-        PFMApplication.injector.inject(this)
-    }
 
     /**
      * Returns the list of saved transactions ordered by date

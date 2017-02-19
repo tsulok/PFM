@@ -28,7 +28,7 @@ class CategoryDeletionTests : BaseTest() {
     @Before
     fun setUp() {
         setTestInjector()
-        (PFMApplication.injector as TestComponent).inject(this)
+        (PFMApplication.applicationComponent as TestComponent).inject(this)
 
         categoryInteractor.createOrUpdateCategory(MockCategory.instance.category)
     }

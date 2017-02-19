@@ -10,6 +10,7 @@ import butterknife.OnClick
 import com.orhanobut.logger.Logger
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
+import com.pinup.pfm.di.component.PFMFragmentComponent
 import com.pinup.pfm.extensions.getDrawableForName
 import com.pinup.pfm.extensions.makeToast
 import com.pinup.pfm.extensions.replaceFragment
@@ -30,11 +31,11 @@ import javax.inject.Inject
 /**
  * Fragment for input container
  */
-class InputContainerFragment : BaseFragment, InputContainerScreen {
+class InputContainerFragment : BaseFragment(), InputContainerScreen {
 
-    @Inject lateinit var categoryListFragment: CategoryListFragment
-    @Inject lateinit var historyListFragment: HistoryListFragment
-    @Inject lateinit var inputMainFragment: InputMainFragment
+    val categoryListFragment: CategoryListFragment by lazy { CategoryListFragment() }
+    val historyListFragment: HistoryListFragment by lazy { HistoryListFragment() }
+    val inputMainFragment: InputMainFragment by lazy { InputMainFragment() }
     @Inject lateinit var containerPresenter: InputContainerPresenter
 
     val slidingPanelTop by lazy { find<SlidingUpPanelLayout>(R.id.slidingPanelTop) }
@@ -46,16 +47,16 @@ class InputContainerFragment : BaseFragment, InputContainerScreen {
     val historySliderView by lazy { find<FrameLayout>(R.id.historySlider) }
     val categorySliderView by lazy { find<LinearLayout>(R.id.categorySlider) }
 
-    constructor() : super() {
-        PFMApplication.activityInjector?.inject(this)
-    }
-
     override fun getLayoutId(): Int {
         return R.layout.fragment_input_container
     }
 
     override fun getPresenter(): IBasePresenter? = containerPresenter
     override fun getScreen(): BaseScreen = this
+
+    override fun injectFragment(component: PFMFragmentComponent) {
+        component.inject(this)
+    }
 
     override fun initObjects(view: View?) {
 

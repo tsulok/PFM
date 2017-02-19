@@ -37,8 +37,4 @@ class InputActionDatePresenter @Inject constructor(val currentTransactionInterac
         currentTransactionInteractor.transactionDate = selectedDate.time
         screen?.updateTranactionTime(selectedDate.time)
     }
-
-    init {
-        PFMApplication.injector.inject(this)
-    }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import com.pinup.pfm.PFMApplication
+import com.pinup.pfm.di.component.DaggerPFMActivityComponent
 import com.pinup.pfm.di.component.PFMActivityComponent
 import com.pinup.pfm.di.component.PFMFragmentComponent
 import com.pinup.pfm.di.module.ActivityModule
@@ -14,7 +15,12 @@ import com.pinup.pfm.di.module.ActivityModule
  */
 abstract class BaseActivity : AppCompatActivity() {
 
-    private lateinit var activityComponent: PFMActivityComponent // TODO lazy by
+    private val activityComponent: PFMActivityComponent by lazy {
+        DaggerPFMActivityComponent.builder()
+                .activityModule(ActivityModule(this))
+                .pFMApplicationComponent(PFMApplication.applicationComponent)
+                .build()
+    }
 
     abstract fun getActivityMainContainer(): Int
 
@@ -22,11 +28,6 @@ abstract class BaseActivity : AppCompatActivity() {
         injectActivity(activityComponent)
         super.onCreate(savedInstanceState)
     }
-
-    /**
-     * All activites must inject themselves
-     */
-    abstract fun injectActivityComponent()
 
     /**
      * Switches fragment to the new one
@@ -98,11 +99,6 @@ abstract class BaseActivity : AppCompatActivity() {
         }
 
         super.onBackPressed()
-    }
-
-    override fun onDestroy() {
-        PFMApplication.resetActivityInjector()
-        super.onDestroy()
     }
 
     /**

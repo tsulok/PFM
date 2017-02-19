@@ -7,6 +7,7 @@ import android.widget.ImageButton
 import butterknife.Bind
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
+import com.pinup.pfm.di.component.PFMFragmentComponent
 import com.pinup.pfm.model.input.KeyboardAction
 import com.pinup.pfm.model.input.KeyboardData
 import com.pinup.pfm.model.input.KeyboardType
@@ -20,7 +21,7 @@ import org.jetbrains.anko.support.v4.find
 /**
  * Fragment of keyboard
  */
-class KeyboardFragment : BaseFragment, EmptyScreen {
+class KeyboardFragment : BaseFragment(), EmptyScreen {
 
     companion object {
         @JvmStatic val KEY_TYPE: String = "KeyType"
@@ -51,10 +52,6 @@ class KeyboardFragment : BaseFragment, EmptyScreen {
     var keyboardType: KeyboardType = KeyboardType.Normal
     var onActionListener: OnKeyboardActionListener? = null
 
-    constructor() : super() {
-        PFMApplication.activityInjector?.inject(this)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -66,6 +63,10 @@ class KeyboardFragment : BaseFragment, EmptyScreen {
      */
     override fun getLayoutId(): Int {
         return R.layout.layout_keyboard
+    }
+
+    override fun injectFragment(component: PFMFragmentComponent) {
+        component.inject(this)
     }
 
     override fun getPresenter(): IBasePresenter? = null

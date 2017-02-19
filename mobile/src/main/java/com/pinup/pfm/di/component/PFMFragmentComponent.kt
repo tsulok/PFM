@@ -1,14 +1,10 @@
 package com.pinup.pfm.di.component
 
-import com.pinup.pfm.di.scopes.ActivityScope
-import com.pinup.pfm.di.module.ActivityModule
 import com.pinup.pfm.di.module.FragmentModule
-import com.pinup.pfm.ui.MainActivity
+import com.pinup.pfm.di.scopes.FragmentScope
 import com.pinup.pfm.ui.category.CategoryListFragment
-import com.pinup.pfm.ui.category.adapter.CategoryListAdapter
 import com.pinup.pfm.ui.charts.ChartListFragment
 import com.pinup.pfm.ui.history.HistoryListFragment
-import com.pinup.pfm.ui.history.adapter.HistoryListAdapter
 import com.pinup.pfm.ui.input.action.InputActionContainerFragment
 import com.pinup.pfm.ui.input.action.camera.InputActionCameraFragment
 import com.pinup.pfm.ui.input.action.date.InputActionDateFragment
@@ -17,17 +13,14 @@ import com.pinup.pfm.ui.input.action.location.InputActionLocationFragment
 import com.pinup.pfm.ui.input.container.InputContainerFragment
 import com.pinup.pfm.ui.input.keyboard.KeyboardFragment
 import com.pinup.pfm.ui.input.main.InputMainFragment
-import com.pinup.pfm.ui.input.main.InputMainPresenter
 import com.pinup.pfm.ui.main_navigator.MainNavigatorFragment
-import com.pinup.pfm.ui.main_navigator.adapter.MainNavigatorPagerAdapter
+import com.pinup.pfm.ui.settings.SettingsFragment
 import dagger.Component
-import dagger.Subcomponent
-import javax.inject.Singleton
 
 /**
  * Component for supported DI components
  */
-@ActivityScope
+@FragmentScope
 @Component(dependencies = arrayOf(PFMApplicationComponent::class),
         modules = arrayOf(FragmentModule::class))
 interface PFMFragmentComponent {
@@ -40,4 +33,9 @@ interface PFMFragmentComponent {
     fun inject(inputActionDateFragment: InputActionDateFragment)
     fun inject(inputActionDescriptionFragment: InputActionDescriptionFragment)
     fun inject(inputActionLocationFragment: InputActionLocationFragment)
+    fun inject(inputContainerFragment: InputContainerFragment)
+    fun inject(keyboardFragment: KeyboardFragment)
+    fun inject(inputMainFragment: InputMainFragment)
+    fun inject(mainNavigatorFragment: MainNavigatorFragment)
+    fun inject(settingsFragment: SettingsFragment)
 }

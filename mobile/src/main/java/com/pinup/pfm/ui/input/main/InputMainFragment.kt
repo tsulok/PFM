@@ -13,6 +13,7 @@ import butterknife.OnClick
 import com.orhanobut.logger.Logger
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
+import com.pinup.pfm.di.component.PFMFragmentComponent
 import com.pinup.pfm.extensions.makeToast
 import com.pinup.pfm.extensions.removeSoftKeboard
 import com.pinup.pfm.extensions.replaceFragment
@@ -36,10 +37,10 @@ import javax.inject.Inject
 /**
  * Fragment for input main fragment
  */
-class InputMainFragment : BaseFragment, InputMainScreen {
+class InputMainFragment : BaseFragment(), InputMainScreen {
 
     @Inject lateinit var inputMainPresenter: InputMainPresenter
-    @Inject lateinit var inputActionContainerFragment: InputActionContainerFragment
+    val inputActionContainerFragment: InputActionContainerFragment by lazy { InputActionContainerFragment() }
 
     val nameEditText by lazy { find<EditText>(R.id.inputNameTxt) }
     val amountTextView by lazy { find<TextView>(R.id.inputCurrencyTxt) }
@@ -54,15 +55,15 @@ class InputMainFragment : BaseFragment, InputMainScreen {
 
     var onTransactionInteractionListener: OnTransactionInteractionListener? = null
 
-    constructor() : super() {
-        PFMApplication.activityInjector?.inject(this)
-    }
-
     override fun getPresenter(): IBasePresenter? = inputMainPresenter
     override fun getScreen(): BaseScreen = this
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_input_main
+    }
+
+    override fun injectFragment(component: PFMFragmentComponent) {
+        component.inject(this)
     }
 
     override fun initObjects(view: View?) {
@@ -165,7 +166,8 @@ class InputMainFragment : BaseFragment, InputMainScreen {
      * Open action page
      */
     private fun openActionPage(openAction: OpenAction) {
-        inputActionContainerFragment.setupInitialOpenAction(openAction)
+        // TODO updat initial opn action
+//        inputActionContainerFragment.setupInitialOpenAction(openAction)
 
         (activity as MainActivity).switchToFragmentWithTransition(
                 inputActionContainerFragment,

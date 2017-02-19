@@ -1,30 +1,28 @@
 package com.pinup.pfm.di.component
 
-import com.pinup.pfm.di.module.ActivityModule
-import com.pinup.pfm.di.module.UIModule
-import com.pinup.pfm.di.module.UtilityModule
-import com.pinup.pfm.di.module.DaoModule
-import com.pinup.pfm.di.module.InteractorModule
-import com.pinup.pfm.interactor.transaction.CurrentTransactionInteractor
-import com.pinup.pfm.interactor.transaction.TransactionInteractor
-import com.pinup.pfm.interactor.utils.CurrencyInteractor
+import android.content.Context
+import android.content.SharedPreferences
+import com.pinup.pfm.di.module.*
+import com.pinup.pfm.di.qualifiers.ApplicationContext
 import com.pinup.pfm.model.database.DaoSession
-import com.pinup.pfm.di.module.PresenterModule
 import dagger.Component
+import pl.charmas.android.reactivelocation.ReactiveLocationProvider
 import javax.inject.Singleton
 
 /**
  * Component for supported DI components
  */
 @Singleton
-@Component(modules = arrayOf(UIModule::class, InteractorModule::class, DaoModule::class,
+@Component(modules = arrayOf(ApplicationModule::class, InteractorModule::class, DaoModule::class,
         PresenterModule::class, UtilityModule::class) )
 interface PFMApplicationComponent {
 
-    fun inject(activityModule: ActivityModule): PFMActivityComponent
+    @ApplicationContext
+    fun context(): Context
 
-    fun currencyInteractor(): CurrencyInteractor
-    fun transacionInteractor(): TransactionInteractor
-    fun currentTransactionInteractor(): CurrentTransactionInteractor
     fun daoSession(): DaoSession
+    fun pref(): SharedPreferences
+    fun locationProvider(): ReactiveLocationProvider
+
+    fun inject(activityModule: ActivityModule)
 }

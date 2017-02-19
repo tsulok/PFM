@@ -11,13 +11,13 @@ import dagger.Provides
 @Module
 class UIModule(val context: Context) {
 
-    @Provides
-    fun provideContext(): Context {
-        return context
-    }
-
-    @Provides
-    fun provideResources(): Resources {
-        return context.resources
-    }
+//    @Provides
+//    fun provideContext(): Context {
+//        return context
+//    }
+//
+//    @Provides
+//    fun provideResources(): Resources {
+//        return context.resources
+//    }
 }

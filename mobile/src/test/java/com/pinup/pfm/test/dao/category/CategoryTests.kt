@@ -30,7 +30,7 @@ class CategoryTests : BaseTest {
     @Before
     fun setUp() {
         setTestInjector()
-        (PFMApplication.injector as TestComponent).inject(this)
+        (PFMApplication.applicationComponent as TestComponent).inject(this)
 
         categoryInteractor.createOrUpdateCategory("1", "Test", 1)
         categoryInteractor.createOrUpdateCategory("delete", "Test for delete", 3)

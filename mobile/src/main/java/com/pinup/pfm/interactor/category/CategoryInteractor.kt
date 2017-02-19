@@ -1,22 +1,15 @@
 package com.pinup.pfm.interactor.category
 
-import android.content.Context
-import android.graphics.drawable.Drawable
-import com.orhanobut.logger.Logger
-import com.pinup.pfm.PFMApplication
-import com.pinup.pfm.di.qualifiers.ApplicationContext
 import com.pinup.pfm.model.database.Category
 import com.pinup.pfm.model.database.CategoryDao
 import com.pinup.pfm.model.database.DaoSession
-import com.pinup.pfm.ui.core.view.viewholder.BaseViewHolder
 import java.util.*
 import javax.inject.Inject
 
 /**
  * Interactor for categories
  */
-class CategoryInteractor @Inject constructor(val daoSession: DaoSession,
-                                             @ApplicationContext val context: Context) {
+class CategoryInteractor @Inject constructor(val daoSession: DaoSession) {
 
     // TODO inject category api
 

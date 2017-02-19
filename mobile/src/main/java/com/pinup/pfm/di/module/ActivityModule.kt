@@ -49,9 +49,4 @@ class ActivityModule(val activity: AppCompatActivity) {
     fun provideFragmentManager(): FragmentManager {
         return activity.supportFragmentManager
     }
-
-    @Provides
-    fun provideSupportFragmentManager(): FragmentManager {
-        return activity.supportFragmentManager
-    }
 }

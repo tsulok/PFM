@@ -23,7 +23,7 @@ class InputActionLocationFragment : BaseMapFragment(), InputActionLocationScreen
     val DEFAULT_ZOOM_LEVEL: Float = 16.0f
 
     @Inject lateinit var inputActionLocationPresenter: InputActionLocationPresenter
-    @Inject lateinit var locationProvider: ReactiveLocationProvider
+//    @Inject lateinit var locationProvider: ReactiveLocationProvider
 
     private lateinit var userPositionMarker: Marker
 
@@ -35,12 +35,12 @@ class InputActionLocationFragment : BaseMapFragment(), InputActionLocationScreen
     }
 
     override fun onMapInitialized() {
-        locationProvider.lastKnownLocation.subscribe { location ->
-            inputActionLocationPresenter.updateUserLocation(
-                    LatLng(location.latitude, location.longitude))
-
-            inputActionLocationPresenter.initDefaultMarker()
-        }
+//        locationProvider.lastKnownLocation.subscribe { location ->
+//            inputActionLocationPresenter.updateUserLocation(
+//                    LatLng(location.latitude, location.longitude))
+//
+//            inputActionLocationPresenter.initDefaultMarker()
+//        }
 
         googleMap.setOnMarkerDragListener(customMarkerDragListener)
     }

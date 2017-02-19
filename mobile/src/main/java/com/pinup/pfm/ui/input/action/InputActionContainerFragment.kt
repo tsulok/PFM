@@ -16,6 +16,7 @@ import com.pinup.pfm.ui.input.action.camera.InputActionCameraFragment
 import com.pinup.pfm.ui.input.action.date.InputActionDateFragment
 import com.pinup.pfm.ui.input.action.description.InputActionDescriptionFragment
 import com.pinup.pfm.ui.input.action.location.InputActionLocationFragment
+import com.pinup.pfm.ui.input.main.InputMainPresenter
 import com.pinup.pfm.utils.SharedViewConstants
 import org.jetbrains.anko.support.v4.find
 import javax.inject.Inject
@@ -23,8 +24,10 @@ import javax.inject.Inject
 /**
  * Input action fragment
  */
-class InputActionContainerFragment @Inject constructor(val inputActionContainerPresenter: InputActionContainerPresenter)
+class InputActionContainerFragment
     : BaseFragment(), InputActionContainerScreen {
+
+    @Inject lateinit var inputActionContainerPresenter: InputActionContainerPresenter
 
     val inputActionCameraFragment: InputActionCameraFragment by lazy { InputActionCameraFragment() }
     val inputActionLocationFragment: InputActionLocationFragment by lazy { InputActionLocationFragment() }

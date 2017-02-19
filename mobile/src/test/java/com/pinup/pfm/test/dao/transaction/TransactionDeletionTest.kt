@@ -37,7 +37,7 @@ class TransactionDeletionTest : BaseTest {
     @Before
     fun setUp() {
         setTestInjector()
-        (PFMApplication.injector as TestComponent).inject(this)
+        (PFMApplication.applicationComponent as TestComponent).inject(this)
 
         categoryInteractor.createOrUpdateCategory(MockCategory.instance.category)
         transactionToDelete = transactionInteractor.createTransaction("Transaction For delete", 300.0, "USD", MockCategory.instance.category)

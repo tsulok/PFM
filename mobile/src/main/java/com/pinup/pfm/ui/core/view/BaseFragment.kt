@@ -6,19 +6,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import butterknife.ButterKnife
-import com.orhanobut.logger.Logger
+import com.pinup.pfm.PFMApplication
+import com.pinup.pfm.di.component.DaggerPFMFragmentComponent
 import com.pinup.pfm.di.component.PFMFragmentComponent
+import com.pinup.pfm.di.module.FragmentModule
 
 /**
  * Abstract class for all fragment
  */
 abstract class BaseFragment : Fragment(), IBaseFragment, IFragmentFactory {
 
-    private lateinit var fragmentComponent: PFMFragmentComponent
+    private val fragmentComponent: PFMFragmentComponent by lazy {
+        DaggerPFMFragmentComponent.builder()
+                .fragmentModule(FragmentModule(this))
+                .pFMApplicationComponent(PFMApplication.applicationComponent)
+                .build()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        injectFragment(fragmentComponent())
+        injectFragment(fragmentComponent)
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -46,21 +53,6 @@ abstract class BaseFragment : Fragment(), IBaseFragment, IFragmentFactory {
      */
     fun onBackPressed(): Boolean {
         return false
-    }
-
-    /**
-     * Returns with the associated activity component
-     *
-     * @return The activity component. If not exists creates one.
-     */
-    protected fun fragmentComponent(): PFMFragmentComponent {
-//        if (fragmentComponent == null) {
-//            fragmentComponent = PFMFragmentComponent.builder()
-//                    .fragmentModule(new FragmentModule(this))
-//                    .applicationComponent(MunchkinApplication.get(getContext()).getApplicationComponent())
-//                    .build();
-//        }
-        return fragmentComponent;
     }
 
     /**

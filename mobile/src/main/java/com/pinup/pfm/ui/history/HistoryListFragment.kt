@@ -15,15 +15,18 @@ import com.pinup.pfm.ui.core.view.BaseListFragment
 import com.pinup.pfm.ui.core.view.BaseScreen
 import com.pinup.pfm.ui.core.view.IBasePresenter
 import com.pinup.pfm.ui.history.adapter.HistoryListAdapter
+import com.pinup.pfm.ui.input.action.InputActionContainerFragment
 import javax.inject.Inject
 
 /**
  * Fragment for listing history
  */
-class HistoryListFragment @Inject constructor(val historyAdapter: HistoryListAdapter,
-                                              val historyPresenter: HistoryPresenter,
-                                              val currentTransactionInteractor: CurrentTransactionInteractor)
+class HistoryListFragment
     : BaseListFragment<ITransactionHistory>(), HistoryScreen {
+
+    @Inject lateinit var historyAdapter: HistoryListAdapter
+    @Inject lateinit var historyPresenter: HistoryPresenter
+    @Inject lateinit var currentTransactionInteractor: CurrentTransactionInteractor
 
     var onTransactionInteractionListener: OnTransactionInteractionListener? = null
 

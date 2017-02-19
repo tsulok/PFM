@@ -77,8 +77,4 @@ class CategoryListAdapter @Inject constructor(@ActivityContext context: Context,
         viewHolder.itemImage.image = categoryDrawable
         viewHolder.itemImage.isSelected = isItemSelected
     }
-
-    init {
-        PFMApplication.activityInjector?.inject(this)
-    }
 }

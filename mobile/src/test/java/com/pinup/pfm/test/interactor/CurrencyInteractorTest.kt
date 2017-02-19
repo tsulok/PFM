@@ -26,7 +26,7 @@ class CurrencyInteractorTest : BaseTest() {
     @Before
     fun setUp() {
         setTestInjector()
-        (PFMApplication.injector as TestComponent).inject(this)
+        (PFMApplication.applicationComponent as TestComponent).inject(this)
         // Initially the shared preferences is clear for currency
         currencyInteractor.resetSavedCurrency()
     }

@@ -75,8 +75,4 @@ class HistoryListAdapter @Inject constructor(@ActivityContext context: Context,
         val numberFormat = currencyInteractor.getCurrencyNumberFormat(item.getCurrency())
         viewHolder.amountTextView.text = numberFormat.format(item.getAmount())
     }
-
-    init {
-        PFMApplication.activityInjector?.inject(this)
-    }
 }

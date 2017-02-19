@@ -12,6 +12,7 @@ import butterknife.bindView
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
 import com.pinup.pfm.di.component.PFMFragmentComponent
+import com.pinup.pfm.di.qualifiers.ChildFragmentManager
 import com.pinup.pfm.ui.core.view.*
 import org.jetbrains.anko.support.v4.find
 import java.util.*
@@ -23,7 +24,6 @@ import javax.inject.Inject
 class InputActionDateFragment : BaseFragment(), InputActionDateScreen {
 
     @Inject lateinit var inputActionDatePresenter: InputActionDatePresenter
-    @Inject lateinit var supportFragmentManager: FragmentManager
 
     val dateText by lazy { find<TextView>(R.id.actionDateTransactionTxt22) }
 
