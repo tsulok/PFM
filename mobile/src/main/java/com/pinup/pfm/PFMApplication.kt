@@ -38,7 +38,6 @@ class PFMApplication : Application() {
         Logger.init("PFM")
 
         MultiDex.install(this)
-
         injector = DaggerPFMApplicationComponent.builder()
                 .uIModule(UIModule(this))
                 .interactorModule(InteractorModule())

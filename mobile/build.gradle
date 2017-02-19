@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "23.0.3"
+    buildToolsVersion "25.0.1"
 
     defaultConfig {
         applicationId "com.pinup.pfm"
@@ -31,6 +31,20 @@ android {
         exclude 'META-INF/services/javax.annotation.processing.Processor'
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
+    }
+
+    productFlavors {
+        dev {
+            // dev utilizes minSDKVersion = 21 to allow the Android gradle plugin
+            // to pre-dex each module and produce an APK that can be tested on
+            // Android Lollipop without time consuming dex merging processes.
+            minSdkVersion 21
+            versionNameSuffix "-dev" + "-build" + getDate()
+        }
+        prod {
+            // The actual minSdkVersion for the application.
+            minSdkVersion 19
+        }
     }
 }
 
@@ -108,6 +122,9 @@ dependencies {
     // Storage helper
     compile 'com.sromku:simple-storage:1.2.0'
 
+    // Multidex
+    compile 'com.android.support:multidex:1.0.1'
+
     // ############### Test ###################
 
     // ############### JVM ###################
@@ -153,4 +170,8 @@ buildscript {
 }
 repositories {
     mavenCentral()
+}
+
+def getDate() {
+    new Date().format('yyyyMMdd')
 }
