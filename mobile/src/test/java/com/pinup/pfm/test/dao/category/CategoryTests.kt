@@ -3,17 +3,14 @@ package com.pinup.pfm.test.dao.category
 import com.pinup.pfm.BuildConfig
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.TestComponent
-import com.pinup.pfm.interactor.category.CategoryInteractor
 import com.pinup.pfm.interactor.category.ICategoryInteractor
 import com.pinup.pfm.test.mock.MockCategory
 import com.pinup.pfm.test.utils.BaseTest
 import com.pinup.pfm.test.utils.RobolectricDaggerTestRunner
 import org.junit.Assert
 import org.junit.Before
-import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.MethodSorters
 import org.robolectric.annotation.Config
 import javax.inject.Inject
 

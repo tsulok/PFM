@@ -24,7 +24,7 @@ interface PFMApplicationComponent {
 
     fun daoSession(): DaoSession
     fun pref(): SharedPreferences
-    fun locationProvider(): ReactiveLocationProvider
+//    fun locationProvider(): ReactiveLocationProvider
 
     fun inject(activityModule: ActivityModule)
 

@@ -13,11 +13,11 @@ import javax.inject.Singleton
  * DI modules for Dao
  */
 @Module
-class DaoModule {
+open class DaoModule {
 
     @Singleton
     @Provides
-    fun provideDAOSession(@ApplicationContext context: Context): DaoSession {
+    open fun provideDAOSession(@ApplicationContext context: Context): DaoSession {
         val openHelper = DaoMaster.DevOpenHelper(context, "pfm-db", null)
         val daoMaster = DaoMaster(openHelper.writableDatabase)
         return daoMaster.newSession()

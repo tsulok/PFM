@@ -1,4 +1,4 @@
-package com.pinup.pfm
+package com.pinup.pfm.test.di.module
 
 import android.content.Context
 import android.content.SharedPreferences

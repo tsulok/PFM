@@ -8,6 +8,12 @@ import com.pinup.pfm.model.database.Category
  */
 
 interface ICategoryRepository: IBaseRepository<Category> {
+
+    /**
+     * @return The desired item associated with the server id or nil
+     */
+    fun loadByServerId(serverId: String): Category?
+
     /**
      * Returns the list of the selectable categories ordered by their order
      * Only non main categories are present

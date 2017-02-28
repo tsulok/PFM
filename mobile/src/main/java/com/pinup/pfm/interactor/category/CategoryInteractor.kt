@@ -25,7 +25,7 @@ class CategoryInteractor @Inject constructor(val categoryDaoManager: ICategoryRe
     }
 
     override fun getCategoryByServerId(serverId: String): Category? {
-        return categoryDaoManager.loadById(serverId)
+        return categoryDaoManager.loadByServerId(serverId)
     }
 
     override fun createOrUpdateCategory(serverId: String, name: String, order: Int,

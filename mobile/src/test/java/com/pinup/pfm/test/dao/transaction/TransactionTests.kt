@@ -4,7 +4,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.pinup.pfm.BuildConfig
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.TestComponent
-import com.pinup.pfm.interactor.category.CategoryInteractor
 import com.pinup.pfm.interactor.category.ICategoryInteractor
 import com.pinup.pfm.interactor.transaction.TransactionInteractor
 import com.pinup.pfm.model.database.Transaction
@@ -13,10 +12,8 @@ import com.pinup.pfm.test.utils.BaseTest
 import com.pinup.pfm.test.utils.RobolectricDaggerTestRunner
 import org.junit.Assert
 import org.junit.Before
-import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.MethodSorters
 import org.robolectric.annotation.Config
 import java.util.*
 import javax.inject.Inject

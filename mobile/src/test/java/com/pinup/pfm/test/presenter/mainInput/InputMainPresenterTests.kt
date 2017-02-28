@@ -4,7 +4,6 @@ import com.pinup.pfm.BuildConfig
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.TestComponent
 import com.pinup.pfm.interactor.transaction.CurrentTransactionInteractor
-import com.pinup.pfm.model.input.KeyboardType
 import com.pinup.pfm.test.utils.BaseTest
 import com.pinup.pfm.test.utils.RobolectricDaggerTestRunner
 import com.pinup.pfm.ui.input.main.InputMainPresenter

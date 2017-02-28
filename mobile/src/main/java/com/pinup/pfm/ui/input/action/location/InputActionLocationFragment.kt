@@ -1,18 +1,15 @@
 package com.pinup.pfm.ui.input.action.location
 
-import android.view.View
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
 import com.pinup.pfm.di.component.PFMFragmentComponent
 import com.pinup.pfm.ui.core.view.BaseMapFragment
 import com.pinup.pfm.ui.core.view.BaseScreen
 import com.pinup.pfm.ui.core.view.IBasePresenter
-import pl.charmas.android.reactivelocation.ReactiveLocationProvider
 import javax.inject.Inject
 
 /**

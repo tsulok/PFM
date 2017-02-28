@@ -134,6 +134,7 @@ dependencies {
     // ############### JVM ###################
     // JUnit
     testCompile 'junit:junit:4.12'
+    testCompile "org.robolectric:shadows-multidex:3.0"
 
     // Robolectric
     testCompile('org.robolectric:shadows-support-v4:3.0') {
