@@ -40,4 +40,7 @@
     <string name="permission.camera.title">Permission needed</string>
     <string name="permission.camera.neveragain.message">Camera permission is needed in order to take photo to your transaction.</string>
     <string name="permission.camera.rationale.message">Camera permission is needed in order to take photo to your transaction.</string>
+    <string name="permission.location.title">Permission needed</string>
+    <string name="permission.location.neveragain.message">Location permission is needed in order to set your location.</string>
+    <string name="permission.location.rationale.message">Location permission is needed in order to set your location.</string>
 </resources>
