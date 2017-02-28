@@ -19,7 +19,6 @@ import javax.inject.Singleton
 @Component(modules = arrayOf(InteractorModule::class, TestModule::class, PresenterModule::class) )
 interface TestComponent : PFMApplicationComponent {
 
-
     //region DAO
     fun inject(categoryTests: CategoryTests)
     fun inject(categoryDeletionTests: CategoryDeletionTests)

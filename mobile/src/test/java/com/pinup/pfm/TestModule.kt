@@ -2,6 +2,7 @@ package com.pinup.pfm
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.pinup.pfm.di.qualifiers.ApplicationContext
 import com.pinup.pfm.model.database.DaoMaster
 import com.pinup.pfm.model.database.DaoSession
 import dagger.Module
@@ -12,7 +13,7 @@ import javax.inject.Singleton
  * DI module for testing
  */
 @Module
-class TestModule(private val context: Context) {
+class TestModule(@ApplicationContext private val context: Context) {
 
     @Provides
     fun provideContext(): Context {

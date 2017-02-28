@@ -1,6 +1,7 @@
 package com.pinup.pfm.test.utils
 
 import com.pinup.pfm.PFMApplication
+import com.pinup.pfm.di.component.PFMApplicationComponent
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.shadows.ShadowLog
 

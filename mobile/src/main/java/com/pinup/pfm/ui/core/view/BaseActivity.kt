@@ -27,6 +27,12 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         injectActivity(activityComponent)
         super.onCreate(savedInstanceState)
+        getPresenter()?.bind(getScreen())
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        getPresenter()?.unbind()
     }
 
     /**
@@ -107,5 +113,7 @@ abstract class BaseActivity : AppCompatActivity() {
      * @param component The registered component to this activity
      */
     protected abstract fun injectActivity(component: PFMActivityComponent)
-}
 
+    abstract fun getPresenter(): IBasePresenter?
+    abstract fun getScreen(): BaseScreen
+}

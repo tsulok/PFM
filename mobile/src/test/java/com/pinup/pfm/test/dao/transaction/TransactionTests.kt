@@ -5,6 +5,7 @@ import com.pinup.pfm.BuildConfig
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.TestComponent
 import com.pinup.pfm.interactor.category.CategoryInteractor
+import com.pinup.pfm.interactor.category.ICategoryInteractor
 import com.pinup.pfm.interactor.transaction.TransactionInteractor
 import com.pinup.pfm.model.database.Transaction
 import com.pinup.pfm.test.mock.MockCategory
@@ -30,7 +31,7 @@ class TransactionTests : BaseTest {
     constructor()
 
     @Inject lateinit var transactionInteractor: TransactionInteractor
-    @Inject lateinit var categoryInteractor: CategoryInteractor
+    @Inject lateinit var categoryInteractor: ICategoryInteractor
 
     lateinit var transaction: Transaction
 

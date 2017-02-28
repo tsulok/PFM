@@ -22,7 +22,7 @@ import com.pinup.pfm.model.input.KeyboardAction
 import com.pinup.pfm.model.input.OpenAction
 import com.pinup.pfm.model.transaction.OnTransactionInteractionListener
 import com.pinup.pfm.model.transaction.TransactionAction
-import com.pinup.pfm.ui.MainActivity
+import com.pinup.pfm.ui.main.MainActivity
 import com.pinup.pfm.ui.core.view.*
 import com.pinup.pfm.ui.input.action.InputActionContainerFragment
 import com.pinup.pfm.ui.input.action.InputActionContainerFragmentBuilder

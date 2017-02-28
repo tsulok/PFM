@@ -4,6 +4,7 @@ import com.pinup.pfm.BuildConfig
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.TestComponent
 import com.pinup.pfm.interactor.category.CategoryInteractor
+import com.pinup.pfm.interactor.category.ICategoryInteractor
 import com.pinup.pfm.test.mock.MockCategory
 import com.pinup.pfm.test.utils.BaseTest
 import com.pinup.pfm.test.utils.RobolectricDaggerTestRunner
@@ -25,7 +26,7 @@ class CategoryTests : BaseTest {
 
     constructor()
 
-    @Inject lateinit var categoryInteractor: CategoryInteractor
+    @Inject lateinit var categoryInteractor: ICategoryInteractor
 
     @Before
     fun setUp() {

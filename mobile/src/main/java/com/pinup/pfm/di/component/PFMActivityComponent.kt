@@ -2,7 +2,7 @@ package com.pinup.pfm.di.component
 
 import com.pinup.pfm.di.scopes.ActivityScope
 import com.pinup.pfm.di.module.ActivityModule
-import com.pinup.pfm.ui.MainActivity
+import com.pinup.pfm.ui.main.MainActivity
 import com.pinup.pfm.ui.category.CategoryListFragment
 import com.pinup.pfm.ui.category.adapter.CategoryListAdapter
 import com.pinup.pfm.ui.history.HistoryListFragment
