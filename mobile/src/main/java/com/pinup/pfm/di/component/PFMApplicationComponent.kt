@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.pinup.pfm.di.module.*
 import com.pinup.pfm.di.qualifiers.ApplicationContext
+import com.pinup.pfm.domain.manager.transaction.TransactionManager
 import com.pinup.pfm.domain.repository.manager.category.ICategoryRepository
 import com.pinup.pfm.interactor.category.ICategoryInteractor
 import com.pinup.pfm.model.database.DaoSession
@@ -34,5 +35,9 @@ interface PFMApplicationComponent {
 
     //region Interactors
     fun categoryInteractor(): ICategoryInteractor
+    //endregion
+
+    //region Managers
+    fun transactionManager(): TransactionManager
     //endregion
 }

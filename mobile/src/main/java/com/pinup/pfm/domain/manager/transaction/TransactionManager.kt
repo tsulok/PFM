@@ -1,8 +1,9 @@
-package com.pinup.pfm.interactor.transaction
+package com.pinup.pfm.domain.manager.transaction
 
 import com.google.android.gms.maps.model.LatLng
 import com.orhanobut.logger.Logger
 import com.pinup.pfm.PFMApplication
+import com.pinup.pfm.interactor.transaction.TransactionInteractor
 import com.pinup.pfm.interactor.utils.CurrencyInteractor
 import com.pinup.pfm.interactor.utils.StorageInteractor
 import com.pinup.pfm.model.database.Category
@@ -15,13 +16,15 @@ import java.io.File
 import java.text.NumberFormat
 import java.util.*
 import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Current transaction interactor
  */
-class CurrentTransactionInteractor @Inject constructor(val transactionInteractor: TransactionInteractor,
-                                                       val currencyInteractor: CurrencyInteractor,
-                                                       val storageInteractor: StorageInteractor) {
+@Singleton
+class TransactionManager @Inject constructor(val transactionInteractor: TransactionInteractor,
+                                             val currencyInteractor: CurrencyInteractor,
+                                             val storageInteractor: StorageInteractor) {
 
     var keyboardType: KeyboardType = KeyboardType.Normal
 

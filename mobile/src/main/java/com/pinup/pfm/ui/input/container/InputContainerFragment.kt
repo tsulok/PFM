@@ -87,7 +87,7 @@ class InputContainerFragment : BaseFragment(), InputContainerScreen {
 
     val categoryInteractionHandler = object: CategoryListFragment.OnCategoryInteractionListener {
         override fun onCategorySelected(category: Category) {
-            containerPresenter.currentTransactionInteractor.transactionSelectedCategory = category
+            containerPresenter.transactionManager.transactionSelectedCategory = category
         }
     }
 

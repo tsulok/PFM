@@ -6,7 +6,7 @@ import android.view.View
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.di.component.PFMFragmentComponent
 import com.pinup.pfm.extensions.makeToast
-import com.pinup.pfm.interactor.transaction.CurrentTransactionInteractor
+import com.pinup.pfm.domain.manager.transaction.TransactionManager
 import com.pinup.pfm.model.database.Transaction
 import com.pinup.pfm.model.transaction.ITransactionHistory
 import com.pinup.pfm.model.transaction.OnTransactionInteractionListener
@@ -26,7 +26,7 @@ class HistoryListFragment
 
     @Inject lateinit var historyAdapter: HistoryListAdapter
     @Inject lateinit var historyPresenter: HistoryPresenter
-    @Inject lateinit var currentTransactionInteractor: CurrentTransactionInteractor
+    @Inject lateinit var transactionManager: TransactionManager
 
     var onTransactionInteractionListener: OnTransactionInteractionListener? = null
 
@@ -62,7 +62,7 @@ class HistoryListFragment
     }
 
     override fun loadSavedTransaction(transaction: Transaction) {
-        currentTransactionInteractor.loadSavedTransaction(transaction)
+        transactionManager.loadSavedTransaction(transaction)
         onTransactionInteractionListener?.onTransactionOpened(transaction)
     }
 }

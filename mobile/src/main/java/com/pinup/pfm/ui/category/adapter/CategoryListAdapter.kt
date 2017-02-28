@@ -9,7 +9,7 @@ import com.pinup.pfm.R
 import com.pinup.pfm.di.qualifiers.ActivityContext
 import com.pinup.pfm.extensions.getDrawableForName
 import com.pinup.pfm.interactor.category.CategoryInteractor
-import com.pinup.pfm.interactor.transaction.CurrentTransactionInteractor
+import com.pinup.pfm.domain.manager.transaction.TransactionManager
 import com.pinup.pfm.model.category.CategoryItem
 import com.pinup.pfm.ui.core.adapter.BaseAdapter
 import com.pinup.pfm.ui.core.view.viewholder.BaseViewHolder
@@ -23,7 +23,7 @@ import javax.inject.Inject
  */
 class CategoryListAdapter @Inject constructor(@ActivityContext context: Context,
                                               val categoryInteractor: CategoryInteractor,
-                                              val currentTransactionInteractor: CurrentTransactionInteractor)
+                                              val transactionManager: TransactionManager)
     : BaseAdapter<ICategoryItem>(context) {
 
     init {
@@ -43,8 +43,8 @@ class CategoryListAdapter @Inject constructor(@ActivityContext context: Context,
     }
 
     fun removeCurrentItemSelection() {
-        val selectedCategory = currentTransactionInteractor.transactionSelectedCategory
-        currentTransactionInteractor.transactionSelectedCategory = null
+        val selectedCategory = transactionManager.transactionSelectedCategory
+        transactionManager.transactionSelectedCategory = null
         if (selectedCategory != null) {
             val position = items.indexOf(CategoryItem(selectedCategory))
             if (position >= 0 && position < items.size) {
@@ -61,7 +61,7 @@ class CategoryListAdapter @Inject constructor(@ActivityContext context: Context,
             throw RuntimeException("Developer error. Item or viewholder is null")
         }
 
-        val isItemSelected = item.getCategoryId().equals(currentTransactionInteractor.transactionSelectedCategory?.id)
+        val isItemSelected = item.getCategoryId().equals(transactionManager.transactionSelectedCategory?.id)
 
         viewHolder.itemNameText.text = item.getName()
 

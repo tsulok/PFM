@@ -1,6 +1,6 @@
 package com.pinup.pfm.ui.input.action
 
-import com.pinup.pfm.interactor.transaction.CurrentTransactionInteractor
+import com.pinup.pfm.domain.manager.transaction.TransactionManager
 import com.pinup.pfm.model.input.OpenAction
 import com.pinup.pfm.ui.core.view.BasePresenter
 import javax.inject.Inject
@@ -8,7 +8,7 @@ import javax.inject.Inject
 /**
  * Presenter for input action container
  */
-class InputActionContainerPresenter @Inject constructor(val currentTransactionInteractor: CurrentTransactionInteractor)
+class InputActionContainerPresenter @Inject constructor(val transactionManager: TransactionManager)
     : BasePresenter<InputActionContainerScreen>() {
 
     var currentOpenAction: OpenAction? = null
@@ -28,6 +28,6 @@ class InputActionContainerPresenter @Inject constructor(val currentTransactionIn
     }
 
     fun getFormattedAmountText(): String {
-        return currentTransactionInteractor.formatValue()
+        return transactionManager.formatValue()
     }
 }

@@ -2,20 +2,20 @@ package com.pinup.pfm.ui.input.action.location
 
 import com.google.android.gms.maps.model.LatLng
 import com.pinup.pfm.PFMApplication
-import com.pinup.pfm.interactor.transaction.CurrentTransactionInteractor
+import com.pinup.pfm.domain.manager.transaction.TransactionManager
 import com.pinup.pfm.ui.core.view.BasePresenter
 import javax.inject.Inject
 
 /**
  * Presenter for input action location
  */
-class InputActionLocationPresenter @Inject constructor(val currentTransactionInteractor: CurrentTransactionInteractor) : BasePresenter<InputActionLocationScreen>() {
+class InputActionLocationPresenter @Inject constructor(val transactionManager: TransactionManager) : BasePresenter<InputActionLocationScreen>() {
 
     private var userLocation: LatLng? = null
     private var userMarkerPosition: LatLng? = null
 
     init {
-        userMarkerPosition = currentTransactionInteractor.transactionLocation
+        userMarkerPosition = transactionManager.transactionLocation
     }
 
     /**
@@ -39,7 +39,7 @@ class InputActionLocationPresenter @Inject constructor(val currentTransactionInt
      */
     fun updateUserMarkerPosition(latLng: LatLng?) {
         this.userMarkerPosition = latLng
-        currentTransactionInteractor.transactionLocation = userMarkerPosition
+        transactionManager.transactionLocation = userMarkerPosition
     }
 
     /**
