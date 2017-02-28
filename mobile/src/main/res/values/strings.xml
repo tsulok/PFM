@@ -5,6 +5,14 @@
 
     <string name="action_settings">Settings</string>
 
+    <!--General-->
+    <string name="cancel">Cancel</string>
+    <string name="decline">Decline</string>
+    <string name="got.it">Got it</string>
+    <string name="grant">Grant</string>
+    <string name="loading">Loading</string>
+
+    <!--Input actions-->
     <string name="input.action.camera.no.photo">Currently no photo is associated to this transaction. Create a new one, or choose from your latest.</string>
     <string name="input.action.description.hint">Your description</string>
     <string name="input.action.location.marker.title">Transaction location</string>
@@ -14,6 +22,7 @@
     <string name="input.currency.chooser">Choose your currency</string>
     <string name="input.transaction.hint">Transaction name</string>
 
+    <!--Keyboard-->
     <string name="input.keyboard.number.1">1</string>
     <string name="input.keyboard.number.2">2</string>
     <string name="input.keyboard.number.3">3</string>
@@ -26,4 +35,9 @@
     <string name="input.keyboard.number.tilde">.</string>
     <string name="input.keyboard.number.0">0</string>
     <string name="input.keyboard.number.back">Back</string>
+
+    <!--Permissions-->
+    <string name="permission.camera.title">Permission needed</string>
+    <string name="permission.camera.neveragain.message">Camera permission is needed in order to take photo to your transaction.</string>
+    <string name="permission.camera.rationale.message">Camera permission is needed in order to take photo to your transaction.</string>
 </resources>

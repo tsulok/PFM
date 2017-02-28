@@ -5,6 +5,7 @@ import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.domain.manager.transaction.TransactionManager
 import com.pinup.pfm.interactor.utils.StorageInteractor
 import com.pinup.pfm.ui.core.view.BasePresenter
+import java.io.File
 import javax.inject.Inject
 
 /**
@@ -14,10 +15,7 @@ class InputActionCameraPresenter @Inject constructor(val storageInteractor: Stor
                                                      val transactionManager: TransactionManager)
     : BasePresenter<InputActionCameraScreen>() {
 
-    companion object {
-        @JvmStatic val IMAGE_TRANSACTION_NAME = "transactionPicture.jpg"
-        @JvmStatic val IMAGE_TMP_TRANSACTION_NAME = "transactionPictureTmp.jpg"
-    }
+    private var tempFile: File? = null
 
     /**
      * Update the image if any
@@ -33,16 +31,8 @@ class InputActionCameraPresenter @Inject constructor(val storageInteractor: Stor
      * Starts the image capture
      */
     fun startImageCapture() {
-        storageInteractor.createFile(InputActionCameraPresenter.IMAGE_TMP_TRANSACTION_NAME)
-        val file = storageInteractor.getFile(InputActionCameraPresenter.IMAGE_TMP_TRANSACTION_NAME)
-
-        if (file == null) {
-            Logger.e("File couldn't be created in order to take picture")
-            screen?.startNewImageCaptureFailed()
-            return
-        }
-
-        screen?.startNewImageCapture(file)
+        tempFile = storageInteractor.createTemporaryFile()
+        tempFile?.let { screen?.startNewImageCapture(it) }
     }
 
     /**
@@ -50,14 +40,9 @@ class InputActionCameraPresenter @Inject constructor(val storageInteractor: Stor
      * Search for the file where the temporary image is saved & notify the screen whether it was found or not
      */
     fun handleImageCaptureFinished() {
-        val file = storageInteractor.getFile(InputActionCameraPresenter.IMAGE_TMP_TRANSACTION_NAME)
-        if (file == null) {
-            screen?.imageCaptureFailed()
-            transactionManager.transactionImageFile = null
-            return
+        tempFile?.let {
+            screen?.imageCaptureSucceeded(it)
+            transactionManager.transactionImageFile = it
         }
-
-        screen?.imageCaptureSucceeded(file)
-        transactionManager.transactionImageFile = file
     }
 }

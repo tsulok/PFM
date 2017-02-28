@@ -15,6 +15,13 @@ class StorageInteractor @Inject constructor(@ApplicationContext val context: Con
     val forceUseInternalStorage: Boolean = false
 
     /**
+     * Creates a temporary file in the cache
+     */
+    fun createTemporaryFile(): File {
+        return File.createTempFile("pfm-image", ".jpg", context.cacheDir)
+    }
+
+    /**
      * Returns the default available storage
      * @param shouldInternalStorage If set true then internal storage must be used. Otherwise external storage can be used if found. False by default
      * @return the default available storage

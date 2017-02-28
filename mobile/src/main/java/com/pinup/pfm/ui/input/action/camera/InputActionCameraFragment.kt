@@ -1,43 +1,44 @@
 package com.pinup.pfm.ui.input.action.camera
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import butterknife.Bind
 import butterknife.OnClick
 import com.commonsware.cwac.cam2.CameraActivity
 import com.commonsware.cwac.cam2.Facing
 import com.commonsware.cwac.cam2.FlashMode
 import com.commonsware.cwac.cam2.ZoomStyle
 import com.orhanobut.logger.Logger
-import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
 import com.pinup.pfm.di.component.PFMFragmentComponent
 import com.pinup.pfm.extensions.makeToast
-import com.pinup.pfm.interactor.utils.StorageInteractor
 import com.pinup.pfm.ui.core.view.BaseFragment
 import com.pinup.pfm.ui.core.view.BaseScreen
 import com.pinup.pfm.ui.core.view.IBasePresenter
-import com.pinup.pfm.ui.core.view.viewholder.find
+import com.pinup.pfm.utils.ui.core.AlertHelper
 import org.jetbrains.anko.imageURI
 import org.jetbrains.anko.support.v4.find
+import permissions.dispatcher.*
 import java.io.File
 import javax.inject.Inject
+
 
 /**
  * Input action camera fragment
  */
-class InputActionCameraFragment: BaseFragment(), InputActionCameraScreen {
+@RuntimePermissions
+class InputActionCameraFragment : BaseFragment(), InputActionCameraScreen {
 
     companion object {
         @JvmStatic val REQUEST_CODE_CAMERA = 1001
     }
 
     @Inject lateinit var inputActionCameraPresenter: InputActionCameraPresenter
-    @Inject lateinit var storageInteractor: StorageInteractor
+    @Inject lateinit var alertHelper: AlertHelper
 
     val transactionPhotoImageView by lazy { find<ImageView>(R.id.actionCameraTransactionPhoto) }
     val noImageTxt by lazy { find<TextView>(R.id.actionCameraTransactionNoPhotoTxt) }
@@ -79,6 +80,11 @@ class InputActionCameraFragment: BaseFragment(), InputActionCameraScreen {
 
     @OnClick(R.id.actionCameraTakePhoto)
     fun takePhotoClicked() {
+        InputActionCameraFragmentPermissionsDispatcher.cameraActionClickWithCheck(this)
+    }
+
+    @NeedsPermission(Manifest.permission.CAMERA)
+    fun cameraActionClick() {
         inputActionCameraPresenter.startImageCapture()
     }
 
@@ -119,5 +125,32 @@ class InputActionCameraFragment: BaseFragment(), InputActionCameraScreen {
         noImageTxt.visibility = View.VISIBLE
     }
 
+    //endregion
+
+    //region Permission handling
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        InputActionCameraFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults)
+    }
+
+    @OnShowRationale(Manifest.permission.CAMERA)
+    fun showRationaleForCamera(request: PermissionRequest) {
+        alertHelper.createAlert(R.string.permission_camera_title,
+                R.string.permission_camera_rationale_message)
+                .positiveText(R.string.grant)
+                .negativeText(R.string.decline)
+                .onPositive({ dialog, which -> request.proceed() })
+                .onNegative({ dialog, which -> request.cancel() })
+                .show()
+    }
+
+    @OnNeverAskAgain(Manifest.permission.CAMERA)
+    fun showNeverAskForCamera() {
+        alertHelper.createAlert(R.string.permission_camera_title,
+                R.string.permission_camera_rationale_message)
+                .positiveText(R.string.got_it)
+                .negativeText(R.string.cancel)
+                .show()
+    }
     //endregion
 }

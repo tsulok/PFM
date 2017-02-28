@@ -129,6 +129,10 @@ dependencies {
     // Multidex
     compile 'com.android.support:multidex:1.0.1'
 
+    // Permission dispatcher
+    compile 'com.github.hotchemi:permissionsdispatcher:2.3.1'
+    kapt 'com.github.hotchemi:permissionsdispatcher-processor:2.3.1'
+
     // ############### Test ###################
 
     // ############### JVM ###################
