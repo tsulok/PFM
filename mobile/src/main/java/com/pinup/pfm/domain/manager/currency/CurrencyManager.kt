@@ -1,4 +1,4 @@
-package com.pinup.pfm.manager
+package com.pinup.pfm.domain.manager.currency
 
 import java.util.*
 

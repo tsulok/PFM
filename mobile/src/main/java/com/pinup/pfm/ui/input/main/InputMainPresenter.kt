@@ -7,7 +7,7 @@ import com.pinup.pfm.interactor.category.ICategoryInteractor
 import com.pinup.pfm.domain.manager.transaction.TransactionManager
 import com.pinup.pfm.interactor.transaction.TransactionInteractor
 import com.pinup.pfm.interactor.utils.CurrencyInteractor
-import com.pinup.pfm.manager.CurrencyManager
+import com.pinup.pfm.domain.manager.currency.CurrencyManager
 import com.pinup.pfm.model.input.KeyboardType
 import com.pinup.pfm.ui.core.view.BasePresenter
 import java.util.*

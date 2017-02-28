@@ -19,9 +19,7 @@ import javax.inject.Inject
  */
 @RunWith(RobolectricDaggerTestRunner::class)
 @Config(constants = BuildConfig::class, sdk = intArrayOf(21))
-class CategoryTests : BaseTest {
-
-    constructor()
+class CategoryTests : BaseTest() {
 
     @Inject lateinit var categoryInteractor: ICategoryInteractor
 
@@ -35,9 +33,8 @@ class CategoryTests : BaseTest {
         categoryInteractor.createOrUpdateCategory(MockCategory.instance.category3)
     }
 
-    // Check first if categories where created successfully
     @Test()
-    fun test3categoriesCreated() {
+    fun testCategoriesCreated() {
         Assert.assertEquals("Non 3 items presented in the database", 3, categoryInteractor.listAllCategories().size)
     }
 

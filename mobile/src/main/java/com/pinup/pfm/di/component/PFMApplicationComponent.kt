@@ -6,10 +6,11 @@ import com.pinup.pfm.di.module.*
 import com.pinup.pfm.di.qualifiers.ApplicationContext
 import com.pinup.pfm.domain.manager.transaction.TransactionManager
 import com.pinup.pfm.domain.repository.manager.category.ICategoryRepository
+import com.pinup.pfm.domain.repository.manager.transaction.ITransactionRepository
+import com.pinup.pfm.domain.repository.manager.user.IUserRepository
 import com.pinup.pfm.interactor.category.ICategoryInteractor
 import com.pinup.pfm.model.database.DaoSession
 import dagger.Component
-import pl.charmas.android.reactivelocation.ReactiveLocationProvider
 import javax.inject.Singleton
 
 /**
@@ -30,7 +31,9 @@ interface PFMApplicationComponent {
     fun inject(activityModule: ActivityModule)
 
     //region Repositories
-    fun categoryManager(): ICategoryRepository
+    fun categoryDaoManager(): ICategoryRepository
+    fun transactionDaoManager(): ITransactionRepository
+    fun userDaoManager(): IUserRepository
     //endregion
 
     //region Interactors

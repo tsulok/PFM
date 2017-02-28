@@ -16,7 +16,8 @@ import javax.inject.Singleton
  * Component for supported DI components in test environment
  */
 @Singleton
-@Component(modules = arrayOf(ApplicationModule::class, TestModule::class, RepositoryModule::class, InteractorModule::class) )
+@Component(modules = arrayOf(ApplicationModule::class, TestModule::class, RepositoryModule::class,
+        InteractorModule::class) )
 interface TestComponent : PFMApplicationComponent {
 
     //region DAO

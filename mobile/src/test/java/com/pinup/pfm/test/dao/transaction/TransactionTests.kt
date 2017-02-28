@@ -5,7 +5,7 @@ import com.pinup.pfm.BuildConfig
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.TestComponent
 import com.pinup.pfm.interactor.category.ICategoryInteractor
-import com.pinup.pfm.interactor.transaction.TransactionInteractor
+import com.pinup.pfm.interactor.transaction.ITransactionInteractor
 import com.pinup.pfm.model.database.Transaction
 import com.pinup.pfm.test.mock.MockCategory
 import com.pinup.pfm.test.utils.BaseTest
@@ -23,11 +23,9 @@ import javax.inject.Inject
  */
 @RunWith(RobolectricDaggerTestRunner::class)
 @Config(constants = BuildConfig::class, sdk = intArrayOf(21))
-class TransactionTests : BaseTest {
+class TransactionTests : BaseTest() {
 
-    constructor()
-
-    @Inject lateinit var transactionInteractor: TransactionInteractor
+    @Inject lateinit var transactionInteractor: ITransactionInteractor
     @Inject lateinit var categoryInteractor: ICategoryInteractor
 
     lateinit var transaction: Transaction
@@ -43,10 +41,12 @@ class TransactionTests : BaseTest {
     }
 
     @Test
-    fun testServerIdAssociate() {
-
+    fun testSetupCompleted() {
         Assert.assertNotNull("Transaction 1 is null", transaction)
+    }
 
+    @Test
+    fun testServerIdAssociate() {
         transactionInteractor.updateTransactionServerId(transaction, "serverId")
         Assert.assertNotNull("Transaction sync date is not updated", transaction.lastSyncDate)
 
@@ -56,9 +56,6 @@ class TransactionTests : BaseTest {
 
     @Test
     fun testUpdateLocation() {
-
-        Assert.assertNotNull("Transaction 1 is null", transaction)
-
         val latLng = LatLng(100.0, 200.0)
         transactionInteractor.updateTransactionLocation(transaction, latLng)
 
@@ -68,8 +65,6 @@ class TransactionTests : BaseTest {
 
     @Test
     fun testUpdateAmount() {
-        Assert.assertNotNull("Transaction 1 is null", transaction)
-
         transactionInteractor.updateTransactionAmount(transaction, 500.0, Currency.getInstance(Locale.US))
 
         Assert.assertEquals("Amount miss match", 500.0, transaction.amount, 1.0)
@@ -78,8 +73,6 @@ class TransactionTests : BaseTest {
 
     @Test
     fun testUpdateDate() {
-        Assert.assertNotNull("Transaction 1 is null", transaction)
-
         val date = Date(887979)
         transactionInteractor.updateTransactionDate(transaction, date)
 
@@ -88,9 +81,6 @@ class TransactionTests : BaseTest {
 
     @Test
     fun testUpdateDescription() {
-
-        Assert.assertNotNull("Transaction 1 is null", transaction)
-
         val description = "Test description"
         transactionInteractor.updateTransactionDescription(transaction, description)
 
@@ -99,9 +89,6 @@ class TransactionTests : BaseTest {
 
     @Test
     fun testUpdateName() {
-
-        Assert.assertNotNull("Transaction 1 is null", transaction)
-
         val name = "Test name"
         transactionInteractor.updateTransactionName(transaction, name)
 
@@ -110,9 +97,6 @@ class TransactionTests : BaseTest {
 
     @Test
     fun testUpdateSyncTime() {
-
-        Assert.assertNotNull("Transaction 1 is null", transaction)
-
         val currentDate = Date()
         transactionInteractor.updateTransactionSynced(transaction)
 
@@ -121,9 +105,6 @@ class TransactionTests : BaseTest {
 
     @Test
     fun testUpdateImageUri_1() {
-
-        Assert.assertNotNull("Transaction 1 is null", transaction)
-
         val imageUri = "http://fileName.jpg"
         val currentDate = Date()
         transactionInteractor.updateTransactionImageUri(transaction, imageUri)
@@ -135,9 +116,6 @@ class TransactionTests : BaseTest {
     // Server update
     @Test
     fun testUpdateImageUri_2() {
-
-        Assert.assertNotNull("Transaction 1 is null", transaction)
-
         val imageUri = "http://fileName2.jpg"
         val currentDate = Date()
         transactionInteractor.updateTransactionImageUri(transaction, imageUri, true)
