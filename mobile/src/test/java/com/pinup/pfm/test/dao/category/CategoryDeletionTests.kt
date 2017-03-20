@@ -18,7 +18,7 @@ import javax.inject.Inject
  * Test for categories
  */
 @RunWith(RobolectricDaggerTestRunner::class)
-@Config(constants = BuildConfig::class, sdk = intArrayOf(21))
+@Config(constants = BuildConfig::class, sdk = intArrayOf(25))
 class CategoryDeletionTests : BaseTest() {
 
     @Inject lateinit var categoryInteractor: CategoryInteractor
