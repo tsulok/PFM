@@ -1,5 +1,8 @@
 language: android
 
+bundler_args: --retry 5
+install: travis_wait mvn install
+
 android:
   components:
     - tools
