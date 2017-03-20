@@ -33,6 +33,12 @@ android {
         exclude 'META-INF/NOTICE.txt'
     }
 
+    android {
+        lintOptions {
+            abortOnError false
+        }
+    }
+
     productFlavors {
         dev {
             // dev utilizes minSDKVersion = 21 to allow the Android gradle plugin
