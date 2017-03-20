@@ -41,7 +41,7 @@ before_script:
   - adb wait-for-device
   - adb shell input keyevent 82 &
 
-script: travis_wait ./gradlew :mobile:build
+script: travis_retry ./gradlew :mobile:build
 
 notifications:
   email:
