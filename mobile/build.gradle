@@ -138,13 +138,14 @@ dependencies {
     // ############### JVM ###################
     // JUnit
     testCompile 'junit:junit:4.12'
-    testCompile "org.robolectric:shadows-multidex:3.0"
 
     // Robolectric
-    testCompile('org.robolectric:shadows-support-v4:3.0') {
-        exclude group: 'commons-logging', module: 'commons-logging'
-        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
-    }
+    testCompile "org.robolectric:robolectric:3.3.1"
+    testCompile "org.robolectric:shadows-multidex:3.3" // For multidex support
+//    testCompile('org.robolectric:shadows-support-v4:3.3') {
+//        exclude group: 'commons-logging', module: 'commons-logging'
+//        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+//    }
 
     // Mockito
     testCompile "org.mockito:mockito-core:1.10.19"
