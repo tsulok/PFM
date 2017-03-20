@@ -1,4 +1,8 @@
 language: android
+
+before_install:
+  - composer config --global github-oauth.github.com "$GITHUB_KEY"
+
 android:
   components:
     - tools
