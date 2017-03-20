@@ -1,7 +1,6 @@
 language: android
 
 bundler_args: --retry 5
-install: travis_wait mvn install
 
 android:
   components:
@@ -31,6 +30,7 @@ env:
     # Add this
     - MALLOC_ARENA_MAX=2
     - composer config --global github-oauth.github.com "$GITHUB_KEY"
+    - ADB_INSTALL_TIMEOUT=15
 
 sudo: required
 
