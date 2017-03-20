@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:2.3.0'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.6.1'
 
@@ -27,7 +27,7 @@ allprojects {
         appcompatVersion="25.1.1"
         playServicesVersion="10.2.0"
         ankoVersion="0.9"
-        kotlin_version = '1.0.5'
+        kotlin_version = '1.1.1'
         wearableVersion = '1.4.0'
         daggerVersion = '2.7'
     }

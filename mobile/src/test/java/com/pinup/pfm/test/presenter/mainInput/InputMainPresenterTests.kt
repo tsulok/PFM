@@ -19,7 +19,7 @@ import javax.inject.Inject
  * Test for main input main presenter
  */
 @RunWith(RobolectricDaggerTestRunner::class)
-@Config(constants = BuildConfig::class, sdk = intArrayOf(21))
+@Config(constants = BuildConfig::class, sdk = intArrayOf(25))
 class InputMainPresenterTests : BaseTest() {
 
     @Inject lateinit var inputMainPresenter: InputMainPresenter

@@ -18,7 +18,7 @@ import javax.inject.Inject
  * Test for currency interactor
  */
 @RunWith(RobolectricDaggerTestRunner::class)
-@Config(constants = BuildConfig::class, sdk = intArrayOf(21))
+@Config(constants = BuildConfig::class, sdk = intArrayOf(25))
 class CurrencyInteractorTest : BaseTest() {
 
     @Inject lateinit var currencyInteractor: CurrencyInteractor

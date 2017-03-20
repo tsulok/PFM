@@ -22,7 +22,7 @@ import javax.inject.Inject
  * Test for transactions
  */
 @RunWith(RobolectricDaggerTestRunner::class)
-@Config(constants = BuildConfig::class, sdk = intArrayOf(21))
+@Config(constants = BuildConfig::class, sdk = intArrayOf(25))
 class TransactionTests : BaseTest() {
 
     @Inject lateinit var transactionInteractor: ITransactionInteractor
