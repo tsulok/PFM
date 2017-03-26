@@ -1,17 +1,13 @@
 package com.pinup.pfm.ui.input.main
 
 import android.os.Build
-import android.text.Editable
 import android.transition.TransitionInflater
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
-import butterknife.Bind
 import butterknife.OnClick
 import com.orhanobut.logger.Logger
-import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
 import com.pinup.pfm.di.component.PFMFragmentComponent
 import com.pinup.pfm.extensions.makeToast
@@ -22,15 +18,14 @@ import com.pinup.pfm.model.input.KeyboardAction
 import com.pinup.pfm.model.input.OpenAction
 import com.pinup.pfm.model.transaction.OnTransactionInteractionListener
 import com.pinup.pfm.model.transaction.TransactionAction
-import com.pinup.pfm.ui.main.MainActivity
-import com.pinup.pfm.ui.core.view.*
-import com.pinup.pfm.ui.input.action.InputActionContainerFragment
-import com.pinup.pfm.ui.input.action.InputActionContainerFragmentBuilder
+import com.pinup.pfm.ui.core.view.BaseFragment
+import com.pinup.pfm.ui.core.view.BaseScreen
+import com.pinup.pfm.ui.core.view.IBasePresenter
 import com.pinup.pfm.ui.input.keyboard.KeyboardFragment
 import com.pinup.pfm.utils.SharedViewConstants
 import com.pinup.pfm.utils.helper.UIHelper
+import com.pinup.pfm.view.Henson
 import org.jetbrains.anko.onClick
-import org.jetbrains.anko.support.v4.act
 import org.jetbrains.anko.support.v4.find
 import java.util.*
 import javax.inject.Inject
@@ -166,20 +161,29 @@ class InputMainFragment : BaseFragment(), InputMainScreen {
      */
     private fun openActionPage(openAction: OpenAction) {
 
-        val inputActionContainerFragment = InputActionContainerFragmentBuilder
-                .newInputActionContainerFragment(openAction)
+//        val inputActionContainerFragment = InputActionContainerFragmentBuilder
+//                .newInputActionContainerFragment(openAction)
+//
+//        initSharedTransitions(inputActionContainerFragment)
+//
+//        baseActivity.switchToFragment(inputActionContainerFragment)
 
-        initSharedTransitions(inputActionContainerFragment)
+        val intent = Henson.with(context)
+                .gotoInputActionContainerActivity()
+                .openAction(openAction)
+                .build()
 
-        (activity as MainActivity).switchToFragmentWithTransition(
-                inputActionContainerFragment,
-                false,
-                SharedTransactionElementWrapper(amountTextView, SharedViewConstants.KEY_INPUT_AMOUNT_TXT),
-                SharedTransactionElementWrapper(actionPhotoButton, SharedViewConstants.KEY_INPUT_ACTION_PHOTO_BUTTON),
-                SharedTransactionElementWrapper(actionLocationButton, SharedViewConstants.KEY_INPUT_ACTION_LOCATION_BUTTON),
-                SharedTransactionElementWrapper(actionDescriptionButton, SharedViewConstants.KEY_INPUT_ACTION_DESCRIPTION_BUTTON),
-                SharedTransactionElementWrapper(actionDateButton, SharedViewConstants.KEY_INPUT_ACTION_DATE_BUTTON)
-        )
+        startActivity(intent)
+
+//        (activity as MainActivity).switchToFragmentWithTransition(
+//                inputActionContainerFragment,
+//                false,
+//                SharedTransactionElementWrapper(amountTextView, SharedViewConstants.KEY_INPUT_AMOUNT_TXT),
+//                SharedTransactionElementWrapper(actionPhotoButton, SharedViewConstants.KEY_INPUT_ACTION_PHOTO_BUTTON),
+//                SharedTransactionElementWrapper(actionLocationButton, SharedViewConstants.KEY_INPUT_ACTION_LOCATION_BUTTON),
+//                SharedTransactionElementWrapper(actionDescriptionButton, SharedViewConstants.KEY_INPUT_ACTION_DESCRIPTION_BUTTON),
+//                SharedTransactionElementWrapper(actionDateButton, SharedViewConstants.KEY_INPUT_ACTION_DATE_BUTTON)
+//        )
     }
 
     /**
@@ -199,10 +203,10 @@ class InputMainFragment : BaseFragment(), InputMainScreen {
                 .title(R.string.input_currency_chooser)
                 .items(availableCurrencies)
                 .itemsCallbackSingleChoice(currentIndex)
-                    {   dialog, itemView, which, text ->
-                        inputMainPresenter.updateSelectedCurrency(availableCurrencies[which])
-                        true
-                    }
+                { dialog, itemView, which, text ->
+                    inputMainPresenter.updateSelectedCurrency(availableCurrencies[which])
+                    true
+                }
                 .show()
     }
 

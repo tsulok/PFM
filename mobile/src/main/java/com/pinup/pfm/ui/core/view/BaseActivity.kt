@@ -27,13 +27,23 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         injectActivity(activityComponent)
         super.onCreate(savedInstanceState)
+        setContentView(loadContentId())
+        getPresenter()?.bind(getScreen())
+        initObjects()
+    }
+
+    override fun onStart() {
+        super.onStart()
         getPresenter()?.bind(getScreen())
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onStop() {
         getPresenter()?.unbind()
+        super.onStop()
     }
+
+    abstract fun loadContentId(): Int
+    abstract fun initObjects()
 
     /**
      * Switches fragment to the new one
@@ -70,9 +80,6 @@ abstract class BaseActivity : AppCompatActivity() {
 
             transaction.commitAllowingStateLoss()
         }
-
-        // TODO set title
-        //        setTitleByTag(fragment.tag, null)
     }
 
     /**

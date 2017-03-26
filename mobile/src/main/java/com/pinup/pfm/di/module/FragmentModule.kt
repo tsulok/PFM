@@ -4,6 +4,7 @@ import android.content.Context
 import android.support.v4.app.FragmentManager
 import com.pinup.pfm.di.qualifiers.ActivityContext
 import com.pinup.pfm.di.qualifiers.ChildFragmentManager
+import com.pinup.pfm.di.qualifiers.SupportFragmentManager
 import com.pinup.pfm.ui.core.view.BaseFragment
 import dagger.Module
 import dagger.Provides
@@ -24,5 +25,11 @@ class FragmentModule(val fragment: BaseFragment) {
     @Provides
     fun provideFragmentManager(): FragmentManager {
         return fragment.childFragmentManager
+    }
+
+    @SupportFragmentManager
+    @Provides
+    fun provideSupportFragmentManager(): FragmentManager {
+        return fragment.activity.supportFragmentManager
     }
 }

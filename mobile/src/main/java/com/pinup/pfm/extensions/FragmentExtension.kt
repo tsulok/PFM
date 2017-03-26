@@ -10,10 +10,17 @@ import com.pinup.pfm.utils.helper.UIHelper
  * Extension functions for fragments
  */
 
-fun Fragment.replaceFragment(fragmentManager: FragmentManager, containerId: Int, fragment: BaseFragment, tag: String? = null) {
+fun BaseFragment.replaceFragment(fragmentManager: FragmentManager, containerId: Int, fragment: BaseFragment, tag: String? = null) {
     fragmentManager
             .beginTransaction()
             .replace(containerId, fragment, tag)
+            .commitAllowingStateLoss()
+}
+
+fun BaseFragment.replaceFragment(fragmentManager: FragmentManager, containerId: Int, tag: String? = null) {
+    fragmentManager
+            .beginTransaction()
+            .replace(containerId, this, tag)
             .commitAllowingStateLoss()
 }
 

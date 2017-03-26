@@ -30,15 +30,17 @@ abstract class BaseFragment : Fragment(), IBaseFragment, IFragmentFactory {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(getLayoutId(), container, false)
-        ButterKnife.bind(this, view);
+        ButterKnife.bind(this, view)
+        return view
+    }
 
-        view?.post {
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+//        view?.post {
             getPresenter()?.bind(getScreen())
             initObjects(view)
             initEventHandlers(view)
-        }
-
-        return view
+//        }
     }
 
     override fun onDestroyView() {
@@ -66,10 +68,14 @@ abstract class BaseFragment : Fragment(), IBaseFragment, IFragmentFactory {
      * Finish this fragment and remove from backstack
      */
     fun finish() {
-        activity.supportFragmentManager.popBackStackImmediate();
+        activity.onBackPressed()
+//        activity.supportFragmentManager.popBackStack()
     }
 
     override fun getFragment(): BaseFragment {
         return this
     }
+
+    val baseActivity: BaseActivity
+        get() = activity as BaseActivity
 }

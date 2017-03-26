@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.getkeepsafe.dexcount'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 25
@@ -16,6 +17,12 @@ android {
 
         // TODO This need to be deleted before production
         multiDexEnabled true
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["dart.henson.package": 'com.pinup.pfm.view']
+            }
+        }
     }
     buildTypes {
         release {
@@ -135,6 +142,12 @@ dependencies {
     // Permission dispatcher
     compile 'com.github.hotchemi:permissionsdispatcher:2.3.1'
     kapt 'com.github.hotchemi:permissionsdispatcher-processor:2.3.1'
+
+    // Dart - extra injection
+    compile 'com.f2prateek.dart:dart:2.0.1'
+    kapt 'com.f2prateek.dart:dart-processor:2.0.1'
+    compile 'com.f2prateek.dart:henson:2.0.1'
+    kapt 'com.f2prateek.dart:henson-processor:2.0.1'
 
     // ############### Test ###################
 
