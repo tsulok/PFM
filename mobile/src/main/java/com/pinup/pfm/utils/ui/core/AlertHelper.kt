@@ -63,6 +63,8 @@ open class AlertHelper @Inject constructor(@ActivityContext val context: Context
      */
     fun createDefaultDialog(): MaterialDialog.Builder {
         return MaterialDialog.Builder(context)
+                .titleColor(context.resources.getColor(R.color.colorPrimaryDark))
+                .contentColor(context.resources.getColor(R.color.colorPrimaryDark))
                 .negativeText(R.string.got_it)
                 .onNegative({ dialog, which -> dialog.dismiss() })
     }

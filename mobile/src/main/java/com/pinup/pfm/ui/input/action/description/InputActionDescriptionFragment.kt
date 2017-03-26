@@ -18,7 +18,7 @@ import javax.inject.Inject
  */
 class InputActionDescriptionFragment : BaseFragment(), InputActionDescriptionScreen {
 
-    @Inject lateinit var inputActionDescriptionPresenter: InputActionDescriptionPresenter
+    @Inject lateinit var presenter: InputActionDescriptionPresenter
 
     val editText by lazy { find<EditText>(R.id.inputActionDescriptionEditTxt22) }
 
@@ -26,11 +26,11 @@ class InputActionDescriptionFragment : BaseFragment(), InputActionDescriptionScr
         return R.layout.fragment_input_action_description
     }
 
-    override fun getPresenter(): IBasePresenter? = inputActionDescriptionPresenter
+    override fun getPresenter(): IBasePresenter? = presenter
     override fun getScreen(): BaseScreen = this
 
     override fun initObjects(view: View?) {
-        inputActionDescriptionPresenter.updateDescription()
+        presenter.updateDescription()
     }
 
     override fun injectFragment(component: PFMFragmentComponent) {
@@ -39,6 +39,11 @@ class InputActionDescriptionFragment : BaseFragment(), InputActionDescriptionScr
 
     override fun initEventHandlers(view: View?) {
 
+    }
+
+    override fun onStop() {
+        super.onStop()
+        presenter.updateDescriptionText(editText.text.toString())
     }
 
     //region Screen interactions

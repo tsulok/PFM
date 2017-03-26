@@ -3,11 +3,12 @@ package com.pinup.pfm.ui.core.view
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import com.pinup.pfm.PFMApplication
+import com.pinup.pfm.R
 import com.pinup.pfm.di.component.DaggerPFMActivityComponent
 import com.pinup.pfm.di.component.PFMActivityComponent
-import com.pinup.pfm.di.component.PFMFragmentComponent
 import com.pinup.pfm.di.module.ActivityModule
 
 /**
@@ -30,6 +31,8 @@ abstract class BaseActivity : AppCompatActivity() {
         setContentView(loadContentId())
         getPresenter()?.bind(getScreen())
         initObjects()
+
+        window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
     }
 
     override fun onStart() {

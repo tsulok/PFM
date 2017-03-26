@@ -38,9 +38,9 @@ class InputActionCameraPresenter @Inject constructor(val storageInteractor: ISto
      * Search for the file where the temporary image is saved & notify the screen whether it was found or not
      */
     fun handleImageCaptureFinished() {
-        tempFile?.let {
-            screen?.imageCaptureSucceeded(it)
-            transactionManager.transactionImageFile = it
+        tempFile?.let { file ->
+            screen?.imageCaptureSucceeded(file)
+            transactionManager.transactionImageFile = file
         }
     }
 }

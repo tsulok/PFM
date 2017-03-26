@@ -44,7 +44,7 @@ class InputActionLocationFragment : BaseMapFragment(), InputActionLocationScreen
 
     //region Screen actions
     override fun moveToUserLocation(latLng: LatLng) {
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM_LEVEL))
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM_LEVEL))
     }
 
     override fun moveToUserMarkerLocation(latLng: LatLng) {

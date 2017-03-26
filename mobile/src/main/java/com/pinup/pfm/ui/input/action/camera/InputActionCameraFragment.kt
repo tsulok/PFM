@@ -100,6 +100,7 @@ class InputActionCameraFragment : BaseFragment(), InputActionCameraScreen {
                 .skipConfirm()
                 .to(file)
                 .facing(Facing.BACK)
+                .skipOrientationNormalization()
                 .debug()
                 .zoomStyle(ZoomStyle.PINCH)
                 .updateMediaStore()

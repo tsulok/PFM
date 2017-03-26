@@ -131,7 +131,7 @@ dependencies {
     }
 
     // Camera handling
-    compile ('com.commonsware.cwac:cam2:0.6.9')
+    compile ('com.commonsware.cwac:cam2:0.7.4')
 
     // Storage helper
     compile 'com.sromku:simple-storage:1.2.0'
