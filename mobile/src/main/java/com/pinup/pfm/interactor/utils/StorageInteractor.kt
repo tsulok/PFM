@@ -7,17 +7,41 @@ import com.sromku.simple.storage.Storage
 import java.io.File
 import javax.inject.Inject
 
+interface IStorageInteractor {
+    /**
+     * Creates a temporary file in the cache
+     */
+    fun createTemporaryFile(): File
+
+    fun createDirectory(dirName: String)
+    fun createFile(name: String, fileType: FileType = FileType.Image)
+    fun getFile(name: String, fileType: FileType = FileType.Image): File?
+    fun getFileWithPath(path: String): File?
+    /**
+     * Deletes a file
+     * @param name
+     * @param fileType
+     */
+    fun deleteFile(name: String, fileType: FileType = FileType.Image)
+
+    /**
+     * Move file to an other destination
+     * @return The moved file's reference
+     */
+    fun moveFile(originalFile: File, name: String, fileType: FileType = FileType.Image): File?
+}
+
 /**
  * Interactor for handling storage functionalities
  */
-class StorageInteractor @Inject constructor(@ApplicationContext val context: Context) {
+class StorageInteractor @Inject constructor(@ApplicationContext val context: Context) : IStorageInteractor {
 
     val forceUseInternalStorage: Boolean = false
 
     /**
      * Creates a temporary file in the cache
      */
-    fun createTemporaryFile(): File {
+    override fun createTemporaryFile(): File {
         return File.createTempFile("pfm-image", ".jpg", context.cacheDir)
     }
 
@@ -26,15 +50,15 @@ class StorageInteractor @Inject constructor(@ApplicationContext val context: Con
      * @param shouldInternalStorage If set true then internal storage must be used. Otherwise external storage can be used if found. False by default
      * @return the default available storage
      */
-    private fun getAvailableStorage(shouldInternalStorage: Boolean = false): Storage {
+    private fun getAvailableStorage(shouldInternalStorage: Boolean): Storage {
         return if (SimpleStorage.isExternalStorageWritable() && !shouldInternalStorage) SimpleStorage.getExternalStorage() else SimpleStorage.getInternalStorage(context)
     }
 
-    fun createDirectory(dirName: String) {
+    override fun createDirectory(dirName: String) {
         getAvailableStorage(forceUseInternalStorage).createDirectory(dirName)
     }
 
-    fun createFile(name: String, fileType: FileType = FileType.Image) {
+    override fun createFile(name: String, fileType: FileType) {
         val storage = getAvailableStorage(forceUseInternalStorage)
 
         if (!storage.isDirectoryExists(fileType.dirName)) {
@@ -44,12 +68,12 @@ class StorageInteractor @Inject constructor(@ApplicationContext val context: Con
         storage.createFile(fileType.dirName, name, "")
     }
 
-    fun getFile(name: String, fileType: FileType = FileType.Image): File? {
+    override fun getFile(name: String, fileType: FileType): File? {
         val storage = getAvailableStorage(forceUseInternalStorage)
         return storage.getFile(fileType.dirName, name)
     }
 
-    fun getFileWithPath(path: String): File? {
+    override fun getFileWithPath(path: String): File? {
         val storage = getAvailableStorage(forceUseInternalStorage)
         return storage.getFile(path)
     }
@@ -59,7 +83,7 @@ class StorageInteractor @Inject constructor(@ApplicationContext val context: Con
      * @param name
      * @param fileType
      */
-    fun deleteFile(name: String, fileType: FileType = FileType.Image) {
+    override fun deleteFile(name: String, fileType: FileType) {
         val storage = getAvailableStorage(forceUseInternalStorage)
         storage.deleteFile(fileType.dirName, name)
     }
@@ -68,7 +92,7 @@ class StorageInteractor @Inject constructor(@ApplicationContext val context: Con
      * Move file to an other destination
      * @return The moved file's reference
      */
-    fun moveFile(originalFile: File, name: String, fileType: FileType = FileType.Image): File? {
+    override fun moveFile(originalFile: File, name: String, fileType: FileType): File? {
         val storage = getAvailableStorage(forceUseInternalStorage)
         storage.move(originalFile, fileType.dirName, name)
         return storage.getFile(fileType.dirName, name)

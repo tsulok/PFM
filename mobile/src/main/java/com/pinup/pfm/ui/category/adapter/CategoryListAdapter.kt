@@ -4,17 +4,16 @@ import android.content.Context
 import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
 import com.pinup.pfm.di.qualifiers.ActivityContext
+import com.pinup.pfm.domain.manager.transaction.ITransactionManager
 import com.pinup.pfm.extensions.getDrawableForName
-import com.pinup.pfm.interactor.category.CategoryInteractor
-import com.pinup.pfm.domain.manager.transaction.TransactionManager
+import com.pinup.pfm.interactor.category.ICategoryInteractor
 import com.pinup.pfm.model.category.CategoryItem
+import com.pinup.pfm.model.category.ICategoryItem
+import com.pinup.pfm.ui.category.adapter.viewholder.CategoryViewHolder
 import com.pinup.pfm.ui.core.adapter.BaseAdapter
 import com.pinup.pfm.ui.core.view.viewholder.BaseViewHolder
-import com.pinup.pfm.ui.category.adapter.viewholder.CategoryViewHolder
-import com.pinup.pfm.model.category.ICategoryItem
 import org.jetbrains.anko.image
 import javax.inject.Inject
 
@@ -22,8 +21,8 @@ import javax.inject.Inject
  * Adapter for listing categories
  */
 class CategoryListAdapter @Inject constructor(@ActivityContext context: Context,
-                                              val categoryInteractor: CategoryInteractor,
-                                              val transactionManager: TransactionManager)
+                                              val categoryInteractor: ICategoryInteractor,
+                                              val transactionManager: ITransactionManager)
     : BaseAdapter<ICategoryItem>(context) {
 
     init {

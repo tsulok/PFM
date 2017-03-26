@@ -1,7 +1,6 @@
 package com.pinup.pfm.ui.input.action.date
 
-import com.pinup.pfm.PFMApplication
-import com.pinup.pfm.domain.manager.transaction.TransactionManager
+import com.pinup.pfm.domain.manager.transaction.ITransactionManager
 import com.pinup.pfm.ui.core.view.BasePresenter
 import java.util.*
 import javax.inject.Inject
@@ -9,7 +8,7 @@ import javax.inject.Inject
 /**
  * Presenter for input action date
  */
-class InputActionDatePresenter @Inject constructor(val transactionManager: TransactionManager) : BasePresenter<InputActionDateScreen>() {
+class InputActionDatePresenter @Inject constructor(val transactionManager: ITransactionManager) : BasePresenter<InputActionDateScreen>() {
 
     private var selectedDate: Calendar = Calendar.getInstance()
 

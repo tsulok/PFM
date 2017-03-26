@@ -3,7 +3,7 @@ package com.pinup.pfm.test.presenter.mainInput
 import com.pinup.pfm.BuildConfig
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.TestComponent
-import com.pinup.pfm.domain.manager.transaction.TransactionManager
+import com.pinup.pfm.domain.manager.transaction.ITransactionManager
 import com.pinup.pfm.test.utils.BaseTest
 import com.pinup.pfm.test.utils.RobolectricDaggerTestRunner
 import com.pinup.pfm.ui.input.main.InputMainPresenter
@@ -23,7 +23,7 @@ import javax.inject.Inject
 class InputMainPresenterTests : BaseTest() {
 
     @Inject lateinit var inputMainPresenter: InputMainPresenter
-    @Inject lateinit var transactionManager: TransactionManager
+    @Inject lateinit var transactionManager: ITransactionManager
 
     @Before
     fun setUp() {

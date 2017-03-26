@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.1"
+    buildToolsVersion "25.0.2"
 
     defaultConfig {
         applicationId "com.pinup.pfm"
@@ -63,18 +63,21 @@ dependencies {
     compile "com.google.android.gms:play-services-maps:$playServicesVersion"
 
     // ReactiveX
-    compile 'io.reactivex:rxandroid:1.0.1'
-    compile 'io.reactivex:rxjava:1.0.16'
-    compile 'pl.charmas.android:android-reactive-location:0.8@aar'
+    compile 'io.reactivex.rxjava2:rxjava:2.0.1'
+    compile "io.reactivex.rxjava2:rxandroid:2.0.1"
+    compile "com.github.akarnokd:rxjava2-extensions:0.14.3"
+    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    compile 'com.patloew.rxlocation:rxlocation:1.0.2'
 
     // Kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
     // network communication
-    compile 'com.squareup.retrofit2:retrofit:2.0.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.0'
-    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile "com.squareup.okhttp3:okhttp:3.4.2"
+    compile "com.squareup.okhttp3:logging-interceptor:3.4.2"
 
     // Anko for kotlin
     compile "org.jetbrains.anko:anko-sdk15:$ankoVersion" // sdk19, sdk21, sdk23 are also available

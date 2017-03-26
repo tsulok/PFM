@@ -36,6 +36,9 @@
     <string name="input.keyboard.number.0">0</string>
     <string name="input.keyboard.number.back">Back</string>
 
+    <!--Location-->
+    <string name="location.not.found">User location is not found.</string>
+
     <!--Permissions-->
     <string name="permission.camera.title">Permission needed</string>
     <string name="permission.camera.neveragain.message">Camera permission is needed in order to take photo to your transaction.</string>

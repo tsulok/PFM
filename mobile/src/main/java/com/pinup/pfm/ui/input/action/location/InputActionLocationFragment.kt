@@ -7,6 +7,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.pinup.pfm.R
 import com.pinup.pfm.di.component.PFMFragmentComponent
+import com.pinup.pfm.extensions.makeToast
 import com.pinup.pfm.ui.core.view.BaseMapFragment
 import com.pinup.pfm.ui.core.view.BaseScreen
 import com.pinup.pfm.ui.core.view.IBasePresenter
@@ -20,7 +21,6 @@ class InputActionLocationFragment : BaseMapFragment(), InputActionLocationScreen
     val DEFAULT_ZOOM_LEVEL: Float = 16.0f
 
     @Inject lateinit var inputActionLocationPresenter: InputActionLocationPresenter
-//    @Inject lateinit var locationProvider: ReactiveLocationProvider
 
     private lateinit var userPositionMarker: Marker
 
@@ -32,13 +32,7 @@ class InputActionLocationFragment : BaseMapFragment(), InputActionLocationScreen
     }
 
     override fun onMapInitialized() {
-//        locationProvider.lastKnownLocation.subscribe { location ->
-//            inputActionLocationPresenter.updateUserLocation(
-//                    LatLng(location.latitude, location.longitude))
-//
-//            inputActionLocationPresenter.initDefaultMarker()
-//        }
-
+        inputActionLocationPresenter.loadCurrentLocation()
         googleMap.setOnMarkerDragListener(customMarkerDragListener)
     }
 
@@ -84,5 +78,9 @@ class InputActionLocationFragment : BaseMapFragment(), InputActionLocationScreen
         override fun onMarkerDragStart(marker: Marker?) {
 
         }
+    }
+
+    override fun locationNotFound() {
+        makeToast(R.string.location_not_found)
     }
 }

@@ -1,9 +1,7 @@
 package com.pinup.pfm.ui.input.action.camera
 
-import com.orhanobut.logger.Logger
-import com.pinup.pfm.PFMApplication
-import com.pinup.pfm.domain.manager.transaction.TransactionManager
-import com.pinup.pfm.interactor.utils.StorageInteractor
+import com.pinup.pfm.domain.manager.transaction.ITransactionManager
+import com.pinup.pfm.interactor.utils.IStorageInteractor
 import com.pinup.pfm.ui.core.view.BasePresenter
 import java.io.File
 import javax.inject.Inject
@@ -11,8 +9,8 @@ import javax.inject.Inject
 /**
  * Presenter for input action camera
  */
-class InputActionCameraPresenter @Inject constructor(val storageInteractor: StorageInteractor,
-                                                     val transactionManager: TransactionManager)
+class InputActionCameraPresenter @Inject constructor(val storageInteractor: IStorageInteractor,
+                                                     val transactionManager: ITransactionManager)
     : BasePresenter<InputActionCameraScreen>() {
 
     private var tempFile: File? = null

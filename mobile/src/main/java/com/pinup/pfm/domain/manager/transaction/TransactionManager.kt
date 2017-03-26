@@ -2,47 +2,72 @@ package com.pinup.pfm.domain.manager.transaction
 
 import com.google.android.gms.maps.model.LatLng
 import com.orhanobut.logger.Logger
-import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.interactor.transaction.TransactionInteractor
-import com.pinup.pfm.interactor.utils.CurrencyInteractor
-import com.pinup.pfm.interactor.utils.StorageInteractor
+import com.pinup.pfm.interactor.utils.ICurrencyInteractor
+import com.pinup.pfm.interactor.utils.IStorageInteractor
 import com.pinup.pfm.model.database.Category
 import com.pinup.pfm.model.database.Transaction
 import com.pinup.pfm.model.input.KeyboardType
 import com.pinup.pfm.model.transaction.TransactionAction
-import com.pinup.pfm.ui.input.action.camera.InputActionCameraPresenter
 import com.pinup.pfm.ui.input.main.InputMainPresenter
 import java.io.File
-import java.text.NumberFormat
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
+
+interface ITransactionManager {
+    /**
+     * Resets the transaction
+     */
+    fun resetTransaction()
+
+    fun loadSavedTransaction(transaction: Transaction)
+    /**
+     * Saves the transaction
+     */
+    fun saveTransaction(): Pair<Transaction, TransactionAction>?
+
+    /**
+     * Format amount
+     * @return The formatted amount
+     */
+    fun formatValue(): String
+
+    var transactionNameText: String
+    var transactionCurrentValueText: String
+    var transactionImageFile: File?
+    var transactionDate: Date
+    var transactionDescription: String
+    var transactionSelectedCategory: Category?
+    var transactionLocation: LatLng?
+    var transactionCurrency: Currency?
+    var savedTransaction: Transaction?
+    var keyboardType: KeyboardType
+}
 
 /**
  * Current transaction interactor
  */
 @Singleton
 class TransactionManager @Inject constructor(val transactionInteractor: TransactionInteractor,
-                                             val currencyInteractor: CurrencyInteractor,
-                                             val storageInteractor: StorageInteractor) {
+                                             val currencyInteractor: ICurrencyInteractor,
+                                             val storageInteractor: IStorageInteractor) : ITransactionManager {
 
-    var keyboardType: KeyboardType = KeyboardType.Normal
-
-    var transactionNameText: String = ""
-    var transactionCurrentValueText: String = ""
-    var transactionImageFile: File? = null
-    var transactionDate: Date = Date()
-    var transactionDescription: String = ""
-    var transactionSelectedCategory: Category? = null
-    var transactionLocation: LatLng? = null
-    var transactionCurrency: Currency? = null
-
-    var savedTransaction: Transaction? = null
+    override var keyboardType: KeyboardType = KeyboardType.Normal
+    override var transactionNameText: String = ""
+    override var transactionCurrentValueText: String = ""
+    override var transactionImageFile: File? = null
+    override var transactionDate: Date = Date()
+    override var transactionDescription: String = ""
+    override var transactionSelectedCategory: Category? = null
+    override var transactionLocation: LatLng? = null
+    override var transactionCurrency: Currency? = null
+    override var savedTransaction: Transaction? = null
 
     /**
      * Resets the transaction
      */
-    fun resetTransaction() {
+    override fun resetTransaction() {
         transactionCurrentValueText = ""
         transactionImageFile = null
         transactionDate = Date()
@@ -53,7 +78,7 @@ class TransactionManager @Inject constructor(val transactionInteractor: Transact
         savedTransaction = null
     }
 
-    fun loadSavedTransaction(transaction: Transaction) {
+    override fun loadSavedTransaction(transaction: Transaction) {
         savedTransaction = transaction
         transactionCurrency = Currency.getInstance(transaction.currency)
         transactionNameText = transaction.name
@@ -76,7 +101,7 @@ class TransactionManager @Inject constructor(val transactionInteractor: Transact
     /**
      * Saves the transaction
      */
-    fun saveTransaction(): Pair<Transaction, TransactionAction>? {
+    override fun saveTransaction(): Pair<Transaction, TransactionAction>? {
         // Transaction value is mandatory
         if (transactionCurrentValueText.isEmpty()) {
             return null
@@ -133,7 +158,7 @@ class TransactionManager @Inject constructor(val transactionInteractor: Transact
      * Format amount
      * @return The formatted amount
      */
-    fun formatValue(): String {
+    override fun formatValue(): String {
         when (keyboardType) {
             KeyboardType.Normal -> {
                 if (transactionCurrentValueText.length == 0) {
