@@ -1,5 +1,6 @@
 package com.pinup.pfm.ui.input.action.camera
 
+import android.net.Uri
 import com.pinup.pfm.domain.manager.transaction.ITransactionManager
 import com.pinup.pfm.interactor.utils.IStorageInteractor
 import com.pinup.pfm.ui.core.view.BasePresenter
@@ -41,6 +42,14 @@ class InputActionCameraPresenter @Inject constructor(val storageInteractor: ISto
         tempFile?.let { file ->
             screen?.imageCaptureSucceeded(file)
             transactionManager.transactionImageFile = file
+        }
+    }
+
+    fun handleGalleryImageChosen(selectedImages: List<Uri>) {
+        // Only 1 image selection is possible
+        selectedImages.firstOrNull()?.let { image ->
+            transactionManager.transactionImageFile = File(image.path)
+            screen?.imageCaptureSucceeded(image)
         }
     }
 }

@@ -1,6 +1,8 @@
 package com.pinup.pfm.ui.input.action
 
 import android.Manifest
+import android.app.Activity
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.widget.ImageButton
@@ -167,4 +169,12 @@ class InputActionContainerActivity
                 .show()
     }
     //endregion
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK) {
+            getActiveBaseFragment()?.onActivityResult(requestCode, resultCode, data)
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
 }
