@@ -1,7 +1,9 @@
 package com.pinup.pfm.extensions
 
 import android.content.Context
+import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
+import android.support.v4.content.ContextCompat
 
 /**
  * Extension for context
@@ -35,4 +37,11 @@ fun Context.getDrawableForName(name: String): Drawable? {
     } else {
         return resources.getDrawable(resourceId, null)
     }
+}
+
+/**
+ * Checks if all permission is granted
+ */
+fun Context.isPermissionsGranted(vararg permissions: String): Boolean {
+    return permissions.none { ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED }
 }

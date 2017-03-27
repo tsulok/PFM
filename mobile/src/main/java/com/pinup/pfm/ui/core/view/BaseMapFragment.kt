@@ -1,10 +1,14 @@
 package com.pinup.pfm.ui.core.view
 
+import android.content.pm.PackageManager
+import android.support.v4.content.ContextCompat
 import android.view.View
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.pinup.pfm.R
+import com.pinup.pfm.extensions.isPermissionsGranted
+import kotlinx.android.synthetic.main.fragment_map.*
 
 /**
  * A base fragment for map
@@ -49,7 +53,6 @@ abstract class BaseMapFragment: BaseFragment(), OnMapReadyCallback {
      */
     open protected fun setUpMapSettings() {
         googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
-        googleMap.isMyLocationEnabled = true
 
         // Set ui settings
         val settings = googleMap.uiSettings
@@ -60,8 +63,24 @@ abstract class BaseMapFragment: BaseFragment(), OnMapReadyCallback {
         settings.isRotateGesturesEnabled = true
         settings.isZoomGesturesEnabled = true
         settings.isZoomControlsEnabled = true
-        settings.isMyLocationButtonEnabled = true
+
+        enableLocationSettings()
     }
 
     protected abstract fun onMapInitialized()
+
+    protected fun enableLocationSettings() {
+
+        if (!context.isPermissionsGranted(android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION)) {
+            mapPermissionBtn.visibility = View.VISIBLE
+            return
+        }
+
+        mapPermissionBtn.visibility = View.GONE
+
+        googleMap.isMyLocationEnabled = true
+
+        val settings = googleMap.uiSettings
+        settings.isMyLocationButtonEnabled = true
+    }
 }

@@ -31,7 +31,6 @@ import javax.inject.Inject
 /**
  * Input action fragment
  */
-@RuntimePermissions
 class InputActionContainerActivity
     : BaseActivity(), InputActionContainerScreen {
 
@@ -85,12 +84,7 @@ class InputActionContainerActivity
 
         actionDateButton.setOnClickListener { inputActionContainerPresenter.openAction(OpenAction.Date) }
 
-        actionLocationButton.setOnClickListener { InputActionContainerActivityPermissionsDispatcher.openLocationViewWithCheck(this) }
-    }
-
-    @NeedsPermission(Manifest.permission.ACCESS_FINE_LOCATION)
-    fun openLocationView() {
-        inputActionContainerPresenter.openAction(OpenAction.Location)
+        actionLocationButton.setOnClickListener { inputActionContainerPresenter.openAction(OpenAction.Location) }
     }
 
     /**
@@ -140,33 +134,6 @@ class InputActionContainerActivity
         }
 
         openableFragment.replaceFragment(supportFragmentManager, getActivityMainContainer())
-    }
-    //endregion
-
-    //region Permission handling
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        InputActionContainerActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults)
-    }
-
-    @OnShowRationale(Manifest.permission.ACCESS_FINE_LOCATION)
-    fun showRationaleForCamera(request: PermissionRequest) {
-        alertHelper.createAlert(R.string.permission_location_title,
-                R.string.permission_location_rationale_message)
-                .positiveText(R.string.grant)
-                .negativeText(R.string.decline)
-                .onPositive({ _, _ -> request.proceed() })
-                .onNegative({ _, _ -> request.cancel() })
-                .show()
-    }
-
-    @OnNeverAskAgain(Manifest.permission.ACCESS_FINE_LOCATION)
-    fun showNeverAskForCamera() {
-        alertHelper.createAlert(R.string.permission_location_title,
-                R.string.permission_location_neveragain_message)
-                .positiveText(R.string.got_it)
-                .negativeText(R.string.cancel)
-                .show()
     }
     //endregion
 
