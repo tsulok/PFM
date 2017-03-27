@@ -22,12 +22,9 @@ class InputActionLocationPresenter @Inject constructor(val transactionManager: I
     fun loadCurrentLocation() {
         rxLocation.location()
                 .lastLocation()
-                .subscribe( { location ->
+                .subscribe({ location ->
                     userLocation = LatLng(location.latitude, location.longitude)
                     initDefaultMarker()
-                    userLocation?.let {
-                        screen?.moveToUserLocation(it)
-                    }
                 }, { error ->
                     screen?.locationNotFound()
                 })
@@ -61,17 +58,16 @@ class InputActionLocationPresenter @Inject constructor(val transactionManager: I
      * Initializes default marker
      */
     fun initDefaultMarker() {
-        var desiredMarkerPosition: LatLng
-
-        if (userMarkerPosition != null) {
-            desiredMarkerPosition = userMarkerPosition!!
-        } else if (userLocation != null) {
-            desiredMarkerPosition = userLocation!!
-        } else {
-            throw RuntimeException("User position is not known. Must be set before initializing markers." +
-                    " Developer error")
+        val location = userMarkerPosition?.let {
+            screen?.createMarkerInLocation(it)
+            screen?.moveToUserLocation(it)
         }
 
-        screen?.createMarkerInLocation(desiredMarkerPosition)
+        if (location == null) {
+            userLocation?.let {
+                screen?.createMarkerInLocation(it)
+                screen?.moveToUserLocation(it)
+            }
+        }
     }
 }
