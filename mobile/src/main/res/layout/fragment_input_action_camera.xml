@@ -12,8 +12,7 @@
         <ImageView
             android:id="@+id/actionCameraTransactionPhoto"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/default.margin" />
+            android:layout_height="match_parent" />
 
         <com.pinup.pfm.ui.widget.ExtendedTextView
             android:id="@+id/actionCameraTransactionNoPhotoTxt"

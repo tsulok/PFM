@@ -23,8 +23,6 @@ import com.pinup.pfm.ui.core.view.BaseScreen
 import com.pinup.pfm.ui.core.view.IBasePresenter
 import com.pinup.pfm.utils.ui.core.AlertHelper
 import com.squareup.picasso.Picasso
-import org.jetbrains.anko.imageURI
-import org.jetbrains.anko.support.v4.act
 import org.jetbrains.anko.support.v4.find
 import permissions.dispatcher.*
 import java.io.File
@@ -78,7 +76,7 @@ class InputActionCameraFragment : BaseFragment(), InputActionCameraScreen {
         } else {
             Logger.e("InputMain activity result failed")
             when (requestCode) {
-                REQUEST_CODE_CAMERA -> imageCaptureFailed()
+                REQUEST_CODE_CAMERA, REQUEST_CODE_GALLERY -> imageCaptureFailed()
                 else -> super.onActivityResult(requestCode, resultCode, data)
             }
         }
@@ -121,7 +119,7 @@ class InputActionCameraFragment : BaseFragment(), InputActionCameraScreen {
                 .flashMode(FlashMode.AUTO)
                 .build()
 
-        startActivityForResult(cameraIntent, REQUEST_CODE_CAMERA)
+        activity.startActivityForResult(cameraIntent, REQUEST_CODE_CAMERA)
     }
 
     override fun startNewImageCaptureFailed() {
@@ -132,6 +130,8 @@ class InputActionCameraFragment : BaseFragment(), InputActionCameraScreen {
         transactionPhotoImageView.invalidate()
         Picasso.with(context)
                 .load(file)
+                .fit()
+                .centerCrop()
                 .into(transactionPhotoImageView)
         noImageTxt.visibility = View.GONE
     }
@@ -145,6 +145,8 @@ class InputActionCameraFragment : BaseFragment(), InputActionCameraScreen {
         transactionPhotoImageView.invalidate()
         Picasso.with(context)
                 .load(uri)
+                .fit()
+                .centerCrop()
                 .into(transactionPhotoImageView)
         noImageTxt.visibility = View.GONE
     }
