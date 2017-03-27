@@ -25,6 +25,7 @@ import com.pinup.pfm.ui.input.keyboard.KeyboardFragment
 import com.pinup.pfm.utils.SharedViewConstants
 import com.pinup.pfm.utils.helper.UIHelper
 import com.pinup.pfm.view.Henson
+import kotlinx.android.synthetic.main.fragment_input_main.*
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.support.v4.find
 import java.util.*
@@ -38,8 +39,8 @@ class InputMainFragment : BaseFragment(), InputMainScreen {
     @Inject lateinit var inputMainPresenter: InputMainPresenter
 
     val nameEditText by lazy { find<EditText>(R.id.inputNameTxt) }
-    val amountTextView by lazy { find<TextView>(R.id.inputCurrencyTxt) }
-    val currencyTextView by lazy { find<TextView>(R.id.inputAmountTxt) }
+    val currencyTextView by lazy { find<TextView>(R.id.inputCurrencyTxt) }
+    val amountTextView by lazy { find<TextView>(R.id.inputAmountTxt) }
     val actionPhotoButton by lazy { find<ImageButton>(R.id.inputActionPhotoNew) }
     val actionLocationButton by lazy { find<ImageButton>(R.id.inputActionLocationNew) }
     val actionDescriptionButton by lazy { find<ImageButton>(R.id.inputActionDescriptionNew) }
@@ -92,6 +93,7 @@ class InputMainFragment : BaseFragment(), InputMainScreen {
         nameEditText.setOnFocusChangeListener { view, hasFocus -> if (!hasFocus) view.removeSoftKeboard(context) }
 
         inputActionPhoto.onClick { openActionPage(OpenAction.Photo) }
+        currencyInfoTxt.onClick { inputMainPresenter.showSupportedCurrencies() }
     }
 
     // Onclick binding works...
@@ -99,11 +101,6 @@ class InputMainFragment : BaseFragment(), InputMainScreen {
     fun onCurrencyChangeClicked() {
         inputMainPresenter.showSupportedCurrencies()
     }
-
-//    @OnClick(R.id.inputActionPhotoNew)
-//    fun onPhotoImageClicked() {
-//        openActionPage(OpenAction.Photo)
-//    }
 
     @OnClick(R.id.inputActionDateNew)
     fun onDateImageClicked() {
@@ -161,29 +158,12 @@ class InputMainFragment : BaseFragment(), InputMainScreen {
      */
     private fun openActionPage(openAction: OpenAction) {
 
-//        val inputActionContainerFragment = InputActionContainerFragmentBuilder
-//                .newInputActionContainerFragment(openAction)
-//
-//        initSharedTransitions(inputActionContainerFragment)
-//
-//        baseActivity.switchToFragment(inputActionContainerFragment)
-
         val intent = Henson.with(context)
                 .gotoInputActionContainerActivity()
                 .openAction(openAction)
                 .build()
 
         startActivity(intent)
-
-//        (activity as MainActivity).switchToFragmentWithTransition(
-//                inputActionContainerFragment,
-//                false,
-//                SharedTransactionElementWrapper(amountTextView, SharedViewConstants.KEY_INPUT_AMOUNT_TXT),
-//                SharedTransactionElementWrapper(actionPhotoButton, SharedViewConstants.KEY_INPUT_ACTION_PHOTO_BUTTON),
-//                SharedTransactionElementWrapper(actionLocationButton, SharedViewConstants.KEY_INPUT_ACTION_LOCATION_BUTTON),
-//                SharedTransactionElementWrapper(actionDescriptionButton, SharedViewConstants.KEY_INPUT_ACTION_DESCRIPTION_BUTTON),
-//                SharedTransactionElementWrapper(actionDateButton, SharedViewConstants.KEY_INPUT_ACTION_DATE_BUTTON)
-//        )
     }
 
     /**
@@ -202,8 +182,7 @@ class InputMainFragment : BaseFragment(), InputMainScreen {
         UIHelper.instance.createDefaultDialog(activity)
                 .title(R.string.input_currency_chooser)
                 .items(availableCurrencies)
-                .itemsCallbackSingleChoice(currentIndex)
-                { dialog, itemView, which, text ->
+                .itemsCallbackSingleChoice(currentIndex) { _, _, which, _ ->
                     inputMainPresenter.updateSelectedCurrency(availableCurrencies[which])
                     true
                 }

@@ -85,7 +85,12 @@ class TransactionManager @Inject constructor(val transactionInteractor: Transact
 
         val numberFormat = currencyInteractor.getCurrencyNumberFormat(transaction.currency)
         // Remove all non breaking spaces & change commas when formatting the value
-        transactionCurrentValueText = numberFormat.format(transaction.amount).replace("\u00A0", "").replace(",", ".")
+        transactionCurrentValueText = numberFormat.format(transaction.amount).replace("\u00A0", "")
+        if (transactionCurrentValueText.contains(".")) {
+            transactionCurrentValueText = transactionCurrentValueText.replace(",", "")
+        } else {
+            transactionCurrentValueText = transactionCurrentValueText.replace(",", ".")
+        }
 
         if (transaction.imageUri != null) {
             transactionImageFile = File(transaction.imageUri)
@@ -144,14 +149,9 @@ class TransactionManager @Inject constructor(val transactionInteractor: Transact
 
     private fun saveFinalImageToTransaction(transaction: Transaction) {
 
-        // Do nothing if there is no image
-        if (transactionImageFile == null) {
-            return
+        transactionImageFile?.let { file ->
+            transactionInteractor.updateTransactionImageUri(transaction, file.canonicalPath)
         }
-
-        val imageName = "${transaction.id}.jpg"
-        val persistentFile = storageInteractor.moveFile(transactionImageFile!!, imageName)
-        transactionInteractor.updateTransactionImageUri(transaction, persistentFile?.canonicalPath)
     }
 
     /**
@@ -161,13 +161,13 @@ class TransactionManager @Inject constructor(val transactionInteractor: Transact
     override fun formatValue(): String {
         when (keyboardType) {
             KeyboardType.Normal -> {
-                if (transactionCurrentValueText.length == 0) {
+                if (transactionCurrentValueText.isEmpty()) {
                     return "0"
                 }
                 return transactionCurrentValueText
             }
             else -> Logger.t(InputMainPresenter.TAG).i("Non supported keyboard type")
         }
-        return transactionCurrentValueText.toString()
+        return transactionCurrentValueText
     }
 }

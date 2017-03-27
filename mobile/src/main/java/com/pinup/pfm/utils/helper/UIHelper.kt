@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
+import com.pinup.pfm.R
 
 /**
  * UIHelper for ui components
@@ -28,7 +29,9 @@ enum class UIHelper {
     fun createDefaultDialog(activity: Activity): MaterialDialog.Builder {
         return MaterialDialog.Builder(activity)
                 .negativeText(android.R.string.cancel)
-                .onNegative { materialDialog, dialogAction -> materialDialog.dismiss() }
+                .titleColor(activity.resources.getColor(R.color.colorPrimaryDark))
+                .contentColor(activity.resources.getColor(R.color.colorPrimaryDark))
+                .onNegative { materialDialog, _ -> materialDialog.dismiss() }
     }
 
     /**
