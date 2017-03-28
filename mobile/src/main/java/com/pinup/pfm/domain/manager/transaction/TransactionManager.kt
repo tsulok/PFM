@@ -101,6 +101,7 @@ class TransactionManager @Inject constructor(val transactionInteractor: Transact
         if (transaction.latitude != null && transaction.longitude != null) {
             transactionLocation = LatLng(transaction.latitude, transaction.longitude)
         }
+        transactionSelectedCategory = transaction.category
     }
 
     /**

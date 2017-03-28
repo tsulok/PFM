@@ -58,4 +58,8 @@ class CategoryListFragment : BaseListFragment<ICategoryItem>(), EmptyScreen {
     interface OnCategoryInteractionListener {
         fun onCategorySelected(category: Category)
     }
+
+    fun reloadTransactionCategory() {
+        categoryAdapter.notifyDataSetChanged()
+    }
 }

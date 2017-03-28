@@ -26,7 +26,6 @@ class CategoryListAdapter @Inject constructor(@ActivityContext context: Context,
     : BaseAdapter<ICategoryItem>(context) {
 
     init {
-        categoryInteractor.listAllSelectableCategories().forEach { it -> addItem(CategoryItem(it)) }
         listAll()
     }
 
@@ -60,7 +59,7 @@ class CategoryListAdapter @Inject constructor(@ActivityContext context: Context,
             throw RuntimeException("Developer error. Item or viewholder is null")
         }
 
-        val isItemSelected = item.getCategoryId().equals(transactionManager.transactionSelectedCategory?.id)
+        val isItemSelected = item.getCategoryId() == transactionManager.transactionSelectedCategory?.id
 
         viewHolder.itemNameText.text = item.getName()
 
