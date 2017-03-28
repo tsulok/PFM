@@ -1,8 +1,6 @@
 package com.pinup.pfm.domain.provider
 
 import com.github.mikephil.charting.data.BarEntry
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.PieEntry
 import com.pinup.pfm.domain.repository.manager.transaction.ITransactionRepository
 import com.pinup.pfm.model.database.Transaction
@@ -14,39 +12,29 @@ import kotlin.collections.ArrayList
  * Data provider for charts
  */
 interface IChartDataProvider {
-    fun providePieChartData()
-    fun provideLineChartData(): List<Entry>
+    fun providePieChartData(): List<PieEntry>
     fun provideBarChartData(): List<BarEntry>
 }
 
-class ChartDataProvider  @Inject constructor(val transactionDaoManager: ITransactionRepository)
+class ChartDataProvider @Inject constructor(val transactionDaoManager: ITransactionRepository)
     : IChartDataProvider {
 
     object Constants {
         const val MAX_HISTORY_COUNT_DAYS = 7
     }
 
-    override fun providePieChartData() {
-
+    override fun providePieChartData(): List<PieEntry> {
+        val entries: MutableList<PieEntry> = ArrayList()
+        return entries
     }
 
     override fun provideBarChartData(): List<BarEntry> {
-        val rawEntries = loadRawData()
-        return rawEntries.map { BarEntry(it.x, it.y) }
-    }
-
-    override fun provideLineChartData(): List<Entry> {
-        return loadRawData()
-    }
-
-    private fun loadRawData(): List<Entry> {
-
-        val entries: MutableList<Entry> = ArrayList()
+        val entries: MutableList<BarEntry> = ArrayList()
         val initialDate = calculateInitialDate()
         val recentTransactions = transactionDaoManager.loadTransactionsAfter(initialDate.time)
         val groupedTransactions = groupTransactionsByDay(recentTransactions)
 
-        for (i in 0..Constants.MAX_HISTORY_COUNT_DAYS ) {
+        for (i in 0..Constants.MAX_HISTORY_COUNT_DAYS) {
             var sumForDay: Float = 0.0f
             groupedTransactions.get(initialDate.get(Calendar.DAY_OF_YEAR))?.let { transactions ->
                 sumForDay = transactions
@@ -54,7 +42,7 @@ class ChartDataProvider  @Inject constructor(val transactionDaoManager: ITransac
                         .reduce { acc, value -> acc + value }
             }
 
-            entries.add(Entry(initialDate.get(Calendar.DAY_OF_YEAR).toFloat(), sumForDay))
+            entries.add(BarEntry(initialDate.get(Calendar.DAY_OF_YEAR).toFloat(), sumForDay))
 
             initialDate.add(Calendar.DAY_OF_MONTH, 1)
         }

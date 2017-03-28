@@ -17,7 +17,7 @@ class ChartListPresenter @Inject constructor(val chartDataProvider: IChartDataPr
     : BasePresenter<ChartListScreen>() {
 
     fun loadChartData() {
-        val barChartItems = chartDataProvider.provideLineChartData()
+        val barChartItems = chartDataProvider.provideBarChartData()
         val barItemVm = ChartDataViewModel(context.getString(R.string.chart_bar_title),
                 ChartType.Bar, barChartItems,
                 context.getString(R.string.chart_bar_legend))
