@@ -1,6 +1,7 @@
 package com.pinup.pfm.ui.charts
 
 import android.content.Context
+import com.github.mikephil.charting.data.ChartData
 import com.pinup.pfm.R
 import com.pinup.pfm.di.qualifiers.ApplicationContext
 import com.pinup.pfm.domain.provider.IChartDataProvider
@@ -22,5 +23,11 @@ class ChartListPresenter @Inject constructor(val chartDataProvider: IChartDataPr
                 ChartType.Bar, barChartItems,
                 context.getString(R.string.chart_bar_legend))
         screen?.chartLoaded(barItemVm)
+
+        var pieChartItems = chartDataProvider.providePieChartData()
+        val pieItemVm = ChartDataViewModel(context.getString(R.string.chart_pie_title),
+                ChartType.Pie, pieChartItems,
+                context.getString(R.string.chart_pie_legend))
+        screen?.chartLoaded(pieItemVm)
     }
 }

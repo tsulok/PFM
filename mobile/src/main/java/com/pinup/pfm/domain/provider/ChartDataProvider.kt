@@ -3,6 +3,7 @@ package com.pinup.pfm.domain.provider
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.PieEntry
 import com.pinup.pfm.domain.repository.manager.transaction.ITransactionRepository
+import com.pinup.pfm.model.database.Category
 import com.pinup.pfm.model.database.Transaction
 import java.util.*
 import javax.inject.Inject
@@ -25,6 +26,18 @@ class ChartDataProvider @Inject constructor(val transactionDaoManager: ITransact
 
     override fun providePieChartData(): List<PieEntry> {
         val entries: MutableList<PieEntry> = ArrayList()
+
+        val initialDate = calculateInitialDate()
+        val recentTransactions = transactionDaoManager.loadTransactionsAfter(initialDate.time)
+        val groupedTransactions = groupTransactionsByCategory(recentTransactions)
+
+        for ((key, value) in groupedTransactions) {
+            val sumForCategory = value
+                    .map { it.amount.toFloat() }
+                    .reduce { acc, value -> acc + value }
+            entries.add(PieEntry(sumForCategory, key?.name))
+        }
+
         return entries
     }
 
@@ -60,11 +73,21 @@ class ChartDataProvider @Inject constructor(val transactionDaoManager: ITransact
         return calendar
     }
 
+    /**
+     * Group transactions by the day of the year
+     */
     private fun groupTransactionsByDay(transactions: List<Transaction>): Map<Int, List<Transaction>> {
         val calendar = Calendar.getInstance()
         return transactions.groupBy {
             calendar.time = it.date
             calendar.get(Calendar.DAY_OF_YEAR)
         }
+    }
+
+    /**
+     * Group transactions by categories
+     */
+    private fun groupTransactionsByCategory(transactions: List<Transaction>): Map<Category?, List<Transaction>> {
+        return transactions.groupBy { it.category }
     }
 }

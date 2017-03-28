@@ -7,6 +7,8 @@
     <!--Charts-->
     <string name="chart.bar.legend">Last 7 days</string>
     <string name="chart.bar.title">Summary of your transactions</string>
+    <string name="chart.pie.legend">Last 7 days</string>
+    <string name="chart.pie.title">Summary of your transactions</string>
 
     <!--General-->
     <string name="cancel">Cancel</string>
