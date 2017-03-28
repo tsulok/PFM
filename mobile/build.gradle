@@ -152,6 +152,9 @@ dependencies {
     // Gallery image picker
     compile 'com.github.andremion:louvre:1.0.1'
 
+    // Chart drawer
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
+
     // ############### Test ###################
 
     // ############### JVM ###################

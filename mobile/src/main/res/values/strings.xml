@@ -2,8 +2,11 @@
     <string name="app_name">PFM</string>
     <string name="key.google.api">AIzaSyBCluwMB0LCUez3TUIbvKA3sUtj1Mh0V1g</string>
 
-
     <string name="action_settings">Settings</string>
+
+    <!--Charts-->
+    <string name="chart.bar.legend">Last 7 days</string>
+    <string name="chart.bar.title">Summary of your transactions</string>
 
     <!--General-->
     <string name="cancel">Cancel</string>

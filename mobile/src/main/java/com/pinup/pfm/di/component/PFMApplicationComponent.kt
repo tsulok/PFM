@@ -6,6 +6,7 @@ import com.patloew.rxlocation.RxLocation
 import com.pinup.pfm.di.module.*
 import com.pinup.pfm.di.qualifiers.ApplicationContext
 import com.pinup.pfm.domain.manager.transaction.ITransactionManager
+import com.pinup.pfm.domain.provider.IChartDataProvider
 import com.pinup.pfm.domain.repository.manager.category.ICategoryRepository
 import com.pinup.pfm.domain.repository.manager.transaction.ITransactionRepository
 import com.pinup.pfm.domain.repository.manager.user.IUserRepository
@@ -22,7 +23,8 @@ import javax.inject.Singleton
  */
 @Singleton
 @Component(modules = arrayOf(ApplicationModule::class, InteractorModule::class, DaoModule::class,
-        PresenterModule::class, UtilityModule::class, RepositoryModule::class, ManagerModule::class) )
+        PresenterModule::class, UtilityModule::class, RepositoryModule::class, ManagerModule::class,
+        ProviderModule::class) )
 interface PFMApplicationComponent {
 
     @ApplicationContext
@@ -49,5 +51,9 @@ interface PFMApplicationComponent {
 
     //region Managers
     fun transactionManager(): ITransactionManager
+    //endregion
+
+    //region Providers
+    fun chartDataProvider(): IChartDataProvider
     //endregion
 }
