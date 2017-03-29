@@ -5,11 +5,11 @@
     <string name="action_settings">Settings</string>
 
     <!--Charts-->
-    <string name="chart.bar.legend">Last 7 days</string>
-    <string name="chart.bar.title">Summary of your transactions</string>
+    <string name="chart.bar.legend">Last %1$s days</string>
+    <string name="chart.bar.title">Sum of your transactions in the last %1$s days</string>
     <string name="chart.pie.category.unknown">Uncategorized</string>
-    <string name="chart.pie.legend">Last 7 days</string>
-    <string name="chart.pie.title">Summary of your transactions</string>
+    <string name="chart.pie.legend">Last %1$s days</string>
+    <string name="chart.pie.title">Distribution of transactions in the last %1$s days</string>
 
     <!--General-->
     <string name="cancel">Cancel</string>

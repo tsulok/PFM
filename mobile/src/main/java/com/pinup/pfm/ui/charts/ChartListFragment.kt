@@ -1,7 +1,5 @@
 package com.pinup.pfm.ui.charts
 
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.pinup.pfm.di.component.PFMFragmentComponent
 import com.pinup.pfm.model.chart.IChartDataItem
@@ -26,6 +24,7 @@ class ChartListFragment : BaseListFragment<IChartDataItem>(), ChartListScreen {
 
     override fun initObjects(view: View?) {
         super.initObjects(view)
+        adapter.removeAllItems()
         presenter.loadChartData()
     }
 

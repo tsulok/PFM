@@ -34,6 +34,7 @@ class MainNavigatorFragment : BaseFragment(), MainNavigatorScreen {
 
     override fun initObjects(view: View?) {
         viewPager.adapter = adapter
+        viewPager.offscreenPageLimit = 3
     }
 
     override fun initEventHandlers(view: View?) {

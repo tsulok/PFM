@@ -5,6 +5,7 @@ import com.github.mikephil.charting.data.ChartData
 import com.pinup.pfm.R
 import com.pinup.pfm.di.qualifiers.ApplicationContext
 import com.pinup.pfm.domain.provider.IChartDataProvider
+import com.pinup.pfm.extensions.string
 import com.pinup.pfm.model.chart.ChartType
 import com.pinup.pfm.ui.charts.model.ChartDataViewModel
 import com.pinup.pfm.ui.core.view.BasePresenter
@@ -18,16 +19,25 @@ class ChartListPresenter @Inject constructor(val chartDataProvider: IChartDataPr
     : BasePresenter<ChartListScreen>() {
 
     fun loadChartData() {
-        val barChartItems = chartDataProvider.provideBarChartData()
-        val barItemVm = ChartDataViewModel(context.getString(R.string.chart_bar_title),
-                ChartType.Bar, barChartItems,
-                context.getString(R.string.chart_bar_legend))
-        screen?.chartLoaded(barItemVm)
+        addBarChart(7)
+        addPieChart(7)
+        addBarChart(30)
+        addPieChart(30)
+    }
 
-        var pieChartItems = chartDataProvider.providePieChartData()
-        val pieItemVm = ChartDataViewModel(context.getString(R.string.chart_pie_title),
+    private fun addBarChart(dayHistoryCount: Int) {
+        val barChartItems = chartDataProvider.provideBarChartData(dayHistoryCount)
+        val barItemVm = ChartDataViewModel(context.resources.getString(R.string.chart_bar_title, dayHistoryCount),
+                ChartType.Bar, barChartItems,
+                context.resources.getString(R.string.chart_bar_legend, dayHistoryCount))
+        screen?.chartLoaded(barItemVm)
+    }
+
+    private fun addPieChart(dayHistoryCount: Int) {
+        val pieChartItems = chartDataProvider.providePieChartData(dayHistoryCount)
+        val pieItemVm = ChartDataViewModel(context.resources.getString(R.string.chart_pie_title, dayHistoryCount),
                 ChartType.Pie, pieChartItems,
-                context.getString(R.string.chart_pie_legend))
+                context.resources.getString(R.string.chart_pie_legend, dayHistoryCount))
         screen?.chartLoaded(pieItemVm)
     }
 }

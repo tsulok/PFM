@@ -17,22 +17,18 @@ import kotlin.collections.ArrayList
  * Data provider for charts
  */
 interface IChartDataProvider {
-    fun providePieChartData(): List<PieEntry>
-    fun provideBarChartData(): List<BarEntry>
+    fun providePieChartData(dayHistoryCount: Int): List<PieEntry>
+    fun provideBarChartData(dayHistoryCount: Int): List<BarEntry>
 }
 
 class ChartDataProvider @Inject constructor(val transactionDaoManager: ITransactionRepository,
                                             @ApplicationContext val context: Context)
     : IChartDataProvider {
 
-    object Constants {
-        const val MAX_HISTORY_COUNT_DAYS = 7
-    }
-
-    override fun providePieChartData(): List<PieEntry> {
+    override fun providePieChartData(dayHistoryCount: Int): List<PieEntry> {
         val entries: MutableList<PieEntry> = ArrayList()
 
-        val initialDate = calculateInitialDate()
+        val initialDate = calculateInitialDate(dayHistoryCount)
         val recentTransactions = transactionDaoManager.loadTransactionsAfter(initialDate.time)
         val groupedTransactions = groupTransactionsByCategory(recentTransactions)
 
@@ -47,15 +43,15 @@ class ChartDataProvider @Inject constructor(val transactionDaoManager: ITransact
         return entries
     }
 
-    override fun provideBarChartData(): List<BarEntry> {
+    override fun provideBarChartData(dayHistoryCount: Int): List<BarEntry> {
         val entries: MutableList<BarEntry> = ArrayList()
-        val initialDate = calculateInitialDate()
+        val initialDate = calculateInitialDate(dayHistoryCount)
         val recentTransactions = transactionDaoManager.loadTransactionsAfter(initialDate.time)
         val groupedTransactions = groupTransactionsByDay(recentTransactions)
 
-        for (i in 0..Constants.MAX_HISTORY_COUNT_DAYS) {
+        for (i in 0..dayHistoryCount) {
             var sumForDay: Float = 0.0f
-            groupedTransactions.get(initialDate.get(Calendar.DAY_OF_YEAR))?.let { transactions ->
+            groupedTransactions[initialDate.get(Calendar.DAY_OF_YEAR)]?.let { transactions ->
                 sumForDay = transactions
                         .map { it.amount.toFloat() }
                         .reduce { acc, value -> acc + value }
@@ -69,9 +65,9 @@ class ChartDataProvider @Inject constructor(val transactionDaoManager: ITransact
         return entries
     }
 
-    private fun calculateInitialDate(): Calendar {
+    private fun calculateInitialDate(dayHistoryCount: Int): Calendar {
         val calendar = Calendar.getInstance()
-        calendar.add(Calendar.DAY_OF_MONTH, -1 * Constants.MAX_HISTORY_COUNT_DAYS) // Let's go back x days
+        calendar.add(Calendar.DAY_OF_MONTH, -1 * dayHistoryCount) // Let's go back x days
         calendar.set(Calendar.HOUR, 0)
         calendar.set(Calendar.MINUTE, 0)
         calendar.set(Calendar.SECOND, 0)

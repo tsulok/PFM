@@ -42,6 +42,7 @@ class PieChartViewHolder(itemView: View?): BaseViewHolder(itemView) {
     fun bindValues(item: IChartDataItem) {
         titleTxt.text = item.title
         pieChart.data = createChartData(item)
+        pieChart.invalidate()
     }
 
     private fun createChartData(item: IChartDataItem): PieData {

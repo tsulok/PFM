@@ -48,7 +48,11 @@ class BarChartViewHolder(itemView: View?): BaseViewHolder(itemView) {
 
     fun bindValues(item: IChartDataItem) {
         titleTxt.text = item.title
+        barChart.data = buildChartData(item)
+        barChart.invalidate()
+    }
 
+    private fun buildChartData(item: IChartDataItem): BarData {
         val entries = item.entries.map { BarEntry(it.x, it.y) }
         val dataSet = BarDataSet(entries, item.legend)
         dataSet.setDrawIcons(false)
@@ -62,6 +66,6 @@ class BarChartViewHolder(itemView: View?): BaseViewHolder(itemView) {
         data.setValueTextSize(10f)
         data.barWidth = 0.9f
 
-        barChart.data = data
+        return data
     }
 }
