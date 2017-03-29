@@ -81,4 +81,31 @@
     <style name="AppTheme.BaseText" parent="AppTheme.RegularAppFont">
 
     </style>
+
+    <style name="AppTheme.ColoredInputLayout" parent="AppTheme">
+        <item name="colorControlNormal">@color/applicationGrey</item>
+    </style>
+
+    <style name="TextError_appearance" parent="AppTheme.RegularAppFont">
+        <item name="android:textColor">@color/applicationRed</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="General_Button" parent="Base.Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:textAppearance">@style/AppTheme.BaseEditText</item>
+        <item name="android:layout_height">@dimen/general.button.height</item>
+        <item name="android:background">@drawable/general_button_background</item>
+        <item name="android:textColor">@color/applicationWhite</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">@dimen/font.size.big</item>
+    </style>
+
+    <style name="Login_Button" parent="Base.TextAppearance.AppCompat.Widget.Button">
+        <item name="android:layout_height">@dimen/general.button.height</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/applicationWhite</item>
+        <item name="android:textSize">@dimen/font.size.medium</item>
+        <item name="android:background">@drawable/facebook_button_background</item>
+    </style>
 </resources>

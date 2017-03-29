@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/applicationBackground"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/default.margin">
+
+    <com.pinup.pfm.utils.ui.SimpleTextInputLayout
+        android:id="@+id/emailInputContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.ColoredInputLayout"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/TextError_appearance"
+        app:hintEnabled="true">
+
+        <EditText
+            android:id="@+id/emailETxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/login.email.hint"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
+            android:maxLines="1" />
+    </com.pinup.pfm.utils.ui.SimpleTextInputLayout>
+
+    <com.pinup.pfm.utils.ui.SimpleTextInputLayout
+        android:id="@+id/passwordInputContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.ColoredInputLayout"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/TextError_appearance"
+        app:hintEnabled="true">
+
+        <EditText
+            android:id="@+id/passwordETxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/login.password.hint"
+            android:imeOptions="actionDone"
+            android:maxLines="1" />
+    </com.pinup.pfm.utils.ui.SimpleTextInputLayout>
+
+    <Button
+        android:id="@+id/loginBtn"
+        style="@style/General_Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/login.action.login" />
+
+    <Button
+        android:id="@+id/registerBtn"
+        style="@style/General_Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default.margin"
+        android:text="@string/login.action.register" />
+
+    <Button
+        android:id="@+id/loginFacebookBtn"
+        style="@style/Login_Button"
+        android:layout_marginTop="@dimen/default.margin"
+        android:background="@drawable/facebook_button_background"
+        android:text="@string/login.facebook"
+        android:textAllCaps="true" />
+
+</LinearLayout>

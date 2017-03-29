@@ -4,6 +4,18 @@
     <color name="colorPrimaryDark">#876217</color>
     <color name="colorAccent">#872A17</color>
 
+    <color name="applicationWhite">#FFFFFF</color>
+    <color name="applicationGreen">#8dda2c</color>
+    <color name="applicationDarkGreen">#63b200</color>
+    <color name="applicationDarkGreenAlpha">#7763b200</color>
+    <color name="applicationGrey">#acacac</color>
+    <color name="applicationLightGrey">#E2E2E2</color>
+    <color name="applicationRed">#D42616</color>
+    <color name="applicationBackground">#BEB9B1</color>
+
+    <color name="facebook.blue">#3B5A9A</color>
+    <color name="facebook.blue.dark">#2D4576</color>
+
     <color name="input.action.camera.action.background">#7f7f7f</color>
     <color name="input.action.description.background">#f9f5ed</color>
 

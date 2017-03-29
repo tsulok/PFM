@@ -45,6 +45,13 @@
     <!--Location-->
     <string name="location.not.found">User location is not found.</string>
 
+    <!--Login-->
+    <string name="login.action.login">Login</string>
+    <string name="login.action.register">Register</string>
+    <string name="login.facebook">Login with Facebook</string>
+    <string name="login.email.hint">E-mail</string>
+    <string name="login.password.hint">Password</string>
+
     <!--Permissions-->
     <string name="permission.camera.title">Permission needed</string>
     <string name="permission.camera.neveragain.message">Camera permission is needed in order to take photo to your transaction.</string>

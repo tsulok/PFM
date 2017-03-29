@@ -2,6 +2,7 @@ package com.pinup.pfm.di.component
 
 import com.pinup.pfm.di.module.ActivityModule
 import com.pinup.pfm.di.scopes.ActivityScope
+import com.pinup.pfm.ui.auth.login.LoginActivity
 import com.pinup.pfm.ui.input.action.InputActionContainerActivity
 import com.pinup.pfm.ui.main.MainActivity
 import dagger.Component
@@ -16,4 +17,5 @@ interface PFMActivityComponent {
 
     fun inject(activity: MainActivity): Unit
     fun inject(activity: InputActionContainerActivity)
+    fun inject(loginActivity: LoginActivity)
 }
