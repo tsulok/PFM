@@ -5,6 +5,8 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="chart.height">300dp</dimen>
+    <dimen name="chart.pie.text.size">15sp</dimen>
+    <dimen name="chart.pie.text.value.size">12sp</dimen>
 
     <dimen name="default.padding">8dp</dimen>
     <dimen name="default.margin">8dp</dimen>

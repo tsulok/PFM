@@ -1,8 +1,12 @@
 package com.pinup.pfm.domain.provider
 
+import android.content.Context
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.PieEntry
+import com.pinup.pfm.R
+import com.pinup.pfm.di.qualifiers.ApplicationContext
 import com.pinup.pfm.domain.repository.manager.transaction.ITransactionRepository
+import com.pinup.pfm.extensions.string
 import com.pinup.pfm.model.database.Category
 import com.pinup.pfm.model.database.Transaction
 import java.util.*
@@ -17,7 +21,8 @@ interface IChartDataProvider {
     fun provideBarChartData(): List<BarEntry>
 }
 
-class ChartDataProvider @Inject constructor(val transactionDaoManager: ITransactionRepository)
+class ChartDataProvider @Inject constructor(val transactionDaoManager: ITransactionRepository,
+                                            @ApplicationContext val context: Context)
     : IChartDataProvider {
 
     object Constants {
@@ -31,11 +36,12 @@ class ChartDataProvider @Inject constructor(val transactionDaoManager: ITransact
         val recentTransactions = transactionDaoManager.loadTransactionsAfter(initialDate.time)
         val groupedTransactions = groupTransactionsByCategory(recentTransactions)
 
+        val unknownCategoryName = context.string(R.string.chart_pie_category_unknown)
         for ((key, value) in groupedTransactions) {
             val sumForCategory = value
                     .map { it.amount.toFloat() }
                     .reduce { acc, value -> acc + value }
-            entries.add(PieEntry(sumForCategory, key?.name))
+            entries.add(PieEntry(sumForCategory, key?.name ?: unknownCategoryName))
         }
 
         return entries

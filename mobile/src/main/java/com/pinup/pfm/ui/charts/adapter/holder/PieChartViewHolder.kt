@@ -33,14 +33,10 @@ class PieChartViewHolder(itemView: View?): BaseViewHolder(itemView) {
         pieChart.setTransparentCircleAlpha(110)
         pieChart.isRotationEnabled = false
 
-        val legend = pieChart.legend
-        legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
-        legend.horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
-        legend.orientation = Legend.LegendOrientation.VERTICAL
-        legend.setDrawInside(false)
-        legend.xEntrySpace = 7f
-        legend.yEntrySpace = 7f
-        legend.yOffset = 0f
+        itemView?.let {
+            pieChart.setEntryLabelTextSize(13f)
+        }
+        pieChart.setEntryLabelColor(Color.BLACK)
     }
 
     fun bindValues(item: IChartDataItem) {
@@ -73,6 +69,10 @@ class PieChartViewHolder(itemView: View?): BaseViewHolder(itemView) {
 
         val data = PieData(dataSet)
         data.setValueFormatter(PercentFormatter())
+        itemView?.let {
+            data.setValueTextSize(11f)
+        }
+        data.setValueTextColor(Color.BLACK)
 
         return data
     }

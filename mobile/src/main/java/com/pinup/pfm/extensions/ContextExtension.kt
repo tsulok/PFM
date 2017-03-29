@@ -45,3 +45,7 @@ fun Context.getDrawableForName(name: String): Drawable? {
 fun Context.isPermissionsGranted(vararg permissions: String): Boolean {
     return permissions.none { ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED }
 }
+
+fun Context.string(identifier: Int): String {
+    return this.resources.getString(identifier)
+}
