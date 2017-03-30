@@ -53,6 +53,8 @@ open class AlertHelper @Inject constructor(@ActivityContext val context: Context
                 .content(messageId)
                 .progress(true, 0)
                 .cancelable(false)
+                .titleColor(context.resources.getColor(R.color.colorPrimaryDark))
+                .contentColor(context.resources.getColor(R.color.colorPrimaryDark))
                 .build()
     }
 

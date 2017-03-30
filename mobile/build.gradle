@@ -155,6 +155,9 @@ dependencies {
     // Chart drawer
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
 
+    // *********** Social *************************************************************************
+    compile 'com.facebook.android:facebook-android-sdk:4.18.0'
+
     // ############### Test ###################
 
     // ############### JVM ###################
