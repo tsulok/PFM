@@ -6,6 +6,8 @@ import com.pinup.pfm.interactor.social.facebook.FacebookInteractor
 import com.pinup.pfm.interactor.social.facebook.IFacebookInteractor
 import com.pinup.pfm.interactor.transaction.ITransactionInteractor
 import com.pinup.pfm.interactor.transaction.TransactionInteractor
+import com.pinup.pfm.interactor.user.IUserInteractor
+import com.pinup.pfm.interactor.user.UserInteractor
 import com.pinup.pfm.interactor.utils.CurrencyInteractor
 import com.pinup.pfm.interactor.utils.ICurrencyInteractor
 import com.pinup.pfm.interactor.utils.IStorageInteractor
@@ -23,4 +25,5 @@ abstract class InteractorModule {
     @Binds abstract fun currencyInteractor(interactor: CurrencyInteractor): ICurrencyInteractor
     @Binds abstract fun storageInteractor(interactor: StorageInteractor): IStorageInteractor
     @Binds abstract fun facebookInteractor(interactor: FacebookInteractor): IFacebookInteractor
+    @Binds abstract fun userInteractor(interactor: UserInteractor): IUserInteractor
 }

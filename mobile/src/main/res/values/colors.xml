@@ -13,6 +13,8 @@
     <color name="applicationRed">#D42616</color>
     <color name="applicationBackground">#BEB9B1</color>
 
+    <color name="applicationText">@color/colorPrimary</color>
+
     <color name="facebook.blue">#3B5A9A</color>
     <color name="facebook.blue.dark">#2D4576</color>
 

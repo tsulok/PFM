@@ -1,6 +1,9 @@
 package com.pinup.pfm.ui.auth.login
 
+import android.Manifest
 import android.content.Intent
+import android.widget.ArrayAdapter
+import com.orhanobut.logger.Logger
 import com.pinup.pfm.R
 import com.pinup.pfm.di.component.PFMActivityComponent
 import com.pinup.pfm.extensions.string
@@ -12,11 +15,14 @@ import com.pinup.pfm.ui.main.MainActivity
 import com.pinup.pfm.utils.ui.core.AlertHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.login_activity.*
+import permissions.dispatcher.*
 import javax.inject.Inject
+
 
 /**
  * Activity for login
  */
+@RuntimePermissions
 class LoginActivity : BaseActivity(), LoginScreen {
 
     @Inject lateinit var presenter: LoginPresenter
@@ -29,6 +35,8 @@ class LoginActivity : BaseActivity(), LoginScreen {
 
     override fun initObjects() {
         initEventHandlers()
+
+        LoginActivityPermissionsDispatcher.configureAutocompleteForEmailsWithCheck(this)
     }
 
     override fun injectActivity(component: PFMActivityComponent) {
@@ -52,7 +60,7 @@ class LoginActivity : BaseActivity(), LoginScreen {
                     .subscribe({ ->
                         presenter.loginWithFacebook()
                     }, {
-                        alertHelper.createAlert(this.string(R.string.login_facebook_failed)).show()
+                        alertHelper.createAlert(string(R.string.login_facebook_failed)).show()
                     })
         }
     }
@@ -60,6 +68,11 @@ class LoginActivity : BaseActivity(), LoginScreen {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         facebookInteractor.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        LoginActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults)
     }
 
     override fun loadingStarted() {
@@ -74,5 +87,34 @@ class LoginActivity : BaseActivity(), LoginScreen {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    @NeedsPermission(Manifest.permission.GET_ACCOUNTS)
+    fun configureAutocompleteForEmails() {
+        val accounts = presenter.collectInstalledGoogleAccounts()
+
+        val accountsAdapter = ArrayAdapter<String>(this, R.layout.email_autocomplete, accounts)
+        emailETxt.setAdapter(accountsAdapter)
+    }
+
+    @OnShowRationale(Manifest.permission.GET_ACCOUNTS)
+    fun showRationaleForAccounts(request: PermissionRequest) {
+        alertHelper.createAlert(R.string.permission_accounts_title,
+                R.string.permission_accounts_rationale)
+                .positiveText(R.string.grant)
+                .negativeText(R.string.decline)
+                .onPositive({ _, _ -> request.proceed() })
+                .onNegative({ _, _ -> request.cancel() })
+                .show()
+    }
+
+    @OnPermissionDenied(Manifest.permission.GET_ACCOUNTS)
+    fun showDeniedForAccounts() {
+        Logger.d("Accounts never denied")
+    }
+
+    @OnNeverAskAgain(Manifest.permission.GET_ACCOUNTS)
+    fun showNeverAskForAccounts() {
+        Logger.d("Accounts never ask again")
     }
 }

@@ -31,15 +31,15 @@ open class AlertHelper @Inject constructor(@ActivityContext val context: Context
         if (progressDialog == null) {
             progressDialog = createDefaultLoadingMaterialDialog(messageId)
         }
-        progressDialog!!.setContent(messageId)
 
-        progressDialog!!.show()
+        progressDialog?.let {
+            it.setContent(messageId)
+            it.show()
+        }
     }
 
     fun hideProgressDialog() {
-        if (progressDialog != null) {
-            progressDialog!!.hide()
-        }
+        progressDialog?.let { it.hide() }
     }
 
     /**

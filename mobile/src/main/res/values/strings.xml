@@ -57,6 +57,8 @@
     <string name="login.password.hint">Password</string>
 
     <!--Permissions-->
+    <string name="permission.accounts.title">Permission needed</string>
+    <string name="permission.accounts.rationale">Accounts permission is needed to help you for listing your installed google emails.</string>
     <string name="permission.camera.title">Permission needed</string>
     <string name="permission.camera.neveragain.message">Camera permission is needed in order to take photo to your transaction.</string>
     <string name="permission.camera.rationale.message">Camera permission is needed in order to take photo to your transaction.</string>

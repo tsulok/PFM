@@ -17,7 +17,7 @@
         app:errorTextAppearance="@style/TextError_appearance"
         app:hintEnabled="true">
 
-        <EditText
+        <android.support.v7.widget.AppCompatAutoCompleteTextView
             android:id="@+id/emailETxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

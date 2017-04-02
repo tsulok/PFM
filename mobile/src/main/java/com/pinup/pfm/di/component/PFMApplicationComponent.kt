@@ -1,5 +1,6 @@
 package com.pinup.pfm.di.component
 
+import android.accounts.AccountManager
 import android.content.Context
 import android.content.SharedPreferences
 import com.facebook.CallbackManager
@@ -8,6 +9,7 @@ import com.patloew.rxlocation.RxLocation
 import com.pinup.pfm.di.module.*
 import com.pinup.pfm.di.qualifiers.ApplicationContext
 import com.pinup.pfm.di.qualifiers.Facebook
+import com.pinup.pfm.domain.manager.preferences.SharedPreferencesManager
 import com.pinup.pfm.domain.manager.transaction.ITransactionManager
 import com.pinup.pfm.domain.provider.IChartDataProvider
 import com.pinup.pfm.domain.repository.manager.category.ICategoryRepository
@@ -16,6 +18,7 @@ import com.pinup.pfm.domain.repository.manager.user.IUserRepository
 import com.pinup.pfm.interactor.category.ICategoryInteractor
 import com.pinup.pfm.interactor.social.facebook.IFacebookInteractor
 import com.pinup.pfm.interactor.transaction.ITransactionInteractor
+import com.pinup.pfm.interactor.user.IUserInteractor
 import com.pinup.pfm.interactor.utils.ICurrencyInteractor
 import com.pinup.pfm.interactor.utils.IStorageInteractor
 import com.pinup.pfm.model.database.DaoSession
@@ -54,10 +57,13 @@ interface PFMApplicationComponent {
     fun storageInteravtor(): IStorageInteractor
     fun transactionInteravtor(): ITransactionInteractor
     fun facebookInteractor(): IFacebookInteractor
+    fun userInteractor(): IUserInteractor
     //endregion
 
     //region Managers
     fun transactionManager(): ITransactionManager
+    fun accountManager(): AccountManager
+    fun sharedPrefManager(): SharedPreferencesManager
     //endregion
 
     //region Providers
