@@ -1,7 +1,5 @@
 language: android
 
-bundler_args: --retry 5
-
 android:
   components:
     - tools
@@ -34,7 +32,7 @@ env:
 
 sudo: required
 
-before_script:
+#before_script:
   # Create and start emulator
 #  Do not start emulator now
 #  - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a -s "768x1280"
@@ -44,9 +42,10 @@ before_script:
 
 #script: travis_retry ./gradlew :mobile:build
 # Assemble dev flavor only
-script: travis_retry ./gradlew :mobile:assembleDev
+script:
+ - travis_retry ./gradlew :mobile:assembleDev
 # Test dev flavor unit
-script: travis_retry ./gradlew :mobile:testDevDebugUnitTest
+ - travis_retry ./gradlew :mobile:testDevDebugUnitTest
 
 notifications:
   email:
