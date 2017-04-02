@@ -43,7 +43,7 @@ before_script:
 #  - adb shell input keyevent 82 &
 
 #script: travis_retry 1 ./gradlew :mobile:build
-script: travis_retry 1 ./gradlew :mobile:testDevDebugUnitTest
+script: travis_retry ./gradlew :mobile:testDevDebugUnitTest
 
 notifications:
   email:
