@@ -1,5 +1,6 @@
 package com.pinup.pfm.ui.input.action.camera
 
+import android.net.Uri
 import com.pinup.pfm.ui.core.view.BaseScreen
 import java.io.File
 
@@ -24,6 +25,12 @@ interface InputActionCameraScreen : BaseScreen {
      * @param file The file where the image was saved
      */
     fun imageCaptureSucceeded(file: File)
+
+    /**
+     * Callback of the image capture succeeded state
+     * @param file The file where the image was saved
+     */
+    fun imageCaptureSucceeded(uri: Uri)
 
     /**
      * Callback of the failure of image capture

@@ -1,9 +1,8 @@
 package com.pinup.pfm.ui.input.action.camera
 
-import com.orhanobut.logger.Logger
-import com.pinup.pfm.PFMApplication
-import com.pinup.pfm.domain.manager.transaction.TransactionManager
-import com.pinup.pfm.interactor.utils.StorageInteractor
+import android.net.Uri
+import com.pinup.pfm.domain.manager.transaction.ITransactionManager
+import com.pinup.pfm.interactor.utils.IStorageInteractor
 import com.pinup.pfm.ui.core.view.BasePresenter
 import java.io.File
 import javax.inject.Inject
@@ -11,8 +10,8 @@ import javax.inject.Inject
 /**
  * Presenter for input action camera
  */
-class InputActionCameraPresenter @Inject constructor(val storageInteractor: StorageInteractor,
-                                                     val transactionManager: TransactionManager)
+class InputActionCameraPresenter @Inject constructor(val storageInteractor: IStorageInteractor,
+                                                     val transactionManager: ITransactionManager)
     : BasePresenter<InputActionCameraScreen>() {
 
     private var tempFile: File? = null
@@ -40,9 +39,17 @@ class InputActionCameraPresenter @Inject constructor(val storageInteractor: Stor
      * Search for the file where the temporary image is saved & notify the screen whether it was found or not
      */
     fun handleImageCaptureFinished() {
-        tempFile?.let {
-            screen?.imageCaptureSucceeded(it)
-            transactionManager.transactionImageFile = it
+        tempFile?.let { file ->
+            screen?.imageCaptureSucceeded(file)
+            transactionManager.transactionImageFile = file
+        }
+    }
+
+    fun handleGalleryImageChosen(selectedImages: List<Uri>) {
+        // Only 1 image selection is possible
+        selectedImages.firstOrNull()?.let { image ->
+            transactionManager.transactionImageFile = File(image.path)
+            screen?.imageCaptureSucceeded(image)
         }
     }
 }

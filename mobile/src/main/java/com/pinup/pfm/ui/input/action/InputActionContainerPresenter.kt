@@ -1,5 +1,6 @@
 package com.pinup.pfm.ui.input.action
 
+import com.pinup.pfm.domain.manager.transaction.ITransactionManager
 import com.pinup.pfm.domain.manager.transaction.TransactionManager
 import com.pinup.pfm.model.input.OpenAction
 import com.pinup.pfm.ui.core.view.BasePresenter
@@ -8,7 +9,7 @@ import javax.inject.Inject
 /**
  * Presenter for input action container
  */
-class InputActionContainerPresenter @Inject constructor(val transactionManager: TransactionManager)
+class InputActionContainerPresenter @Inject constructor(val transactionManager: ITransactionManager)
     : BasePresenter<InputActionContainerScreen>() {
 
     var currentOpenAction: OpenAction? = null

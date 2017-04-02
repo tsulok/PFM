@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.getkeepsafe.dexcount'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 25
@@ -16,6 +17,12 @@ android {
 
         // TODO This need to be deleted before production
         multiDexEnabled true
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["dart.henson.package": 'com.pinup.pfm.view']
+            }
+        }
     }
     buildTypes {
         release {
@@ -67,20 +74,24 @@ dependencies {
     compile "com.google.android.gms:play-services-wearable:$playServicesVersion"
     compile "com.google.android.gms:play-services-location:$playServicesVersion"
     compile "com.google.android.gms:play-services-maps:$playServicesVersion"
+    compile "com.google.android.gms:play-services-auth:$playServicesVersion"
 
     // ReactiveX
-    compile 'io.reactivex:rxandroid:1.0.1'
-    compile 'io.reactivex:rxjava:1.0.16'
-    compile 'pl.charmas.android:android-reactive-location:0.8@aar'
+    compile 'io.reactivex.rxjava2:rxjava:2.0.1'
+    compile "io.reactivex.rxjava2:rxandroid:2.0.1"
+    compile "com.github.akarnokd:rxjava2-extensions:0.14.3"
+    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    compile 'com.patloew.rxlocation:rxlocation:1.0.2'
 
     // Kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
     // network communication
-    compile 'com.squareup.retrofit2:retrofit:2.0.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.0'
-    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile "com.squareup.okhttp3:okhttp:3.4.2"
+    compile "com.squareup.okhttp3:logging-interceptor:3.4.2"
 
     // Anko for kotlin
     compile "org.jetbrains.anko:anko-sdk15:$ankoVersion" // sdk19, sdk21, sdk23 are also available
@@ -127,7 +138,7 @@ dependencies {
     }
 
     // Camera handling
-    compile ('com.commonsware.cwac:cam2:0.6.9')
+    compile ('com.commonsware.cwac:cam2:0.7.4')
 
     // Storage helper
     compile 'com.sromku:simple-storage:1.2.0'
@@ -139,18 +150,34 @@ dependencies {
     compile 'com.github.hotchemi:permissionsdispatcher:2.3.1'
     kapt 'com.github.hotchemi:permissionsdispatcher-processor:2.3.1'
 
+    // Dart - extra injection
+    compile 'com.f2prateek.dart:dart:2.0.1'
+    kapt 'com.f2prateek.dart:dart-processor:2.0.1'
+    compile 'com.f2prateek.dart:henson:2.0.1'
+    kapt 'com.f2prateek.dart:henson-processor:2.0.1'
+
+    // Gallery image picker
+    compile 'com.github.andremion:louvre:1.0.1'
+
+    // Chart drawer
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
+
+    // *********** Social *************************************************************************
+    compile 'com.facebook.android:facebook-android-sdk:4.18.0'
+
     // ############### Test ###################
 
     // ############### JVM ###################
     // JUnit
     testCompile 'junit:junit:4.12'
-    testCompile "org.robolectric:shadows-multidex:3.0"
 
     // Robolectric
-    testCompile('org.robolectric:shadows-support-v4:3.0') {
-        exclude group: 'commons-logging', module: 'commons-logging'
-        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
-    }
+    testCompile "org.robolectric:robolectric:3.3.1"
+    testCompile "org.robolectric:shadows-multidex:3.3" // For multidex support
+//    testCompile('org.robolectric:shadows-support-v4:3.3') {
+//        exclude group: 'commons-logging', module: 'commons-logging'
+//        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+//    }
 
     // Mockito
     testCompile "org.mockito:mockito-core:1.10.19"

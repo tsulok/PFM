@@ -96,20 +96,23 @@ class InputContainerFragment : BaseFragment(), InputContainerScreen {
      */
     val transactionInteractionHandler = object : OnTransactionInteractionListener {
         override fun onTransactionAdded(transaction: Transaction) {
+            categoryListFragment.reloadTransactionCategory()
             historyListFragment.addNewTransaction(transaction)
         }
 
         override fun onTransactionEdited(transaction: Transaction) {
+            categoryListFragment.reloadTransactionCategory()
             historyListFragment.updateTransaction(transaction)
         }
 
         override fun onTransactionDeleted(transaction: Transaction) {
-
+            categoryListFragment.reloadTransactionCategory()
         }
 
         override fun onTransactionOpened(transaction: Transaction) {
             listHistoryClicked() // Click on the opened history list to be closed
             inputMainFragment.reloadTransaction()
+            categoryListFragment.reloadTransactionCategory()
         }
     }
 

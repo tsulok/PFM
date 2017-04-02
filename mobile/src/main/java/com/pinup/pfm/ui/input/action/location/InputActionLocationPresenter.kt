@@ -1,21 +1,33 @@
 package com.pinup.pfm.ui.input.action.location
 
 import com.google.android.gms.maps.model.LatLng
-import com.pinup.pfm.PFMApplication
-import com.pinup.pfm.domain.manager.transaction.TransactionManager
+import com.patloew.rxlocation.RxLocation
+import com.pinup.pfm.domain.manager.transaction.ITransactionManager
 import com.pinup.pfm.ui.core.view.BasePresenter
 import javax.inject.Inject
 
 /**
  * Presenter for input action location
  */
-class InputActionLocationPresenter @Inject constructor(val transactionManager: TransactionManager) : BasePresenter<InputActionLocationScreen>() {
+class InputActionLocationPresenter @Inject constructor(val transactionManager: ITransactionManager,
+                                                       val rxLocation: RxLocation) : BasePresenter<InputActionLocationScreen>() {
 
     private var userLocation: LatLng? = null
     private var userMarkerPosition: LatLng? = null
 
     init {
         userMarkerPosition = transactionManager.transactionLocation
+    }
+
+    fun loadCurrentLocation() {
+        rxLocation.location()
+                .lastLocation()
+                .subscribe({ location ->
+                    userLocation = LatLng(location.latitude, location.longitude)
+                    initDefaultMarker()
+                }, { error ->
+                    screen?.locationNotFound()
+                })
     }
 
     /**
@@ -46,17 +58,16 @@ class InputActionLocationPresenter @Inject constructor(val transactionManager: T
      * Initializes default marker
      */
     fun initDefaultMarker() {
-        var desiredMarkerPosition: LatLng
-
-        if (userMarkerPosition != null) {
-            desiredMarkerPosition = userMarkerPosition!!
-        } else if (userLocation != null) {
-            desiredMarkerPosition = userLocation!!
-        } else {
-            throw RuntimeException("User position is not known. Must be set before initializing markers." +
-                    " Developer error")
+        val location = userMarkerPosition?.let {
+            screen?.createMarkerInLocation(it)
+            screen?.moveToUserLocation(it)
         }
 
-        screen?.createMarkerInLocation(desiredMarkerPosition)
+        if (location == null) {
+            userLocation?.let {
+                screen?.createMarkerInLocation(it)
+                screen?.moveToUserLocation(it)
+            }
+        }
     }
 }

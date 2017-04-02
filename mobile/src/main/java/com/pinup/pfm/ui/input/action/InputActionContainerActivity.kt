@@ -1,19 +1,19 @@
 package com.pinup.pfm.ui.input.action
 
 import android.Manifest
+import android.app.Activity
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
-import butterknife.OnClick
-import com.hannesdorfmann.fragmentargs.FragmentArgs
-import com.hannesdorfmann.fragmentargs.annotation.Arg
-import com.hannesdorfmann.fragmentargs.annotation.FragmentWithArgs
+import com.f2prateek.dart.Dart
+import com.f2prateek.dart.InjectExtra
 import com.pinup.pfm.R
-import com.pinup.pfm.di.component.PFMFragmentComponent
+import com.pinup.pfm.di.component.PFMActivityComponent
 import com.pinup.pfm.extensions.replaceFragment
 import com.pinup.pfm.model.input.OpenAction
+import com.pinup.pfm.ui.core.view.BaseActivity
 import com.pinup.pfm.ui.core.view.BaseFragment
 import com.pinup.pfm.ui.core.view.BaseScreen
 import com.pinup.pfm.ui.core.view.IBasePresenter
@@ -23,22 +23,21 @@ import com.pinup.pfm.ui.input.action.description.InputActionDescriptionFragment
 import com.pinup.pfm.ui.input.action.location.InputActionLocationFragment
 import com.pinup.pfm.utils.SharedViewConstants
 import com.pinup.pfm.utils.ui.core.AlertHelper
-import org.jetbrains.anko.support.v4.find
+import kotlinx.android.synthetic.main.fragment_input_action_container.*
+import org.jetbrains.anko.find
 import permissions.dispatcher.*
 import javax.inject.Inject
 
 /**
  * Input action fragment
  */
-@FragmentWithArgs
-@RuntimePermissions
-class InputActionContainerFragment
-    : BaseFragment(), InputActionContainerScreen {
+class InputActionContainerActivity
+    : BaseActivity(), InputActionContainerScreen {
 
     @Inject lateinit var inputActionContainerPresenter: InputActionContainerPresenter
     @Inject lateinit var alertHelper: AlertHelper
 
-    @Arg
+    @InjectExtra
     lateinit var openAction: OpenAction
 
     val inputActionCameraFragment: InputActionCameraFragment by lazy { InputActionCameraFragment() }
@@ -53,30 +52,39 @@ class InputActionContainerFragment
     val actionDesciptionButton by lazy { find<ImageButton>(R.id.inputActionContainerDescription) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Dart.inject(this)
         super.onCreate(savedInstanceState)
-        FragmentArgs.inject(this)
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_input_action_container
+    override fun loadContentId(): Int = R.layout.fragment_input_action_container
+
+    override fun getActivityMainContainer(): Int = R.id.inputActionContainer
+
+    override fun injectActivity(component: PFMActivityComponent) {
+        component.inject(this)
     }
 
     override fun getPresenter(): IBasePresenter? = inputActionContainerPresenter
     override fun getScreen(): BaseScreen = this
 
-    override fun initObjects(view: View?) {
+    override fun initObjects() {
         initSharedTransitionElements()
         inputActionContainerPresenter.openAction(openAction)
 
         amountText.text = inputActionContainerPresenter.getFormattedAmountText()
+        initEventHandlers()
     }
 
-    override fun initEventHandlers(view: View?) {
+    private fun initEventHandlers() {
+        closeBtn.setOnClickListener { finish() }
 
-    }
+        actionPhotoButton.setOnClickListener { inputActionContainerPresenter.openAction(OpenAction.Photo) }
 
-    override fun injectFragment(component: PFMFragmentComponent) {
-        component.inject(this)
+        actionDesciptionButton.setOnClickListener { inputActionContainerPresenter.openAction(OpenAction.Description) }
+
+        actionDateButton.setOnClickListener { inputActionContainerPresenter.openAction(OpenAction.Date) }
+
+        actionLocationButton.setOnClickListener { inputActionContainerPresenter.openAction(OpenAction.Location) }
     }
 
     /**
@@ -108,36 +116,6 @@ class InputActionContainerFragment
         }
     }
 
-    @OnClick(R.id.closeBtn)
-    fun onCloseClicked() {
-        finish()
-    }
-
-    @OnClick(R.id.inputActionContainerPhoto)
-    fun onPhotoClicked() {
-        inputActionContainerPresenter.openAction(OpenAction.Photo)
-    }
-
-    @OnClick(R.id.inputActionContainerDescription)
-    fun onDescriptionClicked() {
-        inputActionContainerPresenter.openAction(OpenAction.Description)
-    }
-
-    @OnClick(R.id.inputActionContainerDate)
-    fun onDateClicked() {
-        inputActionContainerPresenter.openAction(OpenAction.Date)
-    }
-
-    @OnClick(R.id.inputActionContainerLocation)
-    fun onLocationClicked() {
-        InputActionContainerFragmentPermissionsDispatcher.openLocationViewWithCheck(this)
-    }
-
-    @NeedsPermission(Manifest.permission.ACCESS_FINE_LOCATION)
-    fun openLocationView() {
-        inputActionContainerPresenter.openAction(OpenAction.Location)
-    }
-
     //region Screen actions
     /**
      * Load container fragment with the appropriate action
@@ -155,34 +133,15 @@ class InputActionContainerFragment
 
         }
 
-        replaceFragment(childFragmentManager, R.id.inputActionContainer, openableFragment)
+        openableFragment.replaceFragment(supportFragmentManager, getActivityMainContainer())
     }
     //endregion
 
-    //region Permission handling
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        InputActionContainerFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK) {
+            getActiveBaseFragment()?.onActivityResult(requestCode, resultCode, data)
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
     }
-
-    @OnShowRationale(Manifest.permission.ACCESS_FINE_LOCATION)
-    fun showRationaleForCamera(request: PermissionRequest) {
-        alertHelper.createAlert(R.string.permission_location_title,
-                R.string.permission_location_rationale_message)
-                .positiveText(R.string.grant)
-                .negativeText(R.string.decline)
-                .onPositive({ dialog, which -> request.proceed() })
-                .onNegative({ dialog, which -> request.cancel() })
-                .show()
-    }
-
-    @OnNeverAskAgain(Manifest.permission.ACCESS_FINE_LOCATION)
-    fun showNeverAskForCamera() {
-        alertHelper.createAlert(R.string.permission_location_title,
-                R.string.permission_location_neveragain_message)
-                .positiveText(R.string.got_it)
-                .negativeText(R.string.cancel)
-                .show()
-    }
-    //endregion
 }

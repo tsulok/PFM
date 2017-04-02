@@ -3,10 +3,8 @@ package com.pinup.pfm.ui.history
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.di.component.PFMFragmentComponent
-import com.pinup.pfm.extensions.makeToast
-import com.pinup.pfm.domain.manager.transaction.TransactionManager
+import com.pinup.pfm.domain.manager.transaction.ITransactionManager
 import com.pinup.pfm.model.database.Transaction
 import com.pinup.pfm.model.transaction.ITransactionHistory
 import com.pinup.pfm.model.transaction.OnTransactionInteractionListener
@@ -15,7 +13,6 @@ import com.pinup.pfm.ui.core.view.BaseListFragment
 import com.pinup.pfm.ui.core.view.BaseScreen
 import com.pinup.pfm.ui.core.view.IBasePresenter
 import com.pinup.pfm.ui.history.adapter.HistoryListAdapter
-import com.pinup.pfm.ui.input.action.InputActionContainerFragment
 import javax.inject.Inject
 
 /**
@@ -26,7 +23,7 @@ class HistoryListFragment
 
     @Inject lateinit var historyAdapter: HistoryListAdapter
     @Inject lateinit var historyPresenter: HistoryPresenter
-    @Inject lateinit var transactionManager: TransactionManager
+    @Inject lateinit var transactionManager: ITransactionManager
 
     var onTransactionInteractionListener: OnTransactionInteractionListener? = null
 

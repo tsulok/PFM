@@ -8,6 +8,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.OnClick
+import com.andremion.louvre.Louvre
+import com.andremion.louvre.home.GalleryActivity
 import com.commonsware.cwac.cam2.CameraActivity
 import com.commonsware.cwac.cam2.Facing
 import com.commonsware.cwac.cam2.FlashMode
@@ -20,7 +22,7 @@ import com.pinup.pfm.ui.core.view.BaseFragment
 import com.pinup.pfm.ui.core.view.BaseScreen
 import com.pinup.pfm.ui.core.view.IBasePresenter
 import com.pinup.pfm.utils.ui.core.AlertHelper
-import org.jetbrains.anko.imageURI
+import com.squareup.picasso.Picasso
 import org.jetbrains.anko.support.v4.find
 import permissions.dispatcher.*
 import java.io.File
@@ -35,6 +37,7 @@ class InputActionCameraFragment : BaseFragment(), InputActionCameraScreen {
 
     companion object {
         @JvmStatic val REQUEST_CODE_CAMERA = 1001
+        @JvmStatic val REQUEST_CODE_GALLERY = 1002
     }
 
     @Inject lateinit var inputActionCameraPresenter: InputActionCameraPresenter
@@ -67,12 +70,13 @@ class InputActionCameraFragment : BaseFragment(), InputActionCameraScreen {
             Logger.d("InputMain activity result succeeded")
             when (requestCode) {
                 REQUEST_CODE_CAMERA -> inputActionCameraPresenter.handleImageCaptureFinished()
+                REQUEST_CODE_GALLERY -> inputActionCameraPresenter.handleGalleryImageChosen(GalleryActivity.getSelection(data))
                 else -> super.onActivityResult(requestCode, resultCode, data)
             }
         } else {
             Logger.e("InputMain activity result failed")
             when (requestCode) {
-                REQUEST_CODE_CAMERA -> imageCaptureFailed()
+                REQUEST_CODE_CAMERA, REQUEST_CODE_GALLERY -> imageCaptureFailed()
                 else -> super.onActivityResult(requestCode, resultCode, data)
             }
         }
@@ -90,7 +94,15 @@ class InputActionCameraFragment : BaseFragment(), InputActionCameraScreen {
 
     @OnClick(R.id.actionCameraExistingPhoto)
     fun existingPhotoChooserClicked() {
-        makeToast("Gallery chooser will be here")
+        InputActionCameraFragmentPermissionsDispatcher.loadGalleryChooserWithCheck(this)
+    }
+
+    @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+    fun loadGalleryChooser() {
+        Louvre.init(activity)
+                .setRequestCode(InputActionCameraFragment.REQUEST_CODE_GALLERY)
+                .setMaxSelection(1)
+                .open()
     }
 
     //region Screen actions
@@ -100,13 +112,14 @@ class InputActionCameraFragment : BaseFragment(), InputActionCameraScreen {
                 .skipConfirm()
                 .to(file)
                 .facing(Facing.BACK)
+                .skipOrientationNormalization()
                 .debug()
                 .zoomStyle(ZoomStyle.PINCH)
                 .updateMediaStore()
                 .flashMode(FlashMode.AUTO)
                 .build()
 
-        startActivityForResult(cameraIntent, REQUEST_CODE_CAMERA)
+        activity.startActivityForResult(cameraIntent, REQUEST_CODE_CAMERA)
     }
 
     override fun startNewImageCaptureFailed() {
@@ -114,15 +127,28 @@ class InputActionCameraFragment : BaseFragment(), InputActionCameraScreen {
     }
 
     override fun imageCaptureSucceeded(file: File) {
-        // We need to set null to the uri, because the imageView won't refresh itself if the uri is the same
-        transactionPhotoImageView.imageURI = null
-        transactionPhotoImageView.imageURI = Uri.fromFile(file)
+        transactionPhotoImageView.invalidate()
+        Picasso.with(context)
+                .load(file)
+                .fit()
+                .centerCrop()
+                .into(transactionPhotoImageView)
         noImageTxt.visibility = View.GONE
     }
 
     override fun imageCaptureFailed() {
         makeToast("Image capture save failed. Try again")
         noImageTxt.visibility = View.VISIBLE
+    }
+
+    override fun imageCaptureSucceeded(uri: Uri) {
+        transactionPhotoImageView.invalidate()
+        Picasso.with(context)
+                .load(uri)
+                .fit()
+                .centerCrop()
+                .into(transactionPhotoImageView)
+        noImageTxt.visibility = View.GONE
     }
 
     //endregion
@@ -139,8 +165,8 @@ class InputActionCameraFragment : BaseFragment(), InputActionCameraScreen {
                 R.string.permission_camera_rationale_message)
                 .positiveText(R.string.grant)
                 .negativeText(R.string.decline)
-                .onPositive({ dialog, which -> request.proceed() })
-                .onNegative({ dialog, which -> request.cancel() })
+                .onPositive({ _, _ -> request.proceed() })
+                .onNegative({ _, _ -> request.cancel() })
                 .show()
     }
 
@@ -148,6 +174,26 @@ class InputActionCameraFragment : BaseFragment(), InputActionCameraScreen {
     fun showNeverAskForCamera() {
         alertHelper.createAlert(R.string.permission_camera_title,
                 R.string.permission_camera_rationale_message)
+                .positiveText(R.string.got_it)
+                .negativeText(R.string.cancel)
+                .show()
+    }
+
+    @OnShowRationale(Manifest.permission.READ_EXTERNAL_STORAGE)
+    fun showRationaleForReadExternal(request: PermissionRequest) {
+        alertHelper.createAlert(R.string.permission_camera_external_read_title,
+                R.string.permission_camera_external_read_rationale_message)
+                .positiveText(R.string.grant)
+                .negativeText(R.string.decline)
+                .onPositive({ _, _ -> request.proceed() })
+                .onNegative({ _, _ -> request.cancel() })
+                .show()
+    }
+
+    @OnNeverAskAgain(Manifest.permission.READ_EXTERNAL_STORAGE)
+    fun showNeverAskForReadExternal() {
+        alertHelper.createAlert(R.string.permission_camera_external_read_title,
+                R.string.permission_camera_external_read_neveragain_message)
                 .positiveText(R.string.got_it)
                 .negativeText(R.string.cancel)
                 .show()

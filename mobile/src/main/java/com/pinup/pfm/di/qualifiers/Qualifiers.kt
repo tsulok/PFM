@@ -24,3 +24,10 @@ annotation class ChildFragmentManager
 @Qualifier
 @Retention(AnnotationRetention.RUNTIME)
 annotation class SupportFragmentManager
+
+/**
+ * Facebook scoped context
+ */
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+annotation class Facebook

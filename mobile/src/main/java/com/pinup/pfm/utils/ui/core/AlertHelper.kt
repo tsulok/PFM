@@ -31,15 +31,15 @@ open class AlertHelper @Inject constructor(@ActivityContext val context: Context
         if (progressDialog == null) {
             progressDialog = createDefaultLoadingMaterialDialog(messageId)
         }
-        progressDialog!!.setContent(messageId)
 
-        progressDialog!!.show()
+        progressDialog?.let {
+            it.setContent(messageId)
+            it.show()
+        }
     }
 
     fun hideProgressDialog() {
-        if (progressDialog != null) {
-            progressDialog!!.hide()
-        }
+        progressDialog?.let { it.hide() }
     }
 
     /**
@@ -53,6 +53,8 @@ open class AlertHelper @Inject constructor(@ActivityContext val context: Context
                 .content(messageId)
                 .progress(true, 0)
                 .cancelable(false)
+                .titleColor(context.resources.getColor(R.color.colorPrimaryDark))
+                .contentColor(context.resources.getColor(R.color.colorPrimaryDark))
                 .build()
     }
 
@@ -63,6 +65,8 @@ open class AlertHelper @Inject constructor(@ActivityContext val context: Context
      */
     fun createDefaultDialog(): MaterialDialog.Builder {
         return MaterialDialog.Builder(context)
+                .titleColor(context.resources.getColor(R.color.colorPrimaryDark))
+                .contentColor(context.resources.getColor(R.color.colorPrimaryDark))
                 .negativeText(R.string.got_it)
                 .onNegative({ dialog, which -> dialog.dismiss() })
     }

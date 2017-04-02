@@ -1,13 +1,13 @@
 package com.pinup.pfm.ui.input.action.description
 
-import com.pinup.pfm.domain.manager.transaction.TransactionManager
+import com.pinup.pfm.domain.manager.transaction.ITransactionManager
 import com.pinup.pfm.ui.core.view.BasePresenter
 import javax.inject.Inject
 
 /**
  * Presenter for input action description
  */
-class InputActionDescriptionPresenter @Inject constructor(val transactionManager: TransactionManager) : BasePresenter<InputActionDescriptionScreen>() {
+class InputActionDescriptionPresenter @Inject constructor(val transactionManager: ITransactionManager) : BasePresenter<InputActionDescriptionScreen>() {
 
     var text: String = ""
 

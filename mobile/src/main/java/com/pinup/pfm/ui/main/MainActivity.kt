@@ -18,7 +18,11 @@ class MainActivity : BaseActivity(), MainScreen {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    }
+
+    override fun loadContentId(): Int = R.layout.activity_main
+
+    override fun initObjects() {
         mainPresenter.initMain()
     }
 

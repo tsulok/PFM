@@ -6,16 +6,47 @@ import java.text.NumberFormat
 import java.util.*
 import javax.inject.Inject
 
+interface ICurrencyInteractor {
+    /**
+     * Update the selected currency
+     * @param currency The new currency to be saved
+     */
+    fun updateSelectedCurrency(currency: Currency)
+
+    /**
+     * Returns the saved currency from the preferences
+     * @return the saved currency from the preferences
+     */
+    fun getSelectedCurrency(): Currency?
+
+    /**
+     * Reset the saved currency
+     */
+    fun resetSavedCurrency()
+
+    /**
+     * Returns the number format for the selected currency
+     * @return the number format for the selected currency
+     */
+    fun getCurrencyNumberFormat(currency: String): NumberFormat
+
+    /**
+     * Returns the symbol of the desired currency
+     * @return the symbol of the desired currency
+     */
+    fun getCurrencySymbol(currency: String): String
+}
+
 /**
  * Interactor for handling currencies
  */
-class CurrencyInteractor @Inject constructor(val sharedPreferences: SharedPreferences) {
+class CurrencyInteractor @Inject constructor(val sharedPreferences: SharedPreferences) : ICurrencyInteractor {
 
     /**
      * Update the selected currency
      * @param currency The new currency to be saved
      */
-    fun updateSelectedCurrency(currency: Currency) {
+    override fun updateSelectedCurrency(currency: Currency) {
         sharedPreferences.edit().putString(PREF_KEY_CURRENT_CURRENCY, currency.currencyCode).apply()
     }
 
@@ -23,7 +54,7 @@ class CurrencyInteractor @Inject constructor(val sharedPreferences: SharedPrefer
      * Returns the saved currency from the preferences
      * @return the saved currency from the preferences
      */
-    fun getSelectedCurrency(): Currency? {
+    override fun getSelectedCurrency(): Currency? {
         val selectedCurrencyCode = sharedPreferences.getString(PREF_KEY_CURRENT_CURRENCY, "")
         if (selectedCurrencyCode.isBlank()) {
             return null
@@ -35,7 +66,7 @@ class CurrencyInteractor @Inject constructor(val sharedPreferences: SharedPrefer
     /**
      * Reset the saved currency
      */
-    fun resetSavedCurrency() {
+    override fun resetSavedCurrency() {
         sharedPreferences.edit().remove(PREF_KEY_CURRENT_CURRENCY).apply()
     }
 
@@ -43,7 +74,7 @@ class CurrencyInteractor @Inject constructor(val sharedPreferences: SharedPrefer
      * Returns the number format for the selected currency
      * @return the number format for the selected currency
      */
-    fun getCurrencyNumberFormat(currency: String): NumberFormat {
+    override fun getCurrencyNumberFormat(currency: String): NumberFormat {
         val currency = Currency.getInstance(currency)
 
         val numberFormat = NumberFormat.getInstance()
@@ -57,7 +88,7 @@ class CurrencyInteractor @Inject constructor(val sharedPreferences: SharedPrefer
      * Returns the symbol of the desired currency
      * @return the symbol of the desired currency
      */
-    fun getCurrencySymbol(currency: String): String {
+    override fun getCurrencySymbol(currency: String): String {
         return Currency.getInstance(currency).symbol
     }
 

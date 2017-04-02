@@ -2,6 +2,7 @@ package com.pinup.pfm
 
 import android.app.Application
 import android.support.multidex.MultiDex
+import com.facebook.FacebookSdk
 import com.orhanobut.logger.Logger
 import com.pinup.pfm.di.component.DaggerPFMApplicationComponent
 import com.pinup.pfm.di.component.PFMApplicationComponent
@@ -28,6 +29,9 @@ class PFMApplication : Application() {
         applicationComponent = DaggerPFMApplicationComponent.builder()
                 .applicationModule(ApplicationModule(this))
                 .build()
+
+        // Config facebook
+        FacebookSdk.sdkInitialize(this)
     }
 
     fun setCustomInjector(customInjector: PFMApplicationComponent) {

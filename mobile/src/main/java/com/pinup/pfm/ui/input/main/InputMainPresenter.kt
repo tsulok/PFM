@@ -1,13 +1,11 @@
 package com.pinup.pfm.ui.input.main
 
 import com.orhanobut.logger.Logger
-import com.pinup.pfm.PFMApplication
-import com.pinup.pfm.interactor.category.CategoryInteractor
-import com.pinup.pfm.interactor.category.ICategoryInteractor
-import com.pinup.pfm.domain.manager.transaction.TransactionManager
-import com.pinup.pfm.interactor.transaction.TransactionInteractor
-import com.pinup.pfm.interactor.utils.CurrencyInteractor
 import com.pinup.pfm.domain.manager.currency.CurrencyManager
+import com.pinup.pfm.domain.manager.transaction.ITransactionManager
+import com.pinup.pfm.interactor.category.ICategoryInteractor
+import com.pinup.pfm.interactor.transaction.ITransactionInteractor
+import com.pinup.pfm.interactor.utils.ICurrencyInteractor
 import com.pinup.pfm.model.input.KeyboardType
 import com.pinup.pfm.ui.core.view.BasePresenter
 import java.util.*
@@ -16,10 +14,10 @@ import javax.inject.Inject
 /**
  * Presenter for input main
  */
-class InputMainPresenter @Inject constructor(val currencyInteractor: CurrencyInteractor,
+class InputMainPresenter @Inject constructor(val currencyInteractor: ICurrencyInteractor,
                                              val categoryInteractor: ICategoryInteractor,
-                                             val transactionInteractor: TransactionInteractor,
-                                             val transactionManager: TransactionManager)
+                                             val transactionInteractor: ITransactionInteractor,
+                                             val transactionManager: ITransactionManager)
     : BasePresenter<InputMainScreen>() {
 
     companion object {

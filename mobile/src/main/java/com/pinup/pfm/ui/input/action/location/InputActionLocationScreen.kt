@@ -13,4 +13,6 @@ interface InputActionLocationScreen : BaseScreen {
     fun moveToUserMarkerLocation(latLng: LatLng)
 
     fun createMarkerInLocation(latLng: LatLng)
+
+    fun locationNotFound()
 }

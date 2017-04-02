@@ -5,7 +5,6 @@ import com.pinup.pfm.di.scopes.FragmentScope
 import com.pinup.pfm.ui.category.CategoryListFragment
 import com.pinup.pfm.ui.charts.ChartListFragment
 import com.pinup.pfm.ui.history.HistoryListFragment
-import com.pinup.pfm.ui.input.action.InputActionContainerFragment
 import com.pinup.pfm.ui.input.action.camera.InputActionCameraFragment
 import com.pinup.pfm.ui.input.action.date.InputActionDateFragment
 import com.pinup.pfm.ui.input.action.description.InputActionDescriptionFragment
@@ -28,7 +27,7 @@ interface PFMFragmentComponent {
     fun inject(categoryListFragment: CategoryListFragment)
     fun inject(categoryListFragment: ChartListFragment)
     fun inject(historyListFragment: HistoryListFragment)
-    fun inject(inputActionContainerFragment: InputActionContainerFragment)
+//    fun inject(inputActionContainerFragment: InputActionContainerFragment)
     fun inject(inputActionCameraFragment: InputActionCameraFragment)
     fun inject(inputActionDateFragment: InputActionDateFragment)
     fun inject(inputActionDescriptionFragment: InputActionDescriptionFragment)

@@ -42,10 +42,8 @@ abstract class BaseListFragment<T> : BaseFragment {
             throw RuntimeException("RecyclerView is not properly initialized")
         }
 
-        if(recyclerView.adapter == null) {
-            recyclerView.layoutManager = getLayoutManager();
-            recyclerView.adapter = getAdapter();
-        }
+        recyclerView.layoutManager = getLayoutManager()
+        recyclerView.adapter = getAdapter()
     }
 
     override fun initEventHandlers(view: View?) {

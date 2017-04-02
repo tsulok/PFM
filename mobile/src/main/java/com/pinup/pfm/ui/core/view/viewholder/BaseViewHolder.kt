@@ -8,14 +8,9 @@ import butterknife.ButterKnife
  * Base ViewHolder for list's viewholders
  * Registers the item clicks
  */
-open class BaseViewHolder : RecyclerView.ViewHolder {
+open class BaseViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
 
-    var clickableView: View? = null
-
-    constructor(itemView: View?) : super(itemView) {
-        ButterKnife.bind(this, itemView);
-        clickableView = itemView
-    }
+    var clickableView: View? = itemView
 
     /**
      * List item click listener interface
@@ -27,6 +22,10 @@ open class BaseViewHolder : RecyclerView.ViewHolder {
          * @param position The clicked item position
          */
         fun listItemClicked(view: View, position: Int);
+    }
+
+    init {
+        ButterKnife.bind(this, itemView)
     }
 }
 
