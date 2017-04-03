@@ -72,6 +72,48 @@ class LoginPresenter
                 })
     }
 
+    fun registerUser(email: String, password: String) {
+        val isMailValid = validationUtils.isMailValid(email)
+        val isPasswordValid = validationUtils.isPasswordValid(password)
+
+        screen?.hideInputErrors()
+
+        if (!isMailValid || !isPasswordValid) {
+
+            if (!isMailValid) {
+                screen?.onMailNotValid()
+            }
+
+            if (!isPasswordValid) {
+                screen?.onPasswordNotValid()
+            }
+
+            return
+        }
+
+        screen?.loadingStarted()
+        userInteractor.signUp(email, password)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    loginWithMail(email, password)
+                }, { error ->
+                    screen?.loadingFinished()
+                    screen?.registrationFailed()
+                })
+    }
+
+    fun forgotPassword(email: String) {
+        val isMailValid = validationUtils.isMailValid(email)
+
+        screen?.hideInputErrors()
+
+        if (!isMailValid) {
+            screen?.onMailNotValid()
+            screen?.forgotPasswordEmailNotValid()
+            return
+        }
+    }
+
     fun collectInstalledGoogleAccounts(): List<String> {
         return userInteractor.getAccounts()
     }

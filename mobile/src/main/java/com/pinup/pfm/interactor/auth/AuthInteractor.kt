@@ -2,6 +2,7 @@ package com.pinup.pfm.interactor.auth
 
 import com.pinup.pfm.domain.manager.auth.IAuthenticationManager
 import com.pinup.pfm.domain.manager.preferences.SharedPreferencesManager
+import com.pinup.pfm.domain.network.dto.auth.ForgotUserPasswordDTO
 import com.pinup.pfm.domain.network.service.AuthService
 import com.pinup.pfm.interactor.social.facebook.IFacebookInteractor
 import io.reactivex.Completable
@@ -64,12 +65,10 @@ class AuthInteractor
                 getSimpleCredentials() != null
     }
 
-    override fun signUp(email: String, fullName: String, password: String): Completable {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     override fun forgotPassword(email: String): Completable {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val request = ForgotUserPasswordDTO(email)
+        return Completable.fromObservable(
+                authService.forgotPassword(request))
     }
 
     override fun logout(): Completable {
@@ -137,11 +136,6 @@ interface IAuthInteractor {
      * @return True if the user authorised false otherwise
      */
     fun isUserAlreadyAuthenticated(): Boolean
-
-    /**
-     * This will signup a user and will login too.
-     */
-    fun signUp(email: String, fullName: String, password: String): Completable
 
     /**
      * This will send a notification to the user's email.

@@ -41,4 +41,14 @@ interface LoginScreen : BaseScreen {
      */
     fun hideInputErrors()
 
+    /**
+     * View should create an alert about the failure of the registration
+     */
+    fun registrationFailed()
+
+    /**
+     * View should show an alert about the invalid email address
+     */
+    fun forgotPasswordEmailNotValid()
+
 }

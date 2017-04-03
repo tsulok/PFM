@@ -7,6 +7,7 @@ import com.pinup.pfm.BuildConfig
 import com.pinup.pfm.domain.network.RXErrorHandlingCallAdapterFactory
 import com.pinup.pfm.domain.network.interceptor.AuthInterceptor
 import com.pinup.pfm.domain.network.service.AuthService
+import com.pinup.pfm.domain.network.service.UserService
 import com.pinup.pfm.domain.network.utility.INetworkErrorParser
 import com.pinup.pfm.domain.network.utility.NetworkErrorParser
 import com.pinup.pfm.domain.network.utility.PFMDateSerializer
@@ -93,5 +94,11 @@ class NetworkModule {
     @Singleton
     fun provideAuthService(retrofit: Retrofit): AuthService {
         return retrofit.create(AuthService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserService(retrofit: Retrofit): UserService {
+        return retrofit.create(UserService::class.java)
     }
 }

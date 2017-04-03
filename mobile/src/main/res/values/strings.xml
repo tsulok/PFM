@@ -56,6 +56,7 @@
     <string name="login.action.login">Login</string>
     <string name="login.action.register">Register</string>
     <string name="login.error.fail">Failed to login. Please try again.</string>
+    <string name="login.registration.fail">Failed to register. Please try again.</string>
     <string name="login.facebook">Login with Facebook</string>
     <string name="login.facebook.failed">Facebook login failed. Please try again later.</string>
     <string name="login.email.hint">E-mail</string>

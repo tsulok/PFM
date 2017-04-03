@@ -5,9 +5,12 @@ import android.accounts.AccountManager
 import android.content.Context
 import com.google.android.gms.auth.GoogleAuthUtil
 import com.pinup.pfm.di.qualifiers.ApplicationContext
+import com.pinup.pfm.domain.network.dto.user.RegisterUserDTO
 import com.pinup.pfm.domain.network.service.AuthService
+import com.pinup.pfm.domain.network.service.UserService
 import com.pinup.pfm.extensions.isPermissionsGranted
 import com.pinup.pfm.interactor.auth.AuthInteractor
+import io.reactivex.Completable
 import javax.inject.Inject
 
 /**
@@ -16,7 +19,8 @@ import javax.inject.Inject
 
 class UserInteractor
 @Inject constructor(@ApplicationContext val context: Context,
-                    val accountManager: AccountManager): IUserInteractor {
+                    val accountManager: AccountManager,
+                    val userService: UserService): IUserInteractor {
 
     override fun getAccounts(): List<String> {
         if (context.isPermissionsGranted(Manifest.permission.GET_ACCOUNTS)) {
@@ -28,6 +32,11 @@ class UserInteractor
 
         return ArrayList()
     }
+
+    override fun signUp(email: String, password: String): Completable {
+        val request = RegisterUserDTO(email, password)
+        return Completable.fromObservable(userService.register(request))
+    }
 }
 
 interface IUserInteractor {
@@ -37,4 +46,9 @@ interface IUserInteractor {
      * @return The email addresses of the found users
      */
     fun getAccounts(): List<String>
+
+    /**
+     * This will signup a user and will login too.
+     */
+    fun signUp(email: String, password: String): Completable
 }

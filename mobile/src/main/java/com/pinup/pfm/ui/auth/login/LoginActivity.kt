@@ -135,4 +135,16 @@ class LoginActivity : BaseActivity(), LoginScreen {
                 R.string.login_error_fail)
                 .show()
     }
+
+    override fun registrationFailed() {
+        alertHelper.createAlert(R.string.error_general_title,
+                R.string.login_registration_fail)
+                .show()
+    }
+
+    override fun forgotPasswordEmailNotValid() {
+        alertHelper.createAlert(R.string.error_general_title,
+                R.string.login_email_validation)
+                .show()
+    }
 }

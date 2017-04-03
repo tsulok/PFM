@@ -26,3 +26,9 @@ class LoginFacebookAuthNetworkModel(
  */
 class LoginResponseModel(@SerializedName("userName") var userName: String? = null,
                          @SerializedName("access_token") var accessToken: String? = null)
+
+/**
+ * Forgot user password request DTO
+ */
+class ForgotUserPasswordDTO(@SerializedName("email") val email: String)
+
