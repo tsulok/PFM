@@ -31,7 +31,7 @@ class NetworkErrorHandler {
 interface INetworkErrorListener {
     fun onNetworkErrorOccurred()
 
-    fun onHttpErrorOccurred(networkError: NetworkError)
+    fun onHttpErrorOccurred(networkError: NetworkError?)
 
     fun onHttpErrorOccurred()
 

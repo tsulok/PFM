@@ -21,6 +21,10 @@
     <string name="grant">Grant</string>
     <string name="loading">Loading</string>
 
+    <!--errors-->
+    <string name="error.general.network.unknown">Unknown network error happened. Please try again later.</string>
+    <string name="error.general.title">Ooops</string>
+
     <!--Input actions-->
     <string name="input.action.camera.no.photo">Currently no photo is associated to this transaction. Create a new one, or choose from your latest.</string>
     <string name="input.action.description.hint">Your description</string>
@@ -51,10 +55,13 @@
     <!--Login-->
     <string name="login.action.login">Login</string>
     <string name="login.action.register">Register</string>
+    <string name="login.error.fail">Failed to login. Please try again.</string>
     <string name="login.facebook">Login with Facebook</string>
     <string name="login.facebook.failed">Facebook login failed. Please try again later.</string>
     <string name="login.email.hint">E-mail</string>
+    <string name="login.email.validation">Mail is not valid</string>
     <string name="login.password.hint">Password</string>
+    <string name="login.password.validation">Password length must be 4 characters long</string>
 
     <!--Permissions-->
     <string name="permission.accounts.title">Permission needed</string>

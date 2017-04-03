@@ -2,10 +2,16 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.getkeepsafe.dexcount'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'me.tatarka.retrolambda'
 
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
     defaultConfig {
         applicationId "com.pinup.pfm"
@@ -15,7 +21,6 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        // TODO This need to be deleted before production
         multiDexEnabled true
 
         javaCompileOptions {
@@ -25,8 +30,14 @@ android {
         }
     }
     buildTypes {
+
+        debug {
+            buildConfigField "String", "SERVER_URL", '"http://pfm1.azurewebsites.net/"'
+        }
+
         release {
             minifyEnabled false
+            buildConfigField "String", "SERVER_URL", '"http://pfm1.azurewebsites.net/"'
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -88,8 +99,9 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
     // network communication
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
     compile "com.squareup.okhttp3:okhttp:3.4.2"
     compile "com.squareup.okhttp3:logging-interceptor:3.4.2"
 

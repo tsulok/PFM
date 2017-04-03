@@ -1,5 +1,7 @@
 package com.pinup.pfm.di.module
 
+import com.pinup.pfm.interactor.auth.AuthInteractor
+import com.pinup.pfm.interactor.auth.IAuthInteractor
 import com.pinup.pfm.interactor.category.CategoryInteractor
 import com.pinup.pfm.interactor.category.ICategoryInteractor
 import com.pinup.pfm.interactor.social.facebook.FacebookInteractor
@@ -26,4 +28,5 @@ abstract class InteractorModule {
     @Binds abstract fun storageInteractor(interactor: StorageInteractor): IStorageInteractor
     @Binds abstract fun facebookInteractor(interactor: FacebookInteractor): IFacebookInteractor
     @Binds abstract fun userInteractor(interactor: UserInteractor): IUserInteractor
+    @Binds abstract fun authInteractor(interactor: AuthInteractor): IAuthInteractor
 }

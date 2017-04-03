@@ -49,9 +49,8 @@ class LoginActivity : BaseActivity(), LoginScreen {
 
     private fun initEventHandlers() {
         loginBtn.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+            presenter.loginWithMail(emailETxt.text.toString(),
+                    passwordETxt.text.toString())
         }
 
         loginFacebookBtn.setOnClickListener {
@@ -116,5 +115,24 @@ class LoginActivity : BaseActivity(), LoginScreen {
     @OnNeverAskAgain(Manifest.permission.GET_ACCOUNTS)
     fun showNeverAskForAccounts() {
         Logger.d("Accounts never ask again")
+    }
+
+    override fun hideInputErrors() {
+        emailInputContainer.isErrorEnabled = false
+        passwordInputContainer.isErrorEnabled = false
+    }
+
+    override fun onMailNotValid() {
+        emailInputContainer.error = this.string(R.string.login_email_validation)
+    }
+
+    override fun onPasswordNotValid() {
+        passwordInputContainer.error = this.string(R.string.login_password_validation)
+    }
+
+    override fun loginFailed() {
+        alertHelper.createAlert(R.string.error_general_title,
+                R.string.login_error_fail)
+                .show()
     }
 }

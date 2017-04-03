@@ -5,7 +5,9 @@ import android.accounts.AccountManager
 import android.content.Context
 import com.google.android.gms.auth.GoogleAuthUtil
 import com.pinup.pfm.di.qualifiers.ApplicationContext
+import com.pinup.pfm.domain.network.service.AuthService
 import com.pinup.pfm.extensions.isPermissionsGranted
+import com.pinup.pfm.interactor.auth.AuthInteractor
 import javax.inject.Inject
 
 /**
