@@ -35,8 +35,8 @@ class LoginActivity : BaseActivity(), LoginScreen {
 
     override fun initObjects() {
         initEventHandlers()
-
         LoginActivityPermissionsDispatcher.configureAutocompleteForEmailsWithCheck(this)
+        presenter.reauthUserIfPossible()
     }
 
     override fun injectActivity(component: PFMActivityComponent) {

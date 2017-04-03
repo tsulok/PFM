@@ -5,7 +5,6 @@ import com.pinup.pfm.interactor.auth.IAuthInteractor
 import com.pinup.pfm.interactor.user.IUserInteractor
 import com.pinup.pfm.ui.core.view.BasePresenter
 import com.pinup.pfm.utils.validation.ValidationUtils
-import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -19,23 +18,26 @@ class LoginPresenter
                     val authInteractor: IAuthInteractor,
                     val validationUtils: ValidationUtils): BasePresenter<LoginScreen>() {
 
+    fun reauthUserIfPossible() {
+        // Simply load main if user is authenticated
+        if (authInteractor.isUserAlreadyAuthenticated()) {
+            screen?.moveToMain()
+        }
+    }
+
     fun loginWithFacebook() {
         screen?.loadingStarted()
 
-        val completable = Completable.create { e ->
-            Thread.sleep(2000)
-            e.onComplete()
-        }
-
-        completable
+        authInteractor.loginFacebook()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     screen?.loadingFinished()
                     screen?.moveToMain()
+                }, {
+                    screen?.loadingFinished()
+                    screen?.loginFailed()
                 })
-
-        // TODO facebook login
     }
 
     fun loginWithMail(email: String, password: String) {

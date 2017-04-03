@@ -1,14 +1,12 @@
 package com.pinup.pfm.interactor.auth
 
 import com.pinup.pfm.domain.manager.auth.IAuthenticationManager
-import com.pinup.pfm.domain.network.dto.auth.LoginMailAuthNetworkModel
-import com.pinup.pfm.domain.network.dto.auth.LoginResponseModel
+import com.pinup.pfm.domain.manager.preferences.SharedPreferencesManager
 import com.pinup.pfm.domain.network.service.AuthService
 import com.pinup.pfm.interactor.social.facebook.IFacebookInteractor
 import io.reactivex.Completable
 import javax.inject.Inject
 import javax.inject.Singleton
-
 
 /**
  * Interactor for authentication
@@ -17,7 +15,8 @@ import javax.inject.Singleton
 @Singleton
 class AuthInteractor
 @Inject constructor(val authenticationManager: IAuthenticationManager,
-                    val facebookInteractor: IFacebookInteractor) : IAuthInteractor {
+                    val facebookInteractor: IFacebookInteractor,
+                    val preferencesHelper: SharedPreferencesManager) : IAuthInteractor {
 
     object Constants {
         @JvmStatic val PREF_KEY_MAIL = "pfm.user.email"
@@ -31,25 +30,38 @@ class AuthInteractor
     }
 
     override fun reauthenticateUser(): Completable {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        // If facebook data is available - reauth as a facebook user
+        if (facebookInteractor.storedFacebookData != null) {
+            return loginFacebook()
+        }
+
+        val credentials = getSimpleCredentials() ?: return Completable.error(LoginFailedException("Credentials wasn't found but tried to reauthenticate"))
+
+        // Otherwise reauth as a simple user
+        return login(credentials.first, credentials.second)
     }
 
     override fun login(email: String, password: String): Completable {
-        val request = LoginMailAuthNetworkModel(email, password)
-        return Completable.fromObservable<LoginResponseModel> {
-            authService.login(request)
-                    .doOnNext { response ->
-                        authenticationManager.storeToken(response.accessToken)
-                    }
-        }
+        return Completable.fromObservable(
+                authService.login(email, password)
+                        .doOnNext { response ->
+                            authenticationManager.storeToken(response.accessToken)
+                        }.doOnNext { saveSimpleCredentials(email, password) })
     }
 
     override fun loginFacebook(): Completable {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val storedFacebookData = facebookInteractor.storedFacebookData ?: return Completable.error(LoginFailedException())
+
+        return Completable.fromObservable(
+                authService.loginSocial(storedFacebookData.token)
+                        .doOnNext { response ->
+                            authenticationManager.storeToken(response.accessToken)
+                        })
     }
 
     override fun isUserAlreadyAuthenticated(): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return facebookInteractor.storedFacebookData != null ||
+                getSimpleCredentials() != null
     }
 
     override fun signUp(email: String, fullName: String, password: String): Completable {
@@ -66,6 +78,26 @@ class AuthInteractor
 
     override fun clearCredentials() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    /**
+     * Returns the simple credentials if any
+
+     * @return The simple credentials for the logged user
+     */
+    private fun getSimpleCredentials(): Pair<String, String>? {
+        val email = preferencesHelper.getStringPreference(Constants.PREF_KEY_MAIL)
+        val password = preferencesHelper.getStringPreference(Constants.PREF_KEY_PASS)
+
+        if (email != null && password != null) {
+            return Pair(email, password)
+        }
+        return null
+    }
+
+    private fun saveSimpleCredentials(mail: String, pass: String) {
+        preferencesHelper.setStringPreference(Constants.PREF_KEY_MAIL, mail)
+        preferencesHelper.setStringPreference(Constants.PREF_KEY_PASS, pass)
     }
 }
 
@@ -125,4 +157,9 @@ interface IAuthInteractor {
      * All credentials should be cleared
      */
     fun clearCredentials()
+}
+
+class LoginFailedException: RuntimeException {
+    constructor(): super()
+    constructor(message: String): super(message)
 }
