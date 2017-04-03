@@ -1,14 +1,19 @@
 package com.pinup.pfm.interactor.category
 
+import com.orhanobut.logger.Logger
+import com.pinup.pfm.domain.network.service.CategoryService
 import com.pinup.pfm.domain.repository.manager.category.ICategoryRepository
 import com.pinup.pfm.model.database.Category
+import io.reactivex.Observable
 import java.util.*
 import javax.inject.Inject
 
 /**
  * Interactor for categories
  */
-class CategoryInteractor @Inject constructor(val categoryDaoManager: ICategoryRepository) : ICategoryInteractor {
+class CategoryInteractor
+@Inject constructor(val categoryDaoManager: ICategoryRepository,
+                    val categoryService: CategoryService) : ICategoryInteractor {
 
     // TODO inject category api
 
@@ -120,4 +125,15 @@ class CategoryInteractor @Inject constructor(val categoryDaoManager: ICategoryRe
 
     // TODO create graph between parent & children
     // TODO get correct category image
+    override fun fetchCategoriesFromRemote(): Observable<List<Category>> {
+        // TODO save network categories
+        categoryService.listCategories()
+                .subscribe({ networkCategories ->
+                    Logger.d("Categories loaded from remote")
+                }, { error ->
+                    Logger.d("Categories load failed from remote")
+                })
+
+        return Observable.just(listAllCategories())
+    }
 }

@@ -1,6 +1,7 @@
 package com.pinup.pfm.interactor.category
 
 import com.pinup.pfm.model.database.Category
+import io.reactivex.Observable
 import java.util.*
 
 /**
@@ -75,4 +76,9 @@ interface ICategoryInteractor {
      * Creates test data
      */
     fun createTestData()
+
+    /**
+     * Fetch & store categories from remote
+     */
+    fun fetchCategoriesFromRemote(): Observable<List<Category>>
 }

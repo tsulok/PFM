@@ -13,6 +13,7 @@ import com.pinup.pfm.domain.manager.auth.IAuthenticationManager
 import com.pinup.pfm.domain.manager.preferences.SharedPreferencesManager
 import com.pinup.pfm.domain.manager.transaction.ITransactionManager
 import com.pinup.pfm.domain.network.service.AuthService
+import com.pinup.pfm.domain.network.service.CategoryService
 import com.pinup.pfm.domain.network.service.UserService
 import com.pinup.pfm.domain.network.utility.base.BaseNetworkErrorListener
 import com.pinup.pfm.domain.provider.IChartDataProvider
@@ -58,7 +59,7 @@ interface PFMApplicationComponent {
 
     //region Network
     fun authService(): AuthService
-
+    fun categoryService(): CategoryService
     fun userService(): UserService
     //endregion
 

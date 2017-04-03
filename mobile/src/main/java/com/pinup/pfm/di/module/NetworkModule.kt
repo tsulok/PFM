@@ -2,11 +2,11 @@ package com.pinup.pfm.di.module
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import com.pinup.pfm.BuildConfig
 import com.pinup.pfm.domain.network.RXErrorHandlingCallAdapterFactory
 import com.pinup.pfm.domain.network.interceptor.AuthInterceptor
 import com.pinup.pfm.domain.network.service.AuthService
+import com.pinup.pfm.domain.network.service.CategoryService
 import com.pinup.pfm.domain.network.service.UserService
 import com.pinup.pfm.domain.network.utility.INetworkErrorParser
 import com.pinup.pfm.domain.network.utility.NetworkErrorParser
@@ -100,5 +100,11 @@ class NetworkModule {
     @Singleton
     fun provideUserService(retrofit: Retrofit): UserService {
         return retrofit.create(UserService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCategoryService(retrofit: Retrofit): CategoryService {
+        return retrofit.create(CategoryService::class.java)
     }
 }

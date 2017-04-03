@@ -27,14 +27,20 @@ class CategoryListFragment : BaseListFragment<ICategoryItem>(), EmptyScreen {
     }
 
     @Inject lateinit var categoryAdapter: CategoryListAdapter
+    @Inject lateinit var presenter: CategoryPresenter
     var onCategoryInteractionListener: OnCategoryInteractionListener? = null
 
     override fun injectFragment(component: PFMFragmentComponent) {
         component.inject(this)
     }
 
-    override fun getPresenter(): IBasePresenter? = null
+    override fun getPresenter(): IBasePresenter? = presenter
     override fun getScreen(): BaseScreen = this
+
+    override fun initObjects(view: View?) {
+        super.initObjects(view)
+        presenter.loadCategories()
+    }
 
     override fun initEventHandlers(view: View?) {
         setOnItemClickListener { view, position ->
