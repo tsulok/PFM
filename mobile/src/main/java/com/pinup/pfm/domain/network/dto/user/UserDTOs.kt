@@ -16,4 +16,5 @@ class RegisterUserDTO(@SerializedName("email") val email: String,
     val confirmPassword: String = password
 }
 
-class EditUserDTO()
+class EditUserDTO(@SerializedName("FullName") val name: String,
+                  @SerializedName("Currency") val currency: String)

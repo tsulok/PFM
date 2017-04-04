@@ -7,6 +7,7 @@ import com.pinup.pfm.domain.network.RXErrorHandlingCallAdapterFactory
 import com.pinup.pfm.domain.network.interceptor.AuthInterceptor
 import com.pinup.pfm.domain.network.service.AuthService
 import com.pinup.pfm.domain.network.service.CategoryService
+import com.pinup.pfm.domain.network.service.TransactionService
 import com.pinup.pfm.domain.network.service.UserService
 import com.pinup.pfm.domain.network.utility.INetworkErrorParser
 import com.pinup.pfm.domain.network.utility.NetworkErrorParser
@@ -106,5 +107,11 @@ class NetworkModule {
     @Singleton
     fun provideCategoryService(retrofit: Retrofit): CategoryService {
         return retrofit.create(CategoryService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideTransactionService(retrofit: Retrofit): TransactionService {
+        return retrofit.create(TransactionService::class.java)
     }
 }

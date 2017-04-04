@@ -5,6 +5,7 @@ import android.accounts.AccountManager
 import android.content.Context
 import com.google.android.gms.auth.GoogleAuthUtil
 import com.pinup.pfm.di.qualifiers.ApplicationContext
+import com.pinup.pfm.domain.network.dto.user.EditUserDTO
 import com.pinup.pfm.domain.network.dto.user.RegisterUserDTO
 import com.pinup.pfm.domain.network.service.AuthService
 import com.pinup.pfm.domain.network.service.UserService
@@ -37,6 +38,11 @@ class UserInteractor
         val request = RegisterUserDTO(email, password)
         return Completable.fromObservable(userService.register(request))
     }
+
+    override fun update(name: String, currency: String): Completable {
+        val request = EditUserDTO(name, currency)
+        return Completable.fromObservable(userService.update(request))
+    }
 }
 
 interface IUserInteractor {
@@ -48,7 +54,12 @@ interface IUserInteractor {
     fun getAccounts(): List<String>
 
     /**
-     * This will signup a user and will login too.
+     * This will signup a user
      */
     fun signUp(email: String, password: String): Completable
+
+    /**
+     * This will update a user
+     */
+    fun update(name: String, currency: String): Completable
 }

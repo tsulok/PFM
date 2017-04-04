@@ -38,6 +38,11 @@ class HistoryListFragment
         setOnItemClickListener { view, position ->  historyPresenter.loadSavedTransaction(historyAdapter.items[position]) }
     }
 
+    override fun initObjects(view: View?) {
+        super.initObjects(view)
+        historyPresenter.fetchItemsFromRemote()
+    }
+
     override fun getAdapter(): BaseAdapter<ITransactionHistory>? {
         return historyAdapter
     }

@@ -1,5 +1,6 @@
 package com.pinup.pfm.domain.network.service
 
+import com.pinup.pfm.domain.network.dto.user.EditUserDTO
 import com.pinup.pfm.domain.network.dto.user.RegisterUserDTO
 import io.reactivex.Observable
 import retrofit2.http.Body
@@ -16,4 +17,7 @@ interface UserService {
 
     @POST("${Constants.BASE_PATH}/register")
     fun register(@Body registerModel: RegisterUserDTO): Observable<Void>
+
+    @POST("${Constants.BASE_PATH}/update")
+    fun update(@Body editUserModel: EditUserDTO): Observable<Void>
 }

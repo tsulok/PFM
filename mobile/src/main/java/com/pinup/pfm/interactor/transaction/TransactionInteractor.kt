@@ -1,19 +1,21 @@
 package com.pinup.pfm.interactor.transaction
 
 import com.google.android.gms.maps.model.LatLng
+import com.orhanobut.logger.Logger
+import com.pinup.pfm.domain.network.service.TransactionService
 import com.pinup.pfm.domain.repository.manager.transaction.ITransactionRepository
-import com.pinup.pfm.domain.repository.manager.transaction.TransactionDaoManager
 import com.pinup.pfm.model.database.Category
-import com.pinup.pfm.model.database.DaoSession
 import com.pinup.pfm.model.database.Transaction
-import com.pinup.pfm.model.database.TransactionDao
+import io.reactivex.Observable
 import java.util.*
 import javax.inject.Inject
 
 /**
  * Interactor for transactions
  */
-class TransactionInteractor @Inject constructor(val transactionDaoManager: ITransactionRepository) : ITransactionInteractor {
+class TransactionInteractor
+@Inject constructor(val transactionDaoManager: ITransactionRepository,
+                    val transactionService: TransactionService) : ITransactionInteractor {
 
     // TODO inject transaction api
 
@@ -30,7 +32,7 @@ class TransactionInteractor @Inject constructor(val transactionDaoManager: ITran
     }
 
     override fun createTransaction(name: String, amount: Double, currency: String,
-                          category: Category?): Transaction {
+                                   category: Category?): Transaction {
 
         val transaction = Transaction(UUID.randomUUID().toString())
         transaction.name = name
@@ -125,5 +127,13 @@ class TransactionInteractor @Inject constructor(val transactionDaoManager: ITran
 
     override fun deleteTransaction(transaction: Transaction) {
         transactionDaoManager.delete(transaction)
+    }
+
+    fun fetchTransactionsFromRemote(): Observable<List<Transaction>> {
+        return transactionService.listTransactions()
+                .doOnNext { items ->
+                    Logger.d("Items")
+                }
+                .map { listAllTransaction() }
     }
 }
