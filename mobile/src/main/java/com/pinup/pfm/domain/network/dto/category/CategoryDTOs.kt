@@ -7,6 +7,7 @@ import com.google.gson.annotations.SerializedName
  */
 class CategoryNetworkResponseModel(
         @SerializedName("ParentCategoryId") var parentId: String? = null,
+        @SerializedName("Id") var id: String = "",
         @SerializedName("Children") var children: MutableList<CategoryNetworkResponseModel> = ArrayList(),
         @SerializedName("Name") var name: String = "",
         @SerializedName("IsDeleted") var isDeleted: Boolean = false,

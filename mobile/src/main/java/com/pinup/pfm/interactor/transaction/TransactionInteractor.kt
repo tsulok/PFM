@@ -1,8 +1,9 @@
 package com.pinup.pfm.interactor.transaction
 
 import com.google.android.gms.maps.model.LatLng
-import com.orhanobut.logger.Logger
+import com.pinup.pfm.domain.network.dto.transaction.TransactionItemDTO
 import com.pinup.pfm.domain.network.service.TransactionService
+import com.pinup.pfm.domain.repository.manager.category.ICategoryRepository
 import com.pinup.pfm.domain.repository.manager.transaction.ITransactionRepository
 import com.pinup.pfm.model.database.Category
 import com.pinup.pfm.model.database.Transaction
@@ -15,9 +16,8 @@ import javax.inject.Inject
  */
 class TransactionInteractor
 @Inject constructor(val transactionDaoManager: ITransactionRepository,
-                    val transactionService: TransactionService) : ITransactionInteractor {
-
-    // TODO inject transaction api
+                    val transactionService: TransactionService,
+                    val categoryRepository: ICategoryRepository) : ITransactionInteractor {
 
     override fun listAllTransaction(): List<Transaction> {
         return transactionDaoManager.listAllItems()
@@ -129,11 +129,54 @@ class TransactionInteractor
         transactionDaoManager.delete(transaction)
     }
 
-    fun fetchTransactionsFromRemote(): Observable<List<Transaction>> {
+    override fun fetchTransactionsFromRemote(): Observable<List<Transaction>> {
         return transactionService.listTransactions()
-                .doOnNext { items ->
-                    Logger.d("Items")
+                .doOnNext { responseWrapper ->
+                    responseWrapper.data?.let { items ->
+                        storeTransactions(items.filter { !it.isDeleted })
+                        deleteTransactions(items.filter { it.isDeleted })
+                    }
                 }
                 .map { listAllTransaction() }
+    }
+
+    private fun storeTransactions(transactions: List<TransactionItemDTO>) {
+        for (transactionDto in transactions) {
+            val transaction = TransactionMapper.ModelMapper.from(transactionDto)
+            categoryRepository.loadByServerId(transactionDto.category?.id)?.let {
+                transaction.category = it
+                transaction.categoryId = it.serverId
+            }
+
+            transactionDaoManager.insertOrUpdate(transaction)
+        }
+    }
+
+    private fun deleteTransactions(transaction: List<TransactionItemDTO>) {
+        for (transactionItemDTO in transaction) {
+            transactionDaoManager.loadByServerId(transactionItemDTO.serverId)?.let {
+                transactionDaoManager.delete(it)
+            }
+        }
+    }
+}
+
+private class TransactionMapper {
+    object ModelMapper {
+        fun from(dto: TransactionItemDTO): Transaction {
+            val transaction = Transaction(dto.serverId)
+            transaction.serverId = dto.serverId
+            transaction.amount = dto.amount
+            transaction.currency = dto.currency
+            transaction.date = dto.date
+            transaction.description = dto.description
+            transaction.imageUri = dto.imageUrl
+            transaction.lastSyncDate = Date()
+            transaction.lastImageSyncDate = Date()
+            transaction.latitude = dto.latitude
+            transaction.longitude = dto.longitude
+            transaction.name = dto.name
+            return transaction
+        }
     }
 }

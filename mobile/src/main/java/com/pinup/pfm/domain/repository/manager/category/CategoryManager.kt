@@ -29,7 +29,12 @@ class CategoryDaoManager @Inject constructor(val daoSession: DaoSession)
                 .list()
     }
 
-    override fun loadByServerId(serverId: String): Category? {
+    override fun loadByServerId(serverId: String?): Category? {
+
+        if (serverId == null) {
+            return null
+        }
+
         return createQuery()
                 .where(CategoryDao.Properties.ServerId.eq(serverId))
                 .unique()

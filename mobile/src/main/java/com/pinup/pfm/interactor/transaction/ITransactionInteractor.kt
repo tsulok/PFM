@@ -3,6 +3,7 @@ package com.pinup.pfm.interactor.transaction
 import com.google.android.gms.maps.model.LatLng
 import com.pinup.pfm.model.database.Category
 import com.pinup.pfm.model.database.Transaction
+import io.reactivex.Observable
 import java.util.*
 
 /**
@@ -120,4 +121,10 @@ interface ITransactionInteractor {
      * @param transaction The deletable transaction
      */
     fun deleteTransaction(transaction: Transaction)
+
+    /**
+     * Fetch transactions from the network
+     * @return DB stored transactions
+     */
+    fun fetchTransactionsFromRemote(): Observable<List<Transaction>>
 }

@@ -1,6 +1,7 @@
 package com.pinup.pfm.interactor.category
 
 import com.orhanobut.logger.Logger
+import com.pinup.pfm.domain.network.dto.category.CategoryNetworkResponseModel
 import com.pinup.pfm.domain.network.service.CategoryService
 import com.pinup.pfm.domain.repository.manager.category.ICategoryRepository
 import com.pinup.pfm.model.database.Category
@@ -34,7 +35,7 @@ class CategoryInteractor
     }
 
     override fun createOrUpdateCategory(serverId: String, name: String, order: Int,
-                               imageUri: String?): Category {
+                                        imageUri: String?): Category {
         var category = getCategoryByServerId(serverId)
 
         if (category == null) {
@@ -127,13 +128,40 @@ class CategoryInteractor
     // TODO get correct category image
     override fun fetchCategoriesFromRemote(): Observable<List<Category>> {
         // TODO save network categories
-        categoryService.listCategories()
-                .subscribe({ networkCategories ->
-                    Logger.d("Categories loaded from remote")
-                }, { error ->
-                    Logger.d("Categories load failed from remote")
-                })
+        return categoryService.listCategories()
+                .doOnNext { responseModel ->
+                    responseModel.data?.let { items ->
+                        storeCategories(items.filter { !it.isDeleted })
+                        deleteCategories(items.filter { it.isDeleted })
+                    }
+                }.map { listAllCategories() }
+    }
 
-        return Observable.just(listAllCategories())
+    private fun storeCategories(categoryDTOs: List<CategoryNetworkResponseModel>) {
+        for (categoryDTO in categoryDTOs) {
+            val category = CategoryMapper.ModelMapping.from(categoryDTO)
+            categoryDaoManager.insertOrUpdate(category)
+        }
+    }
+
+    private fun deleteCategories(categoryDTOs: List<CategoryNetworkResponseModel>) {
+        for (categoryDTO in categoryDTOs) {
+            categoryDaoManager.loadByServerId(categoryDTO.id)?.let {
+                categoryDaoManager.delete(it)
+            }
+        }
+    }
+}
+
+private class CategoryMapper {
+    object ModelMapping {
+        fun from(dto: CategoryNetworkResponseModel): Category {
+            val category = Category(dto.id)
+            category.serverId = dto.id
+            category.imageUri = dto.imageUrl
+            category.name = dto.name
+            category.parentCategoryId = dto.parentId
+            return category
+        }
     }
 }
