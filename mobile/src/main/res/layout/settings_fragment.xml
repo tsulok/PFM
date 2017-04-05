@@ -10,38 +10,28 @@
         android:orientation="horizontal"
         android:padding="@dimen/default.padding">
 
+        <ImageButton
+            android:id="@+id/settingsMoveMainBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:src="@drawable/ic_menu_input" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/navbar.charts.title"
+            android:text="@string/navbar.settings.title"
             android:textAppearance="@style/Navbar_Title_Text"
             android:textColor="@color/primary_text" />
 
         <ImageButton
-            android:id="@+id/chartsMoveMainBtn"
+            android:id="@+id/settingsSyncBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:background="@null"
-            android:src="@drawable/ic_menu_input" />
-
-    </FrameLayout>
-
-    <FrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
-
-        <FrameLayout
-            android:id="@+id/listOverlayContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:src="@drawable/ic_settings_sync" />
 
     </FrameLayout>
 

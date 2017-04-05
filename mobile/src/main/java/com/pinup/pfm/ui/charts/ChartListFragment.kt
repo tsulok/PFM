@@ -1,6 +1,7 @@
 package com.pinup.pfm.ui.charts
 
 import android.view.View
+import com.pinup.pfm.R
 import com.pinup.pfm.di.component.PFMFragmentComponent
 import com.pinup.pfm.model.chart.IChartDataItem
 import com.pinup.pfm.ui.charts.adapter.ChartListAdapter
@@ -9,6 +10,8 @@ import com.pinup.pfm.ui.core.adapter.BaseAdapter
 import com.pinup.pfm.ui.core.view.BaseListFragment
 import com.pinup.pfm.ui.core.view.BaseScreen
 import com.pinup.pfm.ui.core.view.IBasePresenter
+import com.pinup.pfm.ui.main_navigator.MainNavigatorFragment
+import kotlinx.android.synthetic.main.fragment_charts.*
 import javax.inject.Inject
 
 /**
@@ -30,7 +33,11 @@ class ChartListFragment : BaseListFragment<IChartDataItem>(), ChartListScreen {
 
     override fun initEventHandlers(view: View?) {
         super.initEventHandlers(view)
+
+        chartsMoveMainBtn.setOnClickListener { presenter.onMainNavigationButtonClicked() }
     }
+
+    override fun getLayoutId(): Int = R.layout.fragment_charts
 
     override fun injectFragment(component: PFMFragmentComponent) {
         component.inject(this)
@@ -42,5 +49,9 @@ class ChartListFragment : BaseListFragment<IChartDataItem>(), ChartListScreen {
 
     override fun chartLoaded(barChartItem: ChartDataViewModel) {
         adapter.addItem(barChartItem)
+    }
+
+    override fun navigateToMain() {
+        (parentFragment as? MainNavigatorFragment)?.navigateToMain()
     }
 }

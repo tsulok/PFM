@@ -74,12 +74,20 @@
         <item name="fontType">Montserrat-Regular.otf</item>
     </style>
 
+    <style name="AppTheme.AppFontBold">
+        <item name="fontType">BreeSerif-Bold.otf</item>
+    </style>
+
     <style name="AppTheme.BaseEditText" parent="AppTheme.RegularAppFont">
 
     </style>
 
     <style name="AppTheme.BaseText" parent="AppTheme.RegularAppFont">
 
+    </style>
+
+    <style name="Navbar_Title_Text" parent="AppTheme.AppFontBold">
+        <item name="android:textSize">@dimen/navbar.text.size</item>
     </style>
 
     <style name="AppTheme.ColoredInputLayout" parent="AppTheme">

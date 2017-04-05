@@ -8,4 +8,9 @@ import com.pinup.pfm.ui.core.view.BaseScreen
  */
 interface ChartListScreen : BaseScreen {
     fun chartLoaded(barChartItem: ChartDataViewModel)
+
+    /**
+     * View should navigate to main
+     */
+    fun navigateToMain()
 }

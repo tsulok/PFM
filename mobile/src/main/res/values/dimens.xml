@@ -42,4 +42,7 @@
     <dimen name="general.text.size.16">16sp</dimen>
     <dimen name="general.text.size.18">18sp</dimen>
 
+    <dimen name="navbar.text.size">17sp</dimen>
+    <dimen name="navbar.height">@dimen/history.list.collapsed.height</dimen>
+
 </resources>

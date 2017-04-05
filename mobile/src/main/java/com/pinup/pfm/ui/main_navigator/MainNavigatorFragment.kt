@@ -50,4 +50,9 @@ class MainNavigatorFragment : BaseFragment(), MainNavigatorScreen {
         viewPager.setCurrentItem(
                 MainNavigatorPagerAdapter.MainPageType.Chart.position, true)
     }
+
+    fun navigateToMain() {
+        viewPager.setCurrentItem(
+                MainNavigatorPagerAdapter.MainPageType.Input.position, true)
+    }
 }

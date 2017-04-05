@@ -72,6 +72,10 @@
     <string name="login.password.hint">Password</string>
     <string name="login.password.validation">Password length must be 4 characters long</string>
 
+    <!--Navbar-->
+    <string name="navbar.charts.title">Charts</string>
+    <string name="navbar.settings.title">Settings</string>
+
     <!--Permissions-->
     <string name="permission.accounts.title">Permission needed</string>
     <string name="permission.accounts.rationale">Accounts permission is needed to help you for listing your installed google emails.</string>

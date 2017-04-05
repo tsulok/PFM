@@ -40,4 +40,8 @@ class ChartListPresenter @Inject constructor(val chartDataProvider: IChartDataPr
                 context.resources.getString(R.string.chart_pie_legend, dayHistoryCount))
         screen?.chartLoaded(pieItemVm)
     }
+
+    fun onMainNavigationButtonClicked() {
+        screen?.navigateToMain()
+    }
 }
