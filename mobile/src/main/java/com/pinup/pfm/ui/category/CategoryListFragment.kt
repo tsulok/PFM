@@ -39,7 +39,6 @@ class CategoryListFragment : BaseListFragment<ICategoryItem>(), EmptyScreen {
 
     override fun initObjects(view: View?) {
         super.initObjects(view)
-        presenter.loadCategories()
     }
 
     override fun initEventHandlers(view: View?) {

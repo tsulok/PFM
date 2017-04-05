@@ -10,6 +10,7 @@ import com.pinup.pfm.di.module.*
 import com.pinup.pfm.di.qualifiers.ApplicationContext
 import com.pinup.pfm.di.qualifiers.Facebook
 import com.pinup.pfm.domain.manager.auth.IAuthenticationManager
+import com.pinup.pfm.domain.manager.content.IContentManager
 import com.pinup.pfm.domain.manager.preferences.SharedPreferencesManager
 import com.pinup.pfm.domain.manager.transaction.ITransactionManager
 import com.pinup.pfm.domain.network.service.AuthService
@@ -82,6 +83,7 @@ interface PFMApplicationComponent {
     fun accountManager(): AccountManager
     fun sharedPrefManager(): SharedPreferencesManager
     fun authenticationManager(): IAuthenticationManager
+    fun contentManager(): IContentManager
     //endregion
 
     //region Providers

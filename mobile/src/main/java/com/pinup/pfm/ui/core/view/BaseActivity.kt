@@ -82,6 +82,7 @@ abstract class BaseActivity : AppCompatActivity() {
             }
 
             transaction.commitAllowingStateLoss()
+            fm.executePendingTransactions()
         }
     }
 

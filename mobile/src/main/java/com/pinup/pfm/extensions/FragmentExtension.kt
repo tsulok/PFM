@@ -15,6 +15,7 @@ fun BaseFragment.replaceFragment(fragmentManager: FragmentManager, containerId: 
             .beginTransaction()
             .replace(containerId, fragment, tag)
             .commitAllowingStateLoss()
+    fragmentManager.executePendingTransactions()
 }
 
 fun BaseFragment.replaceFragment(fragmentManager: FragmentManager, containerId: Int, tag: String? = null) {
@@ -22,6 +23,7 @@ fun BaseFragment.replaceFragment(fragmentManager: FragmentManager, containerId: 
             .beginTransaction()
             .replace(containerId, this, tag)
             .commitAllowingStateLoss()
+    fragmentManager.executePendingTransactions()
 }
 
 fun Fragment.makeToast(stringResourceId: Int) {

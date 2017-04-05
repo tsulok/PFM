@@ -20,7 +20,7 @@ data class CategoryItem(private val category: Category) : ICategoryItem {
     }
 
     override fun getIconUri(): String {
-        return category.imageUri
+        return category.imageUri ?: "ic_category_food"
     }
 
     override fun getCategoryId(): String {

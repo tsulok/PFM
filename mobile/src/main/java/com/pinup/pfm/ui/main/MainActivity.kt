@@ -3,16 +3,19 @@ package com.pinup.pfm.ui.main
 import android.os.Bundle
 import com.pinup.pfm.R
 import com.pinup.pfm.di.component.PFMActivityComponent
+import com.pinup.pfm.extensions.makeToast
 import com.pinup.pfm.ui.core.view.BaseActivity
 import com.pinup.pfm.ui.core.view.BaseScreen
 import com.pinup.pfm.ui.core.view.IBasePresenter
 import com.pinup.pfm.ui.input.action.InputActionContainerPresenter
 import com.pinup.pfm.ui.main_navigator.MainNavigatorFragment
+import com.pinup.pfm.utils.ui.core.AlertHelper
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(), MainScreen {
 
     @Inject lateinit var mainPresenter: MainPresenter
+    @Inject lateinit var alertHelper: AlertHelper
 
     val mainNavigatorFragment: MainNavigatorFragment by lazy { MainNavigatorFragment() }
 
@@ -41,4 +44,27 @@ class MainActivity : BaseActivity(), MainScreen {
     override fun getPresenter(): IBasePresenter? = mainPresenter
 
     override fun getScreen(): BaseScreen = this
+
+    override fun loadingStarted() {
+        alertHelper.showProgressDialog(R.string.sync_main_content)
+    }
+
+    override fun loadingFinished() {
+        alertHelper.hideProgressDialog()
+    }
+
+    override fun loadInitialDataFailedToLoad() {
+        alertHelper.createAlert(messageId = R.string.sync_main_content_failed_mandatory)
+                .negativeText(R.string.sync_main_content_cancel)
+                .onNegative { dialog, _ ->
+                    dialog.dismiss()
+                    finish() }
+                .positiveText(R.string.sync_main_content_retry)
+                .onPositive { _, _ -> mainPresenter.initMain() }
+                .show()
+    }
+
+    override fun syncFailedButHasInitialData() {
+        makeToast(R.string.sync_main_content_failed)
+    }
 }

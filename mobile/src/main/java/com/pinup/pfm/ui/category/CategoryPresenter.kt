@@ -10,8 +10,4 @@ import javax.inject.Inject
 class CategoryPresenter
 @Inject constructor(val categoryInteractor: ICategoryInteractor) : BasePresenter<CategoryScreen>() {
 
-    fun loadCategories() {
-        categoryInteractor.fetchCategoriesFromRemote()
-    }
-
 }

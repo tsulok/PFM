@@ -67,8 +67,10 @@ open class AlertHelper @Inject constructor(@ActivityContext val context: Context
         return MaterialDialog.Builder(context)
                 .titleColor(context.resources.getColor(R.color.colorPrimaryDark))
                 .contentColor(context.resources.getColor(R.color.colorPrimaryDark))
+                .cancelable(false)
+                .canceledOnTouchOutside(false)
                 .negativeText(R.string.got_it)
-                .onNegative({ dialog, which -> dialog.dismiss() })
+                .onNegative({ dialog, _ -> dialog.dismiss() })
     }
 
     /**
@@ -104,7 +106,8 @@ open class AlertHelper @Inject constructor(@ActivityContext val context: Context
      * *
      * @return The builder of the alert
      */
-    fun createAlert(titleId: Int, messageId: Int): MaterialDialog.Builder {
+    fun createAlert(titleId: Int = R.string.error_general_title,
+                    messageId: Int): MaterialDialog.Builder {
         return createDefaultDialog()
                 .title(context.resources.getString(titleId))
                 .content(context.resources.getString(messageId))

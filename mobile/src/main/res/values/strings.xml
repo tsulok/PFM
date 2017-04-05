@@ -20,6 +20,7 @@
     <string name="got.it">Got it</string>
     <string name="grant">Grant</string>
     <string name="loading">Loading</string>
+    <string name="retry">Retry</string>
 
     <!--errors-->
     <string name="error.general.network.unknown">Unknown network error happened. Please try again later.</string>
@@ -51,6 +52,13 @@
 
     <!--Location-->
     <string name="location.not.found">User location is not found.</string>
+
+    <!--Sync-->
+    <string name="sync.main.content">Syncing in progress. Please wait</string>
+    <string name="sync.main.content.cancel">Cancel</string>
+    <string name="sync.main.content.failed">Syncing failed. You can sync manually in the settings to get the latest contents</string>
+    <string name="sync.main.content.failed.mandatory">Syncing failed. Unfortunately you can\'t advance to the next screens without having an initial sync completed</string>
+    <string name="sync.main.content.retry">@string/retry</string>
 
     <!--Login-->
     <string name="login.action.login">Login</string>

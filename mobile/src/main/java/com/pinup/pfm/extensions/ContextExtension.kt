@@ -3,7 +3,9 @@ package com.pinup.pfm.extensions
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
+import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
+import com.pinup.pfm.utils.helper.UIHelper
 
 /**
  * Extension for context
@@ -48,4 +50,12 @@ fun Context.isPermissionsGranted(vararg permissions: String): Boolean {
 
 fun Context.string(identifier: Int): String {
     return this.resources.getString(identifier)
+}
+
+fun Context.makeToast(message: String) {
+    UIHelper.instance.makeToast(this, message)
+}
+
+fun Context.makeToast(stringResourceId: Int) {
+    UIHelper.instance.makeToast(this, resources.getString(stringResourceId))
 }

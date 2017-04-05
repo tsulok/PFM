@@ -127,7 +127,6 @@ class CategoryInteractor
     // TODO create graph between parent & children
     // TODO get correct category image
     override fun fetchCategoriesFromRemote(): Observable<List<Category>> {
-        // TODO save network categories
         return categoryService.listCategories()
                 .doOnNext { responseModel ->
                     responseModel.data?.let { items ->
@@ -138,9 +137,27 @@ class CategoryInteractor
     }
 
     private fun storeCategories(categoryDTOs: List<CategoryNetworkResponseModel>) {
+        // Let save the categories first
         for (categoryDTO in categoryDTOs) {
             val category = CategoryMapper.ModelMapping.from(categoryDTO)
             categoryDaoManager.insertOrUpdate(category)
+
+            for (childCategoryDTO in categoryDTO.children) {
+                storeChildCategories(childCategoryDTO, category)
+            }
+        }
+
+        Logger.d("Parent categories stored %1\$d", categoryDTOs.size)
+    }
+
+    private fun storeChildCategories(categoryDTO: CategoryNetworkResponseModel,
+                                     parentCategory: Category) {
+        val category = CategoryMapper.ModelMapping.from(categoryDTO)
+        category.parent = parentCategory
+        categoryDaoManager.insertOrUpdate(category)
+
+        for (childCategoryDTO in categoryDTO.children) {
+            storeChildCategories(childCategoryDTO, category)
         }
     }
 

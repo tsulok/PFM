@@ -1,9 +1,7 @@
 package com.pinup.pfm.domain.manager.content
 
-import com.pinup.pfm.interactor.category.CategoryInteractor
 import com.pinup.pfm.interactor.category.ICategoryInteractor
 import com.pinup.pfm.interactor.transaction.ITransactionInteractor
-import com.pinup.pfm.interactor.transaction.TransactionInteractor
 import io.reactivex.Completable
 import javax.inject.Inject
 
@@ -15,9 +13,10 @@ class ContentManager
                     val categoryInteractor: ICategoryInteractor): IContentManager {
 
     override fun downloadContents(): Completable {
-        val transactionObservable = transactionInteractor.fetchTransactionsFromRemote()
-        val categoriesObservable = categoryInteractor.fetchCategoriesFromRemote()
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val transactionCompletable = Completable.fromObservable(transactionInteractor.fetchTransactionsFromRemote())
+        val categoriesCompletable = Completable.fromObservable(categoryInteractor.fetchCategoriesFromRemote())
+
+        return Completable.concatArray(categoriesCompletable, transactionCompletable)
     }
 
     override fun uploadUnsyncedTransactions(): Completable {

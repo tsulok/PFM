@@ -40,7 +40,6 @@ class HistoryListFragment
 
     override fun initObjects(view: View?) {
         super.initObjects(view)
-        historyPresenter.fetchItemsFromRemote()
     }
 
     override fun getAdapter(): BaseAdapter<ITransactionHistory>? {
