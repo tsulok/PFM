@@ -53,13 +53,6 @@
     <!--Location-->
     <string name="location.not.found">User location is not found.</string>
 
-    <!--Sync-->
-    <string name="sync.main.content">Syncing in progress. Please wait</string>
-    <string name="sync.main.content.cancel">Cancel</string>
-    <string name="sync.main.content.failed">Syncing failed. You can sync manually in the settings to get the latest contents</string>
-    <string name="sync.main.content.failed.mandatory">Syncing failed. Unfortunately you can\'t advance to the next screens without having an initial sync completed</string>
-    <string name="sync.main.content.retry">@string/retry</string>
-
     <!--Login-->
     <string name="login.action.login">Login</string>
     <string name="login.action.register">Register</string>
@@ -89,4 +82,26 @@
     <string name="permission.location.title">Permission needed</string>
     <string name="permission.location.neveragain.message">Location permission is needed in order to set your location.</string>
     <string name="permission.location.rationale.message">Location permission is needed in order to set your location.</string>
+
+    <!--Settings-->
+    <string name="settings.app.header">App settings</string>
+    <string name="settings.logout">Logout</string>
+    <string name="settings.logout.action.logout">Logout</string>
+    <string name="settings.logout.action.cancel">Cancel</string>
+    <string name="settings.logout.confirm.title">Confirm logout?</string>
+    <string name="settings.logout.confirm.body">Are you sure you want to logout?</string>
+    <string name="settings.password.hint">Change password here</string>
+    <string name="settings.password.confirm.hint">Confirm password</string>
+    <string name="settings.sync.in.progress">Sync is in progress, please be patient</string>
+    <string name="settings.sync.last">Last sync time: %1$s</string>
+    <string name="settings.sync.last.not.yet">Last sync time: Not yet available</string>
+    <string name="settings.sync.update.failed">Updated failed. Please try again later.</string>
+    <string name="settings.user.settings">User settings</string>
+
+    <!--Sync-->
+    <string name="sync.main.content">Syncing in progress. Please wait</string>
+    <string name="sync.main.content.cancel">Cancel</string>
+    <string name="sync.main.content.failed">Syncing failed. You can sync manually in the settings to get the latest contents</string>
+    <string name="sync.main.content.failed.mandatory">Syncing failed. Unfortunately you can\'t advance to the next screens without having an initial sync completed</string>
+    <string name="sync.main.content.retry">@string/retry</string>
 </resources>

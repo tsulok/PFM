@@ -3,6 +3,7 @@ package com.pinup.pfm.interactor.user
 import android.Manifest
 import android.accounts.AccountManager
 import android.content.Context
+import android.content.SharedPreferences
 import com.google.android.gms.auth.GoogleAuthUtil
 import com.pinup.pfm.di.qualifiers.ApplicationContext
 import com.pinup.pfm.domain.network.dto.user.EditUserDTO
@@ -19,9 +20,9 @@ import javax.inject.Inject
  */
 
 class UserInteractor
-@Inject constructor(@ApplicationContext val context: Context,
-                    val accountManager: AccountManager,
-                    val userService: UserService): IUserInteractor {
+@Inject constructor(@ApplicationContext private val context: Context,
+                    private val accountManager: AccountManager,
+                    private val userService: UserService): IUserInteractor {
 
     override fun getAccounts(): List<String> {
         if (context.isPermissionsGranted(Manifest.permission.GET_ACCOUNTS)) {

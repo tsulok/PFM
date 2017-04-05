@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -34,5 +35,94 @@
             android:src="@drawable/ic_settings_sync" />
 
     </FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default.margin"
+        android:layout_marginTop="@dimen/default.margin"
+        android:text="@string/settings.user.settings"
+        android:textAppearance="@style/Settings_Header_text" />
+
+    <TextView
+        android:id="@+id/settingsUserMailTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default.margin"
+        android:layout_marginTop="@dimen/default.margin"
+        android:text="asdf@mail.com" />
+
+    <com.pinup.pfm.utils.ui.SimpleTextInputLayout
+        android:id="@+id/passwordInputContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default.margin"
+        android:layout_marginTop="@dimen/default.margin"
+        android:theme="@style/AppTheme.ColoredInputLayout"
+        app:errorEnabled="false"
+        app:errorTextAppearance="@style/TextError_appearance"
+        app:hintEnabled="true">
+
+        <EditText
+            android:id="@+id/passwordETxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/settings.password.hint"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:textSize="@dimen/font.size.medium" />
+    </com.pinup.pfm.utils.ui.SimpleTextInputLayout>
+
+    <com.pinup.pfm.utils.ui.SimpleTextInputLayout
+        android:id="@+id/confirmPasswordInputContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default.margin"
+        android:layout_marginTop="@dimen/default.margin"
+        android:theme="@style/AppTheme.ColoredInputLayout"
+        app:errorEnabled="false"
+        app:errorTextAppearance="@style/TextError_appearance"
+        app:hintEnabled="true">
+
+        <EditText
+            android:id="@+id/confirmPasswordETxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/settings.password.confirm.hint"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:textSize="@dimen/font.size.medium" />
+    </com.pinup.pfm.utils.ui.SimpleTextInputLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default.margin"
+        android:layout_marginTop="@dimen/default.margin"
+        android:text="@string/settings.app.header"
+        android:textAppearance="@style/Settings_Header_text" />
+
+    <TextView
+        android:id="@+id/settingsSyncTimeTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default.margin"
+        android:layout_marginTop="@dimen/default.margin"
+        android:text="@string/settings.sync.last" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/settingsLogoutBtn"
+        style="@style/General_Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/settings.logout.distance"
+        android:layout_marginEnd="@dimen/settings.logout.distance"
+        android:layout_marginStart="@dimen/settings.logout.distance"
+        android:text="@string/settings.logout" />
 
 </LinearLayout>

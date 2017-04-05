@@ -45,4 +45,7 @@
     <dimen name="navbar.text.size">17sp</dimen>
     <dimen name="navbar.height">@dimen/history.list.collapsed.height</dimen>
 
+    <dimen name="settings.header.text.size">17sp</dimen>
+    <dimen name="settings.logout.distance">30dp</dimen>
+
 </resources>

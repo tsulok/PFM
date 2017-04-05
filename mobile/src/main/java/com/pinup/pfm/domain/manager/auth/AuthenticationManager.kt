@@ -38,7 +38,6 @@ class AuthenticationManager
     }
 }
 
-
 interface IAuthenticationManager {
 
     var token: String? get

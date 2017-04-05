@@ -90,6 +90,10 @@
         <item name="android:textSize">@dimen/navbar.text.size</item>
     </style>
 
+    <style name="Settings_Header_text" parent="AppTheme.AppFontBold">
+        <item name="android:textSize">@dimen/settings.header.text.size</item>
+    </style>
+
     <style name="AppTheme.ColoredInputLayout" parent="AppTheme">
         <item name="colorControlNormal">@color/applicationGrey</item>
     </style>

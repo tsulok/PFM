@@ -76,7 +76,8 @@ class AuthInteractor
     }
 
     override fun clearCredentials() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        preferencesHelper.clearPreference(Constants.PREF_KEY_PASS)
+        preferencesHelper.clearPreference(Constants.PREF_KEY_MAIL)
     }
 
     /**
@@ -97,6 +98,10 @@ class AuthInteractor
     private fun saveSimpleCredentials(mail: String, pass: String) {
         preferencesHelper.setStringPreference(Constants.PREF_KEY_MAIL, mail)
         preferencesHelper.setStringPreference(Constants.PREF_KEY_PASS, pass)
+    }
+
+    override fun getCurrentMailAddress(): String? {
+        return preferencesHelper.getStringPreference(Constants.PREF_KEY_MAIL)
     }
 }
 
@@ -151,6 +156,11 @@ interface IAuthInteractor {
      * All credentials should be cleared
      */
     fun clearCredentials()
+
+    /**
+     * Returns with the currently stored mail address
+     */
+    fun getCurrentMailAddress(): String?
 }
 
 class LoginFailedException: RuntimeException {
