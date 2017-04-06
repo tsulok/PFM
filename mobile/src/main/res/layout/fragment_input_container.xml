@@ -43,23 +43,15 @@
                     android:orientation="horizontal"
                     android:weightSum="8">
 
-                    <Button
-                        android:id="@+id/favouriteCategoryBtn1"
-                        style="@style/AppTheme.Category_Button_Featured"
-                        android:drawableTop="@drawable/ic_restaurant"
-                        android:text="Example category" />
-
-                    <Button
-                        android:id="@+id/favouriteCategoryBtn2"
-                        style="@style/AppTheme.Category_Button_Featured"
-                        android:drawableTop="@drawable/ic_restaurant"
-                        android:text="Example category" />
-
-                    <Button
-                        android:id="@+id/favouriteCategoryBtn3"
-                        style="@style/AppTheme.Category_Button_Featured"
-                        android:drawableTop="@drawable/ic_restaurant"
-                        android:text="Example category" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="6"
+                        android:gravity="center"
+                        android:text="@string/input.main.select.category"
+                        android:textColor="@color/primary_text"
+                        android:textSize="@dimen/font.size.large" />
 
                     <ImageButton
                         android:id="@+id/favouriteCategoryBtnMore"

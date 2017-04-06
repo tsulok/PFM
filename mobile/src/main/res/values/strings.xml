@@ -35,6 +35,7 @@
     <string name="input.currency">Currency</string>
     <string name="input.currency.chooser">Choose your currency</string>
     <string name="input.transaction.hint">Transaction name</string>
+    <string name="input.main.select.category">Select category</string>
 
     <!--Keyboard-->
     <string name="input.keyboard.number.1">1</string>

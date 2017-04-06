@@ -40,9 +40,6 @@ class InputContainerFragment : BaseFragment(), InputContainerScreen {
 
     val slidingPanelTop by lazy { find<SlidingUpPanelLayout>(R.id.slidingPanelTop) }
     val slidingPanelBottom by lazy { find<SlidingUpPanelLayout>(R.id.slidingPanelBottom) }
-    val favCategoryBtn1 by lazy { find<Button>(R.id.favouriteCategoryBtn1) }
-    val favCategoryBtn2 by lazy { find<Button>(R.id.favouriteCategoryBtn2) }
-    val favCategoryBtn3 by lazy { find<Button>(R.id.favouriteCategoryBtn3) }
     val favCategoryBtnMore by lazy { find<ImageButton>(R.id.favouriteCategoryBtnMore) }
     val historySliderView by lazy { find<FrameLayout>(R.id.historySlider) }
     val categorySliderView by lazy { find<LinearLayout>(R.id.categorySlider) }
@@ -63,8 +60,6 @@ class InputContainerFragment : BaseFragment(), InputContainerScreen {
         // Apply custom draggings to the slider views
         slidingPanelBottom.setDragView(categorySliderView)
         slidingPanelTop.setDragView(historySliderView)
-
-        initFeaturedCategories()
 
         // Add the slider fragments
         replaceFragment(childFragmentManager, R.id.categoryListContainer,
@@ -124,36 +119,6 @@ class InputContainerFragment : BaseFragment(), InputContainerScreen {
         override fun onPanelSlide(panel: View?, slideOffset: Float) {
             favCategoryBtnMore.rotation = slideOffset * 180
         }
-    }
-
-    /**
-     * Initializes the featured categories
-     */
-    fun initFeaturedCategories() {
-        favCategoryBtn1.text = "Test category"
-        favCategoryBtn1.setCompoundDrawablesWithIntrinsicBounds(null, context.getDrawableForName("ic_category_health"), null, null)
-
-        favCategoryBtn2.text = "Test category"
-        favCategoryBtn2.setCompoundDrawablesWithIntrinsicBounds(null, context.getDrawableForName("ic_category_health"), null, null)
-
-        favCategoryBtn3.text = "Test category"
-        favCategoryBtn3.setCompoundDrawablesWithIntrinsicBounds(null, context.getDrawableForName("ic_category_health"), null, null)
-
-    }
-
-    @OnClick(R.id.favouriteCategoryBtn1)
-    fun favourite1CategoryClicked() {
-        makeToast("1 clicked")
-    }
-
-    @OnClick(R.id.favouriteCategoryBtn2)
-    fun favourite2CategoryClicked() {
-        makeToast("2 clicked")
-    }
-
-    @OnClick(R.id.favouriteCategoryBtn3)
-    fun favourite3CategoryClicked() {
-        makeToast("3 clicked")
     }
 
     @OnClick(R.id.favouriteCategoryBtnMore)
