@@ -19,6 +19,7 @@ import com.pinup.pfm.domain.network.service.TransactionService
 import com.pinup.pfm.domain.network.service.UserService
 import com.pinup.pfm.domain.network.utility.base.BaseNetworkErrorListener
 import com.pinup.pfm.domain.provider.IChartDataProvider
+import com.pinup.pfm.domain.repository.manager.IRepositoryManager
 import com.pinup.pfm.domain.repository.manager.category.ICategoryRepository
 import com.pinup.pfm.domain.repository.manager.transaction.ITransactionRepository
 import com.pinup.pfm.domain.repository.manager.user.IUserRepository
@@ -79,7 +80,7 @@ interface PFMApplicationComponent {
 
     //region Managers
     fun transactionManager(): ITransactionManager
-
+    fun repositoryManager(): IRepositoryManager
     fun accountManager(): AccountManager
     fun sharedPrefManager(): SharedPreferencesManager
     fun authenticationManager(): IAuthenticationManager

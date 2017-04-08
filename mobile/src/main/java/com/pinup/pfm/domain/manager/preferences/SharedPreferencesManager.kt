@@ -73,10 +73,10 @@ class SharedPreferencesManager
     }
 
     fun clearPreference(key: String) {
-        preferences.edit().remove(key).apply()
+        preferences.edit().remove(key).commit()
     }
 
     fun clearAllPreference() {
-        preferences.edit().clear().apply()
+        preferences.edit().clear().commit()
     }
 }

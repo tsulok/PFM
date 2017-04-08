@@ -8,6 +8,7 @@ import com.pinup.pfm.model.database.Category
 import io.reactivex.Observable
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.HashSet
 
 /**
  * Interactor for categories
@@ -23,7 +24,12 @@ class CategoryInteractor
     }
 
     override fun listAllSelectableCategories(): List<Category> {
-        return categoryDaoManager.listAllSelectableCategories()
+        val usedChildrenParents = listAllCategories()
+                .filter { it.parent != null }
+                .groupBy { it.parent }
+        return listAllCategories().filter {
+            !usedChildrenParents.contains(it)
+        }
     }
 
     override fun listAllMainCategories(): List<Category> {

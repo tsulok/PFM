@@ -6,6 +6,8 @@ import com.pinup.pfm.domain.manager.content.ContentManager
 import com.pinup.pfm.domain.manager.content.IContentManager
 import com.pinup.pfm.domain.manager.transaction.ITransactionManager
 import com.pinup.pfm.domain.manager.transaction.TransactionManager
+import com.pinup.pfm.domain.repository.manager.IRepositoryManager
+import com.pinup.pfm.domain.repository.manager.RepositoryManager
 import dagger.Binds
 import dagger.Module
 
@@ -18,4 +20,5 @@ abstract class ManagerModule {
     @Binds abstract fun transactionManager(manager: TransactionManager): ITransactionManager
     @Binds abstract fun authManager(manager: AuthenticationManager): IAuthenticationManager
     @Binds abstract fun contentManager(manager: ContentManager): IContentManager
+    @Binds abstract fun repositoryManager(manager: RepositoryManager): IRepositoryManager
 }

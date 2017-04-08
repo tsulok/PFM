@@ -17,7 +17,7 @@ class CategoryDaoManager @Inject constructor(val daoSession: DaoSession)
         return daoSession.categoryDao
                 .queryBuilder()
                 .where(CategoryDao.Properties.ParentCategoryId.isNotNull)
-                .orderAsc(CategoryDao.Properties.Order)
+                .orderAsc(CategoryDao.Properties.Name)
                 .list()
     }
 
@@ -25,7 +25,14 @@ class CategoryDaoManager @Inject constructor(val daoSession: DaoSession)
         return daoSession.categoryDao
                 .queryBuilder()
                 .where(CategoryDao.Properties.ParentCategoryId.isNull)
-                .orderAsc(CategoryDao.Properties.Order)
+                .orderAsc(CategoryDao.Properties.Name)
+                .list()
+    }
+
+    override fun listAllItems(): List<Category> {
+        return daoSession.categoryDao
+                .queryBuilder()
+                .orderAsc(CategoryDao.Properties.Name)
                 .list()
     }
 

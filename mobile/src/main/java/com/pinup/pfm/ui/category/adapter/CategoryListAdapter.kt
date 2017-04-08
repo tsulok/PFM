@@ -2,6 +2,7 @@ package com.pinup.pfm.ui.category.adapter
 
 import android.content.Context
 import android.graphics.PorterDuff
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.pinup.pfm.R
@@ -14,6 +15,7 @@ import com.pinup.pfm.model.category.ICategoryItem
 import com.pinup.pfm.ui.category.adapter.viewholder.CategoryViewHolder
 import com.pinup.pfm.ui.core.adapter.BaseAdapter
 import com.pinup.pfm.ui.core.view.viewholder.BaseViewHolder
+import com.squareup.picasso.Picasso
 import org.jetbrains.anko.image
 import javax.inject.Inject
 
@@ -63,16 +65,15 @@ class CategoryListAdapter @Inject constructor(@ActivityContext context: Context,
 
         viewHolder.itemNameText.text = item.getName()
 
-        val categoryDrawable = context.getDrawableForName(item.getIconUri())
-        categoryDrawable?.mutate()
-
-        var iconColor: Int = context.resources.getColor(R.color.input_category_icon_unselected)
-        if (isItemSelected) {
-            iconColor = context.resources.getColor(R.color.input_category_icon_selected)
-        }
-        categoryDrawable?.setColorFilter(iconColor, PorterDuff.Mode.SRC_IN)
-
-        viewHolder.itemImage.image = categoryDrawable
+        Picasso.with(context)
+                .load(item.getIconUri())
+                .centerCrop()
+                .fit()
+                .into(viewHolder.itemImage)
         viewHolder.itemImage.isSelected = isItemSelected
+        viewHolder.itemImageRoot.isSelected = isItemSelected
+        val tintColor = ContextCompat.getColor(context, if (isItemSelected) R.color.applicationWhite else R.color.colorPrimary)
+        viewHolder.itemImage.setColorFilter(tintColor)
+
     }
 }

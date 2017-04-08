@@ -1,7 +1,7 @@
 package com.pinup.pfm.ui.settings
 
-import com.pinup.pfm.domain.manager.auth.IAuthenticationManager
 import com.pinup.pfm.domain.manager.content.IContentManager
+import com.pinup.pfm.domain.repository.manager.IRepositoryManager
 import com.pinup.pfm.interactor.auth.IAuthInteractor
 import com.pinup.pfm.ui.core.view.BasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -12,9 +12,9 @@ import javax.inject.Inject
  * Presenter for Settings
  */
 class SettingsPresenter
-@Inject constructor(private val authenticationManager: IAuthenticationManager,
-                    private val authInteractor: IAuthInteractor,
-                    private val contentManager: IContentManager)
+@Inject constructor(private val authInteractor: IAuthInteractor,
+                    private val contentManager: IContentManager,
+                    private val repositoryManager: IRepositoryManager)
     : BasePresenter<SettingsScreen>() {
 
     fun onMainNavigationButtonClicked() {
@@ -27,7 +27,8 @@ class SettingsPresenter
             return
         }
 
-        authenticationManager.clearCredentials()
+        authInteractor.clearCredentials()
+        repositoryManager.clearDatabase()
         screen?.logoutUser()
     }
 
@@ -60,5 +61,5 @@ class SettingsPresenter
 
 private class SettingsViewModel
 constructor(override val lastSyncTime: Date?,
-            override val userEmail: String): ISettingsViewModel {
+            override val userEmail: String) : ISettingsViewModel {
 }

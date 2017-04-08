@@ -78,6 +78,7 @@ class AuthInteractor
     override fun clearCredentials() {
         preferencesHelper.clearPreference(Constants.PREF_KEY_PASS)
         preferencesHelper.clearPreference(Constants.PREF_KEY_MAIL)
+        authenticationManager.clearCredentials()
     }
 
     /**

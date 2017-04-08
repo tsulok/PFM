@@ -5,10 +5,19 @@
     android:layout_marginTop="@dimen/default.margin"
     android:orientation="vertical">
 
-    <ImageButton
-        android:id="@+id/categoryItemImageButton"
+    <FrameLayout
+        android:id="@+id/categoryItemImageButtonRoot"
         style="@style/AppTheme.Category_Button"
-        android:src="@drawable/ic_category_food" />
+        android:layout_margin="8dp">
+
+        <ImageButton
+            android:id="@+id/categoryItemImageButton"
+            android:layout_width="match_parent"
+            android:background="@null"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_category_food" />
+
+    </FrameLayout>
 
     <com.pinup.pfm.ui.widget.ExtendedTextView
         android:id="@+id/categoryItemName"
