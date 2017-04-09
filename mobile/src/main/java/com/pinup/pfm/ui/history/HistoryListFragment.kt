@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.pinup.pfm.di.component.PFMFragmentComponent
 import com.pinup.pfm.domain.event.TransactionSyncCompletedEvent
+import com.pinup.pfm.domain.event.TransactionUpdatedEvent
 import com.pinup.pfm.domain.manager.transaction.ITransactionManager
 import com.pinup.pfm.model.database.Transaction
 import com.pinup.pfm.model.transaction.ITransactionHistory
@@ -74,5 +75,10 @@ class HistoryListFragment
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onTransactionSynced(event: TransactionSyncCompletedEvent) {
         historyAdapter.onTransactionSynced(event.transaction)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onTransactionsUpdates(event: TransactionUpdatedEvent) {
+        historyAdapter.updateDataSet()
     }
 }

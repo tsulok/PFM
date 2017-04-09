@@ -23,7 +23,7 @@ class TransactionRequestDTO(
 )
 
 class TransactionItemDTO(
-        @SerializedName("Id") val serverId: String,
+        @SerializedName("id") val serverId: String,
         @SerializedName("IsDeleted") val isDeleted: Boolean,
         @SerializedName("Name") val name: String?,
         @SerializedName("Description") val description: String?,

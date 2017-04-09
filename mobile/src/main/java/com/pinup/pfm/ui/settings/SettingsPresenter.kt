@@ -1,6 +1,7 @@
 package com.pinup.pfm.ui.settings
 
 import com.pinup.pfm.domain.event.CurrencyChangedEvent
+import com.pinup.pfm.domain.event.TransactionUpdatedEvent
 import com.pinup.pfm.domain.manager.content.IContentManager
 import com.pinup.pfm.domain.manager.preferences.SharedPreferencesManager
 import com.pinup.pfm.domain.manager.sync.ISyncManager
@@ -51,9 +52,10 @@ class SettingsPresenter
         contentManager.downloadContents()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
+                    eventBus.post(TransactionUpdatedEvent())
                     screen?.loadingFinished()
                     screen?.updateLastSyncTime(contentManager.getLastSyncTime())
-                }, {
+                }, { e ->
                     screen?.loadingFinished()
                     screen?.updateFailed()
                 })

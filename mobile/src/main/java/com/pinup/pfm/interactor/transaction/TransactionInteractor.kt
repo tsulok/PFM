@@ -1,11 +1,10 @@
 package com.pinup.pfm.interactor.transaction
 
-import com.facebook.internal.Mutable
 import com.google.android.gms.maps.model.LatLng
+import com.orhanobut.logger.Logger
 import com.pinup.pfm.domain.event.TransactionSyncCompletedEvent
 import com.pinup.pfm.domain.network.dto.transaction.TransactionItemDTO
 import com.pinup.pfm.domain.network.dto.transaction.TransactionRequestDTO
-import com.pinup.pfm.domain.network.dto.transaction.TransactionUploadRequestDTO
 import com.pinup.pfm.domain.network.service.TransactionService
 import com.pinup.pfm.domain.repository.manager.category.ICategoryRepository
 import com.pinup.pfm.domain.repository.manager.transaction.ITransactionRepository
@@ -139,6 +138,7 @@ class TransactionInteractor
 
     override fun fetchTransactionsFromRemote(): Observable<List<Transaction>> {
         return transactionService.listTransactions()
+                .doOnError { e -> Logger.d("Failed to sync network transactions") }
                 .doOnNext { responseWrapper ->
                     responseWrapper.data?.let { items ->
                         storeTransactions(items.filter { !it.isDeleted })
@@ -217,6 +217,7 @@ class TransactionInteractor
                             transactionDaoManager.update(storedItem)
                             eventBus.post(TransactionSyncCompletedEvent(storedItem))
                         }
+                        e.onComplete()
                     }, { e.onComplete() })
         }
     }

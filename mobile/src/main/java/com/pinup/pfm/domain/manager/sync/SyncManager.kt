@@ -1,9 +1,11 @@
 package com.pinup.pfm.domain.manager.sync
 
 import com.orhanobut.logger.Logger
+import com.pinup.pfm.domain.event.TransactionUpdatedEvent
 import com.pinup.pfm.domain.repository.manager.transaction.ITransactionRepository
 import com.pinup.pfm.interactor.transaction.ITransactionInteractor
 import io.reactivex.schedulers.Schedulers
+import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -13,6 +15,7 @@ import javax.inject.Singleton
 @Singleton
 class SyncManager
 @Inject constructor(private val transactionInteractor: ITransactionInteractor,
+                    private val eventBus: EventBus,
                     private val transactionDaoManager: ITransactionRepository): ISyncManager {
 
     private var syncIsInProgress = false
@@ -39,6 +42,7 @@ class SyncManager
                 .observeOn(Schedulers.io())
                 .doFinally { syncIsInProgress = false }
                 .subscribe ({
+                    eventBus.post(TransactionUpdatedEvent())
                     Logger.d("Sync finished with success")
                 }, {
                     Logger.d("Sync finished with failure")

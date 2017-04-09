@@ -33,7 +33,7 @@ class HistoryListAdapter @Inject constructor(@ActivityContext context: Context,
 
     fun updateDataSet() {
         clearAndSetItems(transactionInteractor.listAllTransaction()
-                .map { it -> TransactionHistory(it) })
+                .map(::TransactionHistory))
     }
 
     fun addTransaction(transaction: Transaction) {

@@ -3,7 +3,7 @@ package com.pinup.pfm.domain.event
 import com.pinup.pfm.model.database.Transaction
 
 /**
- * Event for notifying transactions being updated
+ * Event for notifying transactions updated
  */
 class TransactionUpdatedEvent()
 
