@@ -20,17 +20,17 @@ class TestModule(@ApplicationContext private val context: Context) {
         return context
     }
 
-    @Singleton
-    @Provides
-    fun provideDAOSession(): DaoSession {
-        val openHelper = DaoMaster.DevOpenHelper(context, null, null)
-        val daoMaster = DaoMaster(openHelper.writableDatabase)
-        return daoMaster.newSession()
-    }
-
-    @Singleton
-    @Provides
-    fun provideSharedPreferences(): SharedPreferences {
-        return context.getSharedPreferences("PFMSharedPref_Test", Context.MODE_PRIVATE)
-    }
+//    @Singleton
+//    @Provides
+//    fun provideDAOSession(): DaoSession {
+//        val openHelper = DaoMaster.DevOpenHelper(context, null, null)
+//        val daoMaster = DaoMaster(openHelper.writableDatabase)
+//        return daoMaster.newSession()
+//    }
+//
+//    @Singleton
+//    @Provides
+//    fun provideSharedPreferences(): SharedPreferences {
+//        return context.getSharedPreferences("PFMSharedPref_Test", Context.MODE_PRIVATE)
+//    }
 }

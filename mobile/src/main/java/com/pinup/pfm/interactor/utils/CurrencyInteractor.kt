@@ -2,6 +2,7 @@ package com.pinup.pfm.interactor.utils
 
 import android.content.SharedPreferences
 import com.pinup.pfm.PFMApplication
+import com.pinup.pfm.domain.manager.preferences.SharedPreferencesManager
 import java.text.NumberFormat
 import java.util.*
 import javax.inject.Inject
@@ -40,14 +41,15 @@ interface ICurrencyInteractor {
 /**
  * Interactor for handling currencies
  */
-class CurrencyInteractor @Inject constructor(val sharedPreferences: SharedPreferences) : ICurrencyInteractor {
+class CurrencyInteractor
+@Inject constructor(private val preferencesManager: SharedPreferencesManager) : ICurrencyInteractor {
 
     /**
      * Update the selected currency
      * @param currency The new currency to be saved
      */
     override fun updateSelectedCurrency(currency: Currency) {
-        sharedPreferences.edit().putString(PREF_KEY_CURRENT_CURRENCY, currency.currencyCode).apply()
+        preferencesManager.setStringPreference(PREF_KEY_CURRENT_CURRENCY, currency.currencyCode)
     }
 
     /**
@@ -55,11 +57,7 @@ class CurrencyInteractor @Inject constructor(val sharedPreferences: SharedPrefer
      * @return the saved currency from the preferences
      */
     override fun getSelectedCurrency(): Currency? {
-        val selectedCurrencyCode = sharedPreferences.getString(PREF_KEY_CURRENT_CURRENCY, "")
-        if (selectedCurrencyCode.isBlank()) {
-            return null
-        }
-
+        val selectedCurrencyCode = preferencesManager.getStringPreference(PREF_KEY_CURRENT_CURRENCY) ?: return null
         return Currency.getInstance(selectedCurrencyCode)
     }
 
@@ -67,7 +65,7 @@ class CurrencyInteractor @Inject constructor(val sharedPreferences: SharedPrefer
      * Reset the saved currency
      */
     override fun resetSavedCurrency() {
-        sharedPreferences.edit().remove(PREF_KEY_CURRENT_CURRENCY).apply()
+        preferencesManager.clearPreference(PREF_KEY_CURRENT_CURRENCY)
     }
 
     /**
