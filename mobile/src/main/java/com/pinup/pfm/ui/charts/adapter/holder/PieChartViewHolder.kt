@@ -28,9 +28,11 @@ class PieChartViewHolder(itemView: View?): BaseViewHolder(itemView) {
         pieChart.description.isEnabled = false
         pieChart.setExtraOffsets(5f, 10f, 5f, 5f)
         pieChart.dragDecelerationFrictionCoef = 0.95f
-        pieChart.isDrawHoleEnabled = false
+        pieChart.isDrawHoleEnabled = true
+        pieChart.setHoleColor(Color.WHITE)
+        pieChart.holeRadius = 50f
         pieChart.setTransparentCircleColor(Color.WHITE)
-        pieChart.setTransparentCircleAlpha(110)
+        pieChart.setTransparentCircleAlpha(0)
         pieChart.isRotationEnabled = false
 
         itemView?.let {
