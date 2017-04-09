@@ -1,6 +1,7 @@
 package com.pinup.pfm.ui.main
 
 import com.pinup.pfm.ui.core.view.BaseScreen
+import java.util.*
 
 /**
  * View actions on main
@@ -32,4 +33,9 @@ interface MainScreen : BaseScreen {
      * View should create a toast with message
      */
     fun syncFailedButHasInitialData()
+
+    /**
+     * View should show default currency chooser
+     */
+    fun showDefaultCurrencyChooser(currencies: List<Currency>)
 }

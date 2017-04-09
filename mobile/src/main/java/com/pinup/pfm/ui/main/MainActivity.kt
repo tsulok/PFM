@@ -7,9 +7,10 @@ import com.pinup.pfm.extensions.makeToast
 import com.pinup.pfm.ui.core.view.BaseActivity
 import com.pinup.pfm.ui.core.view.BaseScreen
 import com.pinup.pfm.ui.core.view.IBasePresenter
-import com.pinup.pfm.ui.input.action.InputActionContainerPresenter
 import com.pinup.pfm.ui.main_navigator.MainNavigatorFragment
+import com.pinup.pfm.utils.helper.UIHelper
 import com.pinup.pfm.utils.ui.core.AlertHelper
+import java.util.*
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(), MainScreen {
@@ -58,7 +59,8 @@ class MainActivity : BaseActivity(), MainScreen {
                 .negativeText(R.string.sync_main_content_cancel)
                 .onNegative { dialog, _ ->
                     dialog.dismiss()
-                    finish() }
+                    finish()
+                }
                 .positiveText(R.string.sync_main_content_retry)
                 .onPositive { _, _ -> mainPresenter.initMain() }
                 .show()
@@ -66,5 +68,17 @@ class MainActivity : BaseActivity(), MainScreen {
 
     override fun syncFailedButHasInitialData() {
         makeToast(R.string.sync_main_content_failed)
+    }
+
+    override fun showDefaultCurrencyChooser(currencies: List<Currency>) {
+        UIHelper.instance.createDefaultDialog(this)
+                .title(R.string.input_currency_chooser)
+                .items(currencies)
+                .onNegative { _, _ -> loadMainNavigation() }
+                .itemsCallbackSingleChoice(-1) { _, _, which, _ ->
+                    mainPresenter.updateSelectedCurrency(currencies[which])
+                    true
+                }
+                .show()
     }
 }
