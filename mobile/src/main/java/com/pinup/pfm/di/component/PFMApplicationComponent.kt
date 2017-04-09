@@ -32,6 +32,7 @@ import com.pinup.pfm.interactor.utils.ICurrencyInteractor
 import com.pinup.pfm.interactor.utils.IStorageInteractor
 import com.pinup.pfm.model.database.DaoSession
 import dagger.Component
+import org.greenrobot.eventbus.EventBus
 import javax.inject.Singleton
 
 /**
@@ -47,8 +48,6 @@ interface PFMApplicationComponent {
     fun context(): Context
 
     fun daoSession(): DaoSession
-    fun pref(): SharedPreferences
-    fun locationProvider(): RxLocation
 
     fun inject(activityModule: ActivityModule)
     fun inject(listener: BaseNetworkErrorListener)
@@ -97,5 +96,11 @@ interface PFMApplicationComponent {
 
     @Facebook
     fun loginManager(): LoginManager
+    //endregion
+
+    //region Utility
+    fun eventBus(): EventBus
+    fun pref(): SharedPreferences
+    fun locationProvider(): RxLocation
     //endregion
 }

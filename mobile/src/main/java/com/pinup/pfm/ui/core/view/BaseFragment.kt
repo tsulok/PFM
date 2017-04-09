@@ -10,11 +10,15 @@ import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.di.component.DaggerPFMFragmentComponent
 import com.pinup.pfm.di.component.PFMFragmentComponent
 import com.pinup.pfm.di.module.FragmentModule
+import org.greenrobot.eventbus.EventBus
+import javax.inject.Inject
 
 /**
  * Abstract class for all fragment
  */
 abstract class BaseFragment : Fragment(), IBaseFragment, IFragmentFactory {
+
+    @Inject lateinit var eventBus: EventBus
 
     private val fragmentComponent: PFMFragmentComponent by lazy {
         DaggerPFMFragmentComponent.builder()
@@ -26,6 +30,21 @@ abstract class BaseFragment : Fragment(), IBaseFragment, IFragmentFactory {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         injectFragment(fragmentComponent)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (isEventBusEnabled()) {
+            eventBus.register(this)
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        if (isEventBusEnabled()) {
+            eventBus.unregister(this)
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -63,6 +82,8 @@ abstract class BaseFragment : Fragment(), IBaseFragment, IFragmentFactory {
      * @param component The registered component to this fragment
      */
     protected abstract fun injectFragment(component: PFMFragmentComponent)
+
+    protected open fun isEventBusEnabled(): Boolean = false
 
     /**
      * Finish this fragment and remove from backstack

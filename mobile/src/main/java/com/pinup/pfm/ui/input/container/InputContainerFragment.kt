@@ -11,6 +11,7 @@ import com.orhanobut.logger.Logger
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
 import com.pinup.pfm.di.component.PFMFragmentComponent
+import com.pinup.pfm.domain.event.transaction.TransactionUpdatedEvent
 import com.pinup.pfm.extensions.getDrawableForName
 import com.pinup.pfm.extensions.makeToast
 import com.pinup.pfm.extensions.replaceFragment
@@ -93,15 +94,18 @@ class InputContainerFragment : BaseFragment(), InputContainerScreen {
         override fun onTransactionAdded(transaction: Transaction) {
             categoryListFragment.reloadTransactionCategory()
             historyListFragment.addNewTransaction(transaction)
+            eventBus.post(TransactionUpdatedEvent())
         }
 
         override fun onTransactionEdited(transaction: Transaction) {
             categoryListFragment.reloadTransactionCategory()
             historyListFragment.updateTransaction(transaction)
+            eventBus.post(TransactionUpdatedEvent())
         }
 
         override fun onTransactionDeleted(transaction: Transaction) {
             categoryListFragment.reloadTransactionCategory()
+            eventBus.post(TransactionUpdatedEvent())
         }
 
         override fun onTransactionOpened(transaction: Transaction) {
