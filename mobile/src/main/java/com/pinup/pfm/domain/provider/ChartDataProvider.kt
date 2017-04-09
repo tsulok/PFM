@@ -3,11 +3,9 @@ package com.pinup.pfm.domain.provider
 import android.content.Context
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.PieEntry
-import com.pinup.pfm.R
 import com.pinup.pfm.di.qualifiers.ApplicationContext
+import com.pinup.pfm.domain.repository.manager.category.ICategoryRepository
 import com.pinup.pfm.domain.repository.manager.transaction.ITransactionRepository
-import com.pinup.pfm.extensions.string
-import com.pinup.pfm.model.database.Category
 import com.pinup.pfm.model.database.Transaction
 import java.util.*
 import javax.inject.Inject
@@ -21,7 +19,8 @@ interface IChartDataProvider {
     fun provideBarChartData(dayHistoryCount: Int): List<BarEntry>
 }
 
-class ChartDataProvider @Inject constructor(val transactionDaoManager: ITransactionRepository,
+class ChartDataProvider @Inject constructor(private val transactionDaoManager: ITransactionRepository,
+                                            private val categoryDaoManager: ICategoryRepository,
                                             @ApplicationContext val context: Context)
     : IChartDataProvider {
 
@@ -32,12 +31,14 @@ class ChartDataProvider @Inject constructor(val transactionDaoManager: ITransact
         val recentTransactions = transactionDaoManager.loadTransactionsAfter(initialDate.time)
         val groupedTransactions = groupTransactionsByCategory(recentTransactions)
 
-        val unknownCategoryName = context.string(R.string.chart_pie_category_unknown)
         for ((key, value) in groupedTransactions) {
             val sumForCategory = value
                     .map { it.amount.toFloat() }
                     .reduce { acc, value -> acc + value }
-            entries.add(PieEntry(sumForCategory, key?.name ?: unknownCategoryName))
+
+            categoryDaoManager.loadByServerId(key)?.let {
+                entries.add(PieEntry(sumForCategory, it.name))
+            }
         }
 
         return entries
@@ -89,7 +90,7 @@ class ChartDataProvider @Inject constructor(val transactionDaoManager: ITransact
     /**
      * Group transactions by categories
      */
-    private fun groupTransactionsByCategory(transactions: List<Transaction>): Map<Category?, List<Transaction>> {
-        return transactions.groupBy { it.category }
+    private fun groupTransactionsByCategory(transactions: List<Transaction>): Map<String, List<Transaction>> {
+        return transactions.groupBy { it.category.id }
     }
 }
