@@ -1,6 +1,7 @@
 package com.pinup.pfm.ui.history.adapter
 
 import android.content.Context
+import android.view.View
 import android.view.ViewGroup
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
@@ -74,5 +75,11 @@ class HistoryListAdapter @Inject constructor(@ActivityContext context: Context,
 
         val numberFormat = currencyInteractor.getCurrencyNumberFormat(item.getCurrency())
         viewHolder.amountTextView.text = numberFormat.format(item.getAmount())
+
+        viewHolder.syncedImageView.visibility = if (item.isSynced()) View.GONE else View.VISIBLE
+    }
+
+    fun onTransactionSynced(transaction: Transaction) {
+        notifyItemChanged(TransactionHistory(transaction))
     }
 }

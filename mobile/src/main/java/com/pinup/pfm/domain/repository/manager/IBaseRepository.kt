@@ -15,7 +15,7 @@ interface IBaseRepository<T> {
      * @return The data if found or null
      */
     @Nullable
-    fun loadById(id: String): T
+    fun loadById(id: String): T?
 
     /**
      * Inserts a new or replace the existing item in the database

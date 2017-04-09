@@ -10,15 +10,16 @@ import java.util.*
 
 class TransactionRequestDTO(
         @SerializedName("localId") val localId: String,
-        @SerializedName("uuid") val serverId: String,
+        @SerializedName("id") val serverId: String? = null,
         @SerializedName("date") val date: Date,
-        @SerializedName("latitude") val latitude: Double,
-        @SerializedName("longitude") val longitude: Double,
-        @SerializedName("imageUrl") val imageUrl: String,
+        @SerializedName("name") val name: String,
+        @SerializedName("latitude") val latitude: Double? = null,
+        @SerializedName("longitude") val longitude: Double? = null,
+        @SerializedName("imageUrl") val imageUrl: String? = null,
         @SerializedName("amount") val amount: Double,
         @SerializedName("currency") val currency: String,
-        @SerializedName("descriptionText") val description: String,
-        @SerializedName("categoryId") val categoryId: String
+        @SerializedName("description") val description: String? = null,
+        @SerializedName("categoryId") val categoryId: String? = null
 )
 
 class TransactionItemDTO(
@@ -37,5 +38,5 @@ class TransactionItemDTO(
 )
 
 class TransactionUploadRequestDTO(
-        @SerializedName("transactions") val items: List<TransactionItemDTO>
+        @SerializedName("transactions") val items: List<TransactionRequestDTO>
 )

@@ -15,4 +15,6 @@ interface ITransactionHistory {
     fun getCurrency(): String
 
     fun updateTransaction(transaction: Transaction)
+
+    fun isSynced(): Boolean
 }

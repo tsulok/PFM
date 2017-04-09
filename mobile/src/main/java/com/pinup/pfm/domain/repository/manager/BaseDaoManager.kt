@@ -11,7 +11,7 @@ import de.greenrobot.dao.query.QueryBuilder
 open class BaseDaoManager<out Dao : AbstractDao<T, String>, T>(val dao: Dao) : IBaseRepository<T> {
 
     @Nullable
-    override fun loadById(id: String): T {
+    override fun loadById(id: String): T? {
         return dao.load(id)
     }
 

@@ -1,23 +1,31 @@
 package com.pinup.pfm.interactor.transaction
 
+import com.facebook.internal.Mutable
 import com.google.android.gms.maps.model.LatLng
+import com.pinup.pfm.domain.event.TransactionSyncCompletedEvent
 import com.pinup.pfm.domain.network.dto.transaction.TransactionItemDTO
+import com.pinup.pfm.domain.network.dto.transaction.TransactionRequestDTO
+import com.pinup.pfm.domain.network.dto.transaction.TransactionUploadRequestDTO
 import com.pinup.pfm.domain.network.service.TransactionService
 import com.pinup.pfm.domain.repository.manager.category.ICategoryRepository
 import com.pinup.pfm.domain.repository.manager.transaction.ITransactionRepository
 import com.pinup.pfm.model.database.Category
 import com.pinup.pfm.model.database.Transaction
+import io.reactivex.Completable
 import io.reactivex.Observable
+import org.greenrobot.eventbus.EventBus
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 /**
  * Interactor for transactions
  */
 class TransactionInteractor
-@Inject constructor(val transactionDaoManager: ITransactionRepository,
-                    val transactionService: TransactionService,
-                    val categoryRepository: ICategoryRepository) : ITransactionInteractor {
+@Inject constructor(private val transactionDaoManager: ITransactionRepository,
+                    private val transactionService: TransactionService,
+                    private val eventBus: EventBus,
+                    private val categoryRepository: ICategoryRepository) : ITransactionInteractor {
 
     override fun listAllTransaction(): List<Transaction> {
         return transactionDaoManager.listAllItems()
@@ -143,6 +151,17 @@ class TransactionInteractor
     private fun storeTransactions(transactions: List<TransactionItemDTO>) {
         for (transactionDto in transactions) {
             val transaction = TransactionMapper.ModelMapper.from(transactionDto)
+            val existingTransaction = transactionDaoManager.loadByServerId(transactionDto.serverId)
+
+            if (existingTransaction != null) {
+                if (existingTransaction.lastSyncDate != null && existingTransaction.lastModifyDate != null) {
+                    if (existingTransaction.lastModifyDate.after(existingTransaction.lastSyncDate)) {
+                        continue
+                    }
+                }
+            }
+
+            transaction.lastSyncDate = Date()
             categoryRepository.loadByServerId(transactionDto.category?.id)?.let {
                 transaction.category = it
                 transaction.categoryId = it.serverId
@@ -157,6 +176,32 @@ class TransactionInteractor
             transactionDaoManager.loadByServerId(transactionItemDTO.serverId)?.let {
                 transactionDaoManager.delete(it)
             }
+        }
+    }
+
+    override fun uploadTransactions(transactions: List<Transaction>): Completable {
+        val networkItems = transactions.map { TransactionMapper.ModelMapper.to(it) }
+        val requests = ArrayList<Completable>()
+        networkItems.mapTo(requests) { saveTransaction(it) }
+
+        return Completable.concat(requests)
+    }
+
+    /**
+     * Stores a local transaction on the server
+     * & associates it with the stored server id
+     */
+    private fun saveTransaction(transaction: TransactionRequestDTO): Completable {
+        return Completable.create { e ->
+            transactionService.uploadTransactions(transaction)
+                    .subscribe({ response ->
+                        transactionDaoManager.loadById(transaction.localId)?.let { storedItem ->
+                            storedItem.serverId = response.data
+                            storedItem.lastSyncDate = Date()
+                            transactionDaoManager.update(storedItem)
+                            eventBus.post(TransactionSyncCompletedEvent(storedItem))
+                        }
+                    }, { e.onComplete() })
         }
     }
 }
@@ -177,6 +222,22 @@ private class TransactionMapper {
             transaction.longitude = dto.longitude
             transaction.name = dto.name
             return transaction
+        }
+
+        fun to(item: Transaction): TransactionRequestDTO {
+            return TransactionRequestDTO(
+                    item.id,
+                    item.serverId,
+                    item.date,
+                    item.name,
+                    item.latitude,
+                    item.longitude,
+                    item.imageUri,
+                    item.amount,
+                    item.currency,
+                    item.description,
+                    item.categoryId
+            )
         }
     }
 }

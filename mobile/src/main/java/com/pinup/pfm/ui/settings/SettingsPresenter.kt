@@ -3,6 +3,7 @@ package com.pinup.pfm.ui.settings
 import com.pinup.pfm.domain.event.CurrencyChangedEvent
 import com.pinup.pfm.domain.manager.content.IContentManager
 import com.pinup.pfm.domain.manager.preferences.SharedPreferencesManager
+import com.pinup.pfm.domain.manager.sync.ISyncManager
 import com.pinup.pfm.domain.repository.manager.IRepositoryManager
 import com.pinup.pfm.interactor.auth.IAuthInteractor
 import com.pinup.pfm.interactor.utils.ICurrencyInteractor
@@ -19,6 +20,7 @@ class SettingsPresenter
 @Inject constructor(private val authInteractor: IAuthInteractor,
                     private val contentManager: IContentManager,
                     private val eventBus: EventBus,
+                    private val syncManager: ISyncManager,
                     private val preferencesManager: SharedPreferencesManager,
                     private val currencyInteractor: ICurrencyInteractor,
                     private val repositoryManager: IRepositoryManager)
@@ -55,6 +57,7 @@ class SettingsPresenter
                     screen?.loadingFinished()
                     screen?.updateFailed()
                 })
+        syncManager.uploadUnsyncedTransactions()
     }
 
     fun listSelectedCurrencies() {

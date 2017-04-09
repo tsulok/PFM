@@ -3,6 +3,7 @@ package com.pinup.pfm.interactor.transaction
 import com.google.android.gms.maps.model.LatLng
 import com.pinup.pfm.model.database.Category
 import com.pinup.pfm.model.database.Transaction
+import io.reactivex.Completable
 import io.reactivex.Observable
 import java.util.*
 
@@ -127,4 +128,9 @@ interface ITransactionInteractor {
      * @return DB stored transactions
      */
     fun fetchTransactionsFromRemote(): Observable<List<Transaction>>
+
+    /**
+     * Upload transactions to remote
+     */
+    fun uploadTransactions(transactions: List<Transaction>): Completable
 }

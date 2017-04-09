@@ -31,4 +31,10 @@ data class TransactionHistory(private var transaction: Transaction) : ITransacti
     override fun updateTransaction(transaction: Transaction) {
         this.transaction = transaction
     }
+
+    override fun isSynced(): Boolean {
+        return transaction.serverId != null && !transaction.serverId.isEmpty()
+                || (transaction.lastSyncDate != null && transaction.lastModifyDate != null
+                && transaction.lastSyncDate.after(transaction.lastModifyDate))
+    }
 }

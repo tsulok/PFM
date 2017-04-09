@@ -19,4 +19,9 @@ interface ITransactionRepository : IBaseRepository<Transaction> {
      * Load transactions created after date
      */
     fun loadTransactionsAfter(date: Date): List<Transaction>
+
+    /**
+     * Load unsynced transactions
+     */
+    fun loadUnsyncedTransactions(): List<Transaction>
 }

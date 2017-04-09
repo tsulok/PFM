@@ -12,6 +12,7 @@ import com.pinup.pfm.di.qualifiers.Facebook
 import com.pinup.pfm.domain.manager.auth.IAuthenticationManager
 import com.pinup.pfm.domain.manager.content.IContentManager
 import com.pinup.pfm.domain.manager.preferences.SharedPreferencesManager
+import com.pinup.pfm.domain.manager.sync.ISyncManager
 import com.pinup.pfm.domain.manager.transaction.ITransactionManager
 import com.pinup.pfm.domain.network.service.AuthService
 import com.pinup.pfm.domain.network.service.CategoryService
@@ -84,6 +85,7 @@ interface PFMApplicationComponent {
     fun sharedPrefManager(): SharedPreferencesManager
     fun authenticationManager(): IAuthenticationManager
     fun contentManager(): IContentManager
+    fun syncManager(): ISyncManager
     //endregion
 
     //region Providers

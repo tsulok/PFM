@@ -4,6 +4,9 @@ import com.pinup.pfm.domain.manager.auth.AuthenticationManager
 import com.pinup.pfm.domain.manager.auth.IAuthenticationManager
 import com.pinup.pfm.domain.manager.content.ContentManager
 import com.pinup.pfm.domain.manager.content.IContentManager
+import com.pinup.pfm.domain.manager.sync.ISyncManager
+import com.pinup.pfm.domain.manager.sync.SyncManager
+import com.pinup.pfm.domain.manager.sync.SyncManager_Factory
 import com.pinup.pfm.domain.manager.transaction.ITransactionManager
 import com.pinup.pfm.domain.manager.transaction.TransactionManager
 import com.pinup.pfm.domain.repository.manager.IRepositoryManager
@@ -21,4 +24,5 @@ abstract class ManagerModule {
     @Binds abstract fun authManager(manager: AuthenticationManager): IAuthenticationManager
     @Binds abstract fun contentManager(manager: ContentManager): IContentManager
     @Binds abstract fun repositoryManager(manager: RepositoryManager): IRepositoryManager
+    @Binds abstract fun syncManager(manager: SyncManager): ISyncManager
 }

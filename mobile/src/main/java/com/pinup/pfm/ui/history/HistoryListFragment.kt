@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.pinup.pfm.di.component.PFMFragmentComponent
+import com.pinup.pfm.domain.event.TransactionSyncCompletedEvent
 import com.pinup.pfm.domain.manager.transaction.ITransactionManager
 import com.pinup.pfm.model.database.Transaction
 import com.pinup.pfm.model.transaction.ITransactionHistory
@@ -13,6 +14,8 @@ import com.pinup.pfm.ui.core.view.BaseListFragment
 import com.pinup.pfm.ui.core.view.BaseScreen
 import com.pinup.pfm.ui.core.view.IBasePresenter
 import com.pinup.pfm.ui.history.adapter.HistoryListAdapter
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import javax.inject.Inject
 
 /**
@@ -29,6 +32,7 @@ class HistoryListFragment
 
     override fun getPresenter(): IBasePresenter? = historyPresenter
     override fun getScreen(): BaseScreen = this
+    override fun isEventBusEnabled(): Boolean = true
 
     override fun injectFragment(component: PFMFragmentComponent) {
         component.inject(this)
@@ -65,5 +69,10 @@ class HistoryListFragment
     override fun loadSavedTransaction(transaction: Transaction) {
         transactionManager.loadSavedTransaction(transaction)
         onTransactionInteractionListener?.onTransactionOpened(transaction)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onTransactionSynced(event: TransactionSyncCompletedEvent) {
+        historyAdapter.onTransactionSynced(event.transaction)
     }
 }

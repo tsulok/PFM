@@ -2,6 +2,7 @@ package com.pinup.pfm.domain.network.service
 
 import com.pinup.pfm.domain.network.dto.base.BaseNetworkResponseModel
 import com.pinup.pfm.domain.network.dto.transaction.TransactionItemDTO
+import com.pinup.pfm.domain.network.dto.transaction.TransactionRequestDTO
 import com.pinup.pfm.domain.network.dto.transaction.TransactionUploadRequestDTO
 import io.reactivex.Observable
 import retrofit2.http.Body
@@ -23,6 +24,9 @@ interface TransactionService {
 
     @POST("${Constants.BASE_PATH}/saveBulk")
     fun uploadTransactions(@Body uploadRequest: TransactionUploadRequestDTO): Observable<List<TransactionItemDTO>>
+
+    @POST("${Constants.BASE_PATH}/save")
+    fun uploadTransactions(@Body uploadRequest: TransactionRequestDTO): Observable<BaseNetworkResponseModel<String>>
 
     @POST("${Constants.BASE_PATH}/delete/{id}")
     fun deleteTransaction(@Path("id") id: String): Observable<Void>
