@@ -42,6 +42,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/login.password.hint"
             android:imeOptions="actionDone"
+            android:inputType="textPassword"
             android:maxLines="1" />
     </com.pinup.pfm.utils.ui.SimpleTextInputLayout>
 

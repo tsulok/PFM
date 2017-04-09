@@ -149,6 +149,19 @@ class TransactionInteractor
     }
 
     private fun storeTransactions(transactions: List<TransactionItemDTO>) {
+
+        val newTransactionIds = transactions.map { it.serverId }
+        var deletableTransactions = transactionDaoManager.listAllItems().filter {
+            val isItemListed = newTransactionIds.contains(it.serverId)
+            var retval: Boolean = false
+            if (it.lastModifyDate != null && it.lastSyncDate != null) {
+                retval = !isItemListed && !it.lastModifyDate.after(it.lastSyncDate)
+            } else {
+                retval = !isItemListed
+            }
+            retval
+        }
+
         for (transactionDto in transactions) {
             val transaction = TransactionMapper.ModelMapper.from(transactionDto)
             val existingTransaction = transactionDaoManager.loadByServerId(transactionDto.serverId)
@@ -162,6 +175,7 @@ class TransactionInteractor
             }
 
             transaction.lastSyncDate = Date()
+            transaction.lastModifyDate = Date(0)
             categoryRepository.loadByServerId(transactionDto.category?.id)?.let {
                 transaction.category = it
                 transaction.categoryId = it.serverId
@@ -169,6 +183,8 @@ class TransactionInteractor
 
             transactionDaoManager.insertOrUpdate(transaction)
         }
+
+        transactionDaoManager.removeItemsByServerIds(deletableTransactions.map { it.serverId })
     }
 
     private fun deleteTransactions(transaction: List<TransactionItemDTO>) {

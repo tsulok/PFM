@@ -38,4 +38,17 @@ class TransactionDaoManager @Inject constructor(val daoSession: DaoSession)
                                         + TransactionDao.Properties.LastModifyDate.columnName))
                 .list()
     }
+
+    override fun listAllItems(): List<Transaction> {
+        return createQuery()
+                .orderDesc(TransactionDao.Properties.Date)
+                .list()
+    }
+
+    override fun removeItemsByServerIds(serverIds: List<String>) {
+        createQuery()
+                .where(TransactionDao.Properties.ServerId.`in`(serverIds))
+                .buildDelete()
+                .executeDeleteWithoutDetachingEntities()
+    }
 }

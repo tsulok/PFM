@@ -20,8 +20,10 @@ class AuthenticationManager
 
 
     override var token: String? = sharedPreferences.getStringPreference(Constants.PREF_KEY_TOKEN)
+    get() = sharedPreferences.getStringPreference(Constants.PREF_KEY_TOKEN)
 
     override var currentUserId: String? = sharedPreferences.getStringPreference(Constants.PREF_KEY_CURRENT_USER_ID)
+    get() = sharedPreferences.getStringPreference(Constants.PREF_KEY_CURRENT_USER_ID)
 
     override fun storeToken(token: String?) {
         sharedPreferences.setStringPreference(Constants.PREF_KEY_TOKEN, token)

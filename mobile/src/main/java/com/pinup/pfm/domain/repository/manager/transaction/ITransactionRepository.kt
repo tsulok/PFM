@@ -24,4 +24,9 @@ interface ITransactionRepository : IBaseRepository<Transaction> {
      * Load unsynced transactions
      */
     fun loadUnsyncedTransactions(): List<Transaction>
+
+    /**
+     * Remove the items for this type specified with the ids list
+     */
+    fun removeItemsByServerIds(serverIds: List<String>)
 }

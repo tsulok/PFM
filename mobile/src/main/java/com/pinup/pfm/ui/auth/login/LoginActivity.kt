@@ -2,6 +2,8 @@ package com.pinup.pfm.ui.auth.login
 
 import android.Manifest
 import android.content.Intent
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.ArrayAdapter
 import com.orhanobut.logger.Logger
 import com.pinup.pfm.R
@@ -62,6 +64,23 @@ class LoginActivity : BaseActivity(), LoginScreen {
                         alertHelper.createAlert(string(R.string.login_facebook_failed)).show()
                     })
         }
+
+        emailETxt.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if ("@test" == s.toString()) {
+                    emailETxt.setText("t.david92@gmail.com")
+                    passwordETxt.setText("Abcd1234.")
+                }
+            }
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
