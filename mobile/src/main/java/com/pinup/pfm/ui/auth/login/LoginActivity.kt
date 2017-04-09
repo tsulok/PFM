@@ -55,6 +55,11 @@ class LoginActivity : BaseActivity(), LoginScreen {
                     passwordETxt.text.toString())
         }
 
+        registerBtn.setOnClickListener {
+            presenter.registerUser(emailETxt.text.toString(),
+                    passwordETxt.text.toString())
+        }
+
         loginFacebookBtn.setOnClickListener {
             facebookInteractor.authorizeUser(this)
                     .observeOn(AndroidSchedulers.mainThread())
@@ -65,7 +70,7 @@ class LoginActivity : BaseActivity(), LoginScreen {
                     })
         }
 
-        emailETxt.addTextChangedListener(object: TextWatcher {
+        emailETxt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
 
             }
