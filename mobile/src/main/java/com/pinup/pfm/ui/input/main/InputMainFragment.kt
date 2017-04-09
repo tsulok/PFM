@@ -117,9 +117,11 @@ class InputMainFragment : BaseFragment(), InputMainScreen {
         openActionPage(OpenAction.Description)
     }
 
-    @OnClick(R.id.inputKeyboardChangeBtn)
-    fun onKeyboardChangeClicked() {
-        makeToast("Keyboard change click")
+    @OnClick(R.id.inputNewDocumentBtn)
+    fun onNewTransactionClicked() {
+        inputMainPresenter.reset()
+        reloadTransaction()
+        onTransactionInteractionListener?.onNewTransaction()
     }
 
     @OnClick(R.id.inputSubmitBtn)
@@ -203,8 +205,6 @@ class InputMainFragment : BaseFragment(), InputMainScreen {
 
     override fun transactionSaved(transaction: Transaction, action: TransactionAction) {
         makeToast("Transaction saved")
-        nameEditText.text.clear()
-        amountTextView.text = "0"
         inputMainPresenter.reset()
 
         when (action) {
@@ -216,6 +216,11 @@ class InputMainFragment : BaseFragment(), InputMainScreen {
 
     override fun transactionSaveFailed() {
         makeToast("Transaction save failed")
+    }
+
+    override fun resetView() {
+        nameEditText.text.clear()
+        amountTextView.text = "0"
     }
 
     //endregion

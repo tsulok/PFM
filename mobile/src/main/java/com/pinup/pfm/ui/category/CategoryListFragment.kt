@@ -65,6 +65,7 @@ class CategoryListFragment : BaseListFragment<ICategoryItem>(), EmptyScreen {
     }
 
     fun reloadTransactionCategory() {
+        categoryAdapter.removeCurrentItemSelection()
         categoryAdapter.notifyDataSetChanged()
     }
 }

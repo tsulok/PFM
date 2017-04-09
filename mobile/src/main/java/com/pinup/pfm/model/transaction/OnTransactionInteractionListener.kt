@@ -10,4 +10,5 @@ interface OnTransactionInteractionListener {
     fun onTransactionEdited(transaction: Transaction)
     fun onTransactionOpened(transaction: Transaction)
     fun onTransactionDeleted(transaction: Transaction)
+    fun onNewTransaction()
 }

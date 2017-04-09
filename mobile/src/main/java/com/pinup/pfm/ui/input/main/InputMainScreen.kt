@@ -42,4 +42,9 @@ interface InputMainScreen : BaseScreen {
      * Transaction save failed
      */
     fun transactionSaveFailed()
+
+    /**
+     * View should clear inputs to initials
+     */
+    fun resetView()
 }

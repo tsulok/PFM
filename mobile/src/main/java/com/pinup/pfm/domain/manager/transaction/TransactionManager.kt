@@ -68,7 +68,6 @@ class TransactionManager @Inject constructor(val transactionInteractor: Transact
      * Resets the transaction
      */
     override fun resetTransaction() {
-        transactionCurrentValueText = ""
         transactionImageFile = null
         transactionDate = Date()
         transactionDescription = ""
@@ -76,6 +75,7 @@ class TransactionManager @Inject constructor(val transactionInteractor: Transact
         transactionLocation = null
         transactionCurrency = null
         savedTransaction = null
+        transactionCurrentValueText = ""
     }
 
     override fun loadSavedTransaction(transaction: Transaction) {

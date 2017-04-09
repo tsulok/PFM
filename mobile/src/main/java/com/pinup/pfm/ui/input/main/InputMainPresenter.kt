@@ -88,7 +88,7 @@ class InputMainPresenter @Inject constructor(val currencyInteractor: ICurrencyIn
      * Remove last digit
      */
     fun removeLastDigit() {
-        if (transactionManager.transactionCurrentValueText.length == 0) {
+        if (transactionManager.transactionCurrentValueText.isEmpty()) {
             screen?.updateValue("0")
             return
         }
@@ -129,7 +129,8 @@ class InputMainPresenter @Inject constructor(val currencyInteractor: ICurrencyIn
     }
 
     fun reset() {
-        transactionManager.transactionCurrentValueText = "0"
+        transactionManager.resetTransaction()
+        screen?.resetView()
     }
 
     fun getSelectedKeyboardType(): KeyboardType {

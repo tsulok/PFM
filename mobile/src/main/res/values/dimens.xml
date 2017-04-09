@@ -35,6 +35,7 @@
     <dimen name="input.action.currency.text.size">16sp</dimen>
     <dimen name="input.action.description.text.padding">16dp</dimen>
     <dimen name="input.action.name.text.size">22sp</dimen>
+    <dimen name="input.action.main.add.padding">16dp</dimen>
     <dimen name="input.container.header.margin">16dp</dimen>
     <dimen name="input.keyboard.number.text.size">18sp</dimen>
     <dimen name="input.keyboard.number.padding.vertical">8dp</dimen>

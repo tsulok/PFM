@@ -17,9 +17,19 @@ open class DaoModule {
 
     @Singleton
     @Provides
-    open fun provideDAOSession(@ApplicationContext context: Context): DaoSession {
-        val openHelper = DaoMaster.DevOpenHelper(context, "pfm-db", null)
-        val daoMaster = DaoMaster(openHelper.writableDatabase)
+    open fun provideOpenHelper(@ApplicationContext context: Context): DaoMaster.OpenHelper {
+        return DaoMaster.DevOpenHelper(context, "pfm-db", null)
+    }
+
+    @Singleton
+    @Provides
+    open fun provideDAOMaster(openHelper: DaoMaster.OpenHelper): DaoMaster {
+        return DaoMaster(openHelper.writableDatabase)
+    }
+
+    @Singleton
+    @Provides
+    open fun provideDAOSession(daoMaster: DaoMaster): DaoSession {
         return daoMaster.newSession()
     }
 

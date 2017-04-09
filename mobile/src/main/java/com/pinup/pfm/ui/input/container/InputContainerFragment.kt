@@ -109,6 +109,11 @@ class InputContainerFragment : BaseFragment(), InputContainerScreen {
             inputMainFragment.reloadTransaction()
             categoryListFragment.reloadTransactionCategory()
         }
+
+        override fun onNewTransaction() {
+            inputMainFragment.reloadTransaction()
+            categoryListFragment.reloadTransactionCategory()
+        }
     }
 
     /**
