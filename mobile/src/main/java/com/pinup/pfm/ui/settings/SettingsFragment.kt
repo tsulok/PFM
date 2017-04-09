@@ -98,7 +98,7 @@ class SettingsFragment : BaseFragment(), SettingsScreen {
         } else {
             syncText = context.string(R.string.settings_sync_last_not_yet)
         }
-        settingsSyncTimeTxt.text = syncText
+        settingsSyncTimeTxt.text = context.getString(R.string.settings_sync_last, syncText)
     }
 }
 
