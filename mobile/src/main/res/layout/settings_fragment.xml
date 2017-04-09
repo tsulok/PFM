@@ -110,6 +110,27 @@
         android:layout_marginTop="@dimen/default.margin"
         android:text="@string/settings.sync.last" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default.margin"
+        android:layout_marginStart="@dimen/default.margin"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings.currency" />
+
+        <Button
+            android:id="@+id/settingsCurrencyBtn"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="@dimen/default.margin"
+            android:layout_height="wrap_content"
+            android:text="@string/settings.currency.no.default.action" />
+
+    </LinearLayout>
+
     <View
         android:layout_width="0dp"
         android:layout_height="0dp"

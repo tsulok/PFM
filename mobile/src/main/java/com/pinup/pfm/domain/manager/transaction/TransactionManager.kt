@@ -61,7 +61,7 @@ class TransactionManager @Inject constructor(val transactionInteractor: Transact
     override var transactionDescription: String = ""
     override var transactionSelectedCategory: Category? = null
     override var transactionLocation: LatLng? = null
-    override var transactionCurrency: Currency? = null
+    override var transactionCurrency: Currency? = currencyInteractor.getSelectedCurrency()
     override var savedTransaction: Transaction? = null
 
     /**
@@ -73,7 +73,7 @@ class TransactionManager @Inject constructor(val transactionInteractor: Transact
         transactionDescription = ""
         transactionSelectedCategory = null
         transactionLocation = null
-        transactionCurrency = null
+        transactionCurrency = currencyInteractor.getSelectedCurrency()
         savedTransaction = null
         transactionCurrentValueText = ""
     }

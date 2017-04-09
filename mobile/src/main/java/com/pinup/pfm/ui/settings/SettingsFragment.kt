@@ -10,6 +10,7 @@ import com.pinup.pfm.ui.core.view.BaseFragment
 import com.pinup.pfm.ui.core.view.BaseScreen
 import com.pinup.pfm.ui.core.view.IBasePresenter
 import com.pinup.pfm.ui.main_navigator.MainNavigatorFragment
+import com.pinup.pfm.utils.helper.UIHelper
 import com.pinup.pfm.utils.ui.core.AlertHelper
 import kotlinx.android.synthetic.main.settings_fragment.*
 import java.text.DateFormat
@@ -44,6 +45,7 @@ class SettingsFragment : BaseFragment(), SettingsScreen {
         settingsMoveMainBtn.setOnClickListener { presenter.onMainNavigationButtonClicked() }
         settingsLogoutBtn.setOnClickListener { presenter.onLogoutClicked(false) }
         settingsSyncBtn.setOnClickListener { presenter.onSyncButtonClicked() }
+        settingsCurrencyBtn.setOnClickListener { presenter.listSelectedCurrencies() }
     }
 
     override fun navigateToMain() {
@@ -99,6 +101,25 @@ class SettingsFragment : BaseFragment(), SettingsScreen {
             syncText = context.string(R.string.settings_sync_last_not_yet)
         }
         settingsSyncTimeTxt.text = context.getString(R.string.settings_sync_last, syncText)
+    }
+
+    override fun showCurrencySelector(currencies: List<Currency>, selectedIndex: Int) {
+        UIHelper.instance.createDefaultDialog(activity)
+                .title(R.string.input_currency_chooser)
+                .items(currencies)
+                .itemsCallbackSingleChoice(selectedIndex) { _, _, which, _ ->
+                    presenter.updateSelectedCurrency(currencies[which])
+                    true
+                }
+                .show()
+    }
+
+    override fun updateSelectedCurrency(currency: Currency?) {
+        if (currency == null) {
+            settingsCurrencyBtn.text = context.string(R.string.settings_currency_no_default_action)
+        } else {
+            settingsCurrencyBtn.text = currency.displayName
+        }
     }
 }
 

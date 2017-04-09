@@ -10,6 +10,7 @@ import butterknife.OnClick
 import com.orhanobut.logger.Logger
 import com.pinup.pfm.R
 import com.pinup.pfm.di.component.PFMFragmentComponent
+import com.pinup.pfm.domain.event.CurrencyChangedEvent
 import com.pinup.pfm.extensions.makeToast
 import com.pinup.pfm.extensions.removeSoftKeboard
 import com.pinup.pfm.extensions.replaceFragment
@@ -26,6 +27,8 @@ import com.pinup.pfm.utils.SharedViewConstants
 import com.pinup.pfm.utils.helper.UIHelper
 import com.pinup.pfm.view.Henson
 import kotlinx.android.synthetic.main.fragment_input_main.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.support.v4.find
 import java.util.*
@@ -53,6 +56,7 @@ class InputMainFragment : BaseFragment(), InputMainScreen {
 
     override fun getPresenter(): IBasePresenter? = inputMainPresenter
     override fun getScreen(): BaseScreen = this
+    override fun isEventBusEnabled(): Boolean = true
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_input_main
@@ -224,4 +228,9 @@ class InputMainFragment : BaseFragment(), InputMainScreen {
     }
 
     //endregion
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onDefaultCurrencyChanged(currencyChangedEvent: CurrencyChangedEvent) {
+        inputMainPresenter.defaultCurrencyChanged(currencyChangedEvent.currency)
+    }
 }

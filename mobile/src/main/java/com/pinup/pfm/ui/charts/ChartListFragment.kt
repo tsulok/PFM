@@ -3,7 +3,7 @@ package com.pinup.pfm.ui.charts
 import android.view.View
 import com.pinup.pfm.R
 import com.pinup.pfm.di.component.PFMFragmentComponent
-import com.pinup.pfm.domain.event.transaction.TransactionUpdatedEvent
+import com.pinup.pfm.domain.event.TransactionUpdatedEvent
 import com.pinup.pfm.model.chart.IChartDataItem
 import com.pinup.pfm.ui.charts.adapter.ChartListAdapter
 import com.pinup.pfm.ui.charts.model.ChartDataViewModel

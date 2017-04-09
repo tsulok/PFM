@@ -95,6 +95,9 @@
     <string name="settings.password.confirm.hint">Confirm password</string>
     <string name="settings.sync.in.progress">Sync is in progress, please be patient</string>
     <string name="settings.sync.last">Last sync time: %1$s</string>
+    <string name="settings.currency">Default currency</string>
+    <string name="settings.currency.no.default">No default currency is selected</string>
+    <string name="settings.currency.no.default.action">Select it</string>
     <string name="settings.sync.last.not.yet">Last sync time: Not yet available</string>
     <string name="settings.sync.update.failed">Updated failed. Please try again later.</string>
     <string name="settings.user.settings">User settings</string>

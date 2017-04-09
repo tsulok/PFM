@@ -1,7 +1,6 @@
 package com.pinup.pfm.ui.input.main
 
 import com.orhanobut.logger.Logger
-import com.pinup.pfm.domain.manager.currency.CurrencyManager
 import com.pinup.pfm.domain.manager.transaction.ITransactionManager
 import com.pinup.pfm.interactor.category.ICategoryInteractor
 import com.pinup.pfm.interactor.transaction.ITransactionInteractor
@@ -14,10 +13,11 @@ import javax.inject.Inject
 /**
  * Presenter for input main
  */
-class InputMainPresenter @Inject constructor(val currencyInteractor: ICurrencyInteractor,
-                                             val categoryInteractor: ICategoryInteractor,
-                                             val transactionInteractor: ITransactionInteractor,
-                                             val transactionManager: ITransactionManager)
+class InputMainPresenter
+@Inject constructor(private val currencyInteractor: ICurrencyInteractor,
+                    private val categoryInteractor: ICategoryInteractor,
+                    private val transactionInteractor: ITransactionInteractor,
+                    private val transactionManager: ITransactionManager)
     : BasePresenter<InputMainScreen>() {
 
     companion object {
@@ -55,7 +55,7 @@ class InputMainPresenter @Inject constructor(val currencyInteractor: ICurrencyIn
     fun showSupportedCurrencies() {
         screen?.showSupportedCurrencies(
                 transactionManager.transactionCurrency,
-                CurrencyManager.instance.getAvailableCurrencies().sortedBy { p -> p.currencyCode }
+                currencyInteractor.listAvailableCurrencies()
         )
     }
 
@@ -139,5 +139,9 @@ class InputMainPresenter @Inject constructor(val currencyInteractor: ICurrencyIn
 
     fun getCurrentTransactionName(): String {
         return transactionManager.transactionNameText
+    }
+
+    fun defaultCurrencyChanged(currency: Currency) {
+
     }
 }

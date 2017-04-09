@@ -47,4 +47,14 @@ interface SettingsScreen : BaseScreen {
      * View should show an error about the update
      */
     fun updateFailed()
+
+    /**
+     * View should show currency selector
+     */
+    fun showCurrencySelector(currencies: List<Currency>, selectedIndex: Int)
+
+    /**
+     * UI should update the selected currency properly
+     */
+    fun updateSelectedCurrency(currency: Currency?)
 }

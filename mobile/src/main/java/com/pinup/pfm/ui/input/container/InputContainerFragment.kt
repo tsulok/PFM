@@ -11,7 +11,7 @@ import com.orhanobut.logger.Logger
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
 import com.pinup.pfm.di.component.PFMFragmentComponent
-import com.pinup.pfm.domain.event.transaction.TransactionUpdatedEvent
+import com.pinup.pfm.domain.event.TransactionUpdatedEvent
 import com.pinup.pfm.extensions.getDrawableForName
 import com.pinup.pfm.extensions.makeToast
 import com.pinup.pfm.extensions.replaceFragment

@@ -2,6 +2,7 @@ package com.pinup.pfm.interactor.utils
 
 import android.content.SharedPreferences
 import com.pinup.pfm.PFMApplication
+import com.pinup.pfm.domain.manager.currency.CurrencyManager
 import com.pinup.pfm.domain.manager.preferences.SharedPreferencesManager
 import java.text.NumberFormat
 import java.util.*
@@ -36,6 +37,11 @@ interface ICurrencyInteractor {
      * @return the symbol of the desired currency
      */
     fun getCurrencySymbol(currency: String): String
+
+    /**
+     * List all available currencies
+     */
+    fun listAvailableCurrencies(): List<Currency>
 }
 
 /**
@@ -88,6 +94,11 @@ class CurrencyInteractor
      */
     override fun getCurrencySymbol(currency: String): String {
         return Currency.getInstance(currency).symbol
+    }
+
+    override fun listAvailableCurrencies(): List<Currency> {
+        return CurrencyManager.instance.getAvailableCurrencies()
+                .sortedBy { p -> p.currencyCode }
     }
 
     companion object {
