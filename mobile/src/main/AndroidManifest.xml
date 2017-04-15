@@ -57,10 +57,16 @@
             android:name="com.andremion.louvre.preview.PreviewActivity"
             android:theme="@style/AppTheme.Louvre.Preview" />
 
+        <service android:name=".wearable.PFMWearableListenerService">
+            <intent-filter>
+                <action android:name="com.google.android.gms.wearable.BIND_LISTENER" />
+            </intent-filter>
+        </service>
+        
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/key.google.api" />
-
+        
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.pinup.pfm.fileprovider"

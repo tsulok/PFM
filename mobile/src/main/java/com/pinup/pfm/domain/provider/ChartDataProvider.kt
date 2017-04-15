@@ -3,9 +3,11 @@ package com.pinup.pfm.domain.provider
 import android.content.Context
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.PieEntry
+import com.pinup.pfm.R
 import com.pinup.pfm.di.qualifiers.ApplicationContext
 import com.pinup.pfm.domain.repository.manager.category.ICategoryRepository
 import com.pinup.pfm.domain.repository.manager.transaction.ITransactionRepository
+import com.pinup.pfm.extensions.string
 import com.pinup.pfm.model.database.Transaction
 import java.util.*
 import javax.inject.Inject
@@ -36,8 +38,11 @@ class ChartDataProvider @Inject constructor(private val transactionDaoManager: I
                     .map { it.amount.toFloat() }
                     .reduce { acc, value -> acc + value }
 
-            categoryDaoManager.loadByServerId(key)?.let {
-                entries.add(PieEntry(sumForCategory, it.name))
+            val category = categoryDaoManager.loadByServerId(key)
+            if (category != null) {
+                entries.add(PieEntry(sumForCategory, category.name))
+            } else {
+                entries.add(PieEntry(sumForCategory, context.string(R.string.chart_pie_category_unknown)))
             }
         }
 
@@ -91,6 +96,12 @@ class ChartDataProvider @Inject constructor(private val transactionDaoManager: I
      * Group transactions by categories
      */
     private fun groupTransactionsByCategory(transactions: List<Transaction>): Map<String, List<Transaction>> {
-        return transactions.groupBy { it.category.id }
+        return transactions.groupBy {
+            if (it.category != null) {
+                it.category.id
+            } else {
+                ""
+            }
+        }
     }
 }

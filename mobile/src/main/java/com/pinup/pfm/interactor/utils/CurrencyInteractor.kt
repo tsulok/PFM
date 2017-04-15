@@ -63,7 +63,8 @@ class CurrencyInteractor
      * @return the saved currency from the preferences
      */
     override fun getSelectedCurrency(): Currency? {
-        val selectedCurrencyCode = preferencesManager.getStringPreference(PREF_KEY_CURRENT_CURRENCY) ?: return null
+        val selectedCurrencyCode = preferencesManager.getStringPreference(PREF_KEY_CURRENT_CURRENCY)
+                ?: return Currency.getInstance(Locale.getDefault())
         return Currency.getInstance(selectedCurrencyCode)
     }
 

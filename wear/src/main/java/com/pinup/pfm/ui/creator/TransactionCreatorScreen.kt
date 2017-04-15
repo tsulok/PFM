@@ -18,4 +18,9 @@ interface TransactionCreatorScreen: BaseScreen {
      * UI should show parsed data
      */
     fun showParsedData(lastParsedSpeechText: SpeechTransaction)
+
+    /**
+     * Send item to device
+     */
+    fun sendToDevice(it: SpeechTransaction)
 }

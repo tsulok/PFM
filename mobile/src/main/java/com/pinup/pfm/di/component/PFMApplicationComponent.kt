@@ -32,6 +32,7 @@ import com.pinup.pfm.interactor.user.IUserInteractor
 import com.pinup.pfm.interactor.utils.ICurrencyInteractor
 import com.pinup.pfm.interactor.utils.IStorageInteractor
 import com.pinup.pfm.model.database.DaoSession
+import com.pinup.pfm.wearable.PFMWearableListenerService
 import dagger.Component
 import org.greenrobot.eventbus.EventBus
 import javax.inject.Singleton
@@ -52,6 +53,7 @@ interface PFMApplicationComponent {
 
     fun inject(activityModule: ActivityModule)
     fun inject(listener: BaseNetworkErrorListener)
+    fun inject(pfmWearableListenerService: PFMWearableListenerService)
 
     //region Repositories
     fun categoryDaoManager(): ICategoryRepository
@@ -62,6 +64,7 @@ interface PFMApplicationComponent {
 
     //region Network
     fun authService(): AuthService
+
     fun categoryService(): CategoryService
     fun userService(): UserService
     fun transactionService(): TransactionService
@@ -80,6 +83,7 @@ interface PFMApplicationComponent {
 
     //region Managers
     fun transactionManager(): ITransactionManager
+
     fun repositoryManager(): IRepositoryManager
     fun accountManager(): AccountManager
     fun sharedPrefManager(): SharedPreferencesManager
@@ -102,6 +106,7 @@ interface PFMApplicationComponent {
 
     //region Utility
     fun eventBus(): EventBus
+
     fun pref(): SharedPreferences
     fun locationProvider(): RxLocation
     //endregion

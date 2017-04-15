@@ -43,7 +43,7 @@ class CategoryDaoManager @Inject constructor(val daoSession: DaoSession)
         }
 
         return createQuery()
-                .where(CategoryDao.Properties.ServerId.eq(serverId))
+                .where(CategoryDao.Properties.ServerId.eq(serverId.toLowerCase()))
                 .unique()
     }
 }

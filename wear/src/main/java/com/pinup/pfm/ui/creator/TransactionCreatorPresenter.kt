@@ -9,7 +9,7 @@ import java.util.ArrayList
  */
 class TransactionCreatorPresenter: BasePresenter<TransactionCreatorScreen>() {
 
-    lateinit var lastParsedSpeechText: SpeechTransaction
+    var lastParsedSpeechText: SpeechTransaction? = null
 
     // Create button clicked
     fun createClicked() {
@@ -28,20 +28,24 @@ class TransactionCreatorPresenter: BasePresenter<TransactionCreatorScreen>() {
         lastParsedSpeechText = SpeechTransaction()
         if (splittedSpeech.isNotEmpty()) {
             splittedSpeech[0].toDoubleOrNull()?.let {
-                lastParsedSpeechText.amount = it
+                lastParsedSpeechText?.amount = it
             }
         }
 
         if (splittedSpeech.size > 1) {
-            lastParsedSpeechText.name = splittedSpeech
+            lastParsedSpeechText?.name = splittedSpeech
                     .subList(1, splittedSpeech.size)
                     .reduce { acc, s -> "$acc $s" }
         }
 
-        screen?.showParsedData(lastParsedSpeechText)
+        if (lastParsedSpeechText != null) {
+            screen?.showParsedData(lastParsedSpeechText!!)
+        }
     }
 
     fun saveIndicated() {
-
+        lastParsedSpeechText?.let {
+            screen?.sendToDevice(it)
+        }
     }
 }
