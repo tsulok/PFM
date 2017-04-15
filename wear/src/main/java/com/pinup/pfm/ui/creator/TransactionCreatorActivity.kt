@@ -5,15 +5,25 @@ import android.content.Intent
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.support.wearable.view.WatchViewStub
+import android.view.View
 import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
 import com.pinup.pfm.R
+import com.pinup.pfm.common.domain.model.SpeechTransaction
+import com.pinup.pfm.common.ui.core.BaseScreen
+import com.pinup.pfm.common.ui.core.IBasePresenter
 
 
-class TransactionCreatorActivity : Activity() {
+class TransactionCreatorActivity : Activity(), TransactionCreatorScreen {
+
+    private val presenter: TransactionCreatorPresenter by lazy { TransactionCreatorPresenter() }
 
     private val SPEECH_REQUEST_CODE = 0
 
-    private var createNewButton: Button? = null
+    private lateinit var createNewButton: Button
+    private lateinit var saveButton: Button
+    private lateinit var informationTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,8 +31,15 @@ class TransactionCreatorActivity : Activity() {
         val stub = findViewById(R.id.watch_view_stub) as WatchViewStub
         stub.setOnLayoutInflatedListener { stub ->
             createNewButton = stub.findViewById(R.id.createNewButton) as Button
-            createNewButton?.setOnClickListener { displaySpeechRecognizer() }
+            saveButton = stub.findViewById(R.id.saveBtn) as Button
+            informationTextView = stub.findViewById(R.id.informationTxt) as TextView
+            initListeners()
         }
+    }
+
+    private fun initListeners() {
+        createNewButton.setOnClickListener { presenter.createClicked() }
+        saveButton.setOnClickListener { presenter.saveIndicated() }
     }
 
     override fun onStart() {
@@ -35,8 +52,7 @@ class TransactionCreatorActivity : Activity() {
         super.onStop()
     }
 
-    // Create an intent that can start the Speech Recognizer activity
-    private fun displaySpeechRecognizer() {
+    override fun showSpeechRecongitionUI() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
@@ -48,14 +64,27 @@ class TransactionCreatorActivity : Activity() {
     // This is where you process the intent and extract the speech text from the intent.
     override fun onActivityResult(requestCode: Int, resultCode: Int,
                                   data: Intent) {
+        getPresenter()?.bind(getScreen())
         if (resultCode == RESULT_OK) {
             val results = data.getStringArrayListExtra(
                     RecognizerIntent.EXTRA_RESULTS)
-            val spokenText = results[0]
+            presenter.parseVoiceData(results)
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    fun getPresenter(): IBasePresenter?
-    fun getScreen(): BaseScreen
+    override fun undetectedVoice() {
+        Toast.makeText(this, "Unable to detect voice", Toast.LENGTH_SHORT).show()
+        informationTextView.visibility = View.GONE
+        saveButton.visibility = View.GONE
+    }
+
+    override fun showParsedData(lastParsedSpeechText: SpeechTransaction) {
+        informationTextView.text = lastParsedSpeechText.toString()
+        informationTextView.visibility = View.VISIBLE
+        saveButton.visibility = View.VISIBLE
+    }
+
+    fun getPresenter(): IBasePresenter? = presenter
+    fun getScreen(): BaseScreen = this
 }
