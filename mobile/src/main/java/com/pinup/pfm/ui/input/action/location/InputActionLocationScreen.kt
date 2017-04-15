@@ -1,12 +1,12 @@
 package com.pinup.pfm.ui.input.action.location
 
 import com.google.android.gms.maps.model.LatLng
-import com.pinup.pfm.ui.core.view.BaseScreen
+import com.pinup.pfm.common.ui.core.BaseScreen
 
 /**
  * Screen actions for input action location
  */
-interface InputActionLocationScreen : BaseScreen {
+interface InputActionLocationScreen: BaseScreen {
 
     fun moveToUserLocation(latLng: LatLng)
 

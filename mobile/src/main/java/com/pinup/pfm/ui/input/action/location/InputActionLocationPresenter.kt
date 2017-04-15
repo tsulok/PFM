@@ -3,7 +3,7 @@ package com.pinup.pfm.ui.input.action.location
 import com.google.android.gms.maps.model.LatLng
 import com.patloew.rxlocation.RxLocation
 import com.pinup.pfm.domain.manager.transaction.ITransactionManager
-import com.pinup.pfm.ui.core.view.BasePresenter
+import com.pinup.pfm.common.ui.core.BasePresenter
 import javax.inject.Inject
 
 /**

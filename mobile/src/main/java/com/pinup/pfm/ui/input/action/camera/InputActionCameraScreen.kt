@@ -1,13 +1,13 @@
 package com.pinup.pfm.ui.input.action.camera
 
 import android.net.Uri
-import com.pinup.pfm.ui.core.view.BaseScreen
+import com.pinup.pfm.common.ui.core.BaseScreen
 import java.io.File
 
 /**
  * Screen actions for input action camera
  */
-interface InputActionCameraScreen : BaseScreen {
+interface InputActionCameraScreen: BaseScreen {
 
     /**
      * Start new image capture into a file

@@ -1,14 +1,14 @@
 package com.pinup.pfm.ui.input.main
 
+import com.pinup.pfm.common.ui.core.BaseScreen
 import com.pinup.pfm.model.database.Transaction
 import com.pinup.pfm.model.transaction.TransactionAction
-import com.pinup.pfm.ui.core.view.BaseScreen
 import java.util.*
 
 /**
  * Screen actions for input container
  */
-interface InputMainScreen : BaseScreen {
+interface InputMainScreen: BaseScreen {
 
     /**
      * Update the selected currency

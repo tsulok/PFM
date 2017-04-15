@@ -1,6 +1,6 @@
 package com.pinup.pfm.ui.input.container
 
-import com.pinup.pfm.ui.core.view.BaseScreen
+import com.pinup.pfm.common.ui.core.BaseScreen
 
 /**
  * Screen actions for input container

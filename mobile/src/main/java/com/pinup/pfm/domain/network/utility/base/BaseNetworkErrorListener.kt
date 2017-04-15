@@ -4,7 +4,6 @@ import android.content.Context
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
 import com.pinup.pfm.domain.network.utility.INetworkErrorListener
-import com.pinup.pfm.ui.core.view.BaseScreen
 import com.pinup.pfm.domain.network.dto.NetworkError
 import com.pinup.pfm.extensions.string
 
@@ -42,7 +41,7 @@ abstract class BaseNetworkErrorListener(private val baseErrorNetworkView: IBaseE
     }
 }
 
-interface IBaseErrorNetworkView: BaseScreen {
+interface IBaseErrorNetworkView{
     /**
      * Called on network errors
      */

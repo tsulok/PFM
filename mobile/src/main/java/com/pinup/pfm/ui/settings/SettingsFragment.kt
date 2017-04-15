@@ -3,12 +3,12 @@ package com.pinup.pfm.ui.settings
 import android.content.Intent
 import android.view.View
 import com.pinup.pfm.R
+import com.pinup.pfm.common.ui.core.BaseScreen
 import com.pinup.pfm.di.component.PFMFragmentComponent
 import com.pinup.pfm.extensions.string
 import com.pinup.pfm.ui.auth.login.LoginActivity
 import com.pinup.pfm.ui.core.view.BaseFragment
-import com.pinup.pfm.ui.core.view.BaseScreen
-import com.pinup.pfm.ui.core.view.IBasePresenter
+import com.pinup.pfm.common.ui.core.IBasePresenter
 import com.pinup.pfm.ui.main_navigator.MainNavigatorFragment
 import com.pinup.pfm.utils.helper.UIHelper
 import com.pinup.pfm.utils.ui.core.AlertHelper

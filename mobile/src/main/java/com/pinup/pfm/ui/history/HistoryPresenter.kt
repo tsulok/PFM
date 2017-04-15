@@ -2,7 +2,7 @@ package com.pinup.pfm.ui.history
 
 import com.pinup.pfm.interactor.transaction.TransactionInteractor
 import com.pinup.pfm.model.transaction.ITransactionHistory
-import com.pinup.pfm.ui.core.view.BasePresenter
+import com.pinup.pfm.common.ui.core.BasePresenter
 import javax.inject.Inject
 
 /**

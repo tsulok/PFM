@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.pinup.pfm.ui.main.MainActivity"
+    tools:context=".ui.creator.TransactionCreatorActivity"
     tools:deviceIds="wear_square">
 
     <TextView
@@ -12,4 +12,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello_square" />
+
+    <Button
+        android:id="@+id/createNewButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/create.new.transaction" />
 </LinearLayout>

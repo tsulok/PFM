@@ -1,4 +1,23 @@
-package com.pinup.pfm.ui.core.view
+package com.pinup.pfm.common.ui.core
+
+/**
+ * Base classes for MVP
+ */
+
+interface IBasePresenter {
+    fun bind(screen: BaseScreen)
+    fun unbind()
+}
+
+/**
+ * Base screen interface
+ */
+interface BaseScreen {
+}
+
+interface EmptyScreen: BaseScreen {
+
+}
 
 /**
  * Abstract presenter class
@@ -15,13 +34,4 @@ open class BasePresenter<T: BaseScreen>: IBasePresenter {
     override fun unbind() {
         this.screen = null
     }
-}
-
-interface IBasePresenter {
-    fun bind(screen: BaseScreen)
-    fun unbind()
-}
-
-interface EmptyScreen: BaseScreen {
-
 }

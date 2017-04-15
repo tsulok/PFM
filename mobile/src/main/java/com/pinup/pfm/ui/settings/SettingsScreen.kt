@@ -1,12 +1,12 @@
 package com.pinup.pfm.ui.settings
 
-import com.pinup.pfm.ui.core.view.BaseScreen
+import com.pinup.pfm.common.ui.core.BaseScreen
 import java.util.*
 
 /**
  * Screen actions for settings
  */
-interface SettingsScreen : BaseScreen {
+interface SettingsScreen: BaseScreen {
 
     /**
      * View should navigate to main

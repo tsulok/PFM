@@ -8,11 +8,11 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.pinup.pfm.R
+import com.pinup.pfm.common.ui.core.BaseScreen
 import com.pinup.pfm.di.component.PFMFragmentComponent
 import com.pinup.pfm.extensions.makeToast
 import com.pinup.pfm.ui.core.view.BaseMapFragment
-import com.pinup.pfm.ui.core.view.BaseScreen
-import com.pinup.pfm.ui.core.view.IBasePresenter
+import com.pinup.pfm.common.ui.core.IBasePresenter
 import com.pinup.pfm.utils.ui.core.AlertHelper
 import kotlinx.android.synthetic.main.fragment_map.*
 import permissions.dispatcher.*

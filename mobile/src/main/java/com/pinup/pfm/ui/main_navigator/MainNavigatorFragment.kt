@@ -3,10 +3,10 @@ package com.pinup.pfm.ui.main_navigator
 import android.support.v4.view.ViewPager
 import android.view.View
 import com.pinup.pfm.R
+import com.pinup.pfm.common.ui.core.BaseScreen
+import com.pinup.pfm.common.ui.core.IBasePresenter
 import com.pinup.pfm.di.component.PFMFragmentComponent
 import com.pinup.pfm.ui.core.view.BaseFragment
-import com.pinup.pfm.ui.core.view.BaseScreen
-import com.pinup.pfm.ui.core.view.IBasePresenter
 import com.pinup.pfm.ui.main_navigator.adapter.MainNavigatorPagerAdapter
 import org.jetbrains.anko.support.v4.find
 import javax.inject.Inject

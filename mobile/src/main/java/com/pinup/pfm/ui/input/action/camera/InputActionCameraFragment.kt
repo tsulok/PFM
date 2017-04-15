@@ -16,11 +16,11 @@ import com.commonsware.cwac.cam2.FlashMode
 import com.commonsware.cwac.cam2.ZoomStyle
 import com.orhanobut.logger.Logger
 import com.pinup.pfm.R
+import com.pinup.pfm.common.ui.core.BaseScreen
 import com.pinup.pfm.di.component.PFMFragmentComponent
 import com.pinup.pfm.extensions.makeToast
 import com.pinup.pfm.ui.core.view.BaseFragment
-import com.pinup.pfm.ui.core.view.BaseScreen
-import com.pinup.pfm.ui.core.view.IBasePresenter
+import com.pinup.pfm.common.ui.core.IBasePresenter
 import com.pinup.pfm.utils.ui.core.AlertHelper
 import com.squareup.picasso.Picasso
 import org.jetbrains.anko.support.v4.find

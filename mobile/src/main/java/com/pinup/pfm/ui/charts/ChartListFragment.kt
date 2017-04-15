@@ -2,6 +2,7 @@ package com.pinup.pfm.ui.charts
 
 import android.view.View
 import com.pinup.pfm.R
+import com.pinup.pfm.common.ui.core.BaseScreen
 import com.pinup.pfm.di.component.PFMFragmentComponent
 import com.pinup.pfm.domain.event.TransactionUpdatedEvent
 import com.pinup.pfm.model.chart.IChartDataItem
@@ -9,8 +10,7 @@ import com.pinup.pfm.ui.charts.adapter.ChartListAdapter
 import com.pinup.pfm.ui.charts.model.ChartDataViewModel
 import com.pinup.pfm.ui.core.adapter.BaseAdapter
 import com.pinup.pfm.ui.core.view.BaseListFragment
-import com.pinup.pfm.ui.core.view.BaseScreen
-import com.pinup.pfm.ui.core.view.IBasePresenter
+import com.pinup.pfm.common.ui.core.IBasePresenter
 import com.pinup.pfm.ui.main_navigator.MainNavigatorFragment
 import kotlinx.android.synthetic.main.fragment_charts.*
 import org.greenrobot.eventbus.Subscribe

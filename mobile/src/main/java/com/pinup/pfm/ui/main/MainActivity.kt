@@ -2,11 +2,11 @@ package com.pinup.pfm.ui.main
 
 import android.os.Bundle
 import com.pinup.pfm.R
+import com.pinup.pfm.common.ui.core.BaseScreen
 import com.pinup.pfm.di.component.PFMActivityComponent
 import com.pinup.pfm.extensions.makeToast
 import com.pinup.pfm.ui.core.view.BaseActivity
-import com.pinup.pfm.ui.core.view.BaseScreen
-import com.pinup.pfm.ui.core.view.IBasePresenter
+import com.pinup.pfm.common.ui.core.IBasePresenter
 import com.pinup.pfm.ui.main_navigator.MainNavigatorFragment
 import com.pinup.pfm.utils.helper.UIHelper
 import com.pinup.pfm.utils.ui.core.AlertHelper

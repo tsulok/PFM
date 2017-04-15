@@ -1,6 +1,6 @@
 package com.pinup.pfm.ui.main_navigator
 
-import com.pinup.pfm.ui.core.view.BasePresenter
+import com.pinup.pfm.common.ui.core.BasePresenter
 import javax.inject.Inject
 
 /**

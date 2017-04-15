@@ -1,14 +1,12 @@
 package com.pinup.pfm.ui.charts
 
 import android.content.Context
-import com.github.mikephil.charting.data.ChartData
 import com.pinup.pfm.R
+import com.pinup.pfm.common.ui.core.BasePresenter
 import com.pinup.pfm.di.qualifiers.ApplicationContext
 import com.pinup.pfm.domain.provider.IChartDataProvider
-import com.pinup.pfm.extensions.string
 import com.pinup.pfm.model.chart.ChartType
 import com.pinup.pfm.ui.charts.model.ChartDataViewModel
-import com.pinup.pfm.ui.core.view.BasePresenter
 import javax.inject.Inject
 
 /**

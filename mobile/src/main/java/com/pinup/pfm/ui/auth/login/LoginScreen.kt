@@ -1,11 +1,11 @@
 package com.pinup.pfm.ui.auth.login
 
-import com.pinup.pfm.ui.core.view.BaseScreen
+import com.pinup.pfm.common.ui.core.BaseScreen
 
 /**
  * Possible actions on login
  */
-interface LoginScreen : BaseScreen {
+interface LoginScreen: BaseScreen {
     /**
      * View should show a loader
      */
