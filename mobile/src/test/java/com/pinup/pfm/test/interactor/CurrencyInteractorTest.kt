@@ -32,9 +32,11 @@ class CurrencyInteractorTest : BaseTest() {
     }
 
     @Test
-    fun testCurrencyEmptyByDefault() {
+    fun testCurrencySameAsLocaleByDefault() {
         val savedCurrency = currencyInteractor.getSelectedCurrency()
-        Assert.assertNull("Currency is not null by default", savedCurrency)
+        Assert.assertNotNull("Currency is null by default", savedCurrency)
+        Assert.assertEquals("Default currency is not present", savedCurrency,
+                Currency.getInstance(Locale.getDefault()))
     }
 
     @Test
