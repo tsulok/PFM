@@ -1,9 +1,9 @@
 package com.pinup.pfm.ui.auth.login
 
+import com.pinup.pfm.common.ui.core.BasePresenter
 import com.pinup.pfm.domain.network.service.AuthService
 import com.pinup.pfm.interactor.auth.IAuthInteractor
 import com.pinup.pfm.interactor.user.IUserInteractor
-import com.pinup.pfm.ui.core.view.BasePresenter
 import com.pinup.pfm.utils.validation.ValidationUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

@@ -7,6 +7,8 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
+import com.pinup.pfm.common.ui.core.BaseScreen
+import com.pinup.pfm.common.ui.core.IBasePresenter
 import com.pinup.pfm.di.component.DaggerPFMActivityComponent
 import com.pinup.pfm.di.component.PFMActivityComponent
 import com.pinup.pfm.di.module.ActivityModule

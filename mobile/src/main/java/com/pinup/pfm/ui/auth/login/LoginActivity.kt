@@ -7,12 +7,12 @@ import android.text.TextWatcher
 import android.widget.ArrayAdapter
 import com.orhanobut.logger.Logger
 import com.pinup.pfm.R
+import com.pinup.pfm.common.ui.core.BaseScreen
 import com.pinup.pfm.di.component.PFMActivityComponent
 import com.pinup.pfm.extensions.string
 import com.pinup.pfm.interactor.social.facebook.IFacebookInteractor
 import com.pinup.pfm.ui.core.view.BaseActivity
-import com.pinup.pfm.ui.core.view.BaseScreen
-import com.pinup.pfm.ui.core.view.IBasePresenter
+import com.pinup.pfm.common.ui.core.IBasePresenter
 import com.pinup.pfm.ui.main.MainActivity
 import com.pinup.pfm.utils.ui.core.AlertHelper
 import io.reactivex.android.schedulers.AndroidSchedulers

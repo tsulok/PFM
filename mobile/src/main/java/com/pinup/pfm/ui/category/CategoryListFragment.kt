@@ -3,18 +3,15 @@ package com.pinup.pfm.ui.category
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import com.orhanobut.logger.Logger
-import com.pinup.pfm.PFMApplication
+import com.pinup.pfm.common.ui.core.BaseScreen
+import com.pinup.pfm.common.ui.core.EmptyScreen
+import com.pinup.pfm.common.ui.core.IBasePresenter
 import com.pinup.pfm.di.component.PFMFragmentComponent
-import com.pinup.pfm.extensions.makeToast
 import com.pinup.pfm.model.category.ICategoryItem
 import com.pinup.pfm.model.database.Category
+import com.pinup.pfm.ui.category.adapter.CategoryListAdapter
 import com.pinup.pfm.ui.core.adapter.BaseAdapter
 import com.pinup.pfm.ui.core.view.BaseListFragment
-import com.pinup.pfm.ui.category.adapter.CategoryListAdapter
-import com.pinup.pfm.ui.core.view.BaseScreen
-import com.pinup.pfm.ui.core.view.EmptyScreen
-import com.pinup.pfm.ui.core.view.IBasePresenter
 import javax.inject.Inject
 
 /**

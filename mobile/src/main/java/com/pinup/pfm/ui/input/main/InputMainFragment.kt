@@ -9,6 +9,7 @@ import android.widget.TextView
 import butterknife.OnClick
 import com.orhanobut.logger.Logger
 import com.pinup.pfm.R
+import com.pinup.pfm.common.ui.core.BaseScreen
 import com.pinup.pfm.di.component.PFMFragmentComponent
 import com.pinup.pfm.domain.event.CurrencyChangedEvent
 import com.pinup.pfm.extensions.makeToast
@@ -20,8 +21,7 @@ import com.pinup.pfm.model.input.OpenAction
 import com.pinup.pfm.model.transaction.OnTransactionInteractionListener
 import com.pinup.pfm.model.transaction.TransactionAction
 import com.pinup.pfm.ui.core.view.BaseFragment
-import com.pinup.pfm.ui.core.view.BaseScreen
-import com.pinup.pfm.ui.core.view.IBasePresenter
+import com.pinup.pfm.common.ui.core.IBasePresenter
 import com.pinup.pfm.ui.input.keyboard.KeyboardFragment
 import com.pinup.pfm.utils.SharedViewConstants
 import com.pinup.pfm.utils.helper.UIHelper

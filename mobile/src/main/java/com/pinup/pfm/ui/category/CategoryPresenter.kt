@@ -1,7 +1,7 @@
 package com.pinup.pfm.ui.category
 
 import com.pinup.pfm.interactor.category.ICategoryInteractor
-import com.pinup.pfm.ui.core.view.BasePresenter
+import com.pinup.pfm.common.ui.core.BasePresenter
 import javax.inject.Inject
 
 /**

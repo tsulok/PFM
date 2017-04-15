@@ -81,4 +81,9 @@ interface ICategoryInteractor {
      * Fetch & store categories from remote
      */
     fun fetchCategoriesFromRemote(): Observable<List<Category>>
+
+    /**
+     * Returns the default category
+     */
+    fun getDefaultCategory(): Category
 }

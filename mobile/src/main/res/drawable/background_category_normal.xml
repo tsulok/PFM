@@ -7,10 +7,10 @@
     <solid android:color="@android:color/transparent" />
 
     <corners
-        android:bottomLeftRadius="@dimen/category.filter.button.corner.radius"
-        android:bottomRightRadius="@dimen/category.filter.button.corner.radius"
-        android:topLeftRadius="@dimen/category.filter.button.corner.radius"
-        android:topRightRadius="@dimen/category.filter.button.corner.radius" />
+        android:bottomLeftRadius="@dimen/category.filter.createNewButton.corner.radius"
+        android:bottomRightRadius="@dimen/category.filter.createNewButton.corner.radius"
+        android:topLeftRadius="@dimen/category.filter.createNewButton.corner.radius"
+        android:topRightRadius="@dimen/category.filter.createNewButton.corner.radius" />
 
     <stroke
         android:width="2dp"

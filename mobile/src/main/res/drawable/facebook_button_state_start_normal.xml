@@ -2,5 +2,5 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <solid android:color="@color/facebook.blue"/>
     <corners
-        android:radius="@dimen/general.button.corner"/>
+        android:radius="@dimen/general.createNewButton.corner"/>
 </shape>

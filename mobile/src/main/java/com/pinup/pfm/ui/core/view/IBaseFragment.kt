@@ -1,6 +1,8 @@
 package com.pinup.pfm.ui.core.view
 
 import android.view.View
+import com.pinup.pfm.common.ui.core.BaseScreen
+import com.pinup.pfm.common.ui.core.IBasePresenter
 
 /**
  * Must have methods should be called during fragment initialization.

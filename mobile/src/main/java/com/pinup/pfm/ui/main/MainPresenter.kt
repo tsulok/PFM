@@ -4,7 +4,7 @@ import com.pinup.pfm.domain.manager.content.IContentManager
 import com.pinup.pfm.domain.manager.sync.ISyncManager
 import com.pinup.pfm.interactor.category.ICategoryInteractor
 import com.pinup.pfm.interactor.utils.ICurrencyInteractor
-import com.pinup.pfm.ui.core.view.BasePresenter
+import com.pinup.pfm.common.ui.core.BasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import java.util.*
 import javax.inject.Inject

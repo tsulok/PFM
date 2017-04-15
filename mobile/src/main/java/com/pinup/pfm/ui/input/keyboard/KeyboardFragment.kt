@@ -4,17 +4,15 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
-import butterknife.Bind
-import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
+import com.pinup.pfm.common.ui.core.BaseScreen
+import com.pinup.pfm.common.ui.core.EmptyScreen
+import com.pinup.pfm.common.ui.core.IBasePresenter
 import com.pinup.pfm.di.component.PFMFragmentComponent
 import com.pinup.pfm.model.input.KeyboardAction
 import com.pinup.pfm.model.input.KeyboardData
 import com.pinup.pfm.model.input.KeyboardType
 import com.pinup.pfm.ui.core.view.BaseFragment
-import com.pinup.pfm.ui.core.view.BaseScreen
-import com.pinup.pfm.ui.core.view.EmptyScreen
-import com.pinup.pfm.ui.core.view.IBasePresenter
 import org.jetbrains.anko.onClick
 import org.jetbrains.anko.support.v4.find
 

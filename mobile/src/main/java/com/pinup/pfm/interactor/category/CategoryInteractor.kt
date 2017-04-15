@@ -174,6 +174,11 @@ class CategoryInteractor
             }
         }
     }
+
+    override fun getDefaultCategory(): Category {
+        return categoryDaoManager.loadByServerId("44BE5C72-C18F-4A98-8879-73D004280DAA")
+                ?: throw IllegalStateException("Default category not loaded")
+    }
 }
 
 private class CategoryMapper {

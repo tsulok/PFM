@@ -3,7 +3,7 @@ package com.pinup.pfm.ui.input.container
 import com.pinup.pfm.domain.manager.transaction.ITransactionManager
 import com.pinup.pfm.interactor.category.CategoryInteractor
 import com.pinup.pfm.interactor.transaction.TransactionInteractor
-import com.pinup.pfm.ui.core.view.BasePresenter
+import com.pinup.pfm.common.ui.core.BasePresenter
 import javax.inject.Inject
 
 /**

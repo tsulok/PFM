@@ -1,11 +1,11 @@
 package com.pinup.pfm.ui.main_navigator
 
-import com.pinup.pfm.ui.core.view.BaseScreen
+import com.pinup.pfm.common.ui.core.BaseScreen
 
 /**
  * Interface for main navigator screen
  */
-interface MainNavigatorScreen : BaseScreen {
+interface MainNavigatorScreen: BaseScreen {
     fun navigateToSettings()
     fun navigateToCharts()
 }

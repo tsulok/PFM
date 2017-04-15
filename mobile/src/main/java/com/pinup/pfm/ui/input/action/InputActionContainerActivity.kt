@@ -10,13 +10,13 @@ import android.widget.TextView
 import com.f2prateek.dart.Dart
 import com.f2prateek.dart.InjectExtra
 import com.pinup.pfm.R
+import com.pinup.pfm.common.ui.core.BaseScreen
 import com.pinup.pfm.di.component.PFMActivityComponent
 import com.pinup.pfm.extensions.replaceFragment
 import com.pinup.pfm.model.input.OpenAction
 import com.pinup.pfm.ui.core.view.BaseActivity
 import com.pinup.pfm.ui.core.view.BaseFragment
-import com.pinup.pfm.ui.core.view.BaseScreen
-import com.pinup.pfm.ui.core.view.IBasePresenter
+import com.pinup.pfm.common.ui.core.IBasePresenter
 import com.pinup.pfm.ui.input.action.camera.InputActionCameraFragment
 import com.pinup.pfm.ui.input.action.date.InputActionDateFragment
 import com.pinup.pfm.ui.input.action.description.InputActionDescriptionFragment

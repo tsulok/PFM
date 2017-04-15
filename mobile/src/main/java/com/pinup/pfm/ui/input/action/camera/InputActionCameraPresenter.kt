@@ -3,7 +3,7 @@ package com.pinup.pfm.ui.input.action.camera
 import android.net.Uri
 import com.pinup.pfm.domain.manager.transaction.ITransactionManager
 import com.pinup.pfm.interactor.utils.IStorageInteractor
-import com.pinup.pfm.ui.core.view.BasePresenter
+import com.pinup.pfm.common.ui.core.BasePresenter
 import java.io.File
 import javax.inject.Inject
 

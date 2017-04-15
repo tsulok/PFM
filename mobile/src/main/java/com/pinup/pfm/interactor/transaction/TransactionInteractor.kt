@@ -54,6 +54,7 @@ class TransactionInteractor
         transaction.lastImageSyncDate = Date(0) // No sync happened yet
         transaction.lastSyncDate = Date(0) // No sync happened yet
         transaction.lastModifyDate = Date() // Modified now
+        transaction.description = ""
 
         transactionDaoManager.insertOrUpdate(transaction)
 

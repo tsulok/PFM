@@ -11,6 +11,8 @@ import butterknife.OnClick
 import butterknife.bindView
 import com.pinup.pfm.PFMApplication
 import com.pinup.pfm.R
+import com.pinup.pfm.common.ui.core.BaseScreen
+import com.pinup.pfm.common.ui.core.IBasePresenter
 import com.pinup.pfm.di.component.PFMFragmentComponent
 import com.pinup.pfm.di.qualifiers.ChildFragmentManager
 import com.pinup.pfm.ui.core.view.*

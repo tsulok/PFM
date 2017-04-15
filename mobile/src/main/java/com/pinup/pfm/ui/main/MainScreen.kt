@@ -1,13 +1,13 @@
 package com.pinup.pfm.ui.main
 
-import com.pinup.pfm.ui.core.view.BaseScreen
+import com.pinup.pfm.common.ui.core.BaseScreen
 import java.util.*
 
 /**
  * View actions on main
  */
 
-interface MainScreen : BaseScreen {
+interface MainScreen: BaseScreen {
 
     /**
      * View should load it's main navigation

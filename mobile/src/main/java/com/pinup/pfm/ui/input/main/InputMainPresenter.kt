@@ -6,7 +6,7 @@ import com.pinup.pfm.interactor.category.ICategoryInteractor
 import com.pinup.pfm.interactor.transaction.ITransactionInteractor
 import com.pinup.pfm.interactor.utils.ICurrencyInteractor
 import com.pinup.pfm.model.input.KeyboardType
-import com.pinup.pfm.ui.core.view.BasePresenter
+import com.pinup.pfm.common.ui.core.BasePresenter
 import java.util.*
 import javax.inject.Inject
 

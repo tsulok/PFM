@@ -1,12 +1,12 @@
 package com.pinup.pfm.ui.charts
 
+import com.pinup.pfm.common.ui.core.BaseScreen
 import com.pinup.pfm.ui.charts.model.ChartDataViewModel
-import com.pinup.pfm.ui.core.view.BaseScreen
 
 /**
  * Screen actions for settings
  */
-interface ChartListScreen : BaseScreen {
+interface ChartListScreen: BaseScreen {
     fun chartLoaded(barChartItem: ChartDataViewModel)
 
     /**
