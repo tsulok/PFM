@@ -24,6 +24,8 @@ class MainActivity : BaseActivity(), MainScreen {
         super.onCreate(savedInstanceState)
     }
 
+    override fun getAnalyticsScreenName(): String? = "Transactions"
+
     override fun loadContentId(): Int = R.layout.activity_main
 
     override fun initObjects() {

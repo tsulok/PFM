@@ -1,5 +1,7 @@
 package com.pinup.pfm.di.module
 
+import com.pinup.pfm.domain.manager.analytics.AnalyticsManager
+import com.pinup.pfm.domain.manager.analytics.IAnalyticsManager
 import com.pinup.pfm.domain.manager.auth.AuthenticationManager
 import com.pinup.pfm.domain.manager.auth.IAuthenticationManager
 import com.pinup.pfm.domain.manager.content.ContentManager
@@ -25,4 +27,5 @@ abstract class ManagerModule {
     @Binds abstract fun contentManager(manager: ContentManager): IContentManager
     @Binds abstract fun repositoryManager(manager: RepositoryManager): IRepositoryManager
     @Binds abstract fun syncManager(manager: SyncManager): ISyncManager
+    @Binds abstract fun analyticManager(manager: AnalyticsManager): IAnalyticsManager
 }

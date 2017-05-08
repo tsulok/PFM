@@ -3,6 +3,7 @@
     package="com.pinup.pfm">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -87,6 +88,11 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/app_xternal_facebook_app_id" />
+
+        <!--Fabric-->
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="5c79a0d168d6b8910c6b0e05465cb8d065e547ad" />
     </application>
 
 </manifest>

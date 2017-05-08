@@ -1,0 +1,43 @@
+{
+  "project_info": {
+    "project_number": "217428729876",
+    "project_id": "pfm-pinup"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217428729876:android:5c3713aa1baf57ff",
+        "android_client_info": {
+          "package_name": "com.pinup.pfm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "217428729876-4mpgrkpqfjiddk1darechmd19j8p8bko.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpfeMl2D88Pa5l8BR-OOrnBcL_WzVZkOs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-64863510-4"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

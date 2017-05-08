@@ -2,11 +2,13 @@ package com.pinup.pfm
 
 import android.app.Application
 import android.support.multidex.MultiDex
+import com.crashlytics.android.Crashlytics
 import com.facebook.FacebookSdk
 import com.orhanobut.logger.Logger
 import com.pinup.pfm.di.component.DaggerPFMApplicationComponent
 import com.pinup.pfm.di.component.PFMApplicationComponent
 import com.pinup.pfm.di.module.ApplicationModule
+import io.fabric.sdk.android.Fabric
 
 /**
  * Main entry point of the application
@@ -32,6 +34,9 @@ class PFMApplication : Application() {
 
         // Config facebook
         FacebookSdk.sdkInitialize(this)
+
+        // Config Fabric
+        Fabric.with(this, Crashlytics())
     }
 
     fun setCustomInjector(customInjector: PFMApplicationComponent) {

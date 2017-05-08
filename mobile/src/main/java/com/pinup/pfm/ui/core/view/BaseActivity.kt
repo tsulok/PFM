@@ -12,11 +12,16 @@ import com.pinup.pfm.common.ui.core.IBasePresenter
 import com.pinup.pfm.di.component.DaggerPFMActivityComponent
 import com.pinup.pfm.di.component.PFMActivityComponent
 import com.pinup.pfm.di.module.ActivityModule
+import com.pinup.pfm.domain.manager.analytics.IAnalyticsManager
+import javax.inject.Inject
+
 
 /**
  * The base activity
  */
 abstract class BaseActivity : AppCompatActivity() {
+
+    @Inject lateinit var analyticsManager: IAnalyticsManager
 
     private val activityComponent: PFMActivityComponent by lazy {
         DaggerPFMActivityComponent.builder()
@@ -40,6 +45,13 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         getPresenter()?.bind(getScreen())
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getAnalyticsScreenName()?.let {
+            analyticsManager.sendScreenName(it)
+        }
     }
 
     override fun onStop() {
@@ -129,4 +141,12 @@ abstract class BaseActivity : AppCompatActivity() {
 
     abstract fun getPresenter(): IBasePresenter?
     abstract fun getScreen(): BaseScreen
+
+    /**
+     * Returns the loggable screen name for logging purposes
+     * Container screen names should be null to avoid theri logging
+
+     * @return the loggable screen name for logging purposes
+     */
+    open protected fun getAnalyticsScreenName(): String? = null
 }

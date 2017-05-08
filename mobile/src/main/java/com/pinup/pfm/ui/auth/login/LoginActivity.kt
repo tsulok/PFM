@@ -45,6 +45,8 @@ class LoginActivity : BaseActivity(), LoginScreen {
         component.inject(this)
     }
 
+    override fun getAnalyticsScreenName(): String? = "Login"
+
     override fun getPresenter(): IBasePresenter? = presenter
 
     override fun getScreen(): BaseScreen = this

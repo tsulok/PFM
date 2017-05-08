@@ -5,10 +5,12 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.facebook.CallbackManager
 import com.facebook.login.LoginManager
+import com.google.android.gms.analytics.Tracker
 import com.patloew.rxlocation.RxLocation
 import com.pinup.pfm.di.module.*
 import com.pinup.pfm.di.qualifiers.ApplicationContext
 import com.pinup.pfm.di.qualifiers.Facebook
+import com.pinup.pfm.domain.manager.analytics.IAnalyticsManager
 import com.pinup.pfm.domain.manager.auth.IAuthenticationManager
 import com.pinup.pfm.domain.manager.content.IContentManager
 import com.pinup.pfm.domain.manager.preferences.SharedPreferencesManager
@@ -37,13 +39,14 @@ import dagger.Component
 import org.greenrobot.eventbus.EventBus
 import javax.inject.Singleton
 
+
 /**
  * Component for supported DI components
  */
 @Singleton
 @Component(modules = arrayOf(ApplicationModule::class, InteractorModule::class, DaoModule::class,
         PresenterModule::class, UtilityModule::class, RepositoryModule::class, ManagerModule::class,
-        ProviderModule::class, SocialModule::class, NetworkModule::class))
+        ProviderModule::class, SocialModule::class, NetworkModule::class, AnalyticsModule::class))
 interface PFMApplicationComponent {
 
     @ApplicationContext
@@ -109,5 +112,8 @@ interface PFMApplicationComponent {
 
     fun pref(): SharedPreferences
     fun locationProvider(): RxLocation
+
+    fun analyticsManager(): IAnalyticsManager
+    fun googleAnalyticsTracker(): Tracker
     //endregion
 }

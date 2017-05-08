@@ -3,6 +3,7 @@ apply plugin: 'com.getkeepsafe.dexcount'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 25
@@ -81,11 +82,16 @@ dependencies {
     wearApp project(':wear')
     compile project(':common')
 
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+        transitive = true;
+    }
+
     compile "com.android.support:design:$appcompatVersion"
     compile "com.google.android.gms:play-services-wearable:$playServicesVersion"
     compile "com.google.android.gms:play-services-location:$playServicesVersion"
     compile "com.google.android.gms:play-services-maps:$playServicesVersion"
     compile "com.google.android.gms:play-services-auth:$playServicesVersion"
+    compile "com.google.android.gms:play-services-analytics:$playServicesVersion"
 
     // ReactiveX
     compile 'io.reactivex.rxjava2:rxjava:2.0.1'
@@ -217,3 +223,5 @@ dependencies {
 def getDate() {
     new Date().format('yyyyMMdd')
 }
+
+apply plugin: 'com.google.gms.google-services'
